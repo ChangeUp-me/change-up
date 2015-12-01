@@ -7,7 +7,7 @@
 @beige: #E6E4DB;				/* Section divider */
 @gray: #8C8C8C;					/* Buttons */
 @charcoal: #2A2A2A;				/* Footer background */
-@ebony: #494949;				/* Titles */
+@mocha: #494949;				/* Titles */
 @silver: #C7C7C7;				/* Body text */
 
 #navbar {
@@ -16,8 +16,22 @@
 	left: -250px;
 	width: 250px;
 	height: 100%;
-	padding: 15px;
 	background: @offwhite;
+	a {
+		display: inline-block;
+		width: 100%;
+		padding: 10px;
+		color: @mocha;
+		&:hover, &:active, &:focus {
+			color: @cyan;
+		}
+	}
+	ul {
+		li {
+			border-top: 1px solid @beige;
+			border-bottom: 1px solid @beige;
+		}
+	}
 }
 
 /*--- Off-canvas menu navigation ----*/
