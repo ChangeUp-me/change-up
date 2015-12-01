@@ -1,5 +1,13 @@
 <template name="Navbar">
-  <div class="navbar">
-    <h1>Find me in app/client/templates/navbar/navbar</h1>
+  <div id="navbar">
+    <ul class="list-unstyled">
+    	<li><a href="{{pathFor route='shop'}}">Shop</a></li>
+    	<li><a href="{{pathFor route='charities'}}">Charities</a></li>
+    	<li><a href="{{pathFor route='about'}}">About Us</a></li>
+    	<li><a href="{{pathFor route='news'}}">News</a></li>
+    	<li><a href="{{pathFor route='account'}}">Account</a></li>
+    	<li><a href="{{pathFor route='cart'}}">Cart</a></li>
+    	<li><a href="{{pathFor route='checkout'}}">Checkout</a></li>
+    </ul>
   </div>
 </template>

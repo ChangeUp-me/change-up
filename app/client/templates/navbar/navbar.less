@@ -1,5 +1,45 @@
 /*****************************************************************************/
 /* Navbar: Style */
 /*****************************************************************************/
-.navbar {
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #EB6763;			/* Buttons, time remaining, and like button */
+@offwhite: #F4F1E9;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #8C8C8C;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@ebony: #494949;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+#navbar {
+	position: absolute;
+	top: 0;
+	left: -250px;
+	width: 250px;
+	height: 100%;
+	padding: 15px;
+	background: @offwhite;
 }
+
+/*--- Off-canvas menu navigation ----*/
+#site-wrapper {
+	position: relative;
+	width: 100%;
+	overflow: hidden;
+}
+
+#site-canvas {
+	position: relative;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	-webkit-transform: translateX(0);
+	transform: translateX(0);
+	-webkit-transition: 300ms ease all;
+	transition: 300ms ease all;
+}
+
+.show-nav #site-canvas {
+	-webkit-transform: translateX(250px);
+	transform: translateX(250px);
+}
+/*===================================*/
