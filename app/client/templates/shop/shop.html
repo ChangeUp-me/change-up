@@ -1,8 +1,133 @@
 <template name="Shop">
-	<div class="shop">
-		<h1>Shop</h1>
+	<div class="shop text-center">
+		<section>
+			<img src="icons/logo_dark.svg" alt="ChangeUp logo">
 
-		<a class="button blue" href="{{pathFor route='about'}}">About Us</a>
-		<a class="button clear gray" href="{{pathFor route='charities'}}">View charities</a>
+			<h2>Exclusive products.<br>Inclusive community.</h2>
+			<p>Immersive products providing support for charities around the world.</p>
+
+			<a class="button blue" href="{{pathFor route='about'}}">About Us</a>
+			<a class="button clear gray" href="{{pathFor route='charities'}}">View charities</a>
+		</section>
+
+		<div class="product">
+			<div class="product-image">
+				<div class="product-timer">8h 13m</div>
+				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
+
+				<img src="images/cmykshirt.png" alt="Shirt">
+			</div>
+			<div class="product-name col-xs-8">
+				<h4><strong>CMKY Shirt</strong></h4>
+			</div>
+			<div class="price col-xs-4">
+				<h4>&#36;42.00</h4>
+			</div>
+			<div class="vendor col-xs-12">Swagtastic Gear</div>
+
+			<div class="charity col-xs-6">
+				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
+			</div>
+			<div class="quantity col-xs-3">
+				Qty
+			</div>
+			<div class="size col-xs-3">
+				Size
+			</div>
+
+			<div class="stats col-xs-12">
+				<span class="likes">22 likes</span>
+				<span class="reviews">10 reviews</span>
+				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
+			</div>
+
+			<div class="col-xs-12">
+				<a class="button blue" href="">Add to cart</a>
+				<a class="button clear gray" href="">View details</a>
+			</div>
+		</div>
+
+		<div class="product">
+			<div class="product-image">
+				<div class="product-timer">8h 13m</div>
+				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
+
+				<img src="images/lightbackpack.png" alt="Shirt">
+			</div>
+			<div class="product-name col-xs-8">
+				<h4><strong>Light Backpack</strong></h4>
+			</div>
+			<div class="price col-xs-4">
+				<h4>&#36;58.00</h4>
+			</div>
+			<div class="vendor col-xs-12">FeelTheAir</div>
+
+			<div class="charity col-xs-6">
+				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
+			</div>
+			<div class="quantity col-xs-3">
+				Qty
+			</div>
+			<div class="size col-xs-3">
+				Size
+			</div>
+
+			<div class="stats col-xs-12">
+				<span class="likes">22 likes</span>
+				<span class="reviews">10 reviews</span>
+				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
+			</div>
+
+			<div class="col-xs-12">
+				<a class="button blue" href="">Add to cart</a>
+				<a class="button clear gray" href="">View details</a>
+			</div>
+		</div>
+
+		<div class="product">
+			<div class="product-image">
+				<div class="product-timer">8h 13m</div>
+				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
+
+				<img src="images/sexyshirt.png" alt="Shirt">
+			</div>
+			<div class="product-name col-xs-8">
+				<h4><strong>SEXY Shirt</strong></h4>
+			</div>
+			<div class="price col-xs-4">
+				<h4>&#36;62.85</h4>
+			</div>
+			<div class="vendor col-xs-12">HipsterCostume</div>
+
+			<div class="charity col-xs-6">
+				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
+			</div>
+			<div class="quantity col-xs-3">
+				Qty
+			</div>
+			<div class="size col-xs-3">
+				Size
+			</div>
+
+			<div class="stats col-xs-12">
+				<span class="likes">22 likes</span>
+				<span class="reviews">10 reviews</span>
+				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
+			</div>
+
+			<div class="col-xs-12">
+				<a class="button blue" href="">Add to cart</a>
+				<a class="button clear gray" href="">View details</a>
+			</div>
+		</div>
+
+		<section class="gray text-center">
+			<img src="icons/image_placeholder.svg" alt="Placeholder">
+
+			<h2>Support a cause that burns with passion.</h2>
+			<p>Choosing from three charities per item per purchase is your subtle action that will affect the masses.</p>
+
+			<a class="button orange" href="{{pathFor route='about'}}">About Us</a>
+		</section>
 	</div>
 </template>

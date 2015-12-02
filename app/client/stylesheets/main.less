@@ -31,6 +31,10 @@ strong, h1, h2, h3 {
 	font-family: 'Muli Bold';
 }
 
+p {
+	margin: 20px auto 40px;
+}
+
 a {
 	transition: color 0.3s;
 	&:hover, &:active, &:focus {
@@ -85,6 +89,102 @@ a {
 		&:hover, &:active, &:focus {
 			-webkit-filter: brightness(100%);		
 			filter: brightness(100%);
+		}
+	}
+}
+
+section {
+	padding: 25px 0;
+	&.gray {
+		color: @gray;
+		background: @beige;
+	}
+	p {
+		width: 95%;
+	}
+	img {
+		max-width: 150px;
+		margin: 0 0 25px;
+	}
+}
+
+.product {
+	display: inline-block;
+	width: 100%;
+	padding: 0 0 10px;
+	text-align: left;
+	border-bottom: 12px solid @beige;
+	.product-image {
+		position: relative;
+		.product-timer {
+			position: absolute;
+			top: 0;
+			left: 0;
+			margin: 10px;
+			padding: 2px 15px;
+			color: white;
+			background: @tangerine;
+			font-size: 14px;
+			border-radius: 500px;
+		}
+		.like-button {
+			position: absolute;
+			top: 0;
+			right: 0;
+			img {
+				width: 25px;
+				margin: 10px;
+			}
+		}
+		img {
+			width: 100%;
+		}
+	}
+	.price {
+		text-align: right;
+		color: @gray;
+	}
+	.charity, .quantity, .size {
+		margin: 10px 0;
+		padding: 10px 8px;
+		border-top: 1px solid @beige;
+		border-bottom: 1px solid @beige;
+	}
+	.charity {
+		img {
+			margin-right: 5px;
+			vertical-align: text-top;
+		}
+	}
+	.quantity {
+		border-left: 1px solid @beige;
+		border-right: 1px solid @beige;
+	}
+	.stats {
+		margin: 0 0 30px;
+		font-size: 14px;
+		.likes {
+			margin-right: 8px;
+			&::before {
+				display: inline-block;
+				content: url('icons/thumbsup_gray.svg');
+				transform: scale(.6);
+				vertical-align: middle;
+			}
+		}
+		.reviews {
+			&::before {
+				display: inline-block;
+				content: url('icons/reviews_gray.svg');
+				transform: scale(.6);
+				vertical-align: middle;
+			}
+		}
+		.share {
+			img {
+				max-width: 23px;
+				margin: 5px 0 0;
+			}
 		}
 	}
 }
