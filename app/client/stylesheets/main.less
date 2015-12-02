@@ -23,6 +23,7 @@
 body {
 	color: @silver;
 	font-family: 'Muli';
+	font-size: 16px;
 }
 
 strong, h1, h2, h3 {
@@ -31,9 +32,59 @@ strong, h1, h2, h3 {
 }
 
 a {
+	transition: color 0.3s;
 	&:hover, &:active, &:focus {
 		color: @cyan;
 		text-decoration: none;
 	}
 }
 
+.button {
+	display: block;
+	width: 90%;
+	max-width: 300px;
+	margin: 10px auto;
+	padding: 10px 0;
+	text-align: center;
+	border-radius: 2px;
+	transition: color 0.3s, background 0.3s, filter 0.3s, -webkit-filter 0.3s;
+	&.blue {
+		color: white;
+		background: @cyan;
+	}
+	&.orange {
+		color: white;
+		background: @tangerine;
+	}
+	&.white {
+		color: @cyan;
+		background: white;
+	}
+	&:hover, &:active, &:focus {
+		-webkit-filter: brightness(75%);		
+		filter: brightness(75%);
+	}
+	&.clear {
+		background: transparent;
+		&.gray {
+			color: @gray;
+			border: 2px solid @gray;
+			&:hover, &:active, &:focus {
+				color: white;
+				background: @gray;
+			}
+		}
+		&.white {
+			color: white;
+			border: 2px solid white;
+			&:hover, &:active, &:focus {
+				color: @cyan;
+				background: white;
+			}
+		}
+		&:hover, &:active, &:focus {
+			-webkit-filter: brightness(100%);		
+			filter: brightness(100%);
+		}
+	}
+}
