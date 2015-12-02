@@ -2,13 +2,33 @@
 /* main: Style */
 /*****************************************************************************/
 @cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
-@tangerine: #EB6763;			/* Buttons, time remaining, and like button */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
 @offwhite: #F4F1E9;				/* Navbar background */
 @beige: #E6E4DB;				/* Section divider */
-@gray: #8C8C8C;					/* Buttons */
+@gray: #919191;					/* Buttons */
 @charcoal: #2A2A2A;				/* Footer background */
-@ebony: #494949;				/* Titles */
+@mocha: #434343;				/* Titles */
 @silver: #C7C7C7;				/* Body text */
+
+@font-face {
+	font-family: 'Muli';
+	src: url("fonts/muli/Muli.ttf");
+}
+
+@font-face {
+	font-family: 'Muli Bold';
+	src: url("fonts/muli/Muli-Bold.ttf");
+}
+
+body {
+	color: @silver;
+	font-family: 'Muli';
+}
+
+strong, h1, h2, h3 {
+	color: @mocha;
+	font-family: 'Muli Bold';
+}
 
 a {
 	&:hover, &:active, &:focus {
@@ -16,3 +36,4 @@ a {
 		text-decoration: none;
 	}
 }
+

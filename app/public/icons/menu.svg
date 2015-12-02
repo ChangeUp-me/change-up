@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="41px" height="28px" viewBox="0 0 41 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.3 (16044) - http://www.bohemiancoding.com/sketch -->
+    <title>Navigation</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Shop" sketch:type="MSArtboardGroup" transform="translate(-29.000000, -120.000000)" fill="#666666">
+            <g id="Group" sketch:type="MSLayerGroup" transform="translate(0.000000, 78.000000)">
+                <g id="Navigation" transform="translate(29.000000, 42.000000)" sketch:type="MSShapeGroup">
+                    <g id="Menu-icon" transform="translate(0.500000, 0.000000)">
+                        <rect id="Rectangle-13" x="0" y="0" width="40" height="3.96694215" rx="4"></rect>
+                        <rect id="Rectangle-15" x="0" y="11.9008264" width="40" height="3.96694215" rx="4"></rect>
+                        <path d="M1.98360622,23.8016529 C0.888090755,23.8016529 0,24.6820459 0,25.785124 L0,25.785124 C0,26.8805648 0.879989809,27.768595 1.99078606,27.768595 L29.4574473,27.768595 L38.0090336,27.768595 C39.108614,27.768595 40,26.888202 40,25.785124 L40,25.785124 C40,24.6896831 39.1084602,23.8016529 38.0163938,23.8016529 L1.98360622,23.8016529 Z" id="Rectangle-16"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

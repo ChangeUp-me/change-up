@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="48px" height="49px" viewBox="0 0 48 49" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.4.3 (16044) - http://www.bohemiancoding.com/sketch -->
+    <title>Fill 12</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Shop" sketch:type="MSArtboardGroup" transform="translate(-351.000000, -6262.000000)" fill="#F3F3F3">
+            <g id="Footer" sketch:type="MSLayerGroup" transform="translate(0.000000, 6141.450928)">
+                <g id="Fill-123-+-Fill-12-+-Fill-5" transform="translate(253.000000, 121.000000)" sketch:type="MSShapeGroup">
+                    <path d="M146.002,24 C146.002,37.254 135.256,48 122.004,48 C108.746,48 98,37.254 98,24 C98,10.745 108.746,0 122.004,0 C135.256,0 146.002,10.745 146.002,24 Z M118,39 L124,39 L124,24 L128.453,24 L129,18 L124.232,18 L124.232,15.601 C124.232,14.432 125.011,14.16 125.558,14.16 L128.923,14.16 L128.923,9.019 L124.289,9 C119.144,9 117.975,12.835 117.975,15.289 L117.975,18 L115,18 L115,24 L118,24 L118,39 Z" id="Fill-12"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

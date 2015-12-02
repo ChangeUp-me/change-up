@@ -2,12 +2,12 @@
 /* Footer: Style */
 /*****************************************************************************/
 @cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
-@tangerine: #EB6763;			/* Buttons, time remaining, and like button */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
 @offwhite: #F4F1E9;				/* Navbar background */
 @beige: #E6E4DB;				/* Section divider */
-@gray: #8C8C8C;					/* Buttons */
+@gray: #919191;					/* Buttons */
 @charcoal: #2A2A2A;				/* Footer background */
-@mocha: #494949;				/* Titles */
+@mocha: #434343;				/* Titles */
 @silver: #C7C7C7;				/* Body text */
 
 .footer {
@@ -15,13 +15,37 @@
 	background: @charcoal;
 	a {
 		color: white;
+		&:hover svg g, &:active svg g, &:focus svg g {
+			fill: @cyan;
+		}
 	}
 	div {
-		padding: 10px;
+		padding: 12px;
+	}
+	#to-top {
+		svg {
+			max-width: 25px;
+		}
 	}
 	#social-media {
 		width: 90%;
 		margin: auto;
 		border-bottom: 1px solid #555;
+		ul {
+			li {
+				padding-right: 0;
+				svg {
+					max-width: 35px;
+					margin: 0 8px;
+				}
+			}
+		}
+	}
+	#sitemap {
+		svg {
+			max-width: 19px;
+			margin-right: 7px;
+			vertical-align: bottom;
+		}
 	}
 }
