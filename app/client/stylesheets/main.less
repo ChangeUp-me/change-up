@@ -40,7 +40,7 @@ p {
 }
 
 a {
-	transition: color 0.3s;
+	transition: color 0.3s, border 0.3s;
 	&:hover, &:active, &:focus {
 		color: @cyan;
 		text-decoration: none;
@@ -89,6 +89,12 @@ a {
 				color: @cyan;
 				background: white;
 			}
+			&.back {
+				background-image: url('icons/back_arrow_white.svg');
+				background-repeat: no-repeat;
+				background-size: 12px;
+				background-position: 20px;
+			}
 		}
 		&:hover, &:active, &:focus {
 			-webkit-filter: brightness(100%);		
@@ -102,6 +108,10 @@ section {
 	&.gray {
 		color: @gray;
 		background: @beige;
+	}
+	&.blue {
+		color: white;
+		background: @cyan;
 	}
 	p {
 		width: 95%;
