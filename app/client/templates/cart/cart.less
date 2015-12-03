@@ -1,5 +1,84 @@
 /*****************************************************************************/
 /* Cart: Style */
 /*****************************************************************************/
-.cart {
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F4F1E9;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+.toggle-cart {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: inline-block;
+	padding: 10px 15px;
+	img {
+		width: 30px;
+	}
 }
+
+#cart {
+	position: fixed;
+	top: 0;
+	right: -265px;
+	width: 265px;
+	height: 100vh;
+	background: @offwhite;
+	font-size: 15px;
+	overflow: auto;
+	.col-xs-12 {
+		padding: 5px 0;
+	}
+	hr {
+		display: inline-block;
+		width: 95%;
+		margin: 10px 2.5%;
+		border-color: @gray;
+	}
+	#items {
+		display: inline-block;
+		background: white;
+		height: 58vh;
+		overflow-y: auto;
+		.item {
+			padding: 15px 0;
+			border-bottom: 1px solid @silver;
+			.portrait {
+				img {
+					width: 100%;
+				}
+			}
+			.details {
+				position: relative;
+				padding: 0;
+				h4 {
+					margin: 15px 0 5px;
+				}
+				.edit, .delete {
+					position: absolute;
+					right: 0;
+					width: 15px;
+					margin: 2px 8px;
+				}
+				.edit {
+					top: 0;
+				}
+				.delete {
+					bottom: 0;
+				}
+			}
+		}
+	}
+}
+
+/*--- Off-canvas menu navigation ----*/
+.show-cart #site-canvas {
+	position: fixed;
+	-webkit-transform: translateX(-265px);
+	transform: translateX(-265px);
+}
+/*===================================*/

@@ -52,3 +52,9 @@ Router.route('checkout', {
   controller: 'CheckoutController',
   where: 'client'
 });
+
+Router.route('item', {
+  name: 'item',
+  controller: 'ItemController',
+  where: 'client'
+});
