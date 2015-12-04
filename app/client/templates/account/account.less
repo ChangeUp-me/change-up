@@ -1,5 +1,32 @@
 /*****************************************************************************/
 /* Account: Style */
 /*****************************************************************************/
-.account {
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F4F1E9;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+#account {
+	padding: 6px 0 20px;
+	label {
+		width: 100%;
+		margin: 0;
+		padding: 35px 15px 10px;
+		color: @mocha;
+		font-weight: bold;
+		border-bottom: 1px solid @gray;
+	}
+	.row {
+		padding: 15px;
+		color: @gray;
+		border-bottom: 1px solid @gray;
+		.col-xs-8 {
+			color: @mocha;
+			text-align: right;
+		}
+	}
 }
