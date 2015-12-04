@@ -51,7 +51,7 @@ a {
 
 form {
 	border-top: 1px solid @gray;
-	input {
+	input, textarea {
 		width: 100%;
 		padding: 15px;
 		color: @mocha;
@@ -59,6 +59,7 @@ form {
 		border: none;
 		border-bottom: 1px solid @gray;
 		outline: none;
+		resize: vertical;
 		&[type="checkbox"] {
 			width: auto;
 			color: @gray;

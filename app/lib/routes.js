@@ -76,3 +76,9 @@ Router.route('register', {
   controller: 'RegisterController',
   where: 'client'
 });
+
+Router.route('contact', {
+  name: 'contact',
+  controller: 'ContactController',
+  where: 'client'
+});
