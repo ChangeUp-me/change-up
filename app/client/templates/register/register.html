@@ -1,0 +1,21 @@
+<template name="Register">
+<div id="register" class="text-center">
+		<h4>Register</h4>
+
+		<img src="icons/logo_dark.svg" alt="ChangeUp">
+
+		<form>
+			<input type="text" placeholder="Name" required>
+			<input type="email" placeholder="Email" required>
+			<input type="password" placeholder="Password" required>
+			<input type="confirm" placeholder="Confirm password" required>
+			<div class="check">
+				<input type="checkbox" name="stay" value="stay">
+				<label for="stay">Stay logged in</label>
+			</div>
+			<a class="button orange" href="{{pathFor route='shop'}}">Register</a>
+		</form>
+
+		<p><a href="{{pathFor route='login'}}">Already have an account? Sign in.</a></p>
+	</div>
+</template>

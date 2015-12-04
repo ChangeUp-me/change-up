@@ -58,3 +58,21 @@ Router.route('item', {
   controller: 'ItemController',
   where: 'client'
 });
+
+Router.route('charity', {
+  name: 'charity',
+  controller: 'CharityController',
+  where: 'client'
+});
+
+Router.route('login', {
+  name: 'login',
+  controller: 'LoginController',
+  where: 'client'
+});
+
+Router.route('register', {
+  name: 'register',
+  controller: 'RegisterController',
+  where: 'client'
+});

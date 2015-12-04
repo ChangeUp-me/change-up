@@ -21,6 +21,8 @@
 }
 
 body {
+	display: flex;
+	min-height: 100vh;
 	color: @silver;
 	font-family: 'Muli';
 	font-size: 16px;
@@ -36,7 +38,7 @@ h4 {
 }
 
 p {
-	margin: 20px auto 40px;
+	margin: 20px auto 20px;
 }
 
 a {
@@ -44,6 +46,35 @@ a {
 	&:hover, &:active, &:focus {
 		color: @cyan;
 		text-decoration: none;
+	}
+}
+
+form {
+	border-top: 1px solid @gray;
+	input {
+		width: 100%;
+		padding: 15px;
+		color: @mocha;
+		background: transparent;
+		border: none;
+		border-bottom: 1px solid @gray;
+		outline: none;
+		&[type="checkbox"] {
+			width: auto;
+			color: @gray;
+			transform: scale(1.5);
+		}
+	}
+	label {
+		margin-left: 10px;
+		font-size: 14px;
+		color: @gray;
+	}
+	.check {
+		width: 100%;
+		padding: 12px 20px;
+		text-align: left;
+		vertical-align: bottom;
 	}
 }
 
@@ -101,17 +132,49 @@ a {
 			filter: brightness(100%);
 		}
 	}
+	&.email {
+		background-image: url('icons/email.svg');
+		background-size: 18px;
+		background-repeat: no-repeat;
+		background-position: 20px;
+	}
+	&.facebook {
+		color: white;
+		background: #3b5998;
+		background-image: url('icons/facebook.svg');
+		background-size: 10px;
+		background-repeat: no-repeat;
+		background-position: 25px;
+	}
+	&.twitter {
+		color: white;
+		background: #00aced;
+		background-image: url('icons/twitter.svg');
+		background-size: 20px;
+		background-repeat: no-repeat;
+		background-position: 20px;
+	}
 }
 
 section {
-	padding: 25px 0;
+	padding: 25px 15px;
 	&.gray {
 		color: @gray;
 		background: @beige;
+		p {
+			margin: 20px auto 40px;
+		}
 	}
 	&.blue {
 		color: white;
 		background: @cyan;
+		h2 {
+			margin: 20px 0 50px;
+			color: white;
+		}
+		p {
+			margin: 20px auto 40px;
+		}
 	}
 	p {
 		width: 95%;
@@ -119,6 +182,9 @@ section {
 	img {
 		max-width: 150px;
 		margin: 0 0 25px;
+	}
+	.button {
+		width: 100%;
 	}
 }
 
@@ -208,5 +274,44 @@ section {
 	}
 	.buttons {
 		padding: 0;
+	}
+}
+
+#charities {
+	.charity {
+		padding: 15px 0 0;
+		border-bottom: 8px solid @beige;
+		&:first-child {
+			border-top: 8px solid @beige;
+		}
+	}
+	h3 {
+		margin: 0;
+		font-size: 2rem;
+	}
+	.learn-more {
+		padding: 0 15px;
+	}
+	h4 {
+		a {
+			display: inline-block;
+			width: 100%;
+			padding: 20px 0 0;
+			color: @gray;
+			&::after {
+				content: url('icons/small_arrow_gray.svg');
+				float: right;
+				margin-top: -6px;
+				vertical-align: middle;
+				transform: rotate(180deg) scale(0.7);
+			}
+		}
+	}
+	img {
+		max-width: 100%;
+		max-height: 45px;
+	}
+	p {
+		margin: 20px 0 0;
 	}
 }

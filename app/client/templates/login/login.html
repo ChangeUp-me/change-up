@@ -1,0 +1,19 @@
+<template name="Login">
+	<div id="login" class="text-center">
+		<h4>Sign In</h4>
+
+		<img src="icons/logo_dark.svg" alt="ChangeUp">
+
+		<form>
+			<input type="email" placeholder="Email" required>
+			<input type="password" placeholder="Password" required>
+			<div class="check">
+				<input type="checkbox" name="stay" value="stay">
+				<label for="stay">Stay logged in</label>
+			</div>
+			<a class="button orange" href="{{pathFor route='shop'}}">Sign in</a>
+		</form>
+
+		<p><a href="{{pathFor route='register'}}">Don't have an account? Sign up.</a></p>
+	</div>
+</template>

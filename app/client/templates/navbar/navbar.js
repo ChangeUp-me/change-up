@@ -2,6 +2,12 @@
 /* Navbar: Event Handlers */
 /*****************************************************************************/
 Template.Navbar.events({
+	'click #navbar a': function () {
+		if ($('#site-wrapper').hasClass('show-nav')) {
+			// Do things on Nav Close
+			$('#site-wrapper').removeClass('show-nav');
+		} 
+	}
 });
 
 /*****************************************************************************/
