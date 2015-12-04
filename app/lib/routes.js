@@ -82,3 +82,9 @@ Router.route('contact', {
   controller: 'ContactController',
   where: 'client'
 });
+
+Router.route('vendor', {
+  name: 'vendor',
+  controller: 'VendorController',
+  where: 'client'
+});
