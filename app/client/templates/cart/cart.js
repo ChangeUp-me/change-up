@@ -2,6 +2,12 @@
 /* Cart: Event Handlers */
 /*****************************************************************************/
 Template.Cart.events({
+	'click #cart a': function () {
+		if ($('#site-wrapper').hasClass('show-cart')) {
+			// Do things on Nav Close
+			$('#site-wrapper').removeClass('show-cart');
+		} 
+	}
 });
 
 /*****************************************************************************/

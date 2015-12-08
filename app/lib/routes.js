@@ -53,6 +53,30 @@ Router.route('checkout', {
   where: 'client'
 });
 
+Router.route('shipping', {
+  name: 'shipping',
+  controller: 'ShippingController',
+  where: 'client'
+});
+
+Router.route('billing', {
+  name: 'billing',
+  controller: 'BillingController',
+  where: 'client'
+});
+
+Router.route('summary', {
+  name: 'summary',
+  controller: 'SummaryController',
+  where: 'client'
+});
+
+Router.route('confirmation', {
+  name: 'confirmation',
+  controller: 'ConfirmationController',
+  where: 'client'
+});
+
 Router.route('item', {
   name: 'item',
   controller: 'ItemController',

@@ -60,8 +60,16 @@ form {
 		border-bottom: 1px solid @gray;
 		outline: none;
 		resize: vertical;
+		&.half {
+			float: left;
+			width: 50%;
+			&:nth-child(odd) {
+				border-left: 1px solid @gray;
+			}
+		}
 		&[type="checkbox"] {
 			width: auto;
+			margin: 15px 0 0;
 			color: @gray;
 			transform: scale(1.5);
 		}
@@ -73,7 +81,7 @@ form {
 	}
 	.check {
 		width: 100%;
-		padding: 12px 20px;
+		padding: 12px 20px 5px;
 		text-align: left;
 		vertical-align: bottom;
 	}
@@ -81,6 +89,7 @@ form {
 
 .button {
 	display: block;
+	clear: both;
 	width: 90%;
 	max-width: 300px;
 	margin: 10px auto;
@@ -332,6 +341,9 @@ section {
 	.learn-more {
 		padding: 0 15px;
 	}
+	.button {
+		margin: 20px auto 15px;
+	}
 	h4 {
 		a {
 			display: inline-block;
@@ -352,6 +364,85 @@ section {
 		max-height: 45px;
 	}
 	p {
-		margin: 20px 0 0;
+		display: inline-block;
+		clear: both;
+		margin: 20px 0 15px;
+	}
+}
+
+.cart {
+	display: inline-block;
+	font-size: 15px;
+	overflow: auto;
+	.col-xs-12 {
+		padding: 5px 0;
+	}
+	hr {
+		display: inline-block;
+		width: 95%;
+		margin: 10px 2.5%;
+		border-color: @gray;
+	}
+	h3, h4 {
+		color: @cyan;
+	}
+	.divider {
+		background: @offwhite;
+		padding: 15px;
+		border-top: 1px solid @gray;
+		border-bottom: 1px solid @gray;
+	}
+	#items {
+		display: inline-block;
+		background: white;
+		overflow-y: auto;
+		.item {
+			padding: 15px 0;
+			border-bottom: 1px solid @silver;
+			.portrait {
+				img {
+					width: 100%;
+				}
+			}
+			.details {
+				position: relative;
+				padding: 0;
+				h4 {
+					margin: 15px 0 5px;
+				}
+				.edit, .delete {
+					position: absolute;
+					right: 0;
+					width: 15px;
+					margin: 2px 8px;
+				}
+				.edit {
+					top: 0;
+				}
+				.delete {
+					bottom: 0;
+				}
+			}
+		}
+	}
+	#overview {
+		text-align: center;
+		.details {
+			float: none;
+			width: 90%;
+			margin: auto;
+			padding: 5px 0 15px;
+			text-align: left;
+			.edit {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 15px;
+				margin: 20px 4px;
+			}
+			&:not(:last-child) {
+				border-bottom: 1px solid @gray;
+			}
+		}
 	}
 }

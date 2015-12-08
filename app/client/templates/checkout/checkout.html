@@ -1,5 +1,269 @@
 <template name="Checkout">
-  <div class="checkout">
-    <h1>Checkout</h1>
-  </div>
+	<div id="checkout">
+		<section class="text-center">
+			<h2>Select your charity</h2>
+
+			<p>ChangeUp donated 8% of your total cart's prince to a charity of your choosing. No aded costs will be added to your total! All you have to do is decide which cause or charity who wish to contribute to.</p>
+		</section>
+
+		<div id="charities">
+			<div class="charity">
+				<div class="col-xs-9">
+					<h3>American Refugee Committee</h3>
+					<div>Refugees</div>
+				</div>
+				<div class="col-xs-3 text-right">
+					<img src="images/arc_logo.png" alt="Arc Logo">
+				</div>
+				<p class="col-xs-12">The American Refugee Committee is an international, nonprofit, nonsectarian organiztion that has provided humanitarian assistance and training to millions of beneficiaries over the past 30 years.</p>
+				<a class="button blue" href="{{pathFor route='shipping'}}">Select</a>
+			</div>
+
+			<div class="charity">
+				<div class="col-xs-9">
+					<h3>Feeding America</h3>
+					<div>World Hunger</div>
+				</div>
+				<div class="col-xs-3 text-right">
+					<img src="images/feeding_america_logo.png" alt="Feeding America Logo">
+				</div>
+				<p class="col-xs-12">Proper nutrition is critical to a child's development. We believe that all of us can help end child hunger in America and Feeding America's nationwide network of food banks have many programs to tailor to this all-important cause.</p>
+				<a class="button blue" href="{{pathFor route='shipping'}}">Select</a>
+			</div>
+
+			<div class="charity">
+				<div class="col-xs-9">
+					<h3>Animal Charities of America</h3>
+					<div>Animal Rights</div>
+				</div>
+				<div class="col-xs-3 text-right">
+					<img src="images/animal_logo.png" alt="ACA Logo">
+				</div>
+				<p class="col-xs-12">Protecting pets, wildlife, and endangered species. Teching people to treat animals with love and respect. Humane training of animals as helpers and companions to people in need.</p>
+				<a class="button blue" href="{{pathFor route='shipping'}}">Select</a>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="Shipping">
+	<div id="shipping">
+		<div id="steps">
+			<div class="col-xs-4 step current"><a href="">Shipping</a></div>
+			<div class="col-xs-4 step"><a href="">Billing</a></div>
+			<div class="col-xs-4 step"><a href="">Summary</a></div>
+		</div>
+
+		<form>
+			<input type="text" placeholder="Full name" required>
+			<input type="text" placeholder="Address 1" required>
+			<input type="text" placeholder="Address 2" required>
+			<input type="text" class="half" placeholder="City" required>
+			<input type="text" class="half" placeholder="Zip" required>
+			<input type="text" class="half" placeholder="State" required>
+			<input type="text" class="half" placeholder="Country" required>
+			<div id="subtotal">
+				<div class="col-xs-6"><strong>Total</strong></div>
+				<div class="col-xs-6 text-right"><strong>$92.00</strong></div>
+			</div>
+			<a class="button orange" href="{{pathFor route='billing'}}">Next</a>
+		</form>
+	</div>
+</template>
+
+<template name="Billing">
+	<div id="billing">
+		<div id="steps">
+			<div class="col-xs-4 step current"><a href="{{pathFor route='shipping'}}">Shipping</a></div>
+			<div class="col-xs-4 step current"><a href="">Billing</a></div>
+			<div class="col-xs-4 step"><a href="">Summary</a></div>
+		</div>
+
+		<form>
+			<input type="text" placeholder="Credit card number" required>
+			<input type="text" class="half" placeholder="Exp." required>
+			<input type="text" class="half" placeholder="CVV" required>
+			<div class="check">
+				<input type="checkbox" name="save" value="save">
+				<label for="stay">Save information for quick purchase</label>
+				<input type="checkbox" name="agree" value="agree">
+				<label for="stay">I agree to the Terms &amp; Conditions</label>
+			</div>
+			<div id="subtotal">
+				<div class="col-xs-6"><strong>Total</strong></div>
+				<div class="col-xs-6 text-right"><strong>$92.00</strong></div>
+			</div>
+			<a class="button orange" href="{{pathFor route='summary'}}">Next</a>
+		</form>
+	</div>
+</template>
+
+<template name="Summary">
+	<div id="summary">
+		<div id="steps">
+			<div class="col-xs-4 step current"><a href="{{pathFor route='shipping'}}">Shipping</a></div>
+			<div class="col-xs-4 step current"><a href="{{pathFor route='billing'}}">Billing</a></div>
+			<div class="col-xs-4 step current"><a href="">Summary</a></div>
+		</div>
+
+		<section id="invoice">
+			<div class="col-xs-12"></div>
+		</section>
+
+		<div class="cart">
+			<div id="overview">
+				<div class="details col-xs-12">
+					<h4>Ship to:</h4>
+					<div>John Smith</div>
+					<div>123 Address St.</div>
+					<div>Hamden, CT. 06517</div>
+
+					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+				</div>
+
+				<div class="details col-xs-12">
+					<h4>Bill to:</h4>
+					<div>John Smith</div>
+					<div>123 Address St.</div>
+					<div>Hamden, CT. 06517</div>
+
+					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+				</div>
+
+				<div class="details col-xs-12">
+					<h4>Pay with:</h4>
+					<div>Visa ending with 5555</div>
+					<div>Exp. 01/31</div>
+
+					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+				</div>
+
+				<div class="details col-xs-12">
+					<h4>Charity:</h4>
+					<div>John Smith</div>
+					<div>World Hunger</div>
+
+					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+				</div>
+			</div>
+
+			<h3 class="divider">Cart</h3>
+
+			<div id="items">
+				<div class="item col-xs-12">
+					<div class="portrait col-xs-5">
+						<img src="images/cart_image.png" alt="Item">
+					</div>
+					<div class="details col-xs-7">
+						<strong>CMYK Shrt</strong>
+						<div><small>Locally Roasted</small></div>
+
+						<h4>&#36;42.00</h4>
+						<div><small>x1 | L | Gray</small></div>
+
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
+					</div>
+				</div>
+
+				<div class="item col-xs-12">
+					<div class="portrait col-xs-5">
+						<img src="images/cart_image.png" alt="Item">
+					</div>
+					<div class="details col-xs-7">
+						<strong>CMYK Shrt</strong>
+						<div><small>Locally Roasted</small></div>
+
+						<h4>&#36;42.00</h4>
+						<div><small>x1 | L | Gray</small></div>
+
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
+					</div>
+				</div>
+
+				<div class="item col-xs-12">
+					<div class="portrait col-xs-5">
+						<img src="images/cart_image.png" alt="Item">
+					</div>
+					<div class="details col-xs-7">
+						<strong>CMYK Shrt</strong>
+						<div><small>Locally Roasted</small></div>
+
+						<h4>&#36;42.00</h4>
+						<div><small>x1 | L | Gray</small></div>
+
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
+					</div>
+				</div>
+
+				<div class="item col-xs-12">
+					<div class="portrait col-xs-5">
+						<img src="images/cart_image.png" alt="Item">
+					</div>
+					<div class="details col-xs-7">
+						<strong>CMYK Shrt</strong>
+						<div><small>Locally Roasted</small></div>
+
+						<h4>&#36;42.00</h4>
+						<div><small>x1 | L | Gray</small></div>
+
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
+					</div>
+				</div>
+
+				<div class="item col-xs-12">
+					<div class="portrait col-xs-5">
+						<img src="images/cart_image.png" alt="Item">
+					</div>
+					<div class="details col-xs-7">
+						<strong>CMYK Shrt</strong>
+						<div><small>Locally Roasted</small></div>
+
+						<h4>&#36;42.00</h4>
+						<div><small>x1 | L | Gray</small></div>
+
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
+					</div>
+				</div>
+			</div>
+
+			<div id="total">
+				<div class="col-xs-12">
+					<div class="col-xs-6">Subtotal</div>
+					<div class="col-xs-6 text-right">&#36;84.00</div>
+				</div>
+				<div class="col-xs-12">
+					<div class="col-xs-6">Shipping</div>
+					<div class="col-xs-6 text-right">&#36;6.00</div>
+				</div>
+				<hr>
+				<div class="col-xs-12">
+					<div class="col-xs-6"><strong>Total</strong></div>
+					<div class="col-xs-6 text-right"><strong>&#36;90.00</strong></div>
+				</div>
+
+				<div class="col-xs-12">
+					<a class="button orange" href="{{pathFor route='confirmation'}}">Complete order</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="Confirmation">
+	<div id="confirmation" class="text-center">
+		<h4>Confirmation</h4>
+
+		<h2>Your order has been submitted!</h2>
+
+		<div>Order number:</div>
+		<div id="order-number">127389123</div>
+
+		<a class="button white" href="{{pathFor route='shop'}}">Return to home</a>
+		<a class="button white clear" href="{{pathFor route='account'}}">View summary</a>
+	</div>
 </template>
