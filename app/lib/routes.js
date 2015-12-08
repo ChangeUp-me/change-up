@@ -89,6 +89,12 @@ Router.route('item', {
   where: 'client'
 });
 
+Router.route('reviews', {
+  name: 'reviews',
+  controller: 'ReviewsController',
+  where: 'client'
+});
+
 Router.route('charity', {
   name: 'charity',
   controller: 'CharityController',

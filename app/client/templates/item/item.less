@@ -55,17 +55,44 @@
 		}
 		
 	}
-	#rating {
-		ul {
-			&::after {
-				content: "(5)";
-				vertical-align: super;
+}
+
+#rating {
+	ul {
+		&::after {
+			content: "(5)";
+			vertical-align: super;
+		}
+		li {
+			img {
+				width: 30px;
 			}
+		}
+	}
+}
+
+#reviews {
+	.review {
+		padding: 15px 0 0;
+		&:not(:last-child) {
+			border-bottom: 1px solid @silver;
+		}
+		ul {
 			li {
+				padding: 0 2px;
 				img {
-					width: 30px;
+					width: 15px;
+					vertical-align: initial;
 				}
 			}
+		}
+		h3 {
+			margin: 0 0 5px;
+		}
+		p {
+			display: inline-block;
+			width: 100%;
+			padding: 0 15px;
 		}
 	}
 }
