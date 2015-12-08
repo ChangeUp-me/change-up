@@ -1,11 +1,13 @@
-ContactMessagesSchema = new SimpleSchema({
-	name : {
-		type : String,
-	},
-	email : {
-		type : String
-	},
-	body : {
-		type : String
-	}
-})
+(function () {
+	ContactMessagesSchema = new SimpleSchema({
+		name : {
+			type : String,
+		},
+		email : {
+			type : String
+		},
+		body : {
+			type : String
+		}
+	})
+})();
