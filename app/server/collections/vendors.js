@@ -10,11 +10,13 @@ Meteor.methods({
 	},
 	updateVendor : function update_vendor (id, vendorObj) {
 		Vendors.update({_id : id}, {$set : vendorObj});
-	},
-	showVendor : function show_vendor (id) {
-		Vendors.findOne({_id : id});
-	},
-	listVendors : function list_vendors () {
-		Vendors.find();
+	}
+});
+
+Meteor.publish('vendors', function publish_vendors (id) {
+	if(id) {
+		return Vendors.findOne({_id : id});
+	} else {
+		return Vendors.find();
 	}
 });

@@ -10,4 +10,6 @@
 			type : String
 		}
 	})
+
+	ContactMessages.attachSchema(ContactMessagesSchema);
 })();

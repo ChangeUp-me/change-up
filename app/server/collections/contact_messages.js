@@ -1,17 +1,19 @@
 ContactMessages = new Mongo.Collection('contactmessages');
 
 Meteor.methods({
-	insertContactMessages : function insert_contact_message (contactObj) {
+	insertContactMessage : function insert_contact_message (contactObj) {
 		//var currentUserId = Meteor.userId();
 		ContactMessages.insert(contactObj);
 	},
-	deleteContactMessages : function delete_contact_messages (ContactMessagesId) {
+	deleteContactMessage : function delete_contact_messages (ContactMessagesId) {
 		Charites.remove({_id : ContactMessagesId});
-	},
-	showContactMessages : function show_contact_messages (id) {
-		ContactMessages.findOne({_id : id});
-	},
-	listContactMessages : function index_charity () {
-		ContactMessages.find().fetch();
+	}
+});
+
+Meteor.publish('contacts', function publish_contacts (id) {
+	if(id) {
+		return ContactMessages.findOne({_id : id});
+	} else {
+		return ContactMessages.find();
 	}
 });

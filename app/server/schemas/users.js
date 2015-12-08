@@ -46,6 +46,7 @@
 		}
 	});
 
+	Meteor.users.attachSchema(UsersSchema);
 
 	function transactions_schema () {
 		return new SimpleSchema({

@@ -14,4 +14,6 @@
 			type : String
 		}
 	})
+
+	Likes.attachSchema(LikesSchema);
 })();

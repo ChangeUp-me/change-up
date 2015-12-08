@@ -13,4 +13,6 @@
 			type : String
 		}
 	})
+	
+	Charities.attachSchema(CharitiesSchema);
 })();

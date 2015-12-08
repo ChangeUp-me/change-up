@@ -1,14 +1,19 @@
 Likes = new Mongo.Collection('likes');
 
 Meteor.methods({
-	insertLikes : function insert_likes (likeObj) {
+	insertLike : function insert_likes (likeObj) {
 		likeObj = likeObj || {};
 
 		likeObj.userId = Meteor.userId();
 		Likes.insert(likeObj);
 	},
-	countLikes : function count_likes (productId, userId, vendorId) {
-		var selector = {
+	deleteLike : function delete_likes (productId) {
+		Likes.remove({productId : productId, userId : Meteor.userId()})
+	}
+})
+
+Meteor.publish('likes', function publish_likes (productId, userId, vendorId) {
+	var selector = {
 			productId : productId
 		};
 
@@ -22,9 +27,5 @@ Meteor.methods({
 		if(vendorId)
 			selector.vendorId = vendorId;
 
-		Likes.find(selector).count();
-	},
-	deleteLikes : function delete_likes (productId) {
-		Likes.remove({productId : productId, userId : Meteor.userId()})
-	}
-})
+		return Likes.find(selector);
+});

@@ -45,6 +45,8 @@
 		}
 	})
 
+	Transactions.attachSchema(TransactionsSchema);
+
 	function billing_schema () {
 		return new SimpleSchema({
 			cardNumber : {

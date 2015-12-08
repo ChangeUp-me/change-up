@@ -27,6 +27,8 @@
 		}
 	});
 
+	Vendors.attachSchema(VendorsSchema);
+
 	function orders_schema () {
 		return new SimpleSchema({
 			transactionId : {

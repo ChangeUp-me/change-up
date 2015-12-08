@@ -10,11 +10,13 @@ Meteor.methods({
 	},
 	updateCharity : function 	update_charity (charityId, charityObj) {
 		Charities.update({_id : charityId}, {$set : charityObj})
-	},
-	showCharity : function show_charity (charityId) {
-		Charities.findOne({_id : charityId}).fetch();
-	},
-	listCharity : function index_charity () {
-		Charities.find().fetch();
+	}
+});
+
+Meteor.publish('charities', function publish_charities (id) {
+	if(id) {
+		return Charities.findOne({_id : id});
+	} else {
+		return Charities.find();
 	}
 });

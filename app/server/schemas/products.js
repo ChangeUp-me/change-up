@@ -52,6 +52,8 @@
 		}
 	})
 
+	Products.attachSchema(ProductsSchema);
+
 	function review_schema () {
 		return new SimpleSchema({
 			rating : {type : Number},
