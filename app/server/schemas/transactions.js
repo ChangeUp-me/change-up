@@ -3,6 +3,12 @@
 		userId : {
 			type : String
 		},
+		productId : {
+			type : String
+		},
+		vendorId : {
+			type : String
+		},
 		price : {
 			type : Number
 		},
@@ -31,7 +37,8 @@
 			type : shipping_schema()
 		},
 		orderCompleted : {
-			type : Boolean
+			type : Boolean,
+			defaultValue : false
 		},
 		orderNumber : {
 			type : Number
