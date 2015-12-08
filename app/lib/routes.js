@@ -41,6 +41,12 @@ Router.route('account', {
   where: 'client'
 });
 
+Router.route('orders', {
+  name: 'orders',
+  controller: 'OrdersController',
+  where: 'client'
+});
+
 Router.route('cart', {
   name: 'cart',
   controller: 'CartController',
