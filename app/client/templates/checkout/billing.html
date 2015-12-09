@@ -1,0 +1,26 @@
+<template name="Billing">
+	<div id="billing">
+		<div id="steps">
+			<div class="col-xs-4 step current"><a href="{{pathFor route='shipping'}}">Shipping</a></div>
+			<div class="col-xs-4 step current"><a href="">Billing</a></div>
+			<div class="col-xs-4 step"><a href="">Summary</a></div>
+		</div>
+
+		<form>
+			<input type="text" placeholder="Credit card number" required>
+			<input type="text" class="half" placeholder="Exp." required>
+			<input type="text" class="half" placeholder="CVV" required>
+			<div class="check">
+				<input type="checkbox" name="save" value="save">
+				<label for="stay">Save information for quick purchase</label>
+				<input type="checkbox" name="agree" value="agree">
+				<label for="stay">I agree to the Terms &amp; Conditions</label>
+			</div>
+			<div id="subtotal">
+				<div class="col-xs-6"><strong>Total</strong></div>
+				<div class="col-xs-6 text-right"><strong>$92.00</strong></div>
+			</div>
+			<a class="button orange" href="{{pathFor route='summary'}}">Next</a>
+		</form>
+	</div>
+</template>

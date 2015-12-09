@@ -124,3 +124,45 @@ Router.route('vendor', {
   controller: 'VendorController',
   where: 'client'
 });
+
+Router.route('admin', {
+  name: 'admin',
+  controller: 'AdminController',
+  where: 'client'
+});
+
+Router.route('vendorOrders', {
+  name: 'vendorOrders',
+  controller: 'VendorOrdersController',
+  where: 'client',
+  data: function() {
+    return 'Orders';
+  }
+});
+
+Router.route('vendorProducts', {
+  name: 'vendorProducts',
+  controller: 'VendorProductsController',
+  where: 'client',
+  data: function() {
+    return 'My Products';
+  }
+});
+
+Router.route('vendorProfile', {
+  name: 'vendorProfile',
+  controller: 'VendorProfileController',
+  where: 'client',
+  data: function() {
+    return 'Profile';
+  }
+});
+
+Router.route('addProduct', {
+  name: 'addProduct',
+  controller: 'AddProductController',
+  where: 'client',
+  data: function() {
+    return 'Add Product';
+  }
+});

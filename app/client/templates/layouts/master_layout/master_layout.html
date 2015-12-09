@@ -5,7 +5,7 @@
 			{{> Cart }}
 			<a href="#" class="toggle-nav"><img src="icons/menu.svg" class="Menu"></a>
 			<a href="#" class="toggle-cart"><img src="icons/cart.svg" class="Cart"></a>
-			<h4 id="page-title" class="text-center">{{ pageTitle }}</h4>
+			<h4 id="page-title" class="text-center">{{#if this}}{{ this }}{{else}}{{ pageTitle }}{{/if}}</h4>
 			{{> yield}}
 			{{> Footer }}
 		</div>
