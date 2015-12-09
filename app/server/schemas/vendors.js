@@ -1,7 +1,8 @@
 (function () {
 	VendorsSchema = new SimpleSchema({
-		userId : {
-			type : String
+		userId : { //link the vendor to a user account
+			type : String,
+			optional : true
 		},
 		email : {
 			type : String,
@@ -27,7 +28,7 @@
 		}
 	});
 
-	Vendors.attachSchema(VendorsSchema);
+	//Vendors.attachSchema(VendorsSchema);
 
 	function orders_schema () {
 		return new SimpleSchema({
@@ -49,7 +50,8 @@
 	function profile_schema() {
 		return new SimpleSchema({
 			image : {
-				type : Object
+				type : Object,
+				blackbox: true
 			},
 			storeInfo : {
 				type : String

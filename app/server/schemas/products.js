@@ -3,7 +3,7 @@
 		vendorId : {
 			type : String,
 		},
-		title : {
+		name : {
 			type : String,
 		},
 		description : {
@@ -13,17 +13,20 @@
 			type : Number,
 		},
 		currency : {
-			type : Number,
+			type : String,
+			defaultValue : 'usd'
 		},
 		reviews : {
 			type : [review_schema()]
 		},
 		quantity : {
-			type : Number
+			type : Number,
+			defaultValue : 0
 		},
-		size : {
-			type : String,
-			optional : true
+		sizes : {
+			type : [String],
+			optional : true,
+			defaultValue : []
 		},
 		likeCount : {
 			type : Number,
@@ -31,13 +34,20 @@
 		},
 		dealEndDate : {
 			type : Date,
-			defaultValue : Date.now
+			autoValue : function () {
+				if(this.isInsert) {
+					return new Date();
+				} else {
+					this.unset();
+				}
+			}
 		},
 		details : {
 			type : String
 		},
 		image : {
-			type : Object
+			type : Object,
+			blackbox: true
 		},
 		shippingPrice : {
 			type : Number

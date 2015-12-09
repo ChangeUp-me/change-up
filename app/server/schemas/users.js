@@ -1,60 +1,123 @@
 (function () {
 	UsersSchema = new SimpleSchema({
-		userType : {
+		username : {
 			type : String,
-			allowedValues : ['user','admin','vendor']
-		},
-		name : {
-			type : String
-		},
-		email : {
-			type : String,
-			max : 260
-		},
-		password : {
-			type : String
-		},
-		twitter : {
-			type : social_schema(),
 			optional : true
 		},
-		facebook : {
-			type : social_schema(),
+		emails : {
+			type : Array,
 			optional : true
 		},
-		likes : {
-			type : likes_schema()
+		"emails.$": {
+      type: Object
+    },
+    "emails.$.address": {
+      type: String,
+      regEx: SimpleSchema.RegEx.Email
+    },
+    "emails.$.verified": {
+      type: Boolean
+    },
+    createdAt: {
+      type: Date,
+      autoValue : function () {
+				if(this.isInsert) {
+					return new Date();
+				} else {
+					this.unset();
+				}
+			}
+    },
+		services : {
+			type : Object,
+			optional : true,
+			blackbox : true
 		},
-		dateRegistered : {
+		roles: {
+      type: [String],
+      optional: true
+    },
+		profile : {
+ 			type : Object,
+ 			blackbox : true,
+ 			optional : true
+		},
+		"profile.vendor" : {
+			type : vendor_schema(),
+			optional : true
+		},
+		"profile.paymentInfo" : {
+			type : payment_info_schema(),
+			optional : true
+		},
+		"profile.dateRegistered" : {
 			type : Date,
-			defaultValue : Date.now
+			autoValue : function () {
+				if(this.isInsert) {
+					return new Date();
+				} else {
+					this.unset();
+				}
+			}
 		},
-		termsAgreement : {
-			type : Boolean
+		"profile.likes" : {
+			type : [likes_schema()],
+			defaultValue : []
 		},
-		cart : {
-			type : cart_schema()
-		},
-		shipping : {
-			type : shipping_schema()
-		},
-		billing : {
-			type : billing_schema()
-		},
-		transactions : {
-			type : [transactions_schema()]
-		}
+		heartbeat: {
+      type: Date,
+      optional: true
+    }
 	});
 
 	Meteor.users.attachSchema(UsersSchema);
 
-	function transactions_schema () {
+	function vendor_schema () {
 		return new SimpleSchema({
-			orderId : {
+			storeName : {
 				type : String
 			},
-			orderNumber : {
+			vendorName : {
 				type : String
+			},
+			orders : {
+				type : orders_schema()
+			},
+			unseenOrders : {
+				type : [transaction_schema()]
+			},
+		});
+	}
+
+	function payment_info_schema () {
+		return new SimpleSchema({
+			cart : {
+				type : cart_schema(),
+				optional : true
+			},
+			shipping : {
+				type : shipping_schema(),
+				optional : true
+			},
+			billing : {
+				type : billing_schema(),
+				optional : true
+			}, 
+		})
+	}
+
+	function orders_schema () {
+		return new SimpleSchema({
+			transactionId : {
+				type : String
+			},
+			processed : {
+				type : Boolean,
+				defaultValue : false
+			},
+			fufilled : {
+				type : Boolean,
+				defaultValue : false
 			}
 		})
 	}
@@ -123,17 +186,17 @@
 		})
 	}
 
-	function likes_schema () {
+	function transaction_schema () {
 		return new SimpleSchema({
-			productId : {
+			transactionId : {
 				type : String
 			}
 		})
 	}
 
-	function social_schema () {
+	function likes_schema () {
 		return new SimpleSchema({
-			id : {
+			productId : {
 				type : String
 			}
 		})

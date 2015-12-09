@@ -2,7 +2,6 @@ ContactMessages = new Mongo.Collection('contactmessages');
 
 Meteor.methods({
 	insertContactMessage : function insert_contact_message (contactObj) {
-		//var currentUserId = Meteor.userId();
 		ContactMessages.insert(contactObj);
 	},
 	deleteContactMessage : function delete_contact_messages (ContactMessagesId) {

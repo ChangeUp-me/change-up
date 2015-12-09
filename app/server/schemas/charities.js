@@ -4,7 +4,8 @@
 			type : String
 		},
 		image : {
-			type : Object
+			type : Object,
+			blackbox: true
 		},
 		description : {
 			type : String

@@ -1,15 +1,23 @@
 Meteor.methods({
 	insertUser : function insert_user (userObj) {
-		Users.insert(userObj)
+		if(!_.isObject(userObj)){
+			throw new Meteor.Error("not-an-object", 'the user must be an Object');
+		}
+
+		userObj.roles = ['user'];
+
+		var id = Accounts.createUser(userObj);
+
+		Roles.addUsersToRoles(id, ['user']);
 	},
 	updateUser : function update_user (userObj) {
-		User.update({_id : Meteor.userId()}, {$set : userObj});
+		Meteor.users.update({_id : this.userId}, {$set : userObj});
 	},	
 	deleteUser : function delete_user () {
-		User.remove({_id : Meteor.userId()})
+		Meteor.users.remove({_id : this.userId})
 	}
 });
 
 Meteor.publish('users', function publish_users (id) {
-	return User.findOne(Meteor.userId());
+	return Meteor.users.find(this.userId);
 });

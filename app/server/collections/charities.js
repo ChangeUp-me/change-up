@@ -2,7 +2,6 @@ Charities = new Mongo.Collection('charities');
 
 Meteor.methods({
 	insertCharity : function insert_charity (charityObj) {
-		//var currentUserId = Meteor.userId();
 		Charities.insert(charityObj);
 	},
 	deleteCharity : function delete_charity (charityId) {

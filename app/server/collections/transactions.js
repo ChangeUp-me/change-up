@@ -5,7 +5,7 @@ Meteor.methods({
 		Transactions.insert(transactionObj);
 	},
 	updateTransaction : function update_transactions (transactionId, transactionObj) {
-		Transactions.update({_id : transactionId, userId : Meteor.userId()}, {$set : transactionObj})
+		Transactions.update({_id : transactionId, userId : this.userId}, {$set : transactionObj})
 	}
 });
 
