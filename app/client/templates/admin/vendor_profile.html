@@ -1,5 +1,29 @@
 <template name="VendorProfile">
 	<div id="vendor-profile">
+		<section class="text-center">
+			<img src="images/hipster_clothing_logo.png" alt="Logo">
+		</section>
+		
+		<label>Store infomation</label>
+		<form>	
+			<input type="text" placeholder="Name" required>
+			<textarea placeholder="Description" rows="6" required></textarea>
+		</form>
 
+		<label>Personal infomation</label>
+		<form>	
+			<input type="text" placeholder="Full name" required>
+			<input type="text" placeholder="Email" required>
+			<input type="text" placeholder="Password" required>
+		</form>
+
+		<label>Select up to 3 charities</label>
+		<div class="select-list-item">American Refugee Committee
+			<img src="icons/x_gray.svg" class="pull-right" alt="Remove">
+		</div>
+		<a class="button gray" href="{{pathFor route='addCharity'}}">Add charity</a>
+		<br>
+		<a class="button blue" href="{{pathFor route='profile'}}">Update profile</a>
+		<a class="button clear gray" href="{{pathFor route='profile'}}">Change password</a>
 	</div>
 </template>

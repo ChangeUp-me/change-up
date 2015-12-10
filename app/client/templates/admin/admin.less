@@ -1,5 +1,77 @@
 /*****************************************************************************/
 /* Admin: Style */
 /*****************************************************************************/
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F4F1E9;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+.queue-item {
+	display: inline-block;
+	padding: 15px 0;
+	border-top: 8px solid @beige;
+	.button {
+		width: 100%;
+		margin: 0 0 20px;
+	}
+	.subtotal {
+		display: inline-block;
+		width: 100%;
+		margin: 15px auto 0;
+		padding: 15px 0 0;
+		border-top: 1px solid @gray;
+	}
+}
+
+#image-upload-window {
+	display: inline-block;
+	width: 100%;
+	padding: 100px 0;
+	background: @gray;
+	text-align: center;
+	h4 {
+		color: @silver;
+	}
+}
+
+ul.size-select {
+	display: inline-block;
+	width: 100%;
+	max-width: 400px;
+	margin: 0 auto 20px;
+	text-align: center;
+	li {
+		width: 46px;
+		height: 46px;
+		font-size: 17px;
+		line-height: 2.5;
+		border: 1px solid @silver;
+		transition: color 0.3s, background 0.3s;
+		&.selected {
+			color: white;
+			background: @cyan;
+		}
+	}	
+}
+
+.select-list-item {
+	display: block;
+	clear: both;
+	width: 90%;
+	max-width: 300px;
+	margin: 10px auto;
+	padding: 10px;
+	font-size: 15px;
+	border: 1px dashed @gray;
+	img {
+		width: 18px;
+		margin: 3px 0;
+	}
+}
+
 .admin {
 }

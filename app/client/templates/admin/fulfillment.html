@@ -1,0 +1,72 @@
+<template name="Fulfillment">
+	<div id="fulfillment">
+		<div class="inventory">
+			<div id="items">
+				<div class="item col-xs-12">
+					<div class="portrait col-xs-5">
+						<img src="images/cart_image.png" alt="Item">
+					</div>
+					<div class="details col-xs-7">
+						<strong>CMYK Shrt</strong>
+						<div><small>Locally Roasted</small></div>
+
+						<h4>&#36;42.00</h4>
+						<div><small>x1 | L | Gray</small></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="queue-item">
+			<div class="col-xs-6">
+				<div><strong><small>John Smith</small></strong></div>
+				<div><small>Customer</small></div>
+			</div>
+			<div class="col-xs-6">
+				<div><strong><small>11/23/2015</small></strong></div>
+				<div><small>Date placed</small></div>
+			</div>
+			<div class="col-xs-6">
+				<div><strong><small>Not fulfilled</small></strong></div>
+				<div><small>Order status</small></div>
+			</div>
+			<div class="col-xs-6">
+				<div><strong><small>Processed</small></strong></div>
+				<div><small>Payment status</small></div>
+			</div>
+			<div class="subtotal">
+				<div class="col-xs-6">
+					<div>Subtotal</div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<div>$84.00</div>
+				</div>
+				<div class="col-xs-6">
+					<div>Shipping</div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<div>$6.00</div>
+				</div>
+				<div class="col-xs-6">
+					<div>Tax</div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<div>$2.00</div>
+				</div>
+			</div>
+			<div class="subtotal">
+				<div class="col-xs-6">
+					<div>Total</div>
+				</div>
+				<div class="col-xs-6 text-right">
+					<div><strong>$92.00</strong></div>
+				</div>
+			</div>
+		</div>
+
+		<section>
+			<a class="button blue" href="{{pathFor route='confirmation'}}">Fulfill order</a>
+			<a class="button clear gray" href="">Email customer</a>
+		</section>
+	</div>
+</template>

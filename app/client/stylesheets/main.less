@@ -63,9 +63,7 @@ form {
 		&.half {
 			float: left;
 			width: 50%;
-			&:nth-child(odd) {
-				border-left: 1px solid @gray;
-			}
+			border-right: 1px solid @gray;
 		}
 		&[type="checkbox"] {
 			width: auto;
@@ -108,6 +106,14 @@ form {
 	&.white {
 		color: @cyan;
 		background: white;
+	}
+	&.gray {
+		color: @gray;
+		background: @silver;
+	}
+	&.lightgray {
+		color: @silver;
+		background: @offwhite;
 	}
 	&:hover, &:active, &:focus {
 		-webkit-filter: brightness(75%);		
@@ -251,6 +257,51 @@ section {
 	border-bottom: 1px solid @gray;
 }
 
+ul.nav.nav-tabs {
+	li {
+		margin-bottom: 0;
+		padding: 0;
+		text-align: center;
+		a {
+			margin: 0;
+			padding: 10px 0 18px;
+			color: @silver;
+			border: none;
+			border-top: 8px solid white;
+			border-radius: 0;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+		&.active a {
+			color: @gray;
+			border: none;
+			border-top: 8px solid @cyan;
+		}
+	}
+}
+
+.tab-content {
+	border-bottom: 1px solid @beige;
+	img {
+		max-width: 100px;
+		margin: 10px auto;
+	}
+	h2 {
+		margin: 20px 0 30px;
+	}
+	p {
+		margin: 5px 0 30px;
+	}
+	#product {
+		padding: 15px 15px 0;
+	}
+	#vendor {
+		padding: 15px 0;
+	}
+}
+
 .product {
 	display: inline-block;
 	width: 100%;
@@ -379,7 +430,7 @@ section {
 	}
 }
 
-.cart {
+.cart, .inventory {
 	display: inline-block;
 	font-size: 15px;
 	overflow: auto;

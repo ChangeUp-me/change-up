@@ -140,6 +140,11 @@ Router.route('vendorOrders', {
   }
 });
 
+Router.route('fulfillment', {
+  name: 'fulfillment',
+  controller: 'FulfillmentController'
+});
+
 Router.route('vendorProducts', {
   name: 'vendorProducts',
   controller: 'VendorProductsController',
@@ -155,6 +160,15 @@ Router.route('vendorProfile', {
   where: 'client',
   data: function() {
     return 'Profile';
+  }
+});
+
+Router.route('addCharity', {
+  name: 'addCharity',
+  controller: 'AddCharityController',
+  where: 'client',
+  data: function() {
+    return 'Add Charity';
   }
 });
 
