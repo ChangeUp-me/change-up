@@ -12,7 +12,7 @@
 		<div class="product">
 			<div class="product-image">
 				<div class="product-timer">8h 13m</div>
-				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
+				<div class="like-button" data-productid="{{_id}}"><img src="icons/thumbsup.svg" alt="Like"></div>
 
 				<img src="images/{{image.src}}" alt="Shirt">
 			</div>
@@ -24,15 +24,23 @@
 			</div>
 			<div class="vendor col-xs-12">{{vendorName}}</div>
 
-			<div class="charity col-xs-6">
-				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
-			</div>
-			<div class="quantity col-xs-3">
-				Qty
-			</div>
-			<div class="size col-xs-3">
-				Size
-			</div>
+			<form class="col-xs-12 product-options">
+				<fieldset class="row">
+					<div class="charity col-xs-6">
+						<img src="icons/smallstar_blue.svg" alt="Charity">Charities
+					</div>
+					<div class="col-xs-6">
+						<div class="row">
+							<div class="quantity col-xs-6">
+								Qty
+							</div>
+							<div class="size col-xs-6">
+								Size
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
 
 			<div class="stats col-xs-12">
 				<span class="likes">{{likeCount}} likes</span>
@@ -41,7 +49,7 @@
 			</div>
 
 			<div class="buttons col-xs-12">
-				<a class="button blue" href="">Add to cart</a>
+				<a class="button blue add-to-cart-btn" href="">Add to cart</a>
 				<a class="button clear gray" href="{{pathFor route='item'}}">View details</a>
 			</div>
 		</div>

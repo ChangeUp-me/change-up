@@ -50,6 +50,10 @@
 			type : payment_info_schema(),
 			optional : true
 		},
+		"profile.cart" : {
+			type : [cart_schema()],
+			optional : true
+		},
 		"profile.dateRegistered" : {
 			type : Date,
 			autoValue : function () {
@@ -59,10 +63,6 @@
 					this.unset();
 				}
 			}
-		},
-		"profile.likes" : {
-			type : [likes_schema()],
-			defaultValue : []
 		},
 		heartbeat: {
       type: Date,
@@ -84,17 +84,23 @@
 				type : orders_schema()
 			},
 			unseenOrders : {
-				type : [transaction_schema()]
+				type : Array,
+				optional : true,
 			},
+			"unseenOrders.$" : {
+				type : Object,
+				optional : true,
+				blackbox : true
+			},
+			"unseenOrders.$.transactionId" : {
+				type : String,
+				optional : true
+			}
 		});
 	}
 
 	function payment_info_schema () {
 		return new SimpleSchema({
-			cart : {
-				type : cart_schema(),
-				optional : true
-			},
 			shipping : {
 				type : shipping_schema(),
 				optional : true
@@ -181,22 +187,10 @@
 				type : String
 			},
 			quantity : {
-				type : String
-			}
-		})
-	}
-
-	function transaction_schema () {
-		return new SimpleSchema({
-			transactionId : {
-				type : String
-			}
-		})
-	}
-
-	function likes_schema () {
-		return new SimpleSchema({
-			productId : {
+				type : Number,
+				defaultValue : 1.0
+			},
+			charityId : {
 				type : String
 			}
 		})

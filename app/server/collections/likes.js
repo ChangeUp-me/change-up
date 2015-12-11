@@ -1,11 +1,12 @@
 Likes = new Mongo.Collection('likes');
 
 Meteor.methods({
-	insertLike : function insert_likes (likeObj) {
-		likeObj = likeObj || {};
-
-		likeObj.userId = Meteor.userId();
-		Likes.insert(likeObj);
+	insertLike : function insert_likes (productId, vendorId) {
+		Likes.insert({
+			productId : productId,
+			vendorId : vendorId,
+			userId : Meteor.userId()
+		});
 	},
 	deleteLike : function delete_likes (productId) {
 		Likes.remove({productId : productId, userId : Meteor.userId()})

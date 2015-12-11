@@ -2,7 +2,7 @@ Products = new Mongo.Collection('products');
 
 Meteor.methods({
 	insertProduct : function insert_products (productObj) {
-		Products.insert(contactObj);
+		Products.insert(productObj);
 	},
 	deleteProduct : function delete_products (productId) {
 		Products.update({_id : productId}, {$set : {deleted : true}});

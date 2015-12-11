@@ -8,16 +8,18 @@
 		},
 		description : {
 			type : String,
+			optional : true
 		},
 		price : {
-			type : Number,
+			type : String
 		},
 		currency : {
 			type : String,
 			defaultValue : 'usd'
 		},
 		reviews : {
-			type : [review_schema()]
+			type : [review_schema()],
+			optional : true
 		},
 		quantity : {
 			type : Number,
@@ -28,33 +30,23 @@
 			optional : true,
 			defaultValue : []
 		},
-		likeCount : {
-			type : Number,
-			defaultValue : 0
-		},
-		dealEndDate : {
-			type : Date,
-			autoValue : function () {
-				if(this.isInsert) {
-					return new Date();
-				} else {
-					this.unset();
-				}
-			}
-		},
 		details : {
-			type : String
+			type : String,
+			optional : true
 		},
 		image : {
 			type : Object,
-			blackbox: true
+			blackbox: true,
+			optional : true
 		},
 		shippingPrice : {
-			type : Number
+			type : Number,
+			optional : true
 		},
 		//countriesAllowedToShip : []
 		percentToCharity : {
-			type : Number
+			type : Number,
+			defaultValue : 5.0
 		},
 		deleted : {
 			type : Boolean,

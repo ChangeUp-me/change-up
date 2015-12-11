@@ -8,7 +8,13 @@
 		},
 		timestamp : {
 			type : String,
-			defaultValue : Date.now
+			autoValue : function () {
+				if(this.isInsert) {
+					return new Date();
+				} else {
+					this.unset();
+				}
+			}
 		},
 		vendorId : {
 			type : String
