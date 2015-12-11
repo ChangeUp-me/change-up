@@ -7,7 +7,24 @@
 		</div>
 
 		<form>
+			<div class="check">
+				<input type="checkbox" name="billing" value="billing">
+				<label for="billing">Billing address same as shipping</label>
+			</div>
+			<input type="text" placeholder="Full name" required>
+			<input type="text" placeholder="Address 1" required>
+			<input type="text" placeholder="Address 2" required>
+			<input type="text" class="half" placeholder="City" required>
+			<input type="text" class="half" placeholder="Zip" required>
+			<input type="text" class="half" placeholder="State" required>
+			<input type="text" class="half" placeholder="Country" required>
+		</form>
+
+		<h3 class="divider">Payment method</h3>
+		
+		<form>
 			<input type="text" placeholder="Credit card number" required>
+			<input type="text" placeholder="Name on the card" required>
 			<input type="text" class="half" placeholder="Exp." required>
 			<input type="text" class="half" placeholder="CVV" required>
 			<div class="check">

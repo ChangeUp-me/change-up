@@ -44,7 +44,10 @@ Router.route('account', {
 Router.route('orders', {
   name: 'orders',
   controller: 'OrdersController',
-  where: 'client'
+  where: 'client',
+  data: function() {
+    return 'My Orders';
+  }
 });
 
 Router.route('cart', {
@@ -86,7 +89,10 @@ Router.route('confirmation', {
 Router.route('item', {
   name: 'item',
   controller: 'ItemController',
-  where: 'client'
+  where: 'client',
+  data: function() {
+    return 'Product Info';
+  }
 });
 
 Router.route('reviews', {
@@ -110,6 +116,30 @@ Router.route('login', {
 Router.route('register', {
   name: 'register',
   controller: 'RegisterController',
+  where: 'client'
+});
+
+Router.route('request', {
+  name: 'request',
+  controller: 'RequestController',
+  where: 'client'
+});
+
+Router.route('recoverPassword', {
+  name: 'recoverPassword',
+  controller: 'RecoverPasswordController',
+  where: 'client'
+});
+
+Router.route('forgotPassword', {
+  name: 'forgotPassword',
+  controller: 'ForgotPasswordController',
+  where: 'client'
+});
+
+Router.route('changePassword', {
+  name: 'changePassword',
+  controller: 'ChangePasswordController',
   where: 'client'
 });
 

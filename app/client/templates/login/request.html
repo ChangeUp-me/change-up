@@ -1,0 +1,17 @@
+<template name="Request">
+	<div id="request" class="login-screen">
+		<h4>Request</h4>
+
+		<section>
+			<h2>Request to be a vendor</h2>
+			<p>Producing merchandise to sell on ChangeUp is selective and on an invitation-only basis. If you have an interest in being involved, send us a request below.</p>
+		</section>
+		
+		<form>
+			<input type="text" placeholder="Full name" required>
+			<input type="text" placeholder="Store name" required>
+			<input type="email" placeholder="Email" required>
+			<a class="button orange bottom" href="{{pathFor route='admin'}}">Send request</a>
+		</form>
+	</div>
+</template>
