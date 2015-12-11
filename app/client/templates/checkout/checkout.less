@@ -1,5 +1,64 @@
 /*****************************************************************************/
 /* Checkout: Style */
 /*****************************************************************************/
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F4F1E9;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+#steps {
+	.step {
+		padding: 0;
+		text-align: center;
+		background: @offwhite;
+		a {
+			display: inline-block;
+			width: 100%;
+			padding: 15px 0;
+			color: @gray;
+		}
+		&.current {
+			background: @cyan;
+			a {
+				color: white;
+			}
+		}
+	}
+}
+
+#subtotal {
+	display: inline-block;
+	width: 100%;
+	margin: 15px auto 0;
+}
+
+#confirmation {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	color: white;
+	background: @cyan;
+	z-index: 100;
+	h1, h2, h3, h4 {
+		color: white;
+	}
+	h2 {
+		margin: 15vh 15px;
+	}
+	#order-number {
+		display: inline-block;
+		width: auto;
+		margin: 2vh auto 17vh;
+		padding: 10px 30px;
+		font-size: larger;
+		border: 1px solid white;
+	}
+}
+
 .checkout {
 }

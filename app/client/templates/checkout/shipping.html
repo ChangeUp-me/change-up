@@ -1,0 +1,24 @@
+<template name="Shipping">
+	<div id="shipping">
+		<div id="steps">
+			<div class="col-xs-4 step current"><a href="">Shipping</a></div>
+			<div class="col-xs-4 step"><a href="">Billing</a></div>
+			<div class="col-xs-4 step"><a href="">Summary</a></div>
+		</div>
+
+		<form>
+			<input type="text" placeholder="Full name" required>
+			<input type="text" placeholder="Address 1" required>
+			<input type="text" placeholder="Address 2" required>
+			<input type="text" class="half" placeholder="City" required>
+			<input type="text" class="half" placeholder="Zip" required>
+			<input type="text" class="half" placeholder="State" required>
+			<input type="text" class="half" placeholder="Country" required>
+			<div id="subtotal">
+				<div class="col-xs-6"><strong>Total</strong></div>
+				<div class="col-xs-6 text-right"><strong>$92.00</strong></div>
+			</div>
+			<a class="button orange" href="{{pathFor route='billing'}}">Next</a>
+		</form>
+	</div>
+</template>

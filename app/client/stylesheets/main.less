@@ -60,8 +60,14 @@ form {
 		border-bottom: 1px solid @gray;
 		outline: none;
 		resize: vertical;
+		&.half {
+			float: left;
+			width: 50%;
+			border-right: 1px solid @gray;
+		}
 		&[type="checkbox"] {
 			width: auto;
+			margin: 15px 0 0;
 			color: @gray;
 			transform: scale(1.5);
 		}
@@ -73,7 +79,7 @@ form {
 	}
 	.check {
 		width: 100%;
-		padding: 12px 20px;
+		padding: 12px 20px 5px;
 		text-align: left;
 		vertical-align: bottom;
 	}
@@ -81,6 +87,7 @@ form {
 
 .button {
 	display: block;
+	clear: both;
 	width: 90%;
 	max-width: 300px;
 	margin: 10px auto;
@@ -99,6 +106,14 @@ form {
 	&.white {
 		color: @cyan;
 		background: white;
+	}
+	&.gray {
+		color: @gray;
+		background: @silver;
+	}
+	&.lightgray {
+		color: @silver;
+		background: @offwhite;
 	}
 	&:hover, &:active, &:focus {
 		-webkit-filter: brightness(75%);		
@@ -229,8 +244,62 @@ section {
 }
 
 #page-title {
+	margin: 10px auto 20px;
 	color: @mocha;
 	text-transform: capitalize;
+}
+
+.divider {
+	margin: 0;
+	padding: 15px;
+	background: @offwhite;
+	border-top: 1px solid @gray;
+	border-bottom: 1px solid @gray;
+}
+
+ul.nav.nav-tabs {
+	li {
+		margin-bottom: 0;
+		padding: 0;
+		text-align: center;
+		a {
+			margin: 0;
+			padding: 10px 0 18px;
+			color: @silver;
+			border: none;
+			border-top: 8px solid white;
+			border-radius: 0;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			user-select: none;
+		}
+		&.active a {
+			color: @gray;
+			border: none;
+			border-top: 8px solid @cyan;
+		}
+	}
+}
+
+.tab-content {
+	border-bottom: 1px solid @beige;
+	img {
+		max-width: 100px;
+		margin: 10px auto;
+	}
+	h2 {
+		margin: 20px 0 30px;
+	}
+	p {
+		margin: 5px 0 30px;
+	}
+	#product {
+		padding: 15px 15px 0;
+	}
+	#vendor {
+		padding: 15px 0;
+	}
 }
 
 .product {
@@ -335,6 +404,9 @@ section {
 	.learn-more {
 		padding: 0 15px;
 	}
+	.button {
+		margin: 20px auto 15px;
+	}
 	h4 {
 		a {
 			display: inline-block;
@@ -355,6 +427,79 @@ section {
 		max-height: 45px;
 	}
 	p {
-		margin: 20px 0 0;
+		display: inline-block;
+		clear: both;
+		margin: 20px 0 15px;
+	}
+}
+
+.cart, .inventory {
+	display: inline-block;
+	font-size: 15px;
+	overflow: auto;
+	.col-xs-12 {
+		padding: 5px 0;
+	}
+	hr {
+		display: inline-block;
+		width: 95%;
+		margin: 10px 2.5%;
+		border-color: @gray;
+	}
+	h3, h4 {
+		color: @cyan;
+	}
+	#items {
+		display: inline-block;
+		background: white;
+		overflow-y: auto;
+		.item {
+			padding: 15px 0;
+			border-bottom: 1px solid @silver;
+			.portrait {
+				img {
+					width: 100%;
+				}
+			}
+			.details {
+				position: relative;
+				padding: 0;
+				h4 {
+					margin: 15px 0 5px;
+				}
+				.edit, .delete {
+					position: absolute;
+					right: 0;
+					width: 15px;
+					margin: 2px 8px;
+				}
+				.edit {
+					top: 0;
+				}
+				.delete {
+					bottom: 0;
+				}
+			}
+		}
+	}
+	#overview {
+		text-align: center;
+		.details {
+			float: none;
+			width: 90%;
+			margin: auto;
+			padding: 5px 0 15px;
+			text-align: left;
+			.edit {
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 15px;
+				margin: 20px 4px;
+			}
+			&:not(:last-child) {
+				border-bottom: 1px solid @gray;
+			}
+		}
 	}
 }

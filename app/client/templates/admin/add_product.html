@@ -1,0 +1,26 @@
+<template name="AddProduct">
+	<div id="add-product">
+		<form>
+			<div id="image-upload-window">
+				<h4>Upload product image</h4>
+			</div>
+			<input type="text" placeholder="Title" required>
+			<textarea placeholder="Description" rows="8" required></textarea>
+			<input type="text" class="half" placeholder="Price" required>
+			<input type="text" class="half" placeholder="Shipping rate" required>
+			<input type="text" placeholder="Percentage going to charity" required>
+			<div>&nbsp;</div>
+			<label>Select all size available</label>
+			<ul class="size-select list-inline">
+				<li>XS</li>
+				<li>S</li>
+				<li>M</li>
+				<li>L</li>
+				<li>XL</li>
+				<li>XXL</li>
+			</ul>
+		
+			<a class="button blue" href="{{pathFor route='vendorProducts'}}">Add product</a>
+		</form>
+	</div>
+</template>

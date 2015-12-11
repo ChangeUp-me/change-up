@@ -42,6 +42,12 @@ Router.route('account', {
   onBeforeAction : check_logged_in
 });
 
+Router.route('orders', {
+  name: 'orders',
+  controller: 'OrdersController',
+  where: 'client'
+});
+
 Router.route('cart', {
   name: 'cart',
   controller: 'CartController',
@@ -54,9 +60,39 @@ Router.route('checkout', {
   where: 'client'
 });
 
+Router.route('shipping', {
+  name: 'shipping',
+  controller: 'ShippingController',
+  where: 'client'
+});
+
+Router.route('billing', {
+  name: 'billing',
+  controller: 'BillingController',
+  where: 'client'
+});
+
+Router.route('summary', {
+  name: 'summary',
+  controller: 'SummaryController',
+  where: 'client'
+});
+
+Router.route('confirmation', {
+  name: 'confirmation',
+  controller: 'ConfirmationController',
+  where: 'client'
+});
+
 Router.route('item', {
   name: 'item',
   controller: 'ItemController',
+  where: 'client'
+});
+
+Router.route('reviews', {
+  name: 'reviews',
+  controller: 'ReviewsController',
   where: 'client'
 });
 
@@ -90,11 +126,61 @@ Router.route('vendor', {
   where: 'client'
 });
 
+Router.route('admin', {
+  name: 'admin',
+  controller: 'AdminController',
+  where: 'client'
+});
 
-function check_logged_in() {
-  if (!Meteor.userId()) {
-    this.redirect('/login');
-  } else {
-    this.next();
+Router.route('vendorOrders', {
+  name: 'vendorOrders',
+  controller: 'VendorOrdersController',
+  where: 'client',
+  data: function() {
+    return 'Orders';
   }
-}
+});
+
+Router.route('fulfillment', {
+  name: 'fulfillment',
+  controller: 'FulfillmentController'
+});
+
+Router.route('vendorProducts', {
+  name: 'vendorProducts',
+  controller: 'VendorProductsController',
+  where: 'client',
+  data: function() {
+    return 'My Products';
+  }
+});
+
+Router.route('vendorProfile', {
+  name: 'vendorProfile',
+  controller: 'VendorProfileController',
+  where: 'client',
+  data: function() {
+    return 'Profile';
+  }
+});
+
+Router.route('addCharity', {
+  name: 'addCharity',
+  controller: 'AddCharityController',
+  where: 'client',
+  data: function() {
+    return 'Add Charity';
+  }
+});
+
+Router.route('addProduct', {
+  name: 'addProduct',
+  controller: 'AddProductController',
+  where: 'client',
+  data: function() {
+    return 'Add Product';
+  }
+});
+
+
+
