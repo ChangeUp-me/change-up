@@ -183,4 +183,10 @@ Router.route('addProduct', {
 });
 
 
-
+function check_logged_in() {
+  if (!Meteor.userId()) {
+    this.redirect('/login');
+  } else {
+    this.next();
+  }
+}
