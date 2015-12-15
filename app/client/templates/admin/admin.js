@@ -22,7 +22,7 @@ Template.Admin.onCreated(function () {
 Template.Admin.onRendered(function () {
 });
 
-Template.AddProduct.onRendered(function () {
+Template.AddProduct.onRendered(function () {	
 	$(function() {
         $('.size-select li').click(function() {
             $(this).toggleClass("selected");
