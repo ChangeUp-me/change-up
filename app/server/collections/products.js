@@ -2,6 +2,14 @@ Products = new Mongo.Collection('products');
 
 Meteor.methods({
 	insertProduct : function insert_products (productObj) {
+		var user = Meteor.user();
+
+		if(!user.profile.vendorId) {
+			throw new Meteor.Error('no-vendor-id', 'you do not have vendor access');
+		}
+
+		Products.vendorId = user.profile.vendorId();
+
 		Products.insert(productObj);
 	},
 	deleteProduct : function delete_products (productId) {

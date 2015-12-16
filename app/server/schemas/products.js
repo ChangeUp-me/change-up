@@ -46,7 +46,7 @@
 		//countriesAllowedToShip : []
 		percentToCharity : {
 			type : Number,
-			defaultValue : 5.0
+			defaultValue : 5
 		},
 		deleted : {
 			type : Boolean,
