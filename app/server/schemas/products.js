@@ -40,8 +40,8 @@
 			optional : true
 		},
 		shippingPrice : {
-			type : Number,
-			optional : true
+			type : String,
+			defaultValue : '0.0'
 		},
 		//countriesAllowedToShip : []
 		percentToCharity : {

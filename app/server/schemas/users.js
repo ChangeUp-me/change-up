@@ -34,8 +34,9 @@
 			blackbox : true
 		},
 		roles: {
-      type: [String], //admin, user, vendor
-      optional: true
+      type: [String],
+      optional: true,
+      allowedValues : ['admin','user','vendor']
     },
 		profile : {
  			type : Object,

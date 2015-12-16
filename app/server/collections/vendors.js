@@ -13,11 +13,13 @@ Meteor.methods({
 			throw new Meteor.Error("not-an-object", 'the user must be an Object');
 		}
 
-		if(!Roles.userInRole(Meteor.userId()), ['vendor']) {
+		if(!Roles.userIsInRole(Meteor.userId()), ['vendor']) {
 			throw new Meteor.Error('not-a-vendor', 'this user is not authorized to be a vendor')
 		}
 
 		obj.userId = Meteor.userId();
+
+		console.log('userid', obj);
 
 		Vendors.insert(obj)
 	},
