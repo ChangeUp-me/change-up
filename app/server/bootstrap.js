@@ -5,8 +5,4 @@ Meteor.startup(function () {
 			console.log('the result', err)
 		})
 	})*/
-	
-	/*_.forEach(DummyContent.vendors, function (vendor, indx) {
-		Meteor.call('')
-	});*/
 });

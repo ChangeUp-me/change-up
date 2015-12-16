@@ -15,6 +15,15 @@ Meteor.methods({
 	},	
 	deleteUser : function delete_user () {
 		Meteor.users.remove({_id : this.userId})
+	},
+
+	/**
+	* update a users role
+	*
+	* role {String|Array} ['user','admin','vendor']
+	*/
+	addUserRole : function add_user_role (role) {
+		Roles.addUsersToRoles(this.userId, role);
 	}
 });
 
