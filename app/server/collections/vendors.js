@@ -19,8 +19,6 @@ Meteor.methods({
 
 		obj.userId = Meteor.userId();
 
-		console.log('userid', obj);
-
 		Vendors.insert(obj)
 	},
 	deleteVendor : function delete_vendor (id) {

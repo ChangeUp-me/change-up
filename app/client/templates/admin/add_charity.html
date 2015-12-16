@@ -6,42 +6,21 @@
 			<p>ChangeUp donated 8% of your total cart's prince to a charity of your choosing. No aded costs will be added to your total! All you have to do is decide which cause or charity who wish to contribute to.</p>
 		</section>
 
-		<div id="charities">
-			<div class="charity">
+		<ul class="charity-items" id="charities">
+			{{#each charities}}
+			<li class="charity">
 				<div class="col-xs-9">
-					<h3>American Refugee Committee</h3>
-					<div>Refugees</div>
+					<h3>{{name}}</h3>
+					<div>{{category}}</div>
 				</div>
 				<div class="col-xs-3 text-right">
 					<img src="images/arc_logo.png" alt="Arc Logo">
 				</div>
-				<p class="col-xs-12">The American Refugee Committee is an international, nonprofit, nonsectarian organiztion that has provided humanitarian assistance and training to millions of beneficiaries over the past 30 years.</p>
-				<a class="button blue" href="{{pathFor route='vendorProfile'}}">Select</a>
-			</div>
-
-			<div class="charity">
-				<div class="col-xs-9">
-					<h3>Feeding America</h3>
-					<div>World Hunger</div>
-				</div>
-				<div class="col-xs-3 text-right">
-					<img src="images/feeding_america_logo.png" alt="Feeding America Logo">
-				</div>
-				<p class="col-xs-12">Proper nutrition is critical to a child's development. We believe that all of us can help end child hunger in America and Feeding America's nationwide network of food banks have many programs to tailor to this all-important cause.</p>
-				<a class="button blue" href="{{pathFor route='vendorProfile'}}">Select</a>
-			</div>
-
-			<div class="charity">
-				<div class="col-xs-9">
-					<h3>Animal Charities of America</h3>
-					<div>Animal Rights</div>
-				</div>
-				<div class="col-xs-3 text-right">
-					<img src="images/animal_logo.png" alt="ACA Logo">
-				</div>
-				<p class="col-xs-12">Protecting pets, wildlife, and endangered species. Teching people to treat animals with love and respect. Humane training of animals as helpers and companions to people in need.</p>
-				<a class="button blue" href="{{pathFor route='vendorProfile'}}">Select</a>
-			</div>
-		</div>
+				<p class="col-xs-12">{{description}}</p>
+				<button type="button" class="button blue">Select</button>
+				<!-- href="{{pathFor route='vendorProfile'}}" -->
+			</li>
+			{{/each}}
+		</ul>
 	</div>
 </template>

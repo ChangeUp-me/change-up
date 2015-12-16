@@ -4,26 +4,34 @@
 			<img src="images/hipster_clothing_logo.png" alt="Logo">
 		</section>
 		
-		<label>Store infomation</label>
-		<form>	
-			<input type="text" placeholder="Name" required>
-			<textarea placeholder="Description" rows="6" required></textarea>
+		<form id="storeForm" novalidate>	
+			<fieldset>
+				<label>Store infomation</label>
+				<input name="storeName" type="text" placeholder="Name" required>
+				<textarea name="storeDescription" placeholder="Description" rows="6" required></textarea>
+			</fieldset>
+			<fieldset>
+				<label>Select up to 3 charities</label>
+				<ul id="selectlist" class="select-list-items">
+					{{#each selectedCharities}}
+					<li data-id="{{id}}" class="select-list-item">
+						<span>{{name}}</span>
+						<img src="icons/x_gray.svg" class="pull-right remove-item" alt="Remove">
+					</li>
+					{{/each}}
+				</ul>
+				<a class="button gray" href="{{pathFor route='addCharity'}}">Add charity</a>
+				<br>
+				<button type="submit" class="button blue">Update profile</button>
+			</fieldset>
 		</form>
-
+		<!--
 		<label>Personal infomation</label>
 		<form>	
 			<input type="text" placeholder="Full name" required>
 			<input type="text" placeholder="Email" required>
 			<input type="text" placeholder="Password" required>
 		</form>
-
-		<label>Select up to 3 charities</label>
-		<div class="select-list-item">American Refugee Committee
-			<img src="icons/x_gray.svg" class="pull-right" alt="Remove">
-		</div>
-		<a class="button gray" href="{{pathFor route='addCharity'}}">Add charity</a>
-		<br>
-		<a class="button blue" href="{{pathFor route='vendorProfile'}}">Update profile</a>
-		<a class="button clear gray" href="{{pathFor route='changePassword'}}">Change password</a>
+		<a class="button clear gray" href="{{pathFor route='changePassword'}}">Change password</a>-->
 	</div>
 </template>
