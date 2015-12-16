@@ -38,7 +38,8 @@ Router.route('news', {
 Router.route('account', {
   name: 'account',
   controller: 'AccountController',
-  where: 'client'
+  where: 'client',
+  onBeforeAction : check_logged_in
 });
 
 Router.route('orders', {
@@ -210,3 +211,12 @@ Router.route('addProduct', {
     return 'Add Product';
   }
 });
+
+
+function check_logged_in() {
+  if (!Meteor.userId()) {
+    this.redirect('/login');
+  } else {
+    this.next();
+  }
+}

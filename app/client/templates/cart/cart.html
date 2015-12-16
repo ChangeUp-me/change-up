@@ -3,100 +3,38 @@
 		<h4 class="text-center">Cart</h4>
 
 		<div id="items">
+			{{#each cartItems}}
 			<div class="item col-xs-12">
 				<div class="portrait col-xs-5">
-					<img src="images/cart_image.png" alt="Item">
+					<img src="images/{{image.src}}" alt="Item">
 				</div>
 				<div class="details col-xs-7">
-					<strong>CMYK Shrt</strong>
-					<div><small>Locally Roasted</small></div>
+					<strong>{{productName}}</strong>
+					<div><small>{{vendorName}}</small></div>
 
-					<h4>&#36;42.00</h4>
-					<div><small>x1 | L | Gray</small></div>
+					<h4>&#36;{{price}}</h4>
+					<div><small>x{{quantity}} | {{size}} | {{color}}</small></div>
 
 					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
 					<img class="delete" src="icons/delete_trash.svg" alt="Delete">
 				</div>
 			</div>
-
-			<div class="item col-xs-12">
-				<div class="portrait col-xs-5">
-					<img src="images/cart_image.png" alt="Item">
-				</div>
-				<div class="details col-xs-7">
-					<strong>CMYK Shrt</strong>
-					<div><small>Locally Roasted</small></div>
-
-					<h4>&#36;42.00</h4>
-					<div><small>x1 | L | Gray</small></div>
-
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-				</div>
-			</div>
-
-			<div class="item col-xs-12">
-				<div class="portrait col-xs-5">
-					<img src="images/cart_image.png" alt="Item">
-				</div>
-				<div class="details col-xs-7">
-					<strong>CMYK Shrt</strong>
-					<div><small>Locally Roasted</small></div>
-
-					<h4>&#36;42.00</h4>
-					<div><small>x1 | L | Gray</small></div>
-
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-				</div>
-			</div>
-
-			<div class="item col-xs-12">
-				<div class="portrait col-xs-5">
-					<img src="images/cart_image.png" alt="Item">
-				</div>
-				<div class="details col-xs-7">
-					<strong>CMYK Shrt</strong>
-					<div><small>Locally Roasted</small></div>
-
-					<h4>&#36;42.00</h4>
-					<div><small>x1 | L | Gray</small></div>
-
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-				</div>
-			</div>
-
-			<div class="item col-xs-12">
-				<div class="portrait col-xs-5">
-					<img src="images/cart_image.png" alt="Item">
-				</div>
-				<div class="details col-xs-7">
-					<strong>CMYK Shrt</strong>
-					<div><small>Locally Roasted</small></div>
-
-					<h4>&#36;42.00</h4>
-					<div><small>x1 | L | Gray</small></div>
-
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-				</div>
-			</div>
+			{{/each}}
 		</div>
 
 		<div id="total">
 			<div class="col-xs-12">
 				<div class="col-xs-6">Subtotal</div>
-				<div class="col-xs-6 text-right">&#36;84.00</div>
+				<div class="col-xs-6 text-right">&#36;{{totals.subTotal}}</div>
 			</div>
 			<div class="col-xs-12">
 				<div class="col-xs-6">Shipping</div>
-				<div class="col-xs-6 text-right">&#36;6.00</div>
+				<div class="col-xs-6 text-right">&#36;{{totals.shipping}}</div>
 			</div>
 			<hr>
 			<div class="col-xs-12">
 				<div class="col-xs-6"><strong>Total</strong></div>
-				<div class="col-xs-6 text-right"><strong>&#36;90.00</strong></div>
+				<div class="col-xs-6 text-right"><strong>&#36;{{totals.total}}</strong></div>
 			</div>
 
 			<div class="col-xs-12">

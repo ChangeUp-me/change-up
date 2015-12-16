@@ -8,6 +8,11 @@ Template.Account.events({
 /* Account: Helpers */
 /*****************************************************************************/
 Template.Account.helpers({
+	account : function () {
+		var user = Meteor.users.findOne();
+		user.email = user.emails[0].address;
+		return user;
+	}
 });
 
 /*****************************************************************************/

@@ -2,124 +2,58 @@
 	<div class="shop text-center">
 		<section>
 			<img src="icons/logo_dark.svg" alt="ChangeUp logo">
-
 			<h2>Exclusive products.<br>Inclusive community.</h2>
 			<p>Immersive products providing support for charities around the world.</p>
 
 			<a class="button blue" href="{{pathFor route='about'}}">About Us</a>
 			<a class="button clear gray" href="{{pathFor route='charities'}}">View charities</a>
 		</section>
-
+		{{#each products}}
 		<div class="product">
 			<div class="product-image">
 				<div class="product-timer">8h 13m</div>
-				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
+				<div class="like-button" data-productid="{{_id}}"><img src="icons/thumbsup.svg" alt="Like"></div>
 
-				<img src="images/cmykshirt.png" alt="Shirt">
+				<img src="images/{{image.src}}" alt="Shirt">
 			</div>
 			<div class="product-name col-xs-8">
-				<h4><strong>CMKY Shirt</strong></h4>
+				<h4><strong>{{name}}</strong></h4>
 			</div>
 			<div class="price col-xs-4">
-				<h4>&#36;42.00</h4>
+				<h4>${{price}}</h4>
 			</div>
-			<div class="vendor col-xs-12">Swagtastic Gear</div>
+			<div class="vendor col-xs-12">{{vendorName}}</div>
 
-			<div class="charity col-xs-6">
-				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
-			</div>
-			<div class="quantity col-xs-3">
-				Qty
-			</div>
-			<div class="size col-xs-3">
-				Size
-			</div>
+			<form class="col-xs-12 product-options">
+				<fieldset class="row">
+					<div class="charity col-xs-6">
+						<img src="icons/smallstar_blue.svg" alt="Charity">Charities
+					</div>
+					<div class="col-xs-6">
+						<div class="row">
+							<div class="quantity col-xs-6">
+								Qty
+							</div>
+							<div class="size col-xs-6">
+								Size
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
 
 			<div class="stats col-xs-12">
-				<span class="likes">22 likes</span>
-				<span class="reviews">10 reviews</span>
+				<span class="likes">{{likeCount}} likes</span>
+				<span class="reviews">{{reviews.length}} reviews</span>
 				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
 			</div>
 
 			<div class="buttons col-xs-12">
-				<a class="button blue" href="">Add to cart</a>
+				<a class="button blue add-to-cart-btn" href="">Add to cart</a>
 				<a class="button clear gray" href="{{pathFor route='item'}}">View details</a>
 			</div>
 		</div>
-
-		<div class="product">
-			<div class="product-image">
-				<div class="product-timer">8h 13m</div>
-				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
-
-				<img src="images/lightbackpack.png" alt="Shirt">
-			</div>
-			<div class="product-name col-xs-8">
-				<h4><strong>Light Backpack</strong></h4>
-			</div>
-			<div class="price col-xs-4">
-				<h4>&#36;58.00</h4>
-			</div>
-			<div class="vendor col-xs-12">FeelTheAir</div>
-
-			<div class="charity col-xs-6">
-				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
-			</div>
-			<div class="quantity col-xs-3">
-				Qty
-			</div>
-			<div class="size col-xs-3">
-				Size
-			</div>
-
-			<div class="stats col-xs-12">
-				<span class="likes">22 likes</span>
-				<span class="reviews">10 reviews</span>
-				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
-			</div>
-
-			<div class="buttons col-xs-12">
-				<a class="button blue" href="">Add to cart</a>
-				<a class="button clear gray" href="">View details</a>
-			</div>
-		</div>
-
-		<div class="product">
-			<div class="product-image">
-				<div class="product-timer">8h 13m</div>
-				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
-
-				<img src="images/sexyshirt.png" alt="Shirt">
-			</div>
-			<div class="product-name col-xs-8">
-				<h4><strong>SEXY Shirt</strong></h4>
-			</div>
-			<div class="price col-xs-4">
-				<h4>&#36;62.85</h4>
-			</div>
-			<div class="vendor col-xs-12">HipsterCostume</div>
-
-			<div class="charity col-xs-6">
-				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
-			</div>
-			<div class="quantity col-xs-3">
-				Qty
-			</div>
-			<div class="size col-xs-3">
-				Size
-			</div>
-
-			<div class="stats col-xs-12">
-				<span class="likes">22 likes</span>
-				<span class="reviews">10 reviews</span>
-				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
-			</div>
-
-			<div class="buttons col-xs-12">
-				<a class="button blue" href="">Add to cart</a>
-				<a class="button clear gray" href="">View details</a>
-			</div>
-		</div>
+		{{/each}}
 
 		<section class="gray text-center">
 			<img src="icons/image_placeholder.svg" alt="Placeholder">

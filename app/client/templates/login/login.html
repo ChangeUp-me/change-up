@@ -4,14 +4,14 @@
 
 		<img src="icons/logo_dark.svg" alt="ChangeUp">
 
-		<form>
-			<input type="email" placeholder="Email" required>
-			<input type="password" placeholder="Password" required>
+		<form id="loginForm" novalidate>
+			<input type="email" name="email" placeholder="Email" required>
+			<input type="password" name="password" placeholder="Password" required>
 			<div class="check">
 				<input type="checkbox" name="stay" value="stay">
 				<label for="stay">Stay logged in</label>
 			</div>
-			<a class="button orange" href="{{pathFor route='shop'}}">Sign in</a>
+			<button class="button orange" type="submit">Sign in</button>
 		</form>
 
 		<p><a href="{{pathFor route='register'}}">Don't have an account? Sign up.</a></p>

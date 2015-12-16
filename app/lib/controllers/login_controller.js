@@ -34,7 +34,11 @@ LoginController = RouteController.extend({
     this.next();
   },
   onBeforeAction: function () {
-    this.next();
+    if (Meteor.userId()) {
+      this.redirect('/shop');
+    } else {
+      this.next();
+    }
   },
   
   // The same thing as providing a function as the second parameter. You can

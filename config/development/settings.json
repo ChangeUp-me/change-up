@@ -1,6 +1,5 @@
 {
   "public": {
   },
-
-  "sample": "value"
+  "JASMINE_SERVER_UNIT" : 1
 }
