@@ -34,7 +34,7 @@
 			blackbox : true
 		},
 		roles: {
-      type: [String],
+      type: [String], //admin, user, vendor
       optional: true
     },
 		profile : {
@@ -42,8 +42,8 @@
  			blackbox : true,
  			optional : true
 		},
-		"profile.vendor" : {
-			type : vendor_schema(),
+		"profile.vendorId" : {
+			type : String,
 			optional : true
 		},
 		"profile.paymentInfo" : {
@@ -72,33 +72,6 @@
 
 	Meteor.users.attachSchema(UsersSchema);
 
-	function vendor_schema () {
-		return new SimpleSchema({
-			storeName : {
-				type : String
-			},
-			vendorName : {
-				type : String
-			},
-			orders : {
-				type : orders_schema()
-			},
-			unseenOrders : {
-				type : Array,
-				optional : true,
-			},
-			"unseenOrders.$" : {
-				type : Object,
-				optional : true,
-				blackbox : true
-			},
-			"unseenOrders.$.transactionId" : {
-				type : String,
-				optional : true
-			}
-		});
-	}
-
 	function payment_info_schema () {
 		return new SimpleSchema({
 			shipping : {
@@ -109,22 +82,6 @@
 				type : billing_schema(),
 				optional : true
 			}, 
-		})
-	}
-
-	function orders_schema () {
-		return new SimpleSchema({
-			transactionId : {
-				type : String
-			},
-			processed : {
-				type : Boolean,
-				defaultValue : false
-			},
-			fufilled : {
-				type : Boolean,
-				defaultValue : false
-			}
 		})
 	}
 
