@@ -5,13 +5,24 @@
 		},
 		image : {
 			type : Object,
-			blackbox: true
+			blackbox: true,
+			optional : true
 		},
 		description : {
-			type : String
+			type : String,
+			defaultValue : ''
 		},
 		about : {
-			type : String
+			type : String,
+			defaultValue : ''
+		},
+		category : {
+			type : String,
+			defaultValue : ''
+		},
+		websiteLink : {
+			type : String,
+			optional : true,
 		}
 	})
 	
