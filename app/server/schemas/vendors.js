@@ -15,18 +15,14 @@
     },
     storeName: {
       type: String,
-      unique : true
     },
     storeDescription: {
       type: String,
       defaultValue: ''
     },
-    vendorName: {
-      type: String
-    },
     about: {
       type: String,
-      defaultValue: ''
+      optional : true
     },
     orders: {
       type: [orders_schema()],
