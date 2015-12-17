@@ -1,3 +1,4 @@
 Meteor.subscribe('users');
 Meteor.subscribe('allCharities');
-Meteor.subscribe('vendors', Meteor.userId());
+Meteor.subscribe('vendors');
+Meteor.subscribe('products');

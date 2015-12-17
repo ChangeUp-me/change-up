@@ -18,19 +18,29 @@ Meteor.methods({
 			throw new Meteor.Error('not-a-vendor', 'this user is not authorized to be a vendor')
 		}
 
-		obj.userId = Meteor.userId();
+		var userId = Meteor.userId();
 
-		Vendors.update({userId : Meteor.userId()}, {$set : obj}, {upsert : true});
+		obj.userId = userId;
+
+		delete obj._id;
+
+		Vendors.update({userId : userId}, {$set : obj}, {upsert : true});
+
+		//@todo - need to add a rollback incase this first query fails
+
+
+		//link the new vendor to the user
+		if(!Meteor.user().profile.vendorId) {
+			var vendor = Vendors.findOne({userId : Meteor.userId()});
+
+			Meteor.users.update(userId, {$set : {"profile.vendorId" : vendor._id}});
+		}
 	},
 	deleteVendor : function delete_vendor (id) {
 		Vendors.remove({_id : id});
 	}
 });
 
-Meteor.publish('vendors', function publish_vendors (id) {
-	if(id) {
-		return Vendors.find({userId : id});
-	} else {
-		return Vendors.find();
-	}
+Meteor.publish('vendors', function publish_vendors () {
+	return Vendors.find();
 });

@@ -42,7 +42,22 @@
 		},
 		orderNumber : {
 			type : Number
-		}
+		},
+		transactionId : {
+      type : String
+    },
+    processed : {
+      type : Boolean,
+      defaultValue : false
+    },
+    fufilled : {
+      type : Boolean,
+      defaultValue : false
+    },
+    paid : {
+    	type : Boolean,
+    	defaultValue : false
+    }
 	})
 
 	Transactions.attachSchema(TransactionsSchema);

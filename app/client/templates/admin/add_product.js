@@ -12,7 +12,7 @@ Template.AddProduct.events({
       description : form.description.value,
       price : form.price.value,
       shippingPrice : form.shippingPrice.value,
-      percentage : form.percentage.value,
+      percentToCharity : form.percentage.value,
       sizes : function () {
         var sizes = [];
         $('.size-select li.selected').each(function (indx, val) {
@@ -24,9 +24,11 @@ Template.AddProduct.events({
 
     Meteor.call('insertProduct', product, function (err) {
       if(err) {
-        console.error(err);
-        sAlert.error('failed to add this product');
+        sAlert.error(err);
+       return console.error(err);
       }
+
+      sAlert.success('product created');
     });
   },
   "click .size-select li" : function (event) {
