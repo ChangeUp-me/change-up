@@ -18,11 +18,13 @@ Template.VendorProfile.events({
       }()
     }
 
-    Meteor.call('insertVendor', store, function (err) {
+    Meteor.call('updateVendor', store, function (err) {
       if(err){
         console.error(err);
         return sAlert.error(err);
-      } 
+      }
+
+      Session.set('selectedCharities', null); 
 
       sAlert.success('vendor created!')
     })

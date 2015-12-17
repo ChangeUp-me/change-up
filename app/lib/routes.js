@@ -188,10 +188,7 @@ Router.route('vendorProducts', {
 Router.route('vendorProfile', {
   name: 'vendorProfile',
   controller: 'VendorProfileController',
-  where: 'client',
-  data: function() {
-    return 'Profile';
-  }
+  where: 'client'
 });
 
 Router.route('addCharity', {
