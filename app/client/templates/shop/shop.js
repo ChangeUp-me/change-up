@@ -22,40 +22,32 @@ Template.Shop.events({
 /*****************************************************************************/
 Template.Shop.helpers({
 	products : function () {
-		return [{
-			_id : '1',
-			vendorId : 'someid',
-			name : "CMKY Shirt",
-			vendorName : 'Swagtastic Gear',//@call this seperatley
-			price : 42.00,
-			likeCount : 23,//from another call
-			reviews : [{}],
-			image : {
-				src : 'cmykshirt.png'
+		var products = Products.find({},{limit : 10}).fetch();
+		var vendorIds = [];
+
+		//get every vendor id;
+		products.forEach(function (val, indx) {
+			if(vendorIds.indexOf(val.vendorId) < 0) {
+				vendorIds.push(val.vendorId);
 			}
-		}, {
-			_id : '2',
-			vendorId : 'someid2',
-			name : "Light Backpack",
-			vendorName : 'FeelTheAir',
-			price : 58.00,
-			reviews : [{},{},{}],
-			likeCount : 25,
-			image : {
-				src : 'lightbackpack.png'
+		})
+
+		//select vendors by vendor ids
+		var vendors = Vendors.find({_id : {$in : vendorIds}}).fetch();
+
+		//join the vendors name to the correct products
+		var id;
+		products.forEach(function (product, indx) {
+			id = product.vendorId;
+			for(var i = 0; i < vendors.length; i++) {
+				if(id == vendors[i]._id) {
+					product.storeName = vendors[i].storeName;
+					break;
+				}
 			}
-		}, {
-			_id : '3',
-			vendorId : 'someid3',
-			name : "SEXY Shirt",
-			vendorName : 'HipsterCostume',
-			price : 62.85,
-			reviews : [{}, {}],
-			likeCount : 30,
-			image : {
-				src : 'sexyshirt.png'
-			}
-		}]
+		})
+
+		return products;
 	}
 });
 

@@ -4,11 +4,15 @@ Meteor.methods({
 	insertProduct : function insert_products (productObj) {
 		var user = Meteor.user();
 
-		if(!user.profile.vendorId) {
-			throw new Meteor.Error('no-vendor-id', 'you do not have vendor access');
+		if(!Roles.userIsInRole(Meteor.userId(), 'vendor')) {
+			throw new Meteor.Error('not-a-vendor', 'you do not have vendor access')
 		}
 
-		Products.vendorId = user.profile.vendorId();
+		if(!user.profile.vendorId) {
+			throw new Meteor.Error('no-vendor-id', 'you have vendor access but no vendor account, please create one');
+		}
+
+		productObj.vendorId = user.profile.vendorId;
 
 		Products.insert(productObj);
 	},
@@ -20,13 +24,6 @@ Meteor.methods({
 	}
 });
 
-Meteor.publish('products', function publish_products (id) {
-	if(id) {
-		return Products.findOne({
-			_id : productId, 
-			deleted : {$not : {$eq : false}}
-		})
-	} else {
-		return Products.find({deleted : {$not : {$eq : false}}});
-	}
+Meteor.publish('products', function publish_products () {
+	return Products.find({deleted : {$not : {$eq : true}}});
 });

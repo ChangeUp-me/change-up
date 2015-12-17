@@ -12,7 +12,7 @@ Meteor.methods({
 	}
 });
 
-Meteor.publish('charities', function publish_charities (id) {
+Meteor.publish('allCharities', function publish_charities (id) {
 	if(id) {
 		return Charities.findOne({_id : id});
 	} else {
