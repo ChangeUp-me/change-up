@@ -8,6 +8,9 @@ Template.Charities.events({
 /* Charities: Helpers */
 /*****************************************************************************/
 Template.Charities.helpers({
+	charities : function () {
+		return Charities.find().fetch();
+	}
 });
 
 /*****************************************************************************/

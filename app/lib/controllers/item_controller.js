@@ -23,6 +23,22 @@ ItemController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    var product = Products.findOne({_id : this.params._id});
+    var vendor;
+    var charities;
+
+    if(product) {
+      vendor = Vendors.findOne({_id : product.vendorId})
+
+      if(vendor && _.isArray(vendor.charities))
+        charities = Charities.find({_id : {$in : vendor.charities}}).fetch();
+    }
+
+    return {
+      product : product,
+      vendor : vendor,
+      charities : charities
+    };
   },
   
   // You can provide any of the hook options
