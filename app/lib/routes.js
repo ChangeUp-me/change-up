@@ -87,13 +87,10 @@ Router.route('confirmation', {
   where: 'client'
 });
 
-Router.route('item', {
+Router.route('item/:_id', {
   name: 'item',
   controller: 'ItemController',
   where: 'client',
-  data: function() {
-    return 'Product Info';
-  }
 });
 
 Router.route('reviews', {
