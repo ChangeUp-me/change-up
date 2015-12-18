@@ -22,8 +22,7 @@ VendorProductsController = RouteController.extend({
   // returns a null value, and if so, renders the not found template.
   // return Posts.findOne({_id: this.params._id});
   
-  data: function () {
-  },
+  data: function () {},
   
   // You can provide any of the hook options
   

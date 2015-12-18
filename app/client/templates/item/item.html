@@ -3,20 +3,20 @@
 		<div class="product">
 			<div class="product-image">
 				<div class="product-timer">8h 13m</div>
-				<div class="like-button"><img src="icons/thumbsup.svg" alt="Like"></div>
+				<div class="like-button"><img src="/icons/thumbsup.svg" alt="Like"></div>
 
-				<img src="images/cmykshirt.png" alt="Shirt">
+				<img src="/images/cmykshirt.png" alt="Shirt">
 			</div>
 			<div class="product-name col-xs-8">
-				<h4><strong>CMKY Shirt</strong></h4>
+				<h4><strong>{{product.name}}</strong></h4>
 			</div>
 			<div class="price col-xs-4">
-				<h4>&#36;42.00</h4>
+				<h4>&#36;{{product.price}}</h4>
 			</div>
 			<div class="vendor col-xs-12">Swagtastic Gear</div>
 
 			<div class="charity col-xs-6">
-				<img src="icons/smallstar_blue.svg" alt="Charity">Charities
+				<img src="/icons/smallstar_blue.svg" alt="Charity">Charities
 			</div>
 			<div class="quantity col-xs-3">
 				Qty
@@ -28,7 +28,7 @@
 			<div class="stats col-xs-12">
 				<span class="likes">22 likes</span>
 				<span class="reviews">10 reviews</span>
-				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
+				<span class="share pull-right"><img src="/icons/share_gray.svg" alt="Share"></span>
 			</div>
 
 			<div class="buttons col-xs-12">
@@ -51,78 +51,44 @@
 		<div class="tab-content">
 			<div class="tab-pane fade active in" id="product">
 				<div><strong>Description</strong></div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<p>{{product.description}}</p>
 
 				<div><strong>Details</strong></div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<p>{{product.details}}</p>
 			</div>
 			<div class="tab-pane fade text-center" id="vendor">
-				<img src="images/hipster_clothing_logo.png" alt="Logo">
+				<img src="/images/hipster_clothing_logo.png" alt="Logo">
 
-				<h2>Hipster Clothing</h2>
-				<p>We sell the latest and greatest hipster clothing available on the market. Whatever you want, from tops to crocs, we got it!</p>
+				<h2>{{vendor.storeName}}</h2>
+				<p>{{vendor.storeDescription}}</p>
 
 				<a class="button clear gray" href="{{pathFor route='vendor'}}">Learn more</a>
 			</div>
 			<div class="tab-pane fade" id="charities">
+				{{#each charities}}
 				<div class="charity">
 					<div class="col-xs-9">
-						<h3>American Refugee Committee</h3>
-						<div>Refugees</div>
+						<h3>{{name}}</h3>
+						<div>{{category}}</div>
 					</div>
 					<div class="col-xs-3 text-right">
-						<img src="images/arc_logo.png" alt="Arc Logo">
+						<img src="/images/arc_logo.png" alt="Arc Logo">
 					</div>
 					<div class="learn-more">
 						<h4><a href="">Learn more</a></h4>
 					</div>
 				</div>
-
-				<div class="charity">
-					<div class="col-xs-9">
-						<h3>Feeding America</h3>
-						<div>World Hunger</div>
-					</div>
-					<div class="col-xs-3 text-right">
-						<img src="images/feeding_america_logo.png" alt="Feeding America Logo">
-					</div>
-					<div class="learn-more">
-						<h4><a href="">Learn more</a></h4>
-					</div>
-				</div>
-
-				<div class="charity">
-					<div class="col-xs-9">
-						<h3>Animal Charities of America</h3>
-						<div>Animal Rights</div>
-					</div>
-					<div class="col-xs-3 text-right">
-						<img src="images/animal_logo.png" alt="ACA Logo">
-					</div>
-					<div class="learn-more">
-						<h4><a href="">Learn more</a></h4>
-					</div>
-				</div>
+				{{/each}}
 			</div>
 		</div>
 
 		<section id="rating">
 			<ul class="list-inline text-center">
-				<li><img src="icons/star_red.svg" alt="Star"></li>
-				<li><img src="icons/star_red.svg" alt="Star"></li>
-				<li><img src="icons/star_red.svg" alt="Star"></li>
-				<li><img src="icons/star_red.svg" alt="Star"></li>
-				<li><img src="icons/star_red.svg" alt="Star"></li>
+				<li><img src="/icons/star_red.svg" alt="Star"></li>
+				<li><img src="/icons/star_red.svg" alt="Star"></li>
+				<li><img src="/icons/star_red.svg" alt="Star"></li>
+				<li><img src="/icons/star_red.svg" alt="Star"></li>
+				<li><img src="/icons/star_red.svg" alt="Star"></li>
 			</ul>
 
 			<a class="button orange" href="{{pathFor route='reviews'}}">Read reviews</a>
