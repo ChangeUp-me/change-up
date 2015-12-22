@@ -8,6 +8,9 @@ Template.Checkout.events({
 /* Checkout: Helpers */
 /*****************************************************************************/
 Template.Checkout.helpers({
+	charities : function () {
+		return Charities.find().fetch();
+	}
 });
 
 /*****************************************************************************/
