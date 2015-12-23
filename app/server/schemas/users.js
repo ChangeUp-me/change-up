@@ -133,23 +133,45 @@
 		})
 	}
 
+	function toLowerCase () {
+		var value = this.value;
+		if(typeof value == 'string') {
+			value = value.toLowerCase();
+		}
+		return value;
+	}
+
 	function cart_schema () {
 		return new SimpleSchema({
+			id : {
+				type : String,
+				unique : true,
+				autoValue : function () {
+					if(this.isUpdate) {
+						return Random.id();
+					}
+				}
+			},
 			productId : {
 				type : String
 			},
 			size : {
-				type : String
+				type : String,
+				optional : true,
+				autoValue : toLowerCase
 			},
 			color : {
-				type : String
+				type : String,
+				optional : true,
+				autoValue : toLowerCase
 			},
 			quantity : {
 				type : Number,
-				defaultValue : 1.0
+				defaultValue : 1
 			},
 			charityId : {
-				type : String
+				type : String,
+				optional : true
 			}
 		})
 	}

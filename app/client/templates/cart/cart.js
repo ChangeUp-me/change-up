@@ -7,38 +7,86 @@ Template.Cart.events({
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-cart');
 		} 
+	},
+	'click .delete' : function (event) {
+		var id = this.id;
+
+		if(!id) return;
+
+		Meteor.call('removeFromCart', id, function (err, result) {
+			if(err){
+				console.log(err);
+				return sAlert.error(err);
+			}
+
+			sAlert.success(this.name + ' was removed from your cart');
+		})
 	}
 });
 
 /*****************************************************************************/
 /* Cart: Helpers */
 /*****************************************************************************/
+
+function joinProductItemInfo (cart, products) {
+	var findIndx;
+	var product;
+
+	//join the product info to the cart items
+	cart.forEach(function (item, indx) {
+		findIndx = function (product) {
+			return product._id == item.productId;
+		};
+
+		var indx = products.findIndex(findIndx);
+		product = products[indx];
+
+		if(!product) {
+			return item = {};
+		}
+
+		item.vendorId = product.vendorId;
+		item.shippingPrice = parseFloat(product.shippingPrice);
+		item.price = parseFloat(product.price);
+		item.name = product.name;
+		item.image =  {
+			src : 'cart_image.png'
+		};
+	})
+	return cart;
+}
+
 Template.Cart.helpers({
 	cartItems : function () {
-		return [{
-			productId : 'someid',
-			size : 'L',
-			color : 'Gray',
-			quantity : 1,
-			price : 42.00, //from seperate query
-			image : { //added from seperate query
-				src : 'cart_image.png'
-			},
-			productName : 'CMYK Shrt', //added from seperate query
-			vendorName : 'Locally Roasted' //from seperate query
-		}]
+		//@todo - make cart for non logged in users
+		var user = Meteor.user();
+
+		if(!user) return [];
+
+		var cart = user.profile.cart || [];
+		var productIds = [];
+
+		//get all the product ids
+		cart.forEach(function (item, indx) {
+			productIds.push(item.productId);
+		})
+
+		//fetch each product
+		var products = Products.find({_id : {$in : productIds}}).fetch();
+
+		//join product info to cart item
+		cart = joinProductItemInfo(cart, products);
+
+		Session.set('cart', cart);
+		return cart;
 	},
 	totals : function () {
-		var products = [{
-			price : 24.00
-		}, {
-			price : 28.00
-		}];
+		var cart = Session.get('cart') || [];
 
 		var total = 0;
 		var shippingTotal = 6.00;
 
-		_.each(products, function (val, indx) {
+		_.each(cart, function (val, indx) {
 			total = val.price + total;
 		})
 

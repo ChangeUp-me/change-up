@@ -26,8 +26,27 @@
 				})	
 			}
 		},
-		'click .add-to-cart-btn' : function (event) {
+		'submit form.product-item' : function (event) {
+			event.preventDefault();
+			var form = event.target;
+			var cartItem = {
+				productId : form.productId.value,
+				size : form.size.value,
+				quantity : parseInt(form.quantity.value) || '1'
+			};
 
+			if(!cartItem.size) {
+				return sAlert.info('please select a size');
+			}
+
+			Meteor.call('addToCart', cartItem, function (err) {
+				if(err) {
+					console.error(err);
+					return sAlert.error(err);
+				}
+
+				sAlert.success('your item was added to the cart!');
+			})
 		}
 	});
 
