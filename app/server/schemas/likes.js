@@ -7,9 +7,9 @@
 			type : String
 		},
 		timestamp : {
-			type : String,
+			type : Date,
 			autoValue : function () {
-				if(this.isInsert) {
+				if(this.isInsert || this.isUpsert) {
 					return new Date();
 				} else {
 					this.unset();
