@@ -23,11 +23,7 @@ VendorProfileController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
-    var hello = Vendors.findOne({userId : Meteor.userId()})
-
-    console.log(hello);
-
-    return Vendors.findOne({userId : Meteor.userId()})
+    return Vendors.findOne({userId : Meteor.userId()});
   },
   
   // You can provide any of the hook options
