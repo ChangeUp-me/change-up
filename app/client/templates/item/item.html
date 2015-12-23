@@ -15,25 +15,21 @@
 			</div>
 			<div class="vendor col-xs-12">Swagtastic Gear</div>
 
-			<div class="charity col-xs-6">
-				<img src="/icons/smallstar_blue.svg" alt="Charity">Charities
-			</div>
-			<div class="quantity col-xs-3">
-				Qty
-			</div>
-			<div class="size col-xs-3">
-				Size
-			</div>
+			<form class="col-xs-12 product-options">
+				{{#with product}}
+					{{>ProductOptions}}
+				{{/with}}
 
-			<div class="stats col-xs-12">
-				<span class="likes">{{product.likeCount}} likes</span>
-				<span class="reviews">{{product.reviews.length}}</span>
-				<span class="share pull-right"><img src="/icons/share_gray.svg" alt="Share"></span>
-			</div>
+				<div class="stats col-xs-12">
+					<span class="likes">{{product.likeCount}} likes</span>
+					<span class="reviews">{{product.reviews.length}}</span>
+					<span class="share pull-right"><img src="/icons/share_gray.svg" alt="Share"></span>
+				</div>
 
-			<div class="buttons col-xs-12">
-				<a class="button blue" href="">Add to cart</a>
-			</div>
+				<div class="buttons col-xs-12">
+					<a class="button blue" href="">Add to cart</a>
+				</div>
+			</form>
 		</div>
 
 		<ul class="nav nav-tabs" role="tablist">

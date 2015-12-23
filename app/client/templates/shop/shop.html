@@ -29,33 +29,21 @@
 			<div class="vendor col-xs-12">{{storeName}}</div>
 
 			<form class="col-xs-12 product-options">
-				<fieldset class="row">
-					<div class="charity col-xs-6">
-						<img src="icons/smallstar_blue.svg" alt="Charity">Charities
-					</div>
-					<div class="col-xs-6">
-						<div class="row">
-							<div class="quantity col-xs-6">
-								Qty
-							</div>
-							<div class="size col-xs-6">
-								Size
-							</div>
-						</div>
-					</div>
-				</fieldset>
+				{{#with this}}
+					{{>ProductOptions}}
+				{{/with}}
+
+				<div class="stats col-xs-12">
+					<span class="likes">{{likeCount}} likes</span>
+					<span class="reviews">{{reviews.length}} reviews</span>
+					<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
+				</div>
+
+				<div class="buttons col-xs-12">
+					<button class="button blue add-to-cart-btn">Add to cart</button>
+					<a class="button clear gray" href="{{pathFor route='item' data=this}}">View details</a>
+				</div>
 			</form>
-
-			<div class="stats col-xs-12">
-				<span class="likes">{{likeCount}} likes</span>
-				<span class="reviews">{{reviews.length}} reviews</span>
-				<span class="share pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
-			</div>
-
-			<div class="buttons col-xs-12">
-				<a class="button blue add-to-cart-btn" href="">Add to cart</a>
-				<a class="button clear gray" href="{{pathFor route='item' data=this}}">View details</a>
-			</div>
 		</div>
 		{{/each}}
 
