@@ -8,7 +8,12 @@ Meteor.methods({
 			throw new Meteor.Error('not-logged-in', 'you are not logged in');
 		}
 
-		Likes.update({productId : productId, userId : Meteor.userId()}, {$set : {vendorId : vendorId}}, {upsert : true});
+		Likes.update({productId : productId, userId : Meteor.userId()}, {$set : {vendorId : vendorId}}, {upsert : true}, function (err, count) {
+			if(err || !count)
+				return;
+
+			Products.update({_id : productId}, {$inc : {likeCount : 1}})
+		});
 	},
 	deleteLike : function delete_like (productId) {
 		var user = Meteor.userId();
@@ -17,7 +22,12 @@ Meteor.methods({
 			throw new Meteor.Error('not-logged-in', 'you are not logged in');
 		}
 
-		Likes.remove({productId : productId, userId : user})
+		Likes.remove({productId : productId, userId : user}, function (err) {
+			if(err)
+				return;
+
+			Products.update({_id : productId}, {$inc : {likeCount : -1}})
+		})
 	}
 })
 

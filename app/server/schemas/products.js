@@ -51,6 +51,10 @@
 		deleted : {
 			type : Boolean,
 			defaultValue : false
+		},
+		likeCount : {
+			type : Number,
+			defaultValue : 0
 		}
 	})
 
