@@ -3,6 +3,22 @@ Vendors = new Mongo.Collection('vendors');
 //@todo - check that the user is an admin
 Meteor.methods({
 
+	removeVendorCharity : function remove_vendor_charity(id) {
+		if(!id) {
+			throw new Meteor.Error('not-an-id', 'no charity given');
+		}
+
+		Vendors.update({userId : Meteor.userId()}, {$pull : {'charities' : id}})
+	},
+
+	addVendorCharity : function add_vendor_charity (id) {
+		if(!id) {
+			throw new Meteor.Error('not-an-id', 'no charity given');
+		}
+
+		Vendors.update({userId : Meteor.userId()}, {$addToSet : { charities : id }});
+	},
+
 	/**
 	* @todo - we'll have to change this up a bit
 	* when we add  the admin, because they will
