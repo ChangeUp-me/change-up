@@ -21,13 +21,12 @@
 			buildItems(element, 'quantity', quantities, inputVal);
 		},
 		'click li[data-quantity]' : function (event) {
-			var element = $(event.target);
-			selectOption(element, 'quantity');
+			selectOption($(event.target), 'quantity');
 		},
 		'click li[data-size]' : function (event) {
-			var element = $(event.target);
-			selectOption(element, 'size');
-		}
+			selectOption($(event.target), 'size');
+		},
+
 	});
 
 	/*****************************************************************************/
@@ -44,11 +43,27 @@
 	});
 
 	Template.ProductOptions.onRendered(function () {
+		$(document).on('click', closeDropdown)
 	});
 
 	Template.ProductOptions.onDestroyed(function () {
+		$(document).off('click', closeDropdown);
 	});
 
+
+	/**
+	* close dropdown lists when a user clicks away from it,
+	* or selects an option
+	*
+	* @param {Object} event
+	*/
+	function closeDropdown (event) {
+		if(!$(event.target).closest('.product-option').length) {
+	    if($('.sd-items').is(":visible")) {
+	      $('.sd-items').removeClass('open');
+	    }
+	  } 	
+	}
 
 	/**
 	* add items to the product options dropdown lists
@@ -86,6 +101,8 @@
 		element.addClass('selected');
 
 		input.val(element.attr('data-'+name+'').toString().toLowerCase());
+
+		//element.parent().removeClass('open');
 	}
 })();
 
