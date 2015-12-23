@@ -1,18 +1,31 @@
 Likes = new Mongo.Collection('likes');
 
 Meteor.methods({
-	insertLike : function insert_likes (productId, vendorId) {
-		Likes.insert({
-			productId : productId,
-			vendorId : vendorId,
-			userId : Meteor.userId()
-		});
+	addLike : function add_like (productId, vendorId) {
+		var user = Meteor.userId();
+
+		if(!user) {
+			throw new Meteor.Error('not-logged-in', 'you are not logged in');
+		}
+
+		Likes.update({productId : productId, userId : Meteor.userId()}, {$set : {vendorId : vendorId}}, {upsert : true});
 	},
-	deleteLike : function delete_likes (productId) {
-		Likes.remove({productId : productId, userId : Meteor.userId()})
+	deleteLike : function delete_like (productId) {
+		var user = Meteor.userId();
+
+		if(!user) {
+			throw new Meteor.Error('not-logged-in', 'you are not logged in');
+		}
+
+		Likes.remove({productId : productId, userId : user})
 	}
 })
 
+Meteor.publish('allLikes', function () {
+	return Likes.find();
+});
+
+/*
 Meteor.publish('likes', function publish_likes (productId, userId, vendorId) {
 	var selector = {
 			productId : productId
@@ -29,4 +42,4 @@ Meteor.publish('likes', function publish_likes (productId, userId, vendorId) {
 			selector.vendorId = vendorId;
 
 		return Likes.find(selector);
-});
+});*/

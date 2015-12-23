@@ -12,7 +12,11 @@
 		<div class="product">
 			<div class="product-image">
 				<div class="product-timer">8h 13m</div>
-				<div class="like-button" data-productid="{{_id}}"><img src="icons/thumbsup.svg" alt="Like"></div>
+				{{#if userLiked}}
+				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup.svg" alt="Like"></div>
+				{{else}}
+				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup_gray.svg" alt="Like"></div>
+				{{/if}}
 
 				<img src="images/cmykshirt.png" alt="Shirt">
 			</div>
