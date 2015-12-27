@@ -5,20 +5,23 @@
 			<div class="col-xs-4 step"><a href="">Billing</a></div>
 			<div class="col-xs-4 step"><a href="">Summary</a></div>
 		</div>
-
-		<form>
-			<input type="text" placeholder="Full name" required>
-			<input type="text" placeholder="Address 1" required>
-			<input type="text" placeholder="Address 2" required>
-			<input type="text" class="half" placeholder="City" required>
-			<input type="text" class="half" placeholder="Zip" required>
-			<input type="text" class="half" placeholder="State" required>
-			<input type="text" class="half" placeholder="Country" required>
+		
+		<form class="checkout-form" id="shipping" novalidate>
+			<fieldset>
+				<input value="{{fullName}}" type="text" min="1" max="200" name="fullName" placeholder="Full name" required>
+				<input value="{{addressOne}}" type="text" min="1" max="400" name="addressOne" placeholder="Address 1" required>
+				<input value="{{addressTwo}}" type="text" max="300" name="addressTwo" placeholder="Address 2">
+				<input value="{{city}}" type="text" min="2" max="150" name="city" class="half" placeholder="City" required>
+				<input value="{{zipcode}}" type="text" min="1" max="15" name="zipcode" class="half" placeholder="Zip" required>
+				<input value="{{state}}" type="text" min="1" max="20" name="state" class="half" placeholder="State" required>
+				<input value="{{country}}" type="text" min="1" max="100" name="country" class="half" placeholder="Country" required>
+			</fieldset>
 			<div id="subtotal">
 				<div class="col-xs-6"><strong>Total</strong></div>
 				<div class="col-xs-6 text-right"><strong>$92.00</strong></div>
 			</div>
-			<a class="button orange" href="{{pathFor route='billing'}}">Next</a>
+			<!--href="{{pathFor route='billing'}}"-->
+			<button type="submit" class="button orange">Next</button>
 		</form>
 	</div>
 </template>
