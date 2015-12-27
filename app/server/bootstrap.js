@@ -1,8 +1,8 @@
 Meteor.startup(function () {
-	/*_.forEach( DummyContent.charities, function (charity, indx) {
-		console.log('the charity', charity);
-		Meteor.call('insertCharity', charity ,function (err, result) {
-			console.log('the result', err)
-		})
-	})*/
+	return;
+	Stripe.setPublishableKey('YOUR_PUBLISHABLE_KEY');
+	var handler = StripeCheckout.configure({
+     key: 'YOUR_PUBLISHABLE_KEY',
+     token: function(token) {}
+  });
 });

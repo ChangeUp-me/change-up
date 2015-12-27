@@ -27,5 +27,21 @@ Meteor.methods({
 		cart.splice(indx, 1);
 
 		Meteor.users.update(Meteor.userId(), {$set : {'profile.cart' : cart}});
+	},
+	checkout : function checkout (price, cart, billing, shipping, stripeToken) {
+		var Stripe = StripeAPI('SECRET_KEY');
+
+		Stripe.charges.create({
+      amount: parseFloat(price),
+      currency: 'usd',
+      source: stripeToken
+    }, function(err, charge) {
+      if(err) {
+      	console.error(err)
+      	throw new Meteor.Error('card-error', err);
+      }
+      
+
+    });
 	}
 })

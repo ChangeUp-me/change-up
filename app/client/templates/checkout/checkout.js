@@ -91,6 +91,41 @@ Template.Shipping.events({
 		Session.set('checkout:shipping', shippingInfo);
 		Router.go('/billing');
 	}
+});
+
+Template.Summary.events({
+	'submit form#checkout' : function (event) {
+		event.preventDefault();
+
+		var form = event.target
+
+		var billing = Session.get('checkout:billing');
+		var shipping = Session.get('checkout:shipping');
+		var cart = Session.get('cart');
+		var exp = billing.cardExp.split('/');
+		var price = form.finalPrice.value; //@todo
+
+		Stripe.card.createToken({
+		    number: billing.creditCardNumber,
+		    cvc: billing.cardCvv,
+		    exp_month: exp[0],
+		    exp_year: exp[1],
+		}, function(status, response) {
+		    var stripeToken = response.id;
+
+		    delete billing.creditCardNumber;
+		    delete billing.cardExp;
+		    delete billing.cardCvv;
+
+		    Meteor.call('checkout', price, cart, billing, shipping, stripeToken, function (err) {
+		    	if(err){
+		    		return sAlert.error(err);
+		    	}
+
+		    	//do something else
+		    });
+		});
+	}
 })
 
 /*****************************************************************************/
