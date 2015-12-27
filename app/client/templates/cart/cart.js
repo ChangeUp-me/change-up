@@ -1,6 +1,7 @@
 /*****************************************************************************/
 /* Cart: Event Handlers */
 /*****************************************************************************/
+
 Template.Cart.events({
 	'click #cart a': function () {
 		if ($('#site-wrapper').hasClass('show-cart')) {
@@ -56,47 +57,45 @@ function joinProductItemInfo (cart, products) {
 	return cart;
 }
 
-Template.Cart.helpers({
-	cartItems : function () {
-		//@todo - make cart for non logged in users
-		var user = Meteor.user();
+Template.registerHelper('cartItems', function () {
+	//@todo - make cart for non logged in users
+	var user = Meteor.user();
 
-		if(!user) return [];
+	if(!user) return [];
 
-		var cart = user.profile.cart || [];
-		var productIds = [];
+	var cart = user.profile.cart || [];
+	var productIds = [];
 
-		//get all the product ids
-		cart.forEach(function (item, indx) {
-			productIds.push(item.productId);
-		})
+	//get all the product ids
+	cart.forEach(function (item, indx) {
+		productIds.push(item.productId);
+	})
 
-		//fetch each product
-		var products = Products.find({_id : {$in : productIds}}).fetch();
+	//fetch each product
+	var products = Products.find({_id : {$in : productIds}}).fetch();
 
-		//join product info to cart item
-		cart = joinProductItemInfo(cart, products);
+	//join product info to cart item
+	cart = joinProductItemInfo(cart, products);
 
-		Session.set('cart', cart);
-		return cart;
-	},
-	totals : function () {
-		var cart = Session.get('cart') || [];
+	Session.set('cart', cart);
+	return cart;
+})
 
-		var total = 0;
-		var shippingTotal = 6.00;
+Template.registerHelper('cartTotals', function () {
+	var cart = Session.get('cart') || [];
+	var total = 0;
+	var shippingTotal = 6.00;
 
-		_.each(cart, function (val, indx) {
-			total = val.price + total;
-		})
+	_.each(cart, function (val, indx) {
+		total = val.price + total;
+	})
 
-		return {
-			subTotal : total,
-			shipping : shippingTotal,
-			total : total + shippingTotal
-		};
-	}
-});
+	return {
+		subTotal : total,
+		shipping : shippingTotal,
+		total : total + shippingTotal
+	};
+})
 
 /*****************************************************************************/
 /* Cart: Lifecycle Hooks */

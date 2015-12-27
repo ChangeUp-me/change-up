@@ -6,27 +6,28 @@
 			<div class="col-xs-4 step"><a href="">Summary</a></div>
 		</div>
 
-		<form>
+		<form id="billing">
 			<div class="check">
-				<input type="checkbox" name="billing" value="billing">
+				<input id="sameAs" type="checkbox" name="billing" value="billing">
 				<label for="billing">Billing address same as shipping</label>
 			</div>
-			<input type="text" placeholder="Full name" required>
-			<input type="text" placeholder="Address 1" required>
-			<input type="text" placeholder="Address 2" required>
-			<input type="text" class="half" placeholder="City" required>
-			<input type="text" class="half" placeholder="Zip" required>
-			<input type="text" class="half" placeholder="State" required>
-			<input type="text" class="half" placeholder="Country" required>
-		</form>
-
+			<fieldset>
+				<input value="{{fullName}}" name="fullName" type="text" placeholder="Full name" required>
+				<input value="{{addressOne}}" name="addressOne"  type="text" placeholder="Address 1" required>
+				<input value="{{addressTwo}}" name="addressTwo" type="text" placeholder="Address 2">
+				<input value="{{city}}" name="city" type="text" class="half" placeholder="City" required>
+				<input value="{{zipcode}}" name="zipcode" type="text" class="half" placeholder="Zip" required>
+				<input value="{{state}}" name="state" type="text" class="half" placeholder="State" required>
+				<input value="{{country}}" name="country" type="text" class="half" placeholder="Country" required>
+			</fieldset>
 		<h3 class="divider">Payment method</h3>
-		
-		<form>
-			<input type="text" placeholder="Credit card number" required>
-			<input type="text" placeholder="Name on the card" required>
-			<input type="text" class="half" placeholder="Exp." required>
-			<input type="text" class="half" placeholder="CVV" required>
+			
+			<fieldset>
+				<input value="{{creditCardNumber}}" name="creditCardNumber" type="text" placeholder="Credit card number" required>
+				<input value="{{creditCardName}}" name="creditCardName" type="text" placeholder="Name on the card" required>
+				<input type="text" value="{{cardExp}}" name="cardExp" class="half" placeholder="Exp. (MM/YY)" required>
+				<input type="text" value="{{cardCvv}}" name="cardCvv" class="half" placeholder="CVV" required>
+			</fieldset>
 			<div class="check">
 				<input type="checkbox" name="save" value="save">
 				<label for="stay">Save information for quick purchase</label>
@@ -35,9 +36,9 @@
 			</div>
 			<div id="subtotal">
 				<div class="col-xs-6"><strong>Total</strong></div>
-				<div class="col-xs-6 text-right"><strong>$92.00</strong></div>
+				<div class="col-xs-6 text-right"><strong>${{cartTotals.total}}</strong></div>
 			</div>
-			<a class="button orange" href="{{pathFor route='summary'}}">Next</a>
+			<button type="submit" class="button orange">Next</button>
 		</form>
 	</div>
 </template>

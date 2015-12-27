@@ -23,6 +23,7 @@ ShippingController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    return Session.get('checkout:shipping');
   },
   
   // You can provide any of the hook options
