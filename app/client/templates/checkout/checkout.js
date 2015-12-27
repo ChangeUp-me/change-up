@@ -22,8 +22,6 @@ Template.Billing.events({
 
 		var form = event.target;
 
-		console.log('the form', form);
-
 		var billing = {
 			//biling
 			fullName : form.fullName.value,
@@ -37,7 +35,7 @@ Template.Billing.events({
 			//payment method
 			creditCardNumber : form.creditCardNumber.value,
 			creditCardName : form.creditCardName.value,
-			cardExp : form.cardExp.value,
+			cardExp : form.cardExp.value || '',
 			cardCvv : form.cardCvv.value,
 
 			//agreements
@@ -49,8 +47,22 @@ Template.Billing.events({
 			return sAlert.info('please agree to the terms and conditions to continue');
 		}
 
-		console.log('the bililing', billing);
-		return;
+		var exp = billing.cardExp = billing.cardExp.split('/');
+
+		//validate credit card
+		if(!$.payment.validateCardNumber(billing.creditCardNumber)) {
+			return sAlert.error('your credit card number is invalid');
+		} else if(!$.payment.validateCardExpiry(exp[0], exp[1])) {
+			return sAlert.error('your card expiration date is invalid')
+		} else if(!$.payment.validateCardCVC(billing.cardCvv)) {
+			return sAlert.error('your card cvv is invalid');
+		}
+
+		//create stripe token
+		//delete cardnumber and cardcvv
+
+
+		Session.set('checkout:billing', billing);
 
 		Router.go('/summary');
 	}

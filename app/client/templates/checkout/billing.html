@@ -6,7 +6,7 @@
 			<div class="col-xs-4 step"><a href="">Summary</a></div>
 		</div>
 
-		<form id="billing" novalidate>
+		<form id="billing">
 			<div class="check">
 				<input id="sameAs" type="checkbox" name="billing" value="billing">
 				<label for="billing">Billing address same as shipping</label>
@@ -25,7 +25,7 @@
 			<fieldset>
 				<input value="{{creditCardNumber}}" name="creditCardNumber" type="text" placeholder="Credit card number" required>
 				<input value="{{creditCardName}}" name="creditCardName" type="text" placeholder="Name on the card" required>
-				<input type="text" value="{{cardExp}}" name="cardExp" class="half" placeholder="Exp." required>
+				<input type="text" value="{{cardExp}}" name="cardExp" class="half" placeholder="Exp. (MM/YY)" required>
 				<input type="text" value="{{cardCvv}}" name="cardCvv" class="half" placeholder="CVV" required>
 			</fieldset>
 			<div class="check">
