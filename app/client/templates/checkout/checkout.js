@@ -47,7 +47,7 @@ Template.Billing.events({
 			return sAlert.info('please agree to the terms and conditions to continue');
 		}
 
-		var exp = billing.cardExp = billing.cardExp.split('/');
+		var exp = billing.cardExp.split('/');
 
 		//validate credit card
 		if(!$.payment.validateCardNumber(billing.creditCardNumber)) {
@@ -101,6 +101,15 @@ Template.Checkout.helpers({
 		return Charities.find().fetch();
 	}
 });
+
+Template.Summary.helpers({
+	checkout : function () {
+		return {
+			billing : Session.get('checkout:billing'),
+			shipping : Session.get('checkout:shipping')
+		}
+	}
+})
 
 /*****************************************************************************/
 /* Checkout: Lifecycle Hooks */

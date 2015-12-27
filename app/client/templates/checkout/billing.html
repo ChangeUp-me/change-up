@@ -14,7 +14,7 @@
 			<fieldset>
 				<input value="{{fullName}}" name="fullName" type="text" placeholder="Full name" required>
 				<input value="{{addressOne}}" name="addressOne"  type="text" placeholder="Address 1" required>
-				<input value="{{addressTwo}}" name="addressTwo" type="text" placeholder="Address 2" required>
+				<input value="{{addressTwo}}" name="addressTwo" type="text" placeholder="Address 2">
 				<input value="{{city}}" name="city" type="text" class="half" placeholder="City" required>
 				<input value="{{zipcode}}" name="zipcode" type="text" class="half" placeholder="Zip" required>
 				<input value="{{state}}" name="state" type="text" class="half" placeholder="State" required>
@@ -36,7 +36,7 @@
 			</div>
 			<div id="subtotal">
 				<div class="col-xs-6"><strong>Total</strong></div>
-				<div class="col-xs-6 text-right"><strong>$92.00</strong></div>
+				<div class="col-xs-6 text-right"><strong>${{cartTotals.total}}</strong></div>
 			</div>
 			<button type="submit" class="button orange">Next</button>
 		</form>
