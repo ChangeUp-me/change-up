@@ -30,7 +30,7 @@ Meteor.methods({
 			throw new Meteor.Error("not-an-object", 'the user must be an Object');
 		}
 
-		if(!Roles.userIsInRole(Meteor.userId(), 'vendor')) {
+		if(!Roles.userHasRole(Meteor.userId(), 'vendor')) {
 			throw new Meteor.Error('not-a-vendor', 'this user is not authorized to be a vendor')
 		}
 
