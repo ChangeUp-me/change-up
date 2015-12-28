@@ -87,7 +87,7 @@ Template.registerHelper('cartTotals', function () {
 	var shippingTotal = 6.00;
 
 	_.each(cart, function (val, indx) {
-		total = val.price + total;
+		total = (val.price * Math.max(1,val.quantity)) + total;
 	})
 
 	return {

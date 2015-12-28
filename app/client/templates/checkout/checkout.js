@@ -2,6 +2,17 @@
 /* Checkout: Event Handlers */
 /*****************************************************************************/
 Template.Checkout.events({
+	'click .charity' : function (event) {
+		var charity = {
+			name : this.name,
+			category : this.category,
+			id : this._id
+		};
+
+		Session.set('checkout:charity', charity);
+
+		Router.go('/shipping')
+	}
 });
 
 Template.Billing.events({
@@ -91,6 +102,41 @@ Template.Shipping.events({
 		Session.set('checkout:shipping', shippingInfo);
 		Router.go('/billing');
 	}
+});
+
+Template.Summary.events({
+	'click #checkout' : function (event) {
+		event.preventDefault();
+
+		var billing = Session.get('checkout:billing');
+		var shipping = Session.get('checkout:shipping');
+		var charity = Session.get('checkout:charity');
+		var exp = billing.cardExp.split('/');
+		var email = 'bob@gmail.com';
+
+		return;
+
+		Stripe.card.createToken({
+		    number: billing.creditCardNumber,
+		    cvc: billing.cardCvv,
+		    exp_month: exp[0],
+		    exp_year: exp[1],
+		}, function(status, response) {
+		    var stripeToken = response.id;
+
+		    delete billing.creditCardNumber;
+		    delete billing.cardExp;
+		    delete billing.cardCvv;
+
+		    Meteor.call('checkout', charity, billing, shipping, stripeToken, email, function (err) {
+		    	if(err){
+		    		return sAlert.error(err);
+		    	}
+
+		    	Router.go('confirmation')
+		    });
+		});
+	}
 })
 
 /*****************************************************************************/
@@ -108,6 +154,9 @@ Template.Summary.helpers({
 			billing : Session.get('checkout:billing'),
 			shipping : Session.get('checkout:shipping')
 		}
+	},
+	charity : function () {
+		return Session.get('checkout:charity');
 	}
 })
 

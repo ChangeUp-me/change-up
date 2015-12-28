@@ -3,20 +3,14 @@
 		userId : {
 			type : String
 		},
-		productId : {
-			type : String
-		},
-		vendorId : {
-			type : String
+		order : {
+			type : [order()],
 		},
 		price : {
-			type : Number
+			type : String
 		},
-		charityAllocationPerct :{
-			type : Number
-		},
-		charityId : {
-			type : Number
+		charityId: {
+			type : String
 		},
 		currency : {
 			type : String,
@@ -24,24 +18,30 @@
 		},
 		timestamp : {
 			type : Date,
-			defaultValue : Date.now
+			autoValue : function () {
+				if(this.isInsert) {
+					return new Date();
+				} else {
+					this.unset();
+				}
+			}
 		},
 		email : {
 			type : String,
 			max : 260
 		},
-		billing : {
-			type : billing_schema()
-		},
 		shipping : {
-			type : shipping_schema()
+			type : Object
+		},
+		billing : {
+			type : Object
 		},
 		orderCompleted : {
 			type : Boolean,
 			defaultValue : false
 		},
 		orderNumber : {
-			type : Number
+			type : String
 		},
 		transactionId : {
       type : String
@@ -57,10 +57,33 @@
     paid : {
     	type : Boolean,
     	defaultValue : false
+    },
+    stripeCustomer : {
+    	type : String
     }
 	})
 
 	Transactions.attachSchema(TransactionsSchema);
+
+	function order () {
+		return new SimpleSchema({
+			vendorId : {
+				type : String
+			},
+			productId : {
+				type : String
+			},
+			quantity : {
+				type : Number
+			},
+			price : {
+				type : Number
+			},
+			shippingPrice : {
+				type : Number
+			}
+		});
+	}
 
 	function billing_schema () {
 		return new SimpleSchema({

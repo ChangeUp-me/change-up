@@ -18,7 +18,9 @@
 					<div>{{checkout.shipping.addressOne}}</div>
 					<div>{{checkout.shipping.city}}, {{checkout.shipping.state}} {{checkout.shipping.zipcode}}</div>
 
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					<a href="{{pathFor route='shipping'}}">
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					</a>
 				</div>
 
 				<div class="details col-xs-12">
@@ -27,7 +29,9 @@
 					<div>{{checkout.billing.addressOne}}</div>
 					<div>{{checkout.billing.city}}, {{checkout.billing.state}}. {{checkout.billing.zipcode}}</div>
 
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					<a href="{{pathFor route='billing'}}">
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					</a>
 				</div>
 
 				<div class="details col-xs-12">
@@ -36,15 +40,19 @@
 					<div>Visa ending with {{checkout.billing.creditCardNumber}}</div>
 					<div>Exp. {{checkout.billing.cardExp}}</div>
 
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					<a href="{{pathFor route='billing'}}">
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					</a>
 				</div>
 
 				<div class="details col-xs-12">
 					<h4>Charity:</h4>
-					<div>John Smith</div>
-					<div>World Hunger</div>
+					<div>{{charity.name}}</div>
+					<div>{{charity.category}}</div>
 
-					<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					<a href="{{pathFor route='checkout'}}">
+						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+					</a>
 				</div>
 			</div>
 
@@ -87,7 +95,7 @@
 				</div>
 
 				<div class="col-xs-12">
-					<a class="button orange" href="{{pathFor route='confirmation'}}">Complete order</a>
+					<button id="checkout" class="button orange">Complete order</button>
 				</div>
 			</div>
 		</div>
