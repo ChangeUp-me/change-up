@@ -153,11 +153,11 @@ Router.route('vendor', {
   where: 'client'
 });
 
-Router.route('admin', {
+/*Router.route('admin', {
   name: 'admin',
   controller: 'AdminController',
   where: 'client'
-});
+});*/
 
 Router.route('vendorOrders', {
   name: 'vendorOrders',

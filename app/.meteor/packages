@@ -26,10 +26,12 @@ aldeed:collection2
 sanjo:jasmine
 velocity:console-reporter
 juliancwirko:s-alert
-alanning:roles
 mrt:moment
 reactive-var
 manuel:reactivearray
 random
 jeffpatzer:jquery-payment
 mrgalaxy:stripe
+orionjs:core
+fortawesome:fontawesome
+orionjs:bootstrap
