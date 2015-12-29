@@ -1,5 +1,3 @@
-Vendors = new Mongo.Collection('vendors');
-
 //@todo - check that the user is an admin
 Meteor.methods({
 

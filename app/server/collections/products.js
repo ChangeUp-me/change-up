@@ -1,5 +1,3 @@
-Products = new Mongo.Collection('products');
-
 Meteor.methods({
 	insertProduct : function insert_products (productObj) {
 		var user = Meteor.user();
