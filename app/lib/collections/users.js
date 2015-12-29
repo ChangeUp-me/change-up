@@ -1,5 +1,5 @@
 (function () {
-	UsersSchema = new SimpleSchema({
+	var UsersSchema = new SimpleSchema({
 		username : {
 			type : String,
 			optional : true

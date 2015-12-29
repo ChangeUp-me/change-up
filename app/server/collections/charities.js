@@ -1,5 +1,3 @@
-Charities = new Mongo.Collection('charities');
-
 Meteor.methods({
 	insertCharity : function insert_charity (charityObj) {
 		Charities.insert(charityObj);

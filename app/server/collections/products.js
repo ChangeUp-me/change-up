@@ -1,10 +1,8 @@
-Products = new Mongo.Collection('products');
-
 Meteor.methods({
 	insertProduct : function insert_products (productObj) {
 		var user = Meteor.user();
 
-		if(!Roles.userIsInRole(Meteor.userId(), 'vendor')) {
+		if(!Roles.userHasRole(Meteor.userId(), 'vendor')) {
 			throw new Meteor.Error('not-a-vendor', 'you do not have vendor access')
 		}
 

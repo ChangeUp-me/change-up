@@ -8,7 +8,7 @@ Meteor.methods({
 
 		var id = Accounts.createUser(userObj);
 
-		Roles.addUsersToRoles(id, ['user']);
+		Roles.setUserRoles(id, ['user']);
 	},
 	updateUser : function update_user (userObj) {
 		Meteor.users.update({_id : this.userId}, {$set : userObj});
@@ -23,7 +23,7 @@ Meteor.methods({
 	* role {String|Array} ['user','admin','vendor']
 	*/
 	addUserRole : function add_user_role (role) {
-		Roles.addUsersToRoles(this.userId, role);
+		Roles.setUserRoles(this.userId, role);
 	}
 });
 
