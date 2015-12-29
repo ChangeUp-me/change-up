@@ -1,22 +1,28 @@
 Meteor.methods({
 	addToCart : function add_to_cart (cartItem) {
 		//check if the item is already in the cart
-		var item = Meteor.users.find({_id : Meteor.userId()},{'profile.cart.productId' : cartItem.productId}).fetch();
 
-		if(item.length > 0) {
-			//@todo - make sure it doesn't inc everything
-			return Meteor.users.update({
-				_id : Meteor.userId(),
-				'profile.cart.productId' : cartItem.productId
-			}, {
-				$inc : {'profile.cart.$.quantity' : 1}
+		var user = Meteor.user();
+
+		if(user && _.isArray(user.profile.cart)) {
+			var indx = user.profile.cart.findIndex(function (item) {
+				return ((cartItem.productId == item.productId) && cartItem.size == item.size);
 			})
+
+			if(indx > -1) {
+				return Meteor.users.update({
+					_id : Meteor.userId(),
+					'profile.cart.productId' : cartItem.productId
+				}, {
+					$inc : {'profile.cart.$.quantity' : cartItem.quantity || 1}
+				})
+			}
 		}
 
 		Meteor.users.update({
 			_id : Meteor.userId()
 		}, {
-			$inc : {'profile.cart.productId' : {quantity : 1}}
+			$push : {'profile.cart' : cartItem}
 		});
 	},
 	removeFromCart : function remove_from_cart (id) {

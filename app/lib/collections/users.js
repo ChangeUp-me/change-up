@@ -145,7 +145,6 @@
 		return new SimpleSchema({
 			id : {
 				type : String,
-				unique : true,
 				autoValue : function () {
 					if(this.isUpdate) {
 						return Random.id();
