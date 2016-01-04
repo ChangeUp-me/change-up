@@ -48,17 +48,17 @@
 		<div class="row">
 			<div class="col-xs-4">Shipping</div>
 			<div class="col-xs-8">
-				<div>John Smith</div>
-				<div>1234 Address St</div>
-				<div>Hamden, CT. 04618</div>
+				<div>{{account.profile.shipping.fullName}}</div>
+				<div>{{account.profile.shipping.addressOne}}</div>
+				<div>{{account.profile.shipping.city}}, {{account.profile.shipping.state}}. {{account.profile.shipping.zipcode}}</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-4">Billing</div>
 			<div class="col-xs-8">
-				<div>John Smith</div>
-				<div>1234 Address St</div>
-				<div>Hamden, CT. 04618</div>
+				<div>{{account.profile.billing.fullName}}</div>
+				<div>{{account.profile.billing.addressOne}}</div>
+				<div>{{account.profile.shipping.city}}, {{account.profile.shipping.state}}. {{account.profile.shipping.zipcode}}</div>
 			</div>
 		</div>
 

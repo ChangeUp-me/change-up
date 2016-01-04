@@ -25,6 +25,18 @@
 }
 
 #reviews {
+	li.review-star{
+		width: 30px;
+		height: 30px;
+		background-image: url('/icons/star_gray.svg') ;
+		background-repeat: no-repeat;
+		background-size: 100%;
+	}
+
+	li.review-star.selected{
+		background-image: url('/icons/star_red.svg');
+	}
+
 	.review {
 		padding: 15px 0 0;
 		&:not(:last-child) {

@@ -1,14 +1,14 @@
 <template name="AddProduct">
 	<div id="add-product">
-		<form id="addProduct" novalidate>
+		<form id="{{#if _id}}updateProduct{{else}}addProduct{{/if}}" novalidate>
 			<div id="image-upload-window">
-				<img src="icons/white_upload.svg" alt="Upload">
+				<img src="/icons/white_upload.svg" alt="Upload">
 				<h4>Upload product image</h4>
 			</div>
-			<input name="name" type="text" placeholder="Title" required>
-			<textarea type="text" name="description" placeholder="Description" rows="8" required></textarea>
-			<input name="price" type="text" class="half" placeholder="Price" required>
-			<input name="shippingPrice" type="text" class="half" placeholder="Shipping rate" required>
+			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
+			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
+			<input name="price" value="{{price}}" type="text" class="half" placeholder="Price" required>
+			<input name="shippingPrice" value="{{shippingPrice}}" type="text" class="half" placeholder="Shipping rate" required>
 			<div>&nbsp;</div>
 			<label>Select all size available</label>
 			<ul class="size-select list-inline">
@@ -17,9 +17,15 @@
 				{{/each}}
 			</ul>
 			<label>Percentage going to charity</label>
+			{{#if value}}
+			<input type="range" name="percentage" id="percentToCharity" value="{{value}}" min="0" max="100" data-show-value="true">
+			{{else}}
 			<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
-		
-			<button type="submit" class="button blue" href="{{pathFor route='vendorProducts'}}">Add product</button>
+			{{/if}}
+
+			{{selectedSizes}}
+
+		<button type="submit" class="button blue" href="{{pathFor route='vendorProducts'}}">{{#if _id}} Update Product{{else}}Add Product{{/if}}</button>
 		</form>
 	</div>
 </template>

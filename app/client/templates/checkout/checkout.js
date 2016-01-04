@@ -15,6 +15,7 @@ Template.Checkout.events({
 	}
 });
 
+
 Template.Billing.events({
 	'change #sameAs' : function (event) {
 		var checkbox = event.target;
@@ -48,6 +49,8 @@ Template.Billing.events({
 			creditCardName : form.creditCardName.value,
 			cardExp : form.cardExp.value || '',
 			cardCvv : form.cardCvv.value,
+			email : form.email.value,
+			//password : form.password.value,
 
 			//agreements
 			save : form.save.checked,
@@ -69,9 +72,12 @@ Template.Billing.events({
 			return sAlert.error('your card cvv is invalid');
 		}
 
+		if(!billing.email) {
+			return sAlert.error('please enter a valid email');
+		}
+
 		//create stripe token
 		//delete cardnumber and cardcvv
-
 
 		Session.set('checkout:billing', billing);
 
@@ -112,9 +118,44 @@ Template.Summary.events({
 		var shipping = Session.get('checkout:shipping');
 		var charity = Session.get('checkout:charity');
 		var exp = billing.cardExp.split('/');
-		var email = 'bob@gmail.com';
+		var email = billing.email;
 
-		return;
+		function addShippingAndbilling () {
+			Meteor.call('updateUser',{
+		    "profile.shipping" : shipping,
+		    "profile.billing" : billing,
+		    "profile.cart" : []
+		   });
+
+			//Router.go('confirmation');
+		}
+
+		function emptyUsersCart () {
+			Meteor.call('updateUser', {
+		    "profile.cart" : []
+		   });
+
+			//Router.go('confirmation');
+		}
+
+		function createNewUser (callback) {
+			var u = {
+		    email : billing.email,
+				password : billing.password,
+				profile : {
+					name : form.name.value,
+					dateRegistered : Date.now()
+				}
+		  };
+
+		  if(billing.save) {
+		    u.profile.shipping = shipping;
+		   	u.profile.billing = billing;
+		  }
+
+		  Meteor.call('insertUser', u, callback);
+		}
+
 
 		Stripe.card.createToken({
 		    number: billing.creditCardNumber,
@@ -128,12 +169,33 @@ Template.Summary.events({
 		    delete billing.cardExp;
 		    delete billing.cardCvv;
 
-		    Meteor.call('checkout', charity, billing, shipping, stripeToken, email, function (err) {
+		    console.log('charity', charity);
+
+		    Meteor.call('checkout', charity, billing, shipping, stripeToken, email, function (err, transactionId) {
 		    	if(err){
+		    		console.log(err);
 		    		return sAlert.error(err);
 		    	}
 
-		    	Router.go('confirmation')
+		    	if(!transactionId) return console.error('no transaction id');
+
+		    	var user = Meteor.userId();
+		    	console.log(transactionId);
+
+		    	if(billing.save && user) {
+		    		addShippingAndbilling();
+		    	} else if(!billing.save && user) {
+		    		emptyUsersCart();
+		    	} else if (!user) {
+		    		createNewUser(function (err) {
+		    			if(err) {
+		    				return console.error(err);
+		    			}
+
+		    			//Router.go('confirmation');
+		    		});
+		    	}
+		    
 		    });
 		});
 	}

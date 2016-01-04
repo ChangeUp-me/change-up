@@ -23,6 +23,17 @@ OrdersController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    var transact = Transactions.find({userId : Meteor.userId()}).fetch();
+    var user = Meteor.user().profile;
+
+    console.log('the user', transact);
+    console.log('meteorused', Meteor.userId());
+
+    return {
+      transactions : transact,
+      shipping : user.shipping,
+      billing : user.billing 
+    }
   },
   
   // You can provide any of the hook options

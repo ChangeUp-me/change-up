@@ -23,6 +23,22 @@ ReviewsController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    var product = Products.findOne({_id : this.params._id});
+
+    if(product && product.reviews) {
+      var review;
+
+      for(var i = 0; i < product.reviews.length; i++) {
+        review = product.reviews[i];
+        review.stars = [];
+
+        for(var x = 0; x < review.rating; x++) {
+          review.stars.push(x);
+        }
+      }
+    } 
+
+    return product;
   },
   
   // You can provide any of the hook options

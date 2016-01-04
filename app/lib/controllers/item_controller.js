@@ -26,15 +26,21 @@ ItemController = RouteController.extend({
     var product = Products.findOne({_id : this.params._id});
     var vendor;
     var charities;
+    var productName = '';
 
     if(product) {
+      productName = product.name;
+      //find the vendor that owns this product
       vendor = Vendors.findOne({_id : product.vendorId})
 
+      //find each charity that the vendor has
       if(vendor && _.isArray(vendor.charities))
         charities = Charities.find({_id : {$in : vendor.charities}}).fetch();
+      console.log(product.name);
     }
 
     return {
+      pageTitle : productName,
       product : product,
       vendor : vendor,
       charities : charities

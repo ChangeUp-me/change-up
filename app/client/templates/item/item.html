@@ -80,14 +80,12 @@
 
 		<section id="rating">
 			<ul class="list-inline text-center">
-				<li><img src="/icons/star_red.svg" alt="Star"></li>
-				<li><img src="/icons/star_red.svg" alt="Star"></li>
-				<li><img src="/icons/star_red.svg" alt="Star"></li>
-				<li><img src="/icons/star_red.svg" alt="Star"></li>
-				<li><img src="/icons/star_red.svg" alt="Star"></li>
+				{{#each productReviewStars reviews=product.reviews color='red'}}
+				<li><img src="/icons/star_{{color}}.svg" alt="Star"></li>
+				{{/each}}
 			</ul>
 
-			<a class="button orange" href="{{pathFor route='reviews'}}">Read reviews</a>
+			<a class="button orange" href="{{pathFor route='reviews' data=product}}">Read reviews</a>
 		</section>
 
 		<section class="blue text-center">

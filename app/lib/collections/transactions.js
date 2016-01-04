@@ -1,5 +1,28 @@
 (function () {
-	TransactionsSchema = new SimpleSchema({
+	Transactions = new orion.collection('transactions', {
+	  singularName: 'transaction',
+	  pluralName: 'transactions',
+	  link: {
+	    title: 'transactions'
+	  },
+	  tabular: {
+	    columns: [{
+	      data: 'price',
+	      title: 'price'
+	    }, {
+	      data: 'email',
+	      title: 'email,'
+	    }, {
+	      data: 'processed',
+	      title: 'processed'
+	    }, {
+	      data : 'fufilled',
+	      title : 'fufilled'
+	    }]
+	  }
+	});
+
+	var TransactionsSchema = new SimpleSchema({
 		userId : {
 			type : String
 		},
@@ -31,17 +54,15 @@
 			max : 260
 		},
 		shipping : {
-			type : Object
+			type : shipping_schema(),
 		},
 		billing : {
-			type : Object
+			type : Object,
+			blackbox : true
 		},
 		orderCompleted : {
 			type : Boolean,
 			defaultValue : false
-		},
-		orderNumber : {
-			type : String
 		},
 		transactionId : {
       type : String
@@ -67,21 +88,21 @@
 
 	function order () {
 		return new SimpleSchema({
-			vendorId : {
+			/*vendorId : {
 				type : String
-			},
+			},*/
 			productId : {
 				type : String
 			},
 			quantity : {
 				type : Number
 			},
-			price : {
+			/*price : {
 				type : Number
 			},
 			shippingPrice : {
 				type : Number
-			}
+			}*/
 		});
 	}
 
@@ -104,18 +125,12 @@
 	}
 
 	function shipping_schema () {
-		var addressesSchema = new SimpleSchema({
-			address : {
-				type : String
-			}
-		})
-
 		return new SimpleSchema({
 			fullName : {
 				type : String
 			},
-			addresses : {
-				type : [addressesSchema],
+			address : {
+				type : String,
 			},
 			city : {
 				type : String

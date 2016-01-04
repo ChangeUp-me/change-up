@@ -47,8 +47,12 @@
 			type : String,
 			optional : true
 		},
-		"profile.paymentInfo" : {
-			type : payment_info_schema(),
+		"profile.shipping" : {
+			type : shipping_schema(),
+			optional : true
+		},
+		"profile.billing" : {
+			type : billing_schema(),
 			optional : true
 		},
 		"profile.cart" : {
@@ -73,23 +77,28 @@
 
 	Meteor.users.attachSchema(UsersSchema);
 
-	function payment_info_schema () {
-		return new SimpleSchema({
-			shipping : {
-				type : shipping_schema(),
-				optional : true
-			},
-			billing : {
-				type : billing_schema(),
-				optional : true
-			}, 
-		})
-	}
-
 	function billing_schema () {
 		return new SimpleSchema({
-			cardNumber : {
-				type : Number // we probably shouldn't store this here
+			fullName : {
+				type : String
+			},
+			addressOne : {
+				type : String
+			},
+			addressTwo : {
+				type : String
+			},
+			city : {
+				type : String
+			},
+			zipcode : {
+				type : Number
+			},
+			state : {
+				type : String
+			},
+			country : {
+				type : String
 			},
 			expirationDate : {
 				type : String,
@@ -105,18 +114,15 @@
 	}
 
 	function shipping_schema () {
-		var addressesSchema = new SimpleSchema({
-			address : {
-				type : String
-			}
-		});
-
 		return new SimpleSchema({
 			fullName : {
 				type : String
 			},
-			addresses : {
-				type : [addressesSchema],
+			addressOne : {
+				type : String,
+			},
+			addressTwo : {
+				type : String
 			},
 			city : {
 				type : String
