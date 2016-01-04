@@ -46,9 +46,6 @@ Router.route('orders', {
   name: 'orders',
   controller: 'OrdersController',
   where: 'client',
-  data: function() {
-    return 'My Orders';
-  }
 });
 
 Router.route('cart', {
@@ -93,13 +90,13 @@ Router.route('item/:_id', {
   where: 'client',
 });
 
-Router.route('reviews', {
+Router.route('reviews/:_id', {
   name: 'reviews',
   controller: 'ReviewsController',
   where: 'client'
 });
 
-Router.route('charity', {
+Router.route('charity/:_id', {
   name: 'charity',
   controller: 'CharityController',
   where: 'client'
@@ -197,13 +194,10 @@ Router.route('addCharity', {
   }
 });
 
-Router.route('addProduct', {
+Router.route('addProduct/:_id?', {
   name: 'addProduct',
   controller: 'AddProductController',
   where: 'client',
-  data: function() {
-    return 'Add Product';
-  }
 });
 
 

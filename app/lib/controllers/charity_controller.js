@@ -23,6 +23,9 @@ CharityController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    var charity = Charities.findOne(this.params._id);
+    console.log(charity)
+    return charity;
   },
   
   // You can provide any of the hook options

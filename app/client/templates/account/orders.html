@@ -4,16 +4,16 @@
 			<section id="overview" class="text-center">
 				<div>
 					<h4>Ship to:</h4>
-					<div>John Smith</div>
-					<div>123 Address St.</div>
-					<div>Hamden, CT. 06517</div>
+					<div>{{shipping.fullName}}</div>
+					<div>{{shipping.addressOne}}</div>
+					<div>{{shipping.city}}, {{shipping.state}}. {{shipping.zipcode}}</div>
 				</div>
 				<br>
 				<div>
 					<h4>Bill to:</h4>
-					<div>John Smith</div>
-					<div>123 Address St.</div>
-					<div>Hamden, CT. 06517</div>
+					<div>{{shipping.fullName}}</div>
+					<div>{{shipping.addressOne}}</div>
+					<div>{{shipping.city}}, {{shipping.state}}. {{shipping.zipcode}}</div>
 				</div>
 				<br>
 				<div>
@@ -32,6 +32,7 @@
 			<h3 class="divider">Order:</h3>
 
 			<div id="items">
+				{{#each transactions.order}}
 				<div class="item col-xs-12">
 					<div class="portrait col-xs-5">
 						<img src="images/cart_image.png" alt="Item">
@@ -47,70 +48,7 @@
 						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
 					</div>
 				</div>
-
-				<div class="item col-xs-12">
-					<div class="portrait col-xs-5">
-						<img src="images/cart_image.png" alt="Item">
-					</div>
-					<div class="details col-xs-7">
-						<strong>CMYK Shrt</strong>
-						<div><small>Locally Roasted</small></div>
-
-						<h4>&#36;42.00</h4>
-						<div><small>x1 | L | Gray</small></div>
-
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-					</div>
-				</div>
-
-				<div class="item col-xs-12">
-					<div class="portrait col-xs-5">
-						<img src="images/cart_image.png" alt="Item">
-					</div>
-					<div class="details col-xs-7">
-						<strong>CMYK Shrt</strong>
-						<div><small>Locally Roasted</small></div>
-
-						<h4>&#36;42.00</h4>
-						<div><small>x1 | L | Gray</small></div>
-
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-					</div>
-				</div>
-
-				<div class="item col-xs-12">
-					<div class="portrait col-xs-5">
-						<img src="images/cart_image.png" alt="Item">
-					</div>
-					<div class="details col-xs-7">
-						<strong>CMYK Shrt</strong>
-						<div><small>Locally Roasted</small></div>
-
-						<h4>&#36;42.00</h4>
-						<div><small>x1 | L | Gray</small></div>
-
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-					</div>
-				</div>
-
-				<div class="item col-xs-12">
-					<div class="portrait col-xs-5">
-						<img src="images/cart_image.png" alt="Item">
-					</div>
-					<div class="details col-xs-7">
-						<strong>CMYK Shrt</strong>
-						<div><small>Locally Roasted</small></div>
-
-						<h4>&#36;42.00</h4>
-						<div><small>x1 | L | Gray</small></div>
-
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
-					</div>
-				</div>
+				{{/each}}
 			</div>
 
 			<div id="total">

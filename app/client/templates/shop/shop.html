@@ -11,7 +11,7 @@
 		{{#each products}}
 		<div class="product">
 			<div class="product-image">
-				<div class="product-timer">8h 13m</div>
+				<div class="product-timer">{{featuredTime featuredUntil}}</div>
 				{{#if userLiked}}
 				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup.svg" alt="Like"></div>
 				{{else}}

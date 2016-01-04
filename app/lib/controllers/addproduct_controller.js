@@ -23,6 +23,9 @@ AddProductController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    if(this.params._id) {
+      return Products.findOne(this.params._id);
+    }
   },
   
   // You can provide any of the hook options

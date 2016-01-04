@@ -9,11 +9,14 @@ Products = new orion.collection('products', {
       data: 'name',
       title: 'Name'
     }, {
-      data: 'vendorId',
-      title: 'vendor id'
+      data: '_id',
+      title: 'productId'
     }, {
       data: 'price',
       title: 'Price'
+    }, {
+      data : 'featuredPosition',
+      title : 'Featured Position'
     }]
   }
 });
@@ -74,6 +77,14 @@ var ProductsSchema = new SimpleSchema({
   likeCount: {
     type: Number,
     defaultValue: 0
+  },
+  featuredPosition : {
+    type : Number,
+    optional : true
+  },
+  featuredUntil : {
+    type : Date,
+    optional : true
   }
 })
 
@@ -81,6 +92,15 @@ Products.attachSchema(ProductsSchema);
 
 function review_schema() {
   return new SimpleSchema({
+    id : {
+      type : String,
+      autoValue : function () {
+        if(this.isUpdate) {
+          return Random.id();
+        }
+        this.unset();
+      }
+    },
     rating: {
       type: Number
     },
@@ -95,9 +115,15 @@ function review_schema() {
     },
     timestamp: {
       type: Date,
-      defaultValue: Date.now
+      autoValue : function () {
+        if(this.isInsert || this.isUpdate) {
+          return new Date();
+        } else {
+          this.unset();
+        }
+      }
     },
-    review: {
+    comment: {
       type: String
     }
   })

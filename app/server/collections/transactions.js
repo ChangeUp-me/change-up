@@ -1,5 +1,3 @@
-Transactions = new Mongo.Collection('transactions')
-
 Meteor.methods({
 	insertTransaction : function insert_transactions (transactionObj) {
 		Transactions.insert(transactionObj);

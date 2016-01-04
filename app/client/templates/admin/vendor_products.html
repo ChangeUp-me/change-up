@@ -8,13 +8,12 @@
 						<img src="images/cart_image.png" alt="Item">
 					</div>
 					<div class="details col-xs-7">
-						<strong>CMYK Shrt</strong>
-						<div><small>Locally Roasted</small></div>
+						<strong>{{name}}</strong>
+						<div><small>{{vendorName}}</small></div>
 
-						<h4>&#36;42.00</h4>
-						<div><small>x1 | L | Gray</small></div>
+						<h4>&#36;{{price}}</h4>
 
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+						<a href="{{pathFor route='addProduct' data=this}}"><img class="edit" src="/icons/edit_pencil.svg" alt="Edit"></a>
 						<a href="#myModal" data-toggle="modal"><img class="delete" src="icons/delete_trash.svg" alt="Delete"></a>
 					</div>
 				</div>
