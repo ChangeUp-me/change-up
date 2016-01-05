@@ -24,6 +24,7 @@ body {
 	display: flex;
 	min-height: 100vh;
 	color: @silver;
+	background: white;
 	font-family: 'Muli';
 	font-size: 16px;
 }
@@ -604,5 +605,21 @@ input[type=range]:focus::-ms-fill-upper {
 				border-bottom: 1px solid @gray;
 			}
 		}
+	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	body {
+		background: @offwhite;
+	}
+
+	.page {
+		max-width: 1200px;
+		margin: 40px auto;
+		padding: 10px 0;
+		background: white;
+		box-shadow: 0 1px 10px 10px @silver;
+		border-radius: 4px;
 	}
 }
