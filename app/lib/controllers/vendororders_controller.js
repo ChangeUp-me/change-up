@@ -23,6 +23,11 @@ VendorOrdersController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    var vendorId = Meteor.user().profile.vendorId;
+    var t = Transactions.find({"order.vendorId" : vendorId}).fetch();
+
+    console.log('transactions', t)
+    return {transactions : t};
   },
   
   // You can provide any of the hook options

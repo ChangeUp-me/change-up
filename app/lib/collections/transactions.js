@@ -1,5 +1,5 @@
-(function () {
-	Transactions = new orion.collection('transactions', {
+Transactions = (function () {
+	var Transactions = new orion.collection('transactions', {
 	  singularName: 'transaction',
 	  pluralName: 'transactions',
 	  link: {
@@ -24,7 +24,8 @@
 
 	var TransactionsSchema = new SimpleSchema({
 		userId : {
-			type : String
+			type : String,
+			optional : true
 		},
 		order : {
 			type : [order()],
@@ -57,8 +58,7 @@
 			type : shipping_schema(),
 		},
 		billing : {
-			type : Object,
-			blackbox : true
+			type : billing_schema(),
 		},
 		orderCompleted : {
 			type : Boolean,
@@ -86,40 +86,49 @@
 
 	Transactions.attachSchema(TransactionsSchema);
 
+	return Transactions;
+
 	function order () {
 		return new SimpleSchema({
-			/*vendorId : {
+			vendorId : {
 				type : String
-			},*/
+			},
 			productId : {
 				type : String
 			},
 			quantity : {
 				type : Number
 			},
-			/*price : {
-				type : Number
+			productName : {
+				type : String
+			},
+			price : {
+				type : String
+			},
+			size : {
+				type : String,
+				optional : true
+			},
+			color : {
+				type : String,
+				optional : true
 			},
 			shippingPrice : {
-				type : Number
-			}*/
+				type : String
+			}
 		});
 	}
 
 	function billing_schema () {
 		return new SimpleSchema({
-			cardNumber : {
-				type : Number // we probably shouldn't store this here
+			creditCardName : {
+				type : String
 			},
-			expirationDate : {
-				type : String,
+			lastFour : {
+				type : Number
 			},
-			cvv :{
-				type : Number,
-				optional : true
-			},
-			termsAgreement : {
-				type : Boolean
+			cardBrand : {
+				type : String
 			}
 		})
 	}

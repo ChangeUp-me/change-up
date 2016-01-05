@@ -78,7 +78,7 @@ Router.route('summary', {
   where: 'client'
 });
 
-Router.route('confirmation', {
+Router.route('confirmation/:_id', {
   name: 'confirmation',
   controller: 'ConfirmationController',
   where: 'client'
@@ -159,10 +159,7 @@ Router.route('vendor', {
 Router.route('vendorOrders', {
   name: 'vendorOrders',
   controller: 'VendorOrdersController',
-  where: 'client',
-  data: function() {
-    return 'Orders';
-  }
+  where: 'client'
 });
 
 Router.route('fulfillment', {

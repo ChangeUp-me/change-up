@@ -23,7 +23,18 @@ BillingController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
-    return Session.get('checkout:billing');
+    var userBilling;
+    var user = Meteor.user();
+
+    if(user && user.profile.billing) {
+      userBilling = user.profile.billing;
+    }
+
+    var checkout = Session.get('checkout:billing') || userBilling;
+
+    console.log('checkout', userBilling);
+
+    return checkout;
   },
   
   // You can provide any of the hook options

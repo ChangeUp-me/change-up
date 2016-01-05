@@ -25,12 +25,29 @@ OrdersController = RouteController.extend({
   data: function () {
     var transact = Transactions.find({userId : Meteor.userId()}).fetch();
     var user = Meteor.user().profile;
+    var orders = [];
+    var subTotal = 0;
 
-    console.log('the user', transact);
-    console.log('meteorused', Meteor.userId());
+    if(transact) {
+      for(var i =0; i<transact.length; i++) {
+        orders.push(transact[i].order)
+      }
+      orders = _.flatten(orders);
+
+      //add up price for each order
+      var o;
+      for(var i = 0; i < orders.length; i++) {
+        o = orders[i];
+        subTotal = subTotal +  (parseFloat(o.price) *  o.quantity);
+      }
+    }
 
     return {
-      transactions : transact,
+      totals : {
+        subTotal : subTotal,
+        total : parseFloat(subTotal + 6).toFixed(2)
+      },
+      orders : orders,
       shipping : user.shipping,
       billing : user.billing 
     }
