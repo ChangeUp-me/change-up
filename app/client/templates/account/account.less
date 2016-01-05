@@ -26,7 +26,51 @@
 		border-bottom: 1px solid @gray;
 		.col-xs-8 {
 			color: @mocha;
-			text-align: right;
+			text-align:	right;
+			input {
+				text-align: right;
+				border: none;
+				&::-webkit-input-placeholder { color: @mocha; }
+				&:-ms-input-placeholder { color: @mocha; }
+				&::-moz-placeholder { color: @mocha; }
+				&:-moz-placeholder { color: @mocha; }
+			}
+		}
+	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	#account {
+		padding: 6px 30px 20px;
+		text-align: left;
+		.row {
+			border: none;
+			div.col-sm-12 {
+				text-align: left;
+				input, textarea {
+					width: 100%;
+					max-width: 300px;
+					margin: 5px 0 0;
+					padding: 8px 15px;
+					text-align: left;
+					color: @mocha;
+					background: @offwhite url('icons/edit_pencil.svg') no-repeat center right;
+					background-size: 15px;
+					background-position: 95%;
+					border: none;
+					border-radius: 3px;
+					outline: none;
+					resize: disabled;
+					&::-webkit-input-placeholder { color: @gray; }
+					&:-ms-input-placeholder { color: @gray; }
+					&::-moz-placeholder { color: @gray; }
+					&:-moz-placeholder { color: @gray; }
+				}
+			}
+			.onoffswitch {
+				float: none;
+			}
 		}
 	}
 }
