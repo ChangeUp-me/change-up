@@ -108,7 +108,9 @@ form {
 	margin: 10px auto;
 	padding: 10px 0;
 	text-align: center;
+	border: none;
 	border-radius: 2px;
+	outline: none;
 	transition: color 0.3s, background 0.3s, filter 0.3s, -webkit-filter 0.3s;
 	&.blue {
 		color: white;
@@ -322,6 +324,7 @@ ul.nav.nav-tabs {
 .product {
 	display: inline-block;
 	width: 100%;
+	max-width: 300px;
 	padding: 0 0 10px;
 	text-align: left;
 	border-bottom: 12px solid @beige;
@@ -624,7 +627,7 @@ input[type=range]:focus::-ms-fill-upper {
 		margin: 40px auto;
 		padding: 10px 0;
 		background: white;
-		box-shadow: 0 1px 10px 10px @silver;
+		box-shadow: 0 1px 10px 5px #ddd;
 		border-radius: 4px;
 	}
 }
