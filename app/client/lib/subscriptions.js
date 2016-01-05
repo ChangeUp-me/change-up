@@ -4,4 +4,6 @@
 	Meteor.subscribe('vendors');
 	Meteor.subscribe('products');
 	Meteor.subscribe('allLikes');
+	Meteor.subscribe('userTransactions');
+	Meteor.subscribe('vendorTransactions');
 })();

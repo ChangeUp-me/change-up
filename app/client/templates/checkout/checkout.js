@@ -117,8 +117,67 @@ Template.Summary.events({
 		var billing = Session.get('checkout:billing');
 		var shipping = Session.get('checkout:shipping');
 		var charity = Session.get('checkout:charity');
+		var user = Meteor.user();
+		var cart = user.profile.cart;
 		var exp = billing.cardExp.split('/');
 		var email = billing.email;
+		var button = $('button#checkout');
+
+		if(!charity)
+			return sAlert.error('please select a charity');
+
+		//disable button
+		button.prop('disabled', true);
+
+		Stripe.card.createToken({
+		    number: billing.creditCardNumber,
+		    cvc: billing.cardCvv,
+		    exp_month: exp[0],
+		    exp_year: exp[1],
+		}, function(status, response) {
+		    var stripeToken = response.id;
+
+		    if(response.error) {
+		    	button.prop('disabled', false);
+		    	return sAlert.error(response.error.message);
+		    }
+
+		    //delete sensitive card data
+		    delete billing.creditCardNumber;
+		    delete billing.cardExp;
+		    delete billing.cardCvv;
+
+		    //add card info
+		    billing.lastFour = response.card.last4;
+		    billing.cardBrand = response.card.brand;
+
+
+		    Meteor.call('checkout',cart, charity, billing, shipping, stripeToken, email, function (err, transactionId) {
+		    	button.prop('disabled', false);
+		    	if(err){
+		    		console.log(err);
+		    		return sAlert.error(err);
+		    	}
+
+		    	if(!transactionId) {
+		    		sAlert.error('something went wrong, please try again later');
+		    		return console.error('no transaction id');
+		    	} 
+
+		    	console.log(transactionId);
+
+		    	if(billing.save && user) {
+		    		addShippingAndbilling();
+		    	} else if(!billing.save && user) {
+		    		emptyUsersCart();
+		    	} else if (!user) {
+		    		//create a new user?
+
+		    	}
+		    	
+		    	Router.go('/confirmation/' + transactionId);
+		    });
+		});
 
 		function addShippingAndbilling () {
 			Meteor.call('updateUser',{
@@ -155,49 +214,6 @@ Template.Summary.events({
 
 		  Meteor.call('insertUser', u, callback);
 		}
-
-
-		Stripe.card.createToken({
-		    number: billing.creditCardNumber,
-		    cvc: billing.cardCvv,
-		    exp_month: exp[0],
-		    exp_year: exp[1],
-		}, function(status, response) {
-		    var stripeToken = response.id;
-
-		    delete billing.creditCardNumber;
-		    delete billing.cardExp;
-		    delete billing.cardCvv;
-
-		    console.log('charity', charity);
-
-		    Meteor.call('checkout', charity, billing, shipping, stripeToken, email, function (err, transactionId) {
-		    	if(err){
-		    		console.log(err);
-		    		return sAlert.error(err);
-		    	}
-
-		    	if(!transactionId) return console.error('no transaction id');
-
-		    	var user = Meteor.userId();
-		    	console.log(transactionId);
-
-		    	if(billing.save && user) {
-		    		addShippingAndbilling();
-		    	} else if(!billing.save && user) {
-		    		emptyUsersCart();
-		    	} else if (!user) {
-		    		createNewUser(function (err) {
-		    			if(err) {
-		    				return console.error(err);
-		    			}
-
-		    			//Router.go('confirmation');
-		    		});
-		    	}
-		    
-		    });
-		});
 	}
 })
 

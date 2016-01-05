@@ -23,7 +23,16 @@ ShippingController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
-    return Session.get('checkout:shipping');
+    var userShipping;
+    var user = Meteor.user();
+
+    if(user && user.profile.shipping) {
+      userShipping = user.profile.shipping;
+    }
+
+    var checkout = Session.get('checkout:shipping') || userShipping;
+
+    return checkout;
   },
   
   // You can provide any of the hook options

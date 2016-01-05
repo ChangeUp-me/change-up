@@ -23,6 +23,7 @@ ConfirmationController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    return {id : this.params._id};
   },
   
   // You can provide any of the hook options

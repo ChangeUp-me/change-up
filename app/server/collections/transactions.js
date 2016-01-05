@@ -11,25 +11,17 @@ Meteor.publish('transaction', function publish_transaction (transactionId) {
 	return Transactions.findOne({_id : transactionId});
 });
 
-Meteor.publish('transactions', function publish_transactions (forWho) {
-	var selector = {};
-	var allowedTypes = ['user', 'vendor', 'product']
+Meteor.publish('userTransactions', function publish_transactions () {
+	return Transactions.find({userId : this.userId})	
+});
 
-	//@todo - throw an error here
-	if(allowedTypes.indexOf(forWho) < 0)
-		return;
+Meteor.publish('vendorTransactions', function vendor_transactions () {
+	var user = Meteor.users.findOne(this.userId);
+	var vendorId = (user && user.profile.vendorId) ? user.profile.vendorId : null;
 
-	switch(forWho) {
-		case 'user' :
-			selector['userId'] = id;
-			break;
-		case 'product' :
-			selector['productId'] = id;
-			break;
-		case 'vendor' :
-			selector['vendorId'] = id;
-			break;
-	}
-
-	return Transactions.find(selector)	
+	return Transactions.find({
+		"order.vendorId" : vendorId
+	}, {
+		order : {$elemMatch : {vendorId : vendorId}}
+	});
 });

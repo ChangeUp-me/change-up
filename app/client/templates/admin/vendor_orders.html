@@ -17,96 +17,40 @@
 
 		<div class="tab-content">
 			<div class="tab-pane fade active in" id="all">
+				{{#each transactions}}
 				<div class="queue-item">
 					<div class="col-xs-6">
-						<strong>CMYK Shirt</strong>
-						<small>#4711890</small>
+						<small>#{{transactionId}}</small>
 					</div>
-					<div class="col-xs-6 text-right">
-						<a class="button blue" href="{{pathFor route='fulfillment'}}">Fulfill order</a>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>John Smith</small></strong></div>
-						<div><small>Customer</small></div>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>11/23/2015</small></strong></div>
-						<div><small>Date placed</small></div>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>Not fulfilled</small></strong></div>
-						<div><small>Order status</small></div>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>Processed</small></strong></div>
-						<div><small>Payment status</small></div>
-					</div>
-					<div class="subtotal">
-						<div class="col-xs-6">
-							<div>Total</div>
-						</div>
+					{{#if paid}}
+						{{#if fufilled}}
 						<div class="col-xs-6 text-right">
-							<div><strong>$92.00</strong></div>
+							<a class="button lightgray" href="">Fulfilled</a>
 						</div>
-					</div>
-				</div>
-
-				<div class="queue-item">
-					<div class="col-xs-6">
-						<strong>CMYK Shirt</strong>
-						<small>#4711890</small>
-					</div>
-					<div class="col-xs-6 text-right">
-						<a class="button lightgray" href="">Fulfilled</a>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>John Smith</small></strong></div>
-						<div><small>Customer</small></div>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>11/23/2015</small></strong></div>
-						<div><small>Date placed</small></div>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>Not fulfilled</small></strong></div>
-						<div><small>Order status</small></div>
-					</div>
-					<div class="col-xs-6">
-						<div><strong><small>Processed</small></strong></div>
-						<div><small>Payment status</small></div>
-					</div>
-					<div class="subtotal">
-						<div class="col-xs-6">
-							<div>Total</div>
-						</div>
+						{{else}}
 						<div class="col-xs-6 text-right">
-							<div><strong>$92.00</strong></div>
+							<a class="button blue" href="{{pathFor route='fulfillment'}}">Fulfill order</a>
 						</div>
-					</div>
-				</div>
-
-				<div class="queue-item">
-					<div class="col-xs-6">
-						<strong>CMYK Shirt</strong>
-						<small>#4711890</small>
-					</div>
+						{{/if}}
+					{{else}}
 					<div class="col-xs-6 text-right">
 						<a class="button orange" href="">Unpaid</a>
 					</div>
+					{{/if}}
 					<div class="col-xs-6">
-						<div><strong><small>John Smith</small></strong></div>
+						<div><strong><small>{{billing.creditCardName}}</small></strong></div>
 						<div><small>Customer</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>11/23/2015</small></strong></div>
+						<div><strong><small>{{formatDate timestamp}}</small></strong></div>
 						<div><small>Date placed</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>Not fulfilled</small></strong></div>
+						<div><strong><small>{{#if fufilled}}Fulfilled{{else}}Not Fulfilled{{/if}}</small></strong></div>
 						<div><small>Order status</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>Processed</small></strong></div>
+						<div><strong><small>{{#if paid}}Processed{{else}}Not Processed{{/if}}</small></strong></div>
 						<div><small>Payment status</small></div>
 					</div>
 					<div class="subtotal">
@@ -114,10 +58,11 @@
 							<div>Total</div>
 						</div>
 						<div class="col-xs-6 text-right">
-							<div><strong>$92.00</strong></div>
+							<div><strong>${{price}}</strong></div>
 						</div>
 					</div>
 				</div>
+				{{/each}}
 			</div>
 			<div class="tab-pane fade" id="open">
 				<div class="queue-item">

@@ -103,13 +103,15 @@
 			expirationDate : {
 				type : String,
 			},
-			cvv :{
-				type : Number,
-				optional : true
+			lastFour : {
+				type : String
+			},
+			cardBrand : {
+				type : String
 			},
 			termsAgreement : {
 				type : Boolean
-			}
+			},
 		});
 	}
 

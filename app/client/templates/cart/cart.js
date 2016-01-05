@@ -78,7 +78,8 @@ Template.registerHelper('cartItems', function () {
 	cart = joinProductItemInfo(cart, products);
 
 	Session.set('cart', cart);
-	return cart;
+	console.log(Session.get('cart'));
+	return Session.get('cart');
 })
 
 Template.registerHelper('cartTotals', function () {
