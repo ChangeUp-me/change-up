@@ -49,7 +49,7 @@ OrdersController = RouteController.extend({
       },
       orders : orders,
       shipping : user.shipping,
-      billing : user.billing 
+      billing : user.billing
     }
   },
   

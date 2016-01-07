@@ -6,6 +6,18 @@ Template.registerHelper('pageTitle', function () {
   return this.pageTitle || Router.current().route.getName();
 })
 
+Template.registerHelper('featuredTime', function (date) {
+  if(!date)return;
+
+  var then = date;
+  var now = Date.now();
+      
+  var hours = moment(then).diff(now, 'hours');
+  var minutes =  moment(then).diff(now, 'minutes');
+
+  return hours + 'h ' + (minutes - (60 * hours)) + 'm';
+})
+
 Template.registerHelper('productReviewStars', function(reviewObj) {
   var reviews = reviewObj.hash.reviews || [];
   var color = reviewObj.hash.color || 'red';

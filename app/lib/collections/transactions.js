@@ -90,6 +90,16 @@ Transactions = (function () {
 
 	function order () {
 		return new SimpleSchema({
+			orderId : {
+				type : String,
+				autoValue : function () {
+					if(this.isInsert) {
+						return Random.id();
+					} else {
+						this.unset();
+					}
+				}
+			},
 			vendorId : {
 				type : String
 			},

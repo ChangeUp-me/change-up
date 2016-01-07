@@ -44,6 +44,21 @@ ShippingController = RouteController.extend({
     this.next();
   },
   onBeforeAction: function () {
+    var charity = this.params.query.charity;
+
+    try{
+      charity = JSON.parse(charity);
+
+      if(!_.isObject(charity)) {
+        return this.redirect('/checkout');
+      }
+    } catch (e) {
+      console.error('summary-error', e.stack);
+      return this.redirect('/checkout');
+    }
+
+    Session.set('checkout:charity', charity);
+
     this.next();
   },
   

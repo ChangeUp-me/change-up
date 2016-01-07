@@ -2,7 +2,9 @@
 	<div class="item">
 		<div class="product">
 			<div class="product-image">
-				<div class="product-timer">8h 13m</div>
+				{{#if product.featuredUntil}}
+				<div class="product-timer">{{featuredTime product.featuredUntil}}</div>
+				{{/if}}
 				<div class="like-button"><img src="/icons/thumbsup.svg" alt="Like"></div>
 
 				<img src="/images/cmykshirt.png" alt="Shirt">
