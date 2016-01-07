@@ -57,6 +57,7 @@ CHECKOUT = (function () {
 			}
 		}
 
+		//@todo - check if customer already exists first
 		function charge_new_customer(err, stripeCustomer){
 			if(err) {
 		   console.error('charge-new-customer', err);

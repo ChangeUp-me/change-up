@@ -162,7 +162,7 @@ Router.route('vendorOrders', {
   where: 'client'
 });
 
-Router.route('fulfillment', {
+Router.route('fulfillment/:_id', {
   name: 'fulfillment',
   controller: 'FulfillmentController'
 });

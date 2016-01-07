@@ -9,9 +9,7 @@ Template.Checkout.events({
 			id : this._id
 		};
 
-		Session.set('checkout:charity', charity);
-
-		Router.go('/shipping')
+		Router.go('/shipping?charity='+encodeURIComponent(JSON.stringify(charity)));
 	}
 });
 
@@ -43,45 +41,82 @@ Template.Billing.events({
 			zipcode : form.zipcode.value,
 			state : form.state.value,
 			country : form.country.value,
-
-			//payment method
-			creditCardNumber : form.creditCardNumber.value,
-			creditCardName : form.creditCardName.value,
-			cardExp : form.cardExp.value || '',
-			cardCvv : form.cardCvv.value,
+			//personal info
 			email : form.email.value,
-			//password : form.password.value,
-
+			creditCardName : form.creditCardName.value,
 			//agreements
 			save : form.save.checked,
 			agree : form.agree.checked
 		};
 
-		if(!billing.agree) {
-			return sAlert.info('please agree to the terms and conditions to continue');
+		var button = $('#billingBtn');
+
+		var card = {
+			creditCardNumber : form.creditCardNumber.value,
+			creditCardName : form.creditCardName.value,
+			cardExp : form.cardExp.value || '',
+			cardCvv : form.cardCvv.value,
 		}
 
-		var exp = billing.cardExp.split('/');
+		var exp = card.cardExp.split('/');
+
+		//check if the signed the agreement
+		if(!billing.agree)
+			return sAlert.info('please agree to the terms and conditions to continue');
+
+		//check for an email
+		if(!billing.email)
+			return sAlert.error('please enter a valid email');
 
 		//validate credit card
-		if(!$.payment.validateCardNumber(billing.creditCardNumber)) {
+		if(!$.payment.validateCardNumber(card.creditCardNumber)) {
 			return sAlert.error('your credit card number is invalid');
 		} else if(!$.payment.validateCardExpiry(exp[0], exp[1])) {
 			return sAlert.error('your card expiration date is invalid')
-		} else if(!$.payment.validateCardCVC(billing.cardCvv)) {
+		} else if(!$.payment.validateCardCVC(card.cardCvv)) {
 			return sAlert.error('your card cvv is invalid');
 		}
 
-		if(!billing.email) {
-			return sAlert.error('please enter a valid email');
-		}
+		button.prop('disabled', true);
 
-		//create stripe token
-		//delete cardnumber and cardcvv
+		sAlert.info('processing pleas wait...');
 
-		Session.set('checkout:billing', billing);
+		Stripe.card.createToken({
+			number : card.creditCardNumber,
+			cvc : card.cardCvv,
+			exp_month : exp[0],
+			exp_year : exp[1]
+		}, function (status, response) {
+			if(response.error) {
+			   button.prop('disabled', false);
+			   console.error(response.error.message)
+			   return sAlert.error("card validation failed");
+			}
 
-		Router.go('/summary');
+			//add card info
+			billing.lastFour = response.card.last4;
+		  billing.cardBrand = response.card.brand;
+		  billing.stripeToken = response.id;
+			
+			Session.set('checkout:billing', billing);
+
+			var shipping;
+			try{
+				shipping = JSON.stringify(Session.get('checkout:shipping'));
+			} catch(e) {
+				console.error('shipping-error', e);
+			}
+
+			if(!shipping)
+				return sAlert.error('something was wrong with your shipping info');
+
+			billing = encodeURIComponent(JSON.stringify(billing));
+			shipping = encodeURIComponent(shipping);
+			var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
+
+			//Router.go('/summary', {}, {query : 'billing=' + billing +'&shipping=' + shipping});
+			Router.go('/summary?' + 'billing=' + billing +'&shipping=' + shipping + '&charity=' + charity);
+		});
 	}
 });
 
@@ -106,7 +141,11 @@ Template.Shipping.events({
 		}
 
 		Session.set('checkout:shipping', shippingInfo);
-		Router.go('/billing');
+
+		var shipping = encodeURIComponent(JSON.stringify(shippingInfo));
+		var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
+
+		Router.go('/billing?shipping='+ shipping + '&charity=' + charity);
 	}
 });
 
@@ -118,10 +157,12 @@ Template.Summary.events({
 		var shipping = Session.get('checkout:shipping');
 		var charity = Session.get('checkout:charity');
 		var user = Meteor.user();
-		var cart = user.profile.cart;
-		var exp = billing.cardExp.split('/');
+		var cart = user.profile.cart; //@todo
 		var email = billing.email;
 		var button = $('button#checkout');
+		var stripeToken = billing.stripeToken;
+
+		delete billing.stripeToken;
 
 		if(!charity)
 			return sAlert.error('please select a charity');
@@ -129,54 +170,29 @@ Template.Summary.events({
 		//disable button
 		button.prop('disabled', true);
 
-		Stripe.card.createToken({
-		    number: billing.creditCardNumber,
-		    cvc: billing.cardCvv,
-		    exp_month: exp[0],
-		    exp_year: exp[1],
-		}, function(status, response) {
-		    var stripeToken = response.id;
+		sAlert.info('processing...');
 
-		    if(response.error) {
-		    	button.prop('disabled', false);
-		    	return sAlert.error(response.error.message);
-		    }
+		Meteor.call('checkout',cart, charity, billing, shipping, stripeToken, email, function (err, transactionId) {
+		  button.prop('disabled', false);
+		  if(err){
+		    console.log(err);
+		    return sAlert.error(err);
+		  }
 
-		    //delete sensitive card data
-		    delete billing.creditCardNumber;
-		    delete billing.cardExp;
-		    delete billing.cardCvv;
+		  if(!transactionId) {
+		    sAlert.error('something went wrong, please try again later');
+		    return console.error('no transaction id');
+		   } 
 
-		    //add card info
-		    billing.lastFour = response.card.last4;
-		    billing.cardBrand = response.card.brand;
-
-
-		    Meteor.call('checkout',cart, charity, billing, shipping, stripeToken, email, function (err, transactionId) {
-		    	button.prop('disabled', false);
-		    	if(err){
-		    		console.log(err);
-		    		return sAlert.error(err);
-		    	}
-
-		    	if(!transactionId) {
-		    		sAlert.error('something went wrong, please try again later');
-		    		return console.error('no transaction id');
-		    	} 
-
-		    	console.log(transactionId);
-
-		    	if(billing.save && user) {
-		    		addShippingAndbilling();
-		    	} else if(!billing.save && user) {
-		    		emptyUsersCart();
-		    	} else if (!user) {
-		    		//create a new user?
-
-		    	}
+		   if(billing.save && user) {
+		      addShippingAndbilling();
+		   } else if(!billing.save && user) {
+		    	emptyUsersCart();
+		   } else if (!user) {
+		    //create a new user?
+		   }
 		    	
-		    	Router.go('/confirmation/' + transactionId);
-		    });
+		   Router.go('/confirmation/' + transactionId);
 		});
 
 		function addShippingAndbilling () {

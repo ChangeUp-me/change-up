@@ -23,6 +23,9 @@ FulfillmentController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    var tran = Transactions.findOne(this.params._id); 
+    console.log(tran);
+    return tran;
   },
   
   // You can provide any of the hook options

@@ -34,6 +34,27 @@ SummaryController = RouteController.extend({
     this.next();
   },
   onBeforeAction: function () {
+    var shipping = this.params.query.shipping;
+    var billing = this.params.query.billing;
+    var charity = this.params.query.charity;
+
+    try{
+      shipping = JSON.parse(shipping);
+      billing = JSON.parse(billing);
+      charity = JSON.parse(charity);
+
+      if(!_.isObject(shipping) || !_.isObject(billing) || !_.isObject(charity)) {
+        return this.redirect('/checkout');
+      }
+    } catch (e) {
+      console.error('summary-error', e);
+      return this.redirect('/checkout');
+    }
+
+    Session.set('checkout:shipping', shipping);
+    Session.set('checkout:billing', billing);
+    Session.set('checkout:charity', charity);
+
     this.next();
   },
   

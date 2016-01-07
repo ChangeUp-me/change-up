@@ -32,8 +32,6 @@ BillingController = RouteController.extend({
 
     var checkout = Session.get('checkout:billing') || userBilling;
 
-    console.log('checkout', userBilling);
-
     return checkout;
   },
   
@@ -46,6 +44,24 @@ BillingController = RouteController.extend({
     this.next();
   },
   onBeforeAction: function () {
+    var shipping = this.params.query.shipping;
+    var charity  = this.params.query.charity;
+
+    try{
+      console.log(shipping, charity)
+      shipping = JSON.parse(shipping);
+      charity = JSON.parse(charity);
+
+      if(!_.isObject(shipping) || !_.isObject(charity)) {
+        return this.redirect('/checkout');
+      }
+    } catch (e) {
+      console.error('billing', e.stack);
+      return this.redirect('/checkout');
+    }
+
+    Session.set('checkout:shipping', shipping);
+    Session.set('checkout:charity', charity);
     this.next();
   },
   
