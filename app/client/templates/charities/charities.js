@@ -20,6 +20,18 @@ Template.Charities.onCreated(function () {
 });
 
 Template.Charities.onRendered(function () {
+	$(function() {
+		if($(document).width() > 767) {
+			$('.charity-logo').insertBefore('.charity-header');
+		}
+		$(window).resize(function() {
+			if($(document).width() > 767) {
+				$('.charity-logo').insertBefore('.charity-header');
+			} else {
+				$('.charity-header').insertBefore('.charity-logo');
+			}
+		});
+	});
 });
 
 Template.Charities.onDestroyed(function () {
