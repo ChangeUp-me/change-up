@@ -6,7 +6,7 @@ Template.Navbar.events({
 		if ($('#site-wrapper').hasClass('show-nav')) {
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-nav');
-		} 
+		}
 	}
 });
 
@@ -14,6 +14,7 @@ Template.Navbar.events({
 /* Navbar: Helpers */
 /*****************************************************************************/
 Template.Navbar.helpers({
+
 });
 
 /*****************************************************************************/

@@ -1,27 +1,27 @@
 <template name="Navbar">
-    <div id="navbar">
-        <ul class="list-unstyled">
-            <div class="col-sm-2 hidden-xs">
-                <a href="{{pathFor route='shop'}}"><img src="../../../navbar/logo2.svg" alt="ChangeUp Logo"></a>
-            </div>
-
-            <div class="col-sm-10">
-                <li class="hidden-sm hidden-md hidden-lg"><a href="{{pathFor route='home'}}">Home</a></li>
-                <li><a href="{{pathFor route='shop'}}"><img src="../../../navbar/shop.svg" class="hidden-sm hidden-md hidden-lg" alt="Shop">Shop</a></li>
-                <li><a href="{{pathFor route='charities'}}"><img src="../../../navbar/charities.svg" class="hidden-sm hidden-md hidden-lg" alt="Charities">Charities</a></li>
-                <li><a href="{{pathFor route='about'}}"><img src="../../../navbar/aboutus.svg" class="hidden-sm hidden-md hidden-lg" alt="About Us">About Us</a></li>
-                <li><a href="{{pathFor route='news'}}"><img src="../../../navbar/news.svg" class="hidden-sm hidden-md hidden-lg" alt="News">News</a></li>
-                <li><a href="{{pathFor route='account'}}"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span></a></li>
-                <li class="hidden-sm hidden-md hidden-lg"><a href="{{pathFor route='checkout'}}"><img src="../../../navbar/checkout.svg" alt="Checkout">Checkout</a></li>
-            </div>
-        </ul>
-
-        <ul class="list-unstyled hidden-sm hidden-md hidden-lg">
-            <li class="col-xs-12"><strong>Admin pages</strong></li>
-            <li><a href="{{pathFor route='vendorOrders'}}"><img src="../../../navbar/orders.svg" alt="Orders">Orders</a></li>
-            <li><a href="{{pathFor route='vendorProducts'}}"><img src="../../../navbar/my_products.svg" alt="My Products">My Products</a></li>
-            <li><a href="{{pathFor route='vendorProfile'}}"><img src="../../../navbar/profile.svg" alt="Profile">Profile</a></li>
-            <li><a href="{{pathFor route='addProduct'}}"><img src="../../../navbar/add_product.svg" alt="Add Product">Add Product</a></li>
-        </ul>
-    </div>
+  <div id="navbar">
+    <ul class="list-unstyled">
+      <div class="col-sm-2 hidden-xs">
+        <a href="{{pathFor route='shop'}}"><img src="../../../navbar/logo2.svg" alt="ChangeUp Logo"></a>
+      </div>
+      <div class="col-sm-10">
+        <li class="hidden-sm hidden-md hidden-lg"><a href="{{pathFor route='home'}}">Home</a></li>
+        <li><a href="{{pathFor route='shop'}}"><img src="../../../navbar/shop.svg" class="hidden-sm hidden-md hidden-lg" alt="Shop">Shop</a></li>
+        <li><a href="{{pathFor route='charities'}}"><img src="../../../navbar/charities.svg" class="hidden-sm hidden-md hidden-lg" alt="Charities">Charities</a></li>
+        <li><a href="{{pathFor route='about'}}"><img src="../../../navbar/aboutus.svg" class="hidden-sm hidden-md hidden-lg" alt="About Us">About Us</a></li>
+        <li><a href="{{pathFor route='news'}}"><img src="../../../navbar/news.svg" class="hidden-sm hidden-md hidden-lg" alt="News">News</a></li>
+        <li><a href="{{pathFor route='account'}}"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span></a></li>
+        <li class="hidden-sm hidden-md hidden-lg"><a href="{{pathFor route='checkout'}}"><img src="../../../navbar/checkout.svg" alt="Checkout">Checkout</a></li>
+      </div>
+    </ul>
+    {{ #if admin }}
+    <ul class="list-unstyled hidden-sm hidden-md hidden-lg">
+      <li class="col-xs-12"><strong>Admin pages</strong></li>
+      <li><a href="{{pathFor route='vendorOrders'}}"><img src="../../../navbar/orders.svg" alt="Orders">Orders</a></li>
+      <li><a href="{{pathFor route='vendorProducts'}}"><img src="../../../navbar/my_products.svg" alt="My Products">My Products</a></li>
+      <li><a href="{{pathFor route='vendorProfile'}}"><img src="../../../navbar/profile.svg" alt="Profile">Profile</a></li>
+      <li><a href="{{pathFor route='addProduct'}}"><img src="../../../navbar/add_product.svg" alt="Add Product">Add Product</a></li>
+    </ul>
+    {{ /if }}
+  </div>
 </template>

@@ -1,5 +1,4 @@
 Handlebars.registerHelper('noOfReviews', function (reviews) {
-  console.log(reviews);
   if (reviews === undefined) {
     return "0 reviews";
   } else if (reviews.length === 1 ) {
@@ -10,10 +9,15 @@ Handlebars.registerHelper('noOfReviews', function (reviews) {
 });
 
 Handlebars.registerHelper('noOfReviewsNoText', function (reviews) {
-  console.log(reviews);
   if (reviews === undefined) {
     return "0";
   } else {
     return (reviews.length);
+  }
+});
+
+Handlebars.registerHelper('admin', function () {
+  if (Meteor.user().roles[0] === "admin"){
+    return true;
   }
 });
