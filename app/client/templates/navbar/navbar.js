@@ -14,6 +14,15 @@ Template.Navbar.events({
 /* Navbar: Helpers */
 /*****************************************************************************/
 Template.Navbar.helpers({
+	isVendor : function () {
+		return Roles.userHasRole(Meteor.userId(), 'vendor');
+	},
+	isAdmin : function () {
+		return Roles.userHasRole(Meteor.userId(), 'admin');
+	},
+	isLoggedIn : function () {
+		return Meteor.userId();
+	}
 });
 
 /*****************************************************************************/

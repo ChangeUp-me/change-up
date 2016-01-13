@@ -1,5 +1,12 @@
 <template name="Checkout">
 	<div id="checkout">
+		{{#if cartEmpty}}
+		<section class="empty-cart-placeholder">
+			<h2>Your Cart Is Empty</h2>
+			<img src="/icons/cart.svg" alt="cart">
+			<a href="/shop" class="button blue">Go Shopping!</a>
+		</section>
+		{{else}}
 		<section class="text-center">
 			<h2>Select your charity</h2>
 
@@ -14,12 +21,15 @@
 					<div>{{category}}</div>
 				</div>
 				<div class="col-xs-3 text-right">
-					<img src="images/arc_logo.png" alt="Arc Logo">
+					{{#if image}}
+					<img src="{{image.url}}" alt="Arc Logo">
+					{{/if}}
 				</div>
 				<p class="col-xs-12">{{description}}</p>
 				<button class="button blue">Select</button>
 			</div>
 			{{/each}}
 		</div>
+		{{/if}}
 	</div>
 </template>

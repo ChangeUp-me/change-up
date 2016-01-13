@@ -56,11 +56,10 @@ var ProductsSchema = new SimpleSchema({
     type: String,
     optional: true
   },
-  image: {
-    type: Object,
-    blackbox: true,
-    optional: true
-  },
+  image : orion.attribute('image', {
+    optional: true,
+    label: 'Image'
+  }),
   shippingPrice: {
     type: String,
     defaultValue: '0.0'

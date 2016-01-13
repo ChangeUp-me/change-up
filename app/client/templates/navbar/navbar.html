@@ -9,13 +9,20 @@
             <li><a href="{{pathFor route='account'}}"><img src="/navbar/account.svg" alt="Account">Account</a></li>
             <li><a href="{{pathFor route='checkout'}}"><img src="/navbar/checkout.svg" alt="Checkout">Checkout</a></li>
         </ul>
-
+        {{#if isVendor}}
         <ul class="list-unstyled">
-            <li class="col-xs-12"><strong>Admin pages</strong></li>
+            <li class="col-xs-12"><strong>Vendor pages</strong></li>
             <li><a href="{{pathFor route='vendorOrders'}}"><img src="/navbar/orders.svg" alt="Orders">Orders</a></li>
             <li><a href="{{pathFor route='vendorProducts'}}"><img src="/navbar/my_products.svg" alt="My Products">My Products</a></li>
             <li><a href="{{pathFor route='vendorProfile'}}"><img src="/navbar/profile.svg" alt="Profile">Profile</a></li>
             <li><a href="{{pathFor route='addProduct'}}"><img src="/navbar/add_product.svg" alt="Add Product">Add Product</a></li>
         </ul>
+        {{/if}}
+        {{#if isAdmin}}
+        <ul class="list-unstyled">
+            <li class="col-xs-12"><strong>Admin pages</strong></li>
+            <li><a href="{{pathFor route='transfers'}}"><img src="/navbar/orders.svg" alt="Transfers">Transfers</a></li>
+        </ul>
+        {{/if}}
     </div>
 </template>

@@ -1,0 +1,52 @@
+<template name="Transfers">
+	<section id="transfers">
+		<div class="panel panel-default">
+		  <div class="panel-heading">Transfers</div>
+		  <table class="table">
+		    <thead>
+		      <tr>
+		        <th>#</th>
+		        <th>Order</th>
+		        <th>Vendor</th>
+		        <th>Charity</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      {{#each orders}}
+		      <tr>
+		        <th scope="row">
+		        	{{#if processed}}
+		        	<img src="/icons/check_green.svg">
+		        	{{else}}
+		        	<img src="/icons/check_grey.svg">
+		        	{{/if}}
+		        </th>
+		        <td>
+		        	<div>{{productName}}</div>
+		        	<div>${{price}} | X{{quantity}}</div>
+		        	<div>{{formatDate timestamp}}</div>
+		        </td>
+		        <td>
+		        	<div>{{storeName}}</div>
+		        	<div>${{totals.vendor}} ({{totals.vendorPerct}}%)</div>
+		        </td>
+		        <td>
+		        	<div>{{charityName}}</div>
+		        	<div>${{totals.charity}} ({{totals.charityPerct}}%)</div>
+		        </td>
+		        <td>
+		        	{{#if processed}}
+		        	<div>
+		        	<button class="btn btn-default" disabled>Transfered</button>
+		        </div>
+		        {{else}}
+		        	<button class="btn btn-primary">Transfer Funds</button>
+		        {{/if}}
+		        </td>
+		      </tr>
+		      {{/each}}
+		    </tbody>
+		  </table>
+		</div>
+	</section>
+</template>

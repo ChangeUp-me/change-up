@@ -25,6 +25,11 @@ Template.AddProduct.events({
     event.preventDefault();
     var form = event.target;
     var product = parseProductForm(form);
+    var image = Session.get('upload:image');
+
+    if(image) {
+      product.image = image;
+    }
 
     Meteor.call('updateProduct', this._id, product, function (err) {
       if(err)
@@ -37,6 +42,13 @@ Template.AddProduct.events({
     event.preventDefault();
     var form = event.target;
     var product = parseProductForm(form);
+    var image = Session.get('upload:image');
+
+    if(image) {
+      product.image = image;
+    } else {
+      return sAlert.error('product must have an image');
+    }
 
     Meteor.call('insertProduct', product, function (err) {
       if(err) {
@@ -56,21 +68,24 @@ Template.AddProduct.events({
 /*****************************************************************************/
 Template.AddProduct.helpers({
   sizes : function () {
-    return ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-  },
-  selectedSizes : function () {
-    if(this.sizes) {
-      var sizes = this.sizes;
-      var text;
-      console.log(this);
-      var domSizes = $('.size-select li').each(function (indx, val) {
-        text = $(this).text().toUpperCase();
+    var sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+    var selfSizes = this.sizes;
 
-        if(sizes.indexOf(text) > -1) {
-          $(this).addClass('selected');
-        }
+    //if the user has sizes set make them uppercase
+    if(selfSizes) {
+      selfSizes = selfSizes.map(function (size) {
+        return size.toUpperCase();
       })
     }
+
+    sizes = sizes.map(function (size) {
+      if(selfSizes && selfSizes.indexOf(size) > -1)
+         return {size : size, selected : true};
+      else
+        return {size : size, selected : false};
+    })
+
+    return sizes;
   }
 });
 /*****************************************************************************/
@@ -78,7 +93,17 @@ Template.AddProduct.helpers({
 /*****************************************************************************/
 Template.AddProduct.onCreated(function() {});
 Template.AddProduct.onRendered(function() {
+  var slider = $('input#percentToCharity');
+  var target = $('#charityPerctIndicator');
+  var data = this.data || {};
+  var initVal = (data.percentToCharity || 50);
 
+  target.html(initVal + '%')
+  slider.val(initVal)
+
+  slider.on('change', function (){
+    target.html($(this).val() + '%')
+  });
 });
 Template.AddProduct.onDestroyed(function() {
 

@@ -1,13 +1,17 @@
 <template name="VendorProfile">
 	<div id="vendor-profile">
-		<section class="text-center">
-			<img src="images/hipster_clothing_logo.png" alt="Logo">
-		</section>
-		
-		<form id="storeForm" novalidate>	
+		<form id="storeForm" novalidate>
+			<fieldset>
+				<section class="text-center upload-image">
+					{{#with this}}
+					{{> s3Upload}}
+					{{/with}}
+				</section>
+			</fieldset>	
 			<fieldset>
 				<label>Store infomation</label>
 				<input name="storeName" type="text" value="{{storeName}}" placeholder="Name" required>
+				<input name="websiteUrl" type="url" value="{{websiteUrl}}" placeholder="Website url" required>
 				<textarea name="storeDescription" value="{{storeDescription}}" placeholder="Description" rows="6" required></textarea>
 			</fieldset>
 			<fieldset>

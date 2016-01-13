@@ -13,9 +13,11 @@
 					<h3>{{name}}</h3>
 					<div>{{category}}</div>
 				</div>
+				{{#if image}}
 				<div class="col-xs-3 text-right">
-					<img src="images/arc_logo.png" alt="Arc Logo">
+					<img src="{{image.url}}" alt="Arc Logo">
 				</div>
+				{{/if}}
 				<p class="col-xs-12">{{description}}</p>
 				<div class="learn-more">
 					<h4><a href="{{pathFor route='charity' data=this}}">Learn more</a></h4>

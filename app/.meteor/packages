@@ -36,3 +36,7 @@ orionjs:core
 fortawesome:fontawesome
 orionjs:bootstrap
 check
+email
+chuangbo:cookie
+orionjs:image-attribute
+orionjs:s3

@@ -5,6 +5,9 @@ Template.Reviews.events({
 	'submit form#review' : function (event) {
 		event.preventDefault();
 
+		if(!Meteor.user())
+			return sAlert.info('please login to leave a review');
+
 		var form = event.target;
 		var productId = this._id;
 

@@ -1,27 +1,19 @@
 <template name="Vendor">
 	<div class="vendor">
 		<section class="text-center">
-			<img src="images/hipster_clothing_logo.png" alt="Logo">
+			{{#if image}}
+			<img src="{{image.url}}" alt="Logo">
+			{{/if}}
 
-			<h2>Hipster Clothing</h2>
-			<p>We sell the latest and greatest hipster clothing available on the market. Whatever you want, from tops to crocs, we got it!</p>
+			<h2>{{storeName}}</h2>
+			<p>{{storeDescription}}</p>
 		</section>
 
 		<section class="gray text-center">
 			<h2>What I believe in</h2>
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			<p>{{about}}</p>
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat.</p>
-
-			<a class="button clear gray" href="" target="_blank">Visit website</a>
+			<a class="button clear gray" href="{{websiteUrl}}" target="_blank">Visit website</a>
 		</section>
 	</div>
 </template>

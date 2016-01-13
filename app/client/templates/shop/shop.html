@@ -20,7 +20,9 @@
 				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup_gray.svg" alt="Like"></div>
 				{{/if}}
 
-				<img src="images/cmykshirt.png" alt="Shirt">
+				{{#if image}}
+				<img src="{{image.url}}" alt="">
+				{{/if}}
 			</div>
 			<div class="product-name col-xs-8">
 				<h4><strong>{{name}}</strong></h4>
@@ -28,7 +30,7 @@
 			<div class="price col-xs-4">
 				<h4>${{price}}</h4>
 			</div>
-			<div class="vendor col-xs-12">{{storeName}}</div>
+			<div class="vendor col-xs-12"><a href="{{pathFor route='vendor' data=this}}">{{storeName}}</a></div>
 
 			<form class="col-xs-12 product-item">
 				{{#with this}}

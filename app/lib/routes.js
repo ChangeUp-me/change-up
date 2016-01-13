@@ -144,17 +144,17 @@ Router.route('contact', {
   where: 'client'
 });
 
-Router.route('vendor', {
+Router.route('vendor/:vendorId', {
   name: 'vendor',
   controller: 'VendorController',
   where: 'client'
 });
 
-/*Router.route('admin', {
-  name: 'admin',
-  controller: 'AdminController',
-  where: 'client'
-});*/
+Router.route('transfers', {
+  name : 'transfers',
+  controller : 'TransfersController',
+  where : 'client'
+})
 
 Router.route('vendorOrders', {
   name: 'vendorOrders',

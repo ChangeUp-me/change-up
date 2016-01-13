@@ -14,6 +14,9 @@ AddProductController = RouteController.extend({
   // return Meteor.subscribe('post', this.params._id);
   
   waitOn: function () {
+    if(this.params._id) {
+      return Meteor.subscribe('products');
+    }
   },
   
   // A data function that can be used to automatically set the data context for
@@ -54,5 +57,6 @@ AddProductController = RouteController.extend({
   onAfterAction: function () {
   },
   onStop: function () {
+    Session.set('upload:image', undefined);
   }
 });

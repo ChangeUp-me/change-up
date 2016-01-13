@@ -6,10 +6,12 @@
     "submit #storeForm" : function (event) {
       event.preventDefault();
       var form = event.target;
+      var image = Session.get('upload:image');
 
       var store =  {
         storeName : form.storeName.value,
         storeDescription : form.storeDescription.value,
+        websiteUrl : form.websiteUrl.value,
         charities : function () {
           var charities = [];
           _.forEach($('#selectlist').children(), function (val, indx){
@@ -17,6 +19,10 @@
           })
           return charities;
         }()
+      }
+
+      if(image) {
+        store.image = image;
       }
 
       Meteor.call('updateVendor', store, function (err) {

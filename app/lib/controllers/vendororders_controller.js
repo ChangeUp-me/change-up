@@ -25,8 +25,6 @@ VendorOrdersController = RouteController.extend({
   data: function () {
     var vendorId = Meteor.user().profile.vendorId;
     var t = Transactions.find({"order.vendorId" : vendorId}).fetch();
-
-    console.log('transactions', t)
     return {transactions : t};
   },
   
