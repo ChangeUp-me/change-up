@@ -33,7 +33,7 @@
 
 				<div class="stats col-xs-12">
 					<span class="likes">{{product.likeCount}} likes</span>
-					<span class="reviews">{{product.reviews.length}}</span>
+					<span class="reviews">{{noOfReviews product.reviews}}</span>
 					<span class="share pull-right"><img src="/icons/share_gray.svg" alt="Share"></span>
 				</div>
 
@@ -97,6 +97,7 @@
 				{{#each productReviewStars reviews=product.reviews color='red'}}
 				<li><img src="/icons/star_{{color}}.svg" alt="Star"></li>
 				{{/each}}
+				<li class="reviewNo">({{ noOfReviewsNoText product.reviews }})</li>
 			</ul>
 
 			<a class="button orange" href="{{pathFor route='reviews' data=product}}">Read reviews</a>

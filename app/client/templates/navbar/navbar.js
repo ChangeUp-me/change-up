@@ -6,7 +6,7 @@ Template.Navbar.events({
 		if ($('#site-wrapper').hasClass('show-nav')) {
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-nav');
-		} 
+		}
 	}
 });
 
@@ -49,6 +49,14 @@ Template.Navbar.onRendered(function () {
 		}
 		//$('#site-wrapper').toggleClass('show-nav');
 	}
+
+	$(function() {
+		$(window).resize(function() {
+			if($(document).width() > 768 && $('#site-wrapper').hasClass('show-nav')) {
+				$('#site-wrapper').removeClass('show-nav');
+			}
+		});
+	});
 });
 
 Template.Navbar.onDestroyed(function () {

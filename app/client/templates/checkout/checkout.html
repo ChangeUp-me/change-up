@@ -15,19 +15,23 @@
 
 		<div id="charities">
 			{{#each charities}}
-			<div class="charity">
-				<div class="col-xs-9">
-					<h3>{{name}}</h3>
-					<div>{{category}}</div>
+				<div class="charity">
+					<div class="box-wrapper">
+						<div class="charity-header col-xs-9 col-sm-12">
+							<h3>{{name}}</h3>
+							<div>{{category}}</div>
+						</div>
+						{{#if image}}
+						<div class="charity-logo col-xs-3 col-sm-12 text-right">
+							<img src="{{image.url}}" alt="Arc Logo">
+						</div>
+						{{/if}}
+						<p class="col-xs-12">{{description}}</p>
+						<div class="select">
+							<button class="button blue">Select</button>
+						</div>
+					</div>
 				</div>
-				<div class="col-xs-3 text-right">
-					{{#if image}}
-					<img src="{{image.url}}" alt="Arc Logo">
-					{{/if}}
-				</div>
-				<p class="col-xs-12">{{description}}</p>
-				<button class="button blue">Select</button>
-			</div>
 			{{/each}}
 		</div>
 		{{/if}}

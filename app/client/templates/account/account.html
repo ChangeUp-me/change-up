@@ -1,57 +1,65 @@
 <template name="Account">
-	<div id="account">
+	<div id="account" class="page">
 		<h1 class="text-center">My Account</h1>
 
-		<div class="col-xs-12 text-center"><a href="{{pathFor route='orders'}}">View orders</a></div>
+		<div class="col-xs-1 col-sm-12 text-center"><a href="{{pathFor route='orders'}}">View orders</a></div>
 
 		<label>Info</label>
-		<div class="row">
-			<div class="col-xs-4">Full name</div>
-			<div class="col-xs-8">{{account.profile.name}}</div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Full name</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{account.profile.name}}"></div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">Location</div>
-			<div class="col-xs-8"></div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Location</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="CT"></div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">Age</div>
-			<div class="col-xs-8"></div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Age</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="25"></div>
 		</div>
 
 		<label>Account</label>
-		<div class="row">
-			<div class="col-xs-4">Email</div>
-			<div class="col-xs-8">{{account.email}}</div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Email</div>
+			<div class="col-xs-8 col-sm-12"><input type="email" placeholder="{{account.email}}"></div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">Password</div>
-			<div class="col-xs-8"></div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Password</div>
+			<div class="col-xs-8 col-sm-12"><input type="password" placeholder="*********"></div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">Phone</div>
-			<div class="col-xs-8"></div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Phone</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="111-222-3333"></div>
 		</div>
 
 		<label>Payment</label>
-		<div class="row">
-			<div class="col-xs-4">Credit card</div>
-			<div class="col-xs-8">Card ending in 5555</div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Credit card</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="Card ending in 5555"></div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">Exp. date</div>
-			<div class="col-xs-8">10/20</div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Name on card</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="John J. Smith"></div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">Shipping</div>
-			<div class="col-xs-8">
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">CVV</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="123"></div>
+		</div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Exp. date</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="12/25"></div>
+		</div>
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Shipping</div>
+			<div class="col-xs-8 col-sm-12">
 				<div>{{account.profile.shipping.fullName}}</div>
 				<div>{{account.profile.shipping.addressOne}}</div>
 				<div>{{account.profile.shipping.city}}, {{account.profile.shipping.state}}. {{account.profile.shipping.zipcode}}</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-4">Billing</div>
-			<div class="col-xs-8">
+		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Billing</div>
+			<div class="col-xs-8 col-sm-12">
 				<div>{{account.profile.billing.fullName}}</div>
 				<div>{{account.profile.billing.addressOne}}</div>
 				<div>{{account.profile.shipping.city}}, {{account.profile.shipping.state}}. {{account.profile.shipping.zipcode}}</div>
@@ -59,7 +67,7 @@
 		</div>
 
 		<label>Connect</label>
-		<div class="row">
+		<div class="row col-sm-6">
 			<div class="col-xs-4">Facebook</div>
 			<div class="col-xs-8">
 				<div class="onoffswitch">
@@ -68,7 +76,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row col-sm-6">
 			<div class="col-xs-4">Twitter</div>
 			<div class="col-xs-8">
 				<div class="onoffswitch">

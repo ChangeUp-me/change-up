@@ -1,10 +1,1 @@
-{
-  "public": {
-  },
-  "JASMINE_SERVER_UNIT" : 1,
-  "private" : {
-  	"stripe" : {
-  		"apiKey" : "sk_mKLYgZGYkqjzg5DPyyc0u2hrYnhgR"
-  	}
-  }
-}
+{"public":{},"JASMINE_SERVER_UNIT":1,"private":{"stripe":{"apiKey":"sk_mKLYgZGYkqjzg5DPyyc0u2hrYnhgR"}}}
