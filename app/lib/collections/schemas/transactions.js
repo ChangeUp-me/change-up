@@ -1,28 +1,5 @@
-Transactions = (function () {
-	var Transactions = new orion.collection('transactions', {
-	  singularName: 'transaction',
-	  pluralName: 'transactions',
-	  link: {
-	    title: 'transactions'
-	  },
-	  tabular: {
-	    columns: [{
-	      data: 'price',
-	      title: 'price'
-	    }, {
-	      data: 'email',
-	      title: 'email,'
-	    }, {
-	      data: 'processed',
-	      title: 'processed'
-	    }, {
-	      data : 'fufilled',
-	      title : 'fufilled'
-	    }]
-	  }
-	});
-
-	if(Meteor.isServer) {
+(function () {
+  if(Meteor.isServer) {
 		Transactions.attachSchema(new SimpleSchema(transactionsSchema()));
 	} else if(Meteor.isClient) {
 		var schema = transactionsSchema();
@@ -31,8 +8,6 @@ Transactions = (function () {
 
 		Transactions.attachSchema(new SimpleSchema(schema));
 	}
-
-	return Transactions;
 
 	function transactionsSchema () {
 		return {

@@ -35,5 +35,9 @@ Meteor.methods({
 });
 
 Meteor.publish('users', function publish_users (id) {
-	return Meteor.users.find(this.userId);
+	if(Roles.userHasRole(this.userId, 'admin')) {
+		return Meteor.users.find();
+	} else {
+		return Meteor.users.find(this.userId);
+	}
 });
