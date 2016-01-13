@@ -4,9 +4,9 @@
 		<div id="site-canvas">
 			{{> Navbar }}
 			{{> Cart }}
-			<a href="#" class="toggle-nav"><img src="/icons/menu.svg" class="Menu"></a>
+			<a href="#" class="toggle-nav hidden-sm hidden-md hidden-lg"><img src="/icons/menu.svg" class="Menu"></a>
 			<a href="#" class="toggle-cart"><img src="/icons/cart.svg" class="Cart"></a>
-			<h4 id="page-title" class="text-center">{{ pageTitle }}</h4>
+			<h4 id="page-title" class="text-center hidden-sm hidden-md hidden-lg">{{ pageTitle }}</h4>
 			{{> yield}}
 			{{> Footer }}
 		</div>
@@ -23,7 +23,7 @@
 					<a class="button blue" href="">Delete</a>
 					<a class="button orange" href="">Cancel</a>
 				</div>
-			</div>    
+			</div>
 		</div>
 	</div>
 </template>
