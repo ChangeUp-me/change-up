@@ -2,10 +2,20 @@
 	Future = Npm.require('fibers/future');
 
 	Meteor.methods({
+		setCart : function set_cart (cart) {
+			Meteor.users.update({
+				_id : Meteor.userId()
+			}, {
+				$set : {'profile.cart' : cart}
+			})
+		},
 	  addToCart: function add_to_cart(cartItem) {
 	    //check if the item is already in the cart
-
 	    var user = Meteor.user();
+
+	    if (!user) {
+	      throw new Meteor.Error('not-logged-in', 'you are not logged in');
+	    }
 
 	    if (user && _.isArray(user.profile.cart)) {
 	      var indx = user.profile.cart.findIndex(function(item) {
@@ -39,7 +49,7 @@
 	    var user = Meteor.user();
 
 	    if (!user) {
-	      throw new Meteor.Error('not-logged-in', 'the user is not logged in');
+	      throw new Meteor.Error('not-logged-in', 'you are not logged in');
 	    }
 
 	    var cart = user.profile.cart;
@@ -93,7 +103,13 @@
 	    var $checkoutResponse = new Future();
 	    var checkout = new CHECKOUT(shipping, billing, charity, stripeToken, email, cart);
 
-	    checkout.chargeNewCustomer($checkoutResponse);
+	    var existingCustomer = checkout.getCustomer();
+
+	    if(existingCustomer) {
+	    	checkout.chargeExistingCustomer(existingCustomer, $checkoutResponse);
+	    } else {
+	    	checkout.chargeNewCustomer($checkoutResponse);
+	    }
 
 	    return $checkoutResponse.wait();
 	  }

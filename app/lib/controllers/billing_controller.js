@@ -48,7 +48,6 @@ BillingController = RouteController.extend({
     var charity  = this.params.query.charity;
 
     try{
-      console.log(shipping, charity)
       shipping = JSON.parse(shipping);
       charity = JSON.parse(charity);
 

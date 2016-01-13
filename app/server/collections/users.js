@@ -4,6 +4,13 @@ Meteor.methods({
 			throw new Meteor.Error("not-an-object", 'the user must be an Object');
 		}
 
+		//check if this user email already exists
+		var exists = Accounts.findUserByEmail(userObj.email);
+
+		if(exists) {
+			throw new Meteor.Error("user-exists",'a user with this email already exists');
+		}
+
 		userObj.roles = ['user'];
 
 		var id = Accounts.createUser(userObj);

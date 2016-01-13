@@ -23,9 +23,24 @@ FulfillmentController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
-    var tran = Transactions.findOne(this.params._id); 
-    console.log(tran);
-    return tran;
+    var transaction = Transactions.findOne(this.params._id);
+    var user = Meteor.user();
+    var filtered;
+
+    if(transaction && user) {
+      var vendorId = user.profile.vendorId;
+      var order = transaction.order;
+
+      order = _.filter(order, function (item) {
+        console.log('item vendor', item.vendorId);
+        return item.vendorId == vendorId;
+      })
+
+      transaction.order = order;
+      filtered = transaction;
+    }
+
+    return filtered;
   },
   
   // You can provide any of the hook options

@@ -20,14 +20,19 @@
 				<input value="{{state}}" name="state" type="text" class="half" placeholder="State" required>
 				<input value="{{country}}" name="country" type="text" class="half" placeholder="Country" required>
 			</fieldset>
-		<h3 class="divider">Payment method</h3>
-			
+			<h3 class="divider">Payment method</h3>
 			<fieldset>
 				<input value="{{creditCardNumber}}" name="creditCardNumber" type="text" placeholder="Credit card number" required>
 				<input value="{{creditCardName}}" name="creditCardName" type="text" placeholder="Name on the card" required>
 				<input type="text" value="{{cardExp}}" name="cardExp" class="half" placeholder="Exp. (MM/YY)" required>
 				<input type="text" value="{{cardCvv}}" name="cardCvv" class="half" placeholder="CVV" required>
+			</fieldset>
+			<h3 class="divider">ChangeUp Account</h3>
+			<fieldset>
 				<input value="{{email}}" name="email" type="email" placeholder="Email" required>
+				{{#unless loggedIn}}
+				<input name="password" type="password" placeholder="Password" required>
+				{{/unless}}
 			</fieldset>
 			<div class="check">
 				<input type="checkbox" name="save" value="save">

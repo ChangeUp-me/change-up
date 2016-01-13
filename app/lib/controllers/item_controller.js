@@ -14,6 +14,12 @@ ItemController = RouteController.extend({
   // return Meteor.subscribe('post', this.params._id);
   
   waitOn: function () {
+    return [
+      Meteor.subscribe('allLikes'),
+      Meteor.subscribe('vendors'),
+      Meteor.subscribe('allCharities'),
+      Meteor.subscribe('users')
+    ]
   },
   
   // A data function that can be used to automatically set the data context for
@@ -33,10 +39,13 @@ ItemController = RouteController.extend({
       //find the vendor that owns this product
       vendor = Vendors.findOne({_id : product.vendorId})
 
+      //find if the user liked the product
+      var like = Likes.findOne({userId : Meteor.userId(), productId : product._id});
+      product.userLiked = (like && (like.productId == product._id)) ? true : false; 
+
       //find each charity that the vendor has
       if(vendor && _.isArray(vendor.charities))
         charities = Charities.find({_id : {$in : vendor.charities}}).fetch();
-      console.log(product.name);
     }
 
     return {

@@ -22,71 +22,81 @@ Transactions = (function () {
 	  }
 	});
 
-	var TransactionsSchema = new SimpleSchema({
-		userId : {
-			type : String,
-			optional : true
-		},
-		order : {
-			type : [order()],
-		},
-		price : {
-			type : String
-		},
-		charityId: {
-			type : String
-		},
-		currency : {
-			type : String,
-			optional : true
-		},
-		timestamp : {
-			type : Date,
-			autoValue : function () {
-				if(this.isInsert) {
-					return new Date();
-				} else {
-					this.unset();
-				}
-			}
-		},
-		email : {
-			type : String,
-			max : 260
-		},
-		shipping : {
-			type : shipping_schema(),
-		},
-		billing : {
-			type : billing_schema(),
-		},
-		orderCompleted : {
-			type : Boolean,
-			defaultValue : false
-		},
-		transactionId : {
-      type : String
-    },
-    processed : {
-      type : Boolean,
-      defaultValue : false
-    },
-    fufilled : {
-      type : Boolean,
-      defaultValue : false
-    },
-    paid : {
-    	type : Boolean,
-    	defaultValue : false
-    },
-    stripeCustomer : {
-    	type : String
-    }
-	})
+	if(Meteor.isServer) {
+		Transactions.attachSchema(new SimpleSchema(transactionsSchema()));
+	} else if(Meteor.isClient) {
+		var schema = transactionsSchema();
 
-	Transactions.attachSchema(TransactionsSchema);
+		schema = _.omit(schema, ['order','charityId','transactionId','stripeCustomer','price','userId']);
+
+		Transactions.attachSchema(new SimpleSchema(schema));
+	}
 
 	return Transactions;
+
+	function transactionsSchema () {
+		return {
+			userId : {
+				type : String,
+				optional : true
+			},
+			order : {
+				type : [order()],
+			},
+			price : {
+				type : String
+			},
+			charityId: {
+				type : String
+			},
+			currency : {
+				type : String,
+				optional : true
+			},
+			timestamp : {
+				type : Date,
+				autoValue : function () {
+					if(this.isInsert) {
+						return new Date();
+					} else {
+						this.unset();
+					}
+				}
+			},
+			email : {
+				type : String,
+				max : 260
+			},
+			shipping : {
+				type : shipping_schema(),
+			},
+			billing : {
+				type : billing_schema(),
+			},
+			orderCompleted : {
+				type : Boolean,
+				defaultValue : false
+			},
+			transactionId : {
+	      type : String
+	    },
+	    processed : {
+	      type : Boolean,
+	      defaultValue : false
+	    },
+	    fufilled : {
+	      type : Boolean,
+	      defaultValue : false
+	    },
+	    paid : {
+	    	type : Boolean,
+	    	defaultValue : false
+	    },
+	    stripeCustomer : {
+	    	type : String
+	    }
+		}
+	}
 
 	function order () {
 		return new SimpleSchema({
@@ -99,6 +109,13 @@ Transactions = (function () {
 						this.unset();
 					}
 				}
+			},
+			image : {
+				type : Object,
+				blackbox : true,
+			},
+			percentToCharity : {
+				type : Number
 			},
 			vendorId : {
 				type : String
@@ -125,6 +142,10 @@ Transactions = (function () {
 			},
 			shippingPrice : {
 				type : String
+			},
+			fundsTransfered : {
+				type : Boolean,
+				defaultValue : false
 			}
 		});
 	}

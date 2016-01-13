@@ -14,7 +14,7 @@
         <li class="hidden-sm hidden-md hidden-lg"><a href="{{pathFor route='checkout'}}"><img src="../../../navbar/checkout.svg" alt="Checkout">Checkout</a></li>
       </div>
     </ul>
-    {{ #if admin }}
+    {{#if isVendor}}
     <ul class="list-unstyled hidden-sm hidden-md hidden-lg">
       <li class="col-xs-12"><strong>Admin pages</strong></li>
       <li><a href="{{pathFor route='vendorOrders'}}"><img src="../../../navbar/orders.svg" alt="Orders">Orders</a></li>
@@ -23,5 +23,11 @@
       <li><a href="{{pathFor route='addProduct'}}"><img src="../../../navbar/add_product.svg" alt="Add Product">Add Product</a></li>
     </ul>
     {{ /if }}
+    {{#if isAdmin}}
+      <ul class="list-unstyled hidden-sm hidden-md hidden-lg">
+        <li class="col-xs-12"><strong>Admin pages</strong></li>
+        <li><a href="{{pathFor route='transfers'}}"><img src="/navbar/orders.svg" alt="Transfers">Transfers</a></li>
+      </ul>
+    {{/if}}
   </div>
 </template>

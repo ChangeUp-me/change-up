@@ -19,18 +19,18 @@ CharitiesSchema = new SimpleSchema({
 		name : {
 			type : String
 		},
-		image : {
-			type : Object,
-			blackbox: true,
-			optional : true
-		},
+		image : orion.attribute('image', {
+	    optional: true,
+	    label: 'Image'
+	  }),
 		description : {
 			type : String,
 			defaultValue : ''
 		},
 		about : {
 			type : String,
-			defaultValue : ''
+			defaultValue : '',
+			optional : true
 		},
 		category : {
 			type : String,

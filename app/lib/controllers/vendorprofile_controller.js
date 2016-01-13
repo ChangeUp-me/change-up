@@ -52,5 +52,6 @@ VendorProfileController = RouteController.extend({
   onAfterAction: function () {
   },
   onStop: function () {
+    Session.set('upload:image', undefined);
   }
 });

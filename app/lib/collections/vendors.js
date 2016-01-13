@@ -17,11 +17,10 @@ var VendorSchema = new SimpleSchema({
     type: String,
     unique: true
   },
-  image: {
-    type: Object,
+  image : orion.attribute('image', {
     optional: true,
-    blackbox: true
-  },
+    label: 'Image'
+  }),
   websiteUrl: {
     type: String,
     optional: true

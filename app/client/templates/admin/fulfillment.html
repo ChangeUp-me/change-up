@@ -5,7 +5,7 @@
 				{{#each order}}
 				<div class="item col-xs-12">
 					<div class="portrait col-xs-5">
-						<img src="/images/cart_image.png" alt="Item">
+						<img src="{{image.url}}" alt="Item">
 					</div>
 					<div class="details col-xs-7">
 						<strong>{{productName}}</strong>
@@ -36,6 +36,7 @@
 				<div><strong><small>{{#if processed}}Processed{{else}}Not Processed {{/if}}</small></strong></div>
 				<div><small>Payment status</small></div>
 			</div>
+			{{#with totals}}
 			<div class="subtotal">
 				<div class="col-xs-6">
 					<div>Subtotal</div>
@@ -47,13 +48,13 @@
 					<div>Shipping</div>
 				</div>
 				<div class="col-xs-6 text-right">
-					<div>$6.00</div>
+					<div>${{shipping}}</div>
 				</div>
 				<div class="col-xs-6">
 					<div>Tax</div>
 				</div>
 				<div class="col-xs-6 text-right">
-					<div>$2.00</div>
+					<div>${{tax}}</div>
 				</div>
 			</div>
 			<div class="subtotal">
@@ -61,9 +62,10 @@
 					<div>Total</div>
 				</div>
 				<div class="col-xs-6 text-right">
-					<div><strong>${{price}}</strong></div>
+					<div><strong>${{total}}</strong></div>
 				</div>
 			</div>
+			{{/with}}
 		</div>
 
 		<section>

@@ -5,9 +5,18 @@
 				{{#if product.featuredUntil}}
 				<div class="product-timer">{{featuredTime product.featuredUntil}}</div>
 				{{/if}}
-				<div class="like-button"><img src="/icons/thumbsup.svg" alt="Like"></div>
 
-				<img src="/images/cmykshirt.png" alt="Shirt">
+				{{#with product}}
+				{{#if userLiked}}
+				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup.svg" alt="Like"></div>
+				{{else}}
+				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup_gray.svg" alt="Like"></div>
+				{{/if}}
+				{{/with}}
+
+				{{#if product.image}}
+				<img src="{{product.image.url}}">
+				{{/if}}
 			</div>
 			<div class="product-name col-xs-8">
 				<h4><strong>{{product.name}}</strong></h4>
@@ -15,7 +24,7 @@
 			<div class="price col-xs-4">
 				<h4>&#36;{{product.price}}</h4>
 			</div>
-			<div class="vendor col-xs-12">Swagtastic Gear</div>
+			<div class="vendor col-xs-12"><a href="{{pathFor route='vendor' data=product}}">{{vendor.storeName}}</a></div>
 
 			<form class="col-xs-12 product-item">
 				{{#with product}}
@@ -55,12 +64,13 @@
 				<p>{{product.details}}</p>
 			</div>
 			<div class="tab-pane fade text-center" id="vendor">
-				<img src="/images/hipster_clothing_logo.png" alt="Logo">
+				{{#if vendor.image}}
+				<img src="{{vendor.image.url}}" alt="Logo">
+				{{/if}}
 
 				<h2>{{vendor.storeName}}</h2>
 				<p>{{vendor.storeDescription}}</p>
-
-				<a class="button clear gray" href="{{pathFor route='vendor'}}">Learn more</a>
+				<a class="button clear gray" href="{{pathFor route='vendor' data=product}}">Learn more</a>
 			</div>
 			<div class="tab-pane fade" id="charities">
 				{{#each charities}}
@@ -70,7 +80,9 @@
 						<div>{{category}}</div>
 					</div>
 					<div class="col-xs-3 text-right">
-						<img src="/images/arc_logo.png" alt="Arc Logo">
+						{{#if image}}
+						<img src="{{image.url}}" alt="Arc Logo">
+						{{/if}}
 					</div>
 					<div class="learn-more">
 						<h4><a href="">Learn more</a></h4>

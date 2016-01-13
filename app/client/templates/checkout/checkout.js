@@ -1,3 +1,4 @@
+
 /*****************************************************************************/
 /* Checkout: Event Handlers */
 /*****************************************************************************/
@@ -31,64 +32,34 @@ Template.Billing.events({
 		event.preventDefault();
 
 		var form = event.target;
-
-		var billing = {
-			//biling
-			fullName : form.fullName.value,
-			addressOne: form.addressOne.value,
-			addressTwo : form.addressTwo.value,
-			city : form.city.value,
-			zipcode : form.zipcode.value,
-			state : form.state.value,
-			country : form.country.value,
-			//personal info
-			email : form.email.value,
-			creditCardName : form.creditCardName.value,
-			//agreements
-			save : form.save.checked,
-			agree : form.agree.checked
-		};
-
 		var button = $('#billingBtn');
+		var billing = CHECKOUT.getBilling(form);
+		var card = CHECKOUT.getCard(form);
+		var password = form.password ? form.password.value : null;
 
-		var card = {
-			creditCardNumber : form.creditCardNumber.value,
-			creditCardName : form.creditCardName.value,
-			cardExp : form.cardExp.value || '',
-			cardCvv : form.cardCvv.value,
-		}
-
-		var exp = card.cardExp.split('/');
-
-		//check if the signed the agreement
-		if(!billing.agree)
-			return sAlert.info('please agree to the terms and conditions to continue');
+		//check if a guest failed to enter a password
+		if(!Meteor.userId() && (!password || password.length < 2))
+			return sAlert.info('please enter a password');
 
 		//check for an email
 		if(!billing.email)
 			return sAlert.error('please enter a valid email');
 
-		//validate credit card
-		if(!$.payment.validateCardNumber(card.creditCardNumber)) {
-			return sAlert.error('your credit card number is invalid');
-		} else if(!$.payment.validateCardExpiry(exp[0], exp[1])) {
-			return sAlert.error('your card expiration date is invalid')
-		} else if(!$.payment.validateCardCVC(card.cardCvv)) {
-			return sAlert.error('your card cvv is invalid');
-		}
+		//check if the signed the agreement
+		if(!billing.agree)
+			return sAlert.info('please agree to the terms and conditions to continue');
+
+		//validate the credit card
+		if(!CHECKOUT.validateCard(card)) return;
 
 		button.prop('disabled', true);
 
 		sAlert.info('processing pleas wait...');
 
-		Stripe.card.createToken({
-			number : card.creditCardNumber,
-			cvc : card.cardCvv,
-			exp_month : exp[0],
-			exp_year : exp[1]
-		}, function (status, response) {
+		//create a stripecard token
+		CHECKOUT.createToken(card, function token_created (status, response) {
+			button.prop('disabled', false);
 			if(response.error) {
-			   button.prop('disabled', false);
 			   console.error(response.error.message)
 			   return sAlert.error("card validation failed");
 			}
@@ -97,25 +68,74 @@ Template.Billing.events({
 			billing.lastFour = response.card.last4;
 		  billing.cardBrand = response.card.brand;
 		  billing.stripeToken = response.id;
-			
-			Session.set('checkout:billing', billing);
 
-			var shipping;
-			try{
-				shipping = JSON.stringify(Session.get('checkout:shipping'));
-			} catch(e) {
-				console.error('shipping-error', e);
+		  //generate the url with the correct parameters
+		  var goToUrl = function () {
+		  	Session.set('checkout:billing', billing);
+
+				var shipping;
+				try{
+					shipping = JSON.stringify(Session.get('checkout:shipping'));
+				} catch(e) {
+					console.error('shipping-error', e);
+				}
+
+				if(!shipping)
+					return sAlert.error('something was wrong with your shipping info');
+
+				//url encode billing, shipping, and charity params
+				billing = encodeURIComponent(JSON.stringify(billing));
+				shipping = encodeURIComponent(shipping);
+				var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
+
+				//take us to the summary page
+				Router.go('/summary?' + 'billing=' + billing +'&shipping=' + shipping + '&charity=' + charity);
+		  };
+
+			//if this is a new user sign them up
+			// and log them in
+			if(!Meteor.user()) {
+				Meteor.call('insertUser',{
+					email : billing.email,
+					password : password,
+					profile : {
+						name : billing.fullName,
+						dateRegistered : Date.now()
+					}
+				}, function (err) {
+					if(err) {
+						//if the user's email already exists
+						if(err.error == 'user-exists') {
+							//try to log the user in with the password they gave
+							Meteor.loginWithPassword(billing.email, password, function (err) {
+								if(err) {
+									//if login fails send them an error
+									return sAlert.error('this user email already exists, and we could not log you in with that password');
+								}
+
+								var cart = Session.get('cart');
+
+								//set this cart to the current session
+								Meteor.call('setCart', cart, function (err) {
+									if(err) {
+										console.error(err);
+										return sAlert.error('something went wrong... please try again later');
+									}
+
+									goToUrl();
+								});
+							})
+						} else {
+							//the email doesn't exist, but something went wrong
+							//with trying to log this user in.
+							console.error(err);
+							return sAlert.error("Something went wrong..please try again later");
+						}
+					}
+				});
+			} else {
+				goToUrl();
 			}
-
-			if(!shipping)
-				return sAlert.error('something was wrong with your shipping info');
-
-			billing = encodeURIComponent(JSON.stringify(billing));
-			shipping = encodeURIComponent(shipping);
-			var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
-
-			//Router.go('/summary', {}, {query : 'billing=' + billing +'&shipping=' + shipping});
-			Router.go('/summary?' + 'billing=' + billing +'&shipping=' + shipping + '&charity=' + charity);
 		});
 	}
 });
@@ -130,16 +150,7 @@ Template.Shipping.events({
 			return sAlert.error('woops looks like you missed some fields!');
 		}
 
-		var shippingInfo = {
-			fullName : form.fullName.value,
-			addressOne : form.addressOne.value,
-			addressTwo : form.addressTwo.value,
-			city : form.city.value,
-			zipcode : form.zipcode.value,
-			state : form.state.value,
-			country : form.country.value
-		}
-
+		var shippingInfo = CHECKOUT.getShipping(form);
 		Session.set('checkout:shipping', shippingInfo);
 
 		var shipping = encodeURIComponent(JSON.stringify(shippingInfo));
@@ -157,7 +168,7 @@ Template.Summary.events({
 		var shipping = Session.get('checkout:shipping');
 		var charity = Session.get('checkout:charity');
 		var user = Meteor.user();
-		var cart = user.profile.cart; //@todo
+		var cart = CART.getItems(); //@todo
 		var email = billing.email;
 		var button = $('button#checkout');
 		var stripeToken = billing.stripeToken;
@@ -185,51 +196,13 @@ Template.Summary.events({
 		   } 
 
 		   if(billing.save && user) {
-		      addShippingAndbilling();
-		   } else if(!billing.save && user) {
-		    	emptyUsersCart();
-		   } else if (!user) {
-		    //create a new user?
+		      CHECKOUT.saveUserInfo(shipping, billing);
 		   }
+
+		   CART.empty();
 		    	
 		   Router.go('/confirmation/' + transactionId);
 		});
-
-		function addShippingAndbilling () {
-			Meteor.call('updateUser',{
-		    "profile.shipping" : shipping,
-		    "profile.billing" : billing,
-		    "profile.cart" : []
-		   });
-
-			//Router.go('confirmation');
-		}
-
-		function emptyUsersCart () {
-			Meteor.call('updateUser', {
-		    "profile.cart" : []
-		   });
-
-			//Router.go('confirmation');
-		}
-
-		function createNewUser (callback) {
-			var u = {
-		    email : billing.email,
-				password : billing.password,
-				profile : {
-					name : form.name.value,
-					dateRegistered : Date.now()
-				}
-		  };
-
-		  if(billing.save) {
-		    u.profile.shipping = shipping;
-		   	u.profile.billing = billing;
-		  }
-
-		  Meteor.call('insertUser', u, callback);
-		}
 	}
 })
 
@@ -239,8 +212,19 @@ Template.Summary.events({
 Template.Checkout.helpers({
 	charities : function () {
 		return Charities.find().fetch();
+	},
+	cartEmpty : function () {
+		var cart = CART.getItems() || [];
+
+		return CART.getItems().length > 0 ? false : true;
 	}
 });
+
+Template.Billing.helpers({
+	loggedIn : function () {
+		return Meteor.userId() ? true : false;
+	}
+})
 
 Template.Summary.helpers({
 	checkout : function () {

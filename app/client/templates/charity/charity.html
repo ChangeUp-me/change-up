@@ -1,7 +1,9 @@
 <template name="Charity">
 	<div class="charity">
 		<section class="text-center">
-			<img src="/images/arc_logo.png" alt="Arc Logo">
+			{{#if image}}
+			<img src="{{image.url}}" alt="Arc Logo">
+			{{/if}}
 			<h2>{{name}}</h2>
 
 			<p class="col-xs-12">{{description}}</p>

@@ -59,6 +59,14 @@
 			type : [cart_schema()],
 			optional : true
 		},
+		"profile.cardToken" : {
+			type : String,
+			optional : true
+		},
+		"profile.customerToken" : {
+			type : String,
+			optional : true
+		},
 		"profile.dateRegistered" : {
 			type : Date,
 			autoValue : function () {
@@ -157,7 +165,12 @@
 					if(this.isUpdate) {
 						return Random.id();
 					}
+					this.unset();
 				}
+			},
+			image : {
+				type : Object,
+				blackbox : true
 			},
 			productId : {
 				type : String

@@ -25,9 +25,35 @@ CHECKOUT = (function () {
 
 		this.stripeCustomer;
 		this.stripeCharge;
+		this.vendorIds = [];
 
 		this.order;
 		this.finalPrice;
+	}
+
+	checkout.prototype.chargeExistingCustomer = function (customer, $Fiber) {
+		var self = this;
+
+		this._getOrder();
+		this._getFinalPrice();
+
+		function save_new_transaction (err, stripeCharge) {
+			if(err) {
+				console.error(err);
+				return $Fiber.throw(new Meteor.Error("charge-failed","charge failed"));
+			}
+
+			self.stripeCharge = stripeCharge;
+
+			var transactionObj = self._getTransactionObj();
+			var transaction = Transactions.insert(transactionObj);
+			$Fiber.return(transaction);
+
+			//send each vendor an email
+			self._sendVendorEmails(self.vendorIds);
+		}
+
+		self._createStripeCharge(customer, save_new_transaction);
 	}
 
 	checkout.prototype.chargeNewCustomer = function ($Fiber) {
@@ -47,6 +73,16 @@ CHECKOUT = (function () {
 
 			self.stripeCharge = stripeCharge;
 
+			//only the card if the user requested it
+			//@todo - support multiple cards?
+			/*if(self.billing.save) {
+				//save new card
+			  self._saveCard(stripeCharge.source.id)
+			}*/
+
+			//save newly created customer
+			self._saveCustomer(stripeCharge.customer);
+
 			try{
 				var transactionObj = self._getTransactionObj();
 				var transaction = Transactions.insert(transactionObj);
@@ -55,6 +91,9 @@ CHECKOUT = (function () {
 				console.error('save-new-transaction', $e);
 				$Fiber.throw($e);
 			}
+
+			//send each vendor an email
+			self._sendVendorEmails(self.vendorIds);
 		}
 
 		//@todo - check if customer already exists first
@@ -64,12 +103,53 @@ CHECKOUT = (function () {
 		   return $Fiber.throw(new Meteor.Error("create-customer-failed", "couldn't create a new customer"));
 		  }
 
+		  //save 
+
 		  self.stripeCustomer = stripeCustomer;
 		  self._createStripeCharge(null, save_new_transaction);
 		}
 
 
 		this._createStripeCustomer(charge_new_customer);
+	}
+
+	checkout.prototype.getCard = function () {
+		var user = Meteor.user();
+		var card = false;
+
+		if(user && user.profile.cardToken) {
+			token = user.profile.cardToken;
+		}
+
+		return card;
+	};
+
+	checkout.prototype.getCustomer = function () {
+		var user = Meteor.user();
+		var token = false;
+
+		if(user && user.profile.customerToken) {
+			token = user.profile.customerToken;
+		}
+
+		return token;
+	};
+
+	checkout.prototype._saveCustomer = function (customer) {
+		customer = customer || this.stripeCustomer;
+		var user = Meteor.user();
+		if(user) {
+			Meteor.users.update(Meteor.userId(), {$set : {"profile.customerToken" : customer}})
+		}
+	};
+
+	checkout.prototype._saveCard = function (cardId) {
+		cardId = cardId || this.stripeCharge.source.id;
+		var user = Meteor.user();
+
+		if(user) {
+			Meteor.users.update(Meteor.userId(), {$set : {"profile.cardToken" : customer}})
+		}
 	}
 
 	checkout.prototype._getOrder = function () {
@@ -84,12 +164,21 @@ CHECKOUT = (function () {
 	  }).fetch();
 
 	  //store each products sale and shipping price
+	  //in the order object
 	  products.forEach(function(product) {
-	    self.order[product._id].price = product.price;
-	    self.order[product._id].shippingPrice = product.shippingPrice;
-	    self.order[product._id].vendorId = product.vendorId;
-	    self.order[product._id].productId = product._id;
-	    self.order[product._id].productName = product.name;
+	  	self.order[product._id] = _.extend(self.order[product._id], {
+	  		price : product.price,
+	  		shippingPrice : product.shippingPrice,
+	  		vendorId : product.vendorId,
+	  		image : product.image,
+	  		productId : product._id,
+	  		productName : product.name,
+	  		percentToCharity : product.percentToCharity
+	  	});
+
+	    //store each unique vendor id
+	    if(self.vendorIds.indexOf(product.vendorId) < 0)
+	    	self.vendorIds.push(product.vendorId);
 	  });
 
 	  //convert order to array
@@ -132,6 +221,42 @@ CHECKOUT = (function () {
 	  }, Meteor.bindEnvironment(callback));
 	};
 
+	checkout.prototype._sendVendorEmails = function (vendorIds) {
+		var vendors = Vendors.find({_id : {$in : vendorIds}}).fetch();
+
+		if(vendors) {
+			var userIds = [];
+
+			//get each userId from vendor
+			vendors.forEach(function (vendor){
+				userIds.push(vendor.userId);
+			});
+
+			//find Each user
+			var users = Meteor.users.find({_id : {$in : userIds}}).fetch();
+
+			try{
+				//send an email to each user
+				users.forEach(function (user) {
+					Email.send({
+						to : user.emails[0].address,
+						from : 'terrell.changeup@gmail.com',
+						subject : 'new order!',
+						text : 'A new order has been submitted. Log on to changeup.com to check it out!'
+					})
+				})
+			} catch (e) {
+				console.error('send-vendor-email', e.stack);
+			}
+		}
+	}
+
+	checkout.prototype._refundCustomer = function (stripeCharge) {
+		if(!stripeCharge) return console.error('no charge object given to refund');
+
+		this.stripe.charges.refund(stripeCharge.id);
+	};
+
 	checkout.prototype._createStripeCharge = function (customerId, callback) {
 		var charge = this._getChargeObj(customerId);
 		this.stripe.charges.create(charge, Meteor.bindEnvironment(callback));
@@ -159,7 +284,7 @@ CHECKOUT = (function () {
 	checkout.prototype._getTransactionObj = function () {
 		var obj = {
 			order: this.order,
-			price: this.finalPrice.toString(),
+			price: parseFloat(this.finalPrice).toFixed(2),
 			charityId: this.charity.id, //charity.id,
 			currency: 'usd',
 			email: this.email,

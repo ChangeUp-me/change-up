@@ -2,8 +2,15 @@
 	<div id="add-product">
 		<form id="{{#if _id}}updateProduct{{else}}addProduct{{/if}}" novalidate>
 			<div id="image-upload-window">
+				{{#if image}}
+				{{#with this}}
+					{{> s3Upload}}
+			  {{/with}}
+				{{else}}
+				{{> s3Upload}}
 				<img src="/icons/white_upload.svg" alt="Upload">
 				<h4>Upload product image</h4>
+				{{/if}}
 			</div>
 			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
 			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
@@ -13,17 +20,16 @@
 			<label>Select all size available</label>
 			<ul class="size-select list-inline">
 				{{#each sizes}}
-					<li>{{this}}</li>
+				  {{#if selected}}
+					<li class="selected">{{size}}</li>
+					{{else}}
+					<li>{{size}}</li>
+					{{/if}}
 				{{/each}}
 			</ul>
-			<label>Percentage going to charity</label>
-			{{#if value}}
-			<input type="range" name="percentage" id="percentToCharity" value="{{value}}" min="0" max="100" data-show-value="true">
-			{{else}}
+			<label>Percentage going to charity - <span id="charityPerctIndicator"></span></label>
+			
 			<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
-			{{/if}}
-
-			{{selectedSizes}}
 
 		<button type="submit" class="button blue" href="{{pathFor route='vendorProducts'}}">{{#if _id}} Update Product{{else}}Add Product{{/if}}</button>
 		</form>

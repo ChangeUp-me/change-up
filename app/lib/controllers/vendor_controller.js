@@ -23,6 +23,7 @@ VendorController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    return Vendors.findOne({_id : this.params.vendorId});
   },
   
   // You can provide any of the hook options
