@@ -131,6 +131,8 @@ Template.Billing.events({
 							console.error(err);
 							return sAlert.error("Something went wrong..please try again later");
 						}
+					} else {
+						goToUrl();
 					}
 				});
 			} else {
