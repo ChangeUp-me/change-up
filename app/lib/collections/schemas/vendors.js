@@ -1,22 +1,21 @@
-Vendors = new orion.collection('vendors', {
-  singularName: 'vendor',
-  pluralName: 'Vendors',
-  link: {
-    title: 'vendors'
-  },
-  tabular: {
-    columns: [{
-      data: 'storeName',
-      title: 'Store Name'
-    }]
-  }
-});
-
 if(Meteor.isServer) {
   Vendors.attachSchema(new SimpleSchema(vendorSchema()));
 } else if(Meteor.isClient) {
   var schema = vendorSchema();
   schema = _.omit(schema, ['orders', 'charities', 'unseenOrders', 'unseenOrders.$', 'unseenOrders.$.transactionId']);
+
+  schema.userId = orion.attribute('hasOne', {
+    type : String,
+    unique : true
+  }, {
+    collection : Meteor.users,
+    titleField : ['profile.name', 'emails.address', 'roles'],
+    publicationName : Random.id(),
+    filter : function (userId) {
+      return {'roles' : {$in : ['vendor']}};
+    }
+  })
+
   Vendors.attachSchema(new SimpleSchema(schema));
 }
 

@@ -1,21 +1,5 @@
-Charities = new orion.collection('charities', {
-	singularName : 'charity',
-	pluralName : 'charities',
-	link : {
-		title : 'Charities'
-	},
-	tabular : {
-		columns : [{
-			data : 'name',
-			title : 'Name'
-		},{
-			data : 'category',
-			title : 'Category'
-		}]
-	}
-})
-
-CharitiesSchema = new SimpleSchema({
+(function () {
+  CharitiesSchema = new SimpleSchema({
 		name : {
 			type : String,
 			max : 28
@@ -46,3 +30,4 @@ CharitiesSchema = new SimpleSchema({
 	})
 	
 	Charities.attachSchema(CharitiesSchema);
+})();
