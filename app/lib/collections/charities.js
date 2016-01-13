@@ -17,15 +17,17 @@ Charities = new orion.collection('charities', {
 
 CharitiesSchema = new SimpleSchema({
 		name : {
-			type : String
+			type : String,
+			max : 28
 		},
 		image : orion.attribute('image', {
 	    optional: true,
-	    label: 'Image'
+	    label: 'Image',
 	  }),
 		description : {
 			type : String,
-			defaultValue : ''
+			defaultValue : '',
+			max : 254
 		},
 		about : {
 			type : String,
@@ -34,7 +36,8 @@ CharitiesSchema = new SimpleSchema({
 		},
 		category : {
 			type : String,
-			defaultValue : ''
+			defaultValue : '',
+			max : 38
 		},
 		websiteLink : {
 			type : String,
