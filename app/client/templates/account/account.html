@@ -35,10 +35,12 @@
 			<div class="col-xs-4 col-sm-12">Credit card</div>
 			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.cardBrand}} Card ending in {{profile.billing.lastFour}}"></div>
 		</div>
+		{{#if profile.billing}}
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Name on card</div>
 			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.creditCardName}}"></div>
 		</div>
+		{{/if}}
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Exp. date</div>
 			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="12/25"></div>

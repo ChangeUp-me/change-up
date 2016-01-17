@@ -10,7 +10,11 @@ Template.Account.events({
 Template.Account.helpers({
 	account : function () {
 		var user = Meteor.users.findOne();
-		user.email = user.emails[0].address;
+
+		try{
+			user.email = user.emails[0].address;
+		} catch (e) {console.warn('user has no email')}
+		
 		return user;
 	}
 });

@@ -246,6 +246,7 @@ CHECKOUT = (function () {
 					})
 				})
 			} catch (e) {
+				console.error('send-vendor-email', 'vendor might not have an email');
 				console.error('send-vendor-email', e.stack);
 			}
 		}
