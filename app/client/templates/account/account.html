@@ -2,26 +2,24 @@
 	<div id="account" class="page">
 		<h1 class="text-center">My Account</h1>
 
+		{{#with account}}
+
 		<div class="col-xs-1 col-sm-12 text-center"><a href="{{pathFor route='orders'}}">View orders</a></div>
 
 		<label>Info</label>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Full name</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{account.profile.name}}"></div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.name}}"></div>
 		</div>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Location</div>
 			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="CT"></div>
 		</div>
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Age</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="25"></div>
-		</div>
 
 		<label>Account</label>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Email</div>
-			<div class="col-xs-8 col-sm-12"><input type="email" placeholder="{{account.email}}"></div>
+			<div class="col-xs-8 col-sm-12"><input type="email" placeholder="{{email}}"></div>
 		</div>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Password</div>
@@ -35,15 +33,11 @@
 		<label>Payment</label>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Credit card</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="Card ending in 5555"></div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.cardBrand}} Card ending in {{profile.billing.lastFour}}"></div>
 		</div>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Name on card</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="John J. Smith"></div>
-		</div>
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">CVV</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="123"></div>
+			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.creditCardName}}"></div>
 		</div>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Exp. date</div>
@@ -52,17 +46,17 @@
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Shipping</div>
 			<div class="col-xs-8 col-sm-12">
-				<div>{{account.profile.shipping.fullName}}</div>
-				<div>{{account.profile.shipping.addressOne}}</div>
-				<div>{{account.profile.shipping.city}}, {{account.profile.shipping.state}}. {{account.profile.shipping.zipcode}}</div>
+				<div>{{profile.shipping.fullName}}</div>
+				<div>{{profile.shipping.addressOne}}</div>
+				<div>{{profile.shipping.city}}, {{profile.shipping.state}}. {{profile.shipping.zipcode}}</div>
 			</div>
 		</div>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Billing</div>
 			<div class="col-xs-8 col-sm-12">
-				<div>{{account.profile.billing.fullName}}</div>
-				<div>{{account.profile.billing.addressOne}}</div>
-				<div>{{account.profile.shipping.city}}, {{account.profile.shipping.state}}. {{account.profile.shipping.zipcode}}</div>
+				<div>{{profile.billing.fullName}}</div>
+				<div>{{profile.billing.addressOne}}</div>
+				<div>{{profile.shipping.city}}, {{profile.shipping.state}}. {{profile.shipping.zipcode}}</div>
 			</div>
 		</div>
 
@@ -85,5 +79,7 @@
 				</div>
 			</div>
 		</div>
+
+		{{/with}}
 	</div>
 </template>

@@ -1,21 +1,25 @@
 Meteor.startup(function () {
 	//smtp
 	process.env.MAIL_URL = "smtp://terrell.changeup@gmail.com:changeup1234@smtp.gmail.com:587";
-
+	
 	var superUser = Meteor.users.findOne({'emails.address' : 'admin@changeup.com'});
 
 	//create an admin if there is none
 	if(!superUser) {
-		var id = Accounts.createUser({
-			email : "admin@changeup.com",
-			password : "changeup1234",
-			profile : {
-				name : "admin",
-				dateRegistered : Date.now()
-			}
-		});
+		try {
+			var id = Accounts.createUser({
+				email : "admin@changeup.com",
+				password : "changeup1234",
+				profile : {
+					name : "admin",
+					dateRegistered : Date.now()
+				}
+			});
 
-		Roles.setUserRoles(id, ['user', 'admin', 'vendor']);
+			Roles.setUserRoles(id, ['user', 'admin', 'vendor']);
+		} catch (e) {
+			console.error('super-user-creation', e);
+		}
 	}
 });
 

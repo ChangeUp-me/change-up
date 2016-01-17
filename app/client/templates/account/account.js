@@ -15,7 +15,35 @@ Template.Account.helpers({
 	}
 });
 
-Template.Orders.helpers({})
+Template.Orders.helpers({
+	index : function (indx) {
+		return (parseInt(indx) || 0) + 1;
+	},
+	totals : function () {
+		var orderTotal = 0;
+		var subTotal = 0;
+		var shippingPrice = 0;
+
+		try{
+			var orders = this.order;
+
+			var o;
+      for(var i = 0; i < orders.length; i++) {
+        o = orders[i];
+        subTotal = subTotal +  (parseFloat(o.price) *  o.quantity);
+        shippingPrice = parseFloat(o.shippingPrice);
+      }
+		} catch (e) {
+			console.error(e.stack);
+		}
+
+		return {
+			total : (subTotal + shippingPrice).toFixed(2),
+			subTotal : subTotal.toFixed(2),
+			shipping : shippingPrice.toFixed(2),
+		};
+	}
+})
 
 /*****************************************************************************/
 /* Account: Lifecycle Hooks */

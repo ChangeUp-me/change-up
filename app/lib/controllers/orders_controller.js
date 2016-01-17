@@ -40,49 +40,30 @@ OrdersController = RouteController.extend({
     //@todo - add subscription to subscriptions instead
     //than call the .wait method
     if(transact) {
-      //get every item in the transaction
-      //and put it all in one array
-      for(var i =0; i<transact.length; i++) {
-        orders.push(transact[i].order)
-      }
-      orders = _.flatten(orders);
-
+      //get all the vendor ids
       var vendorIds = [];
-
-      //get each unique vendor id
-      orders.forEach(function (val) {
-        if(vendorIds.indexOf(val.vendorId) < 0)
-          vendorIds.push(val.vendorId);
-      });
+      for(var i =0; i<transact.length; i++) {
+        transact[i].order.forEach(function (item) {
+          vendorIds.push(item.vendorId);
+        })
+      }
 
       var vendors = Vendors.find({_id : {$in : vendorIds}}).fetch();
 
       //get each vendor name and add to each product
       var indx;
-      orders.forEach(function (order) {
-        indx = vendors.findIndex(function (vendor) {
-          return vendor._id == order.vendorId;
-        })
-
-        order.storeName = vendors[indx].storeName;
-      });
-
-      //add up price for each order
-      var o;
-      for(var i = 0; i < orders.length; i++) {
-        o = orders[i];
-        subTotal = subTotal +  (parseFloat(o.price) *  o.quantity);
+      for(var i =0; i < transact.length; i++) {
+        transact[i].order.forEach(function (order) {
+          indx = vendors.findIndex(function (vendor) {
+            return vendor._id == order.vendorId;
+          })
+          order.storeName = vendors[indx].storeName;
+        });
       }
     }
 
-    console.log('the orders', orders);
-
     return {
-      totals : {
-        subTotal : parseFloat(subTotal).toFixed(2),
-        total : parseFloat(subTotal + 6).toFixed(2)
-      },
-      orders : orders,
+      transactions : transact,
       shipping : user.shipping,
       billing : user.billing
     }

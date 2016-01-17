@@ -1,9 +1,9 @@
 
 	BankAccounts = new orion.collection('bankAccounts', {
-		singularName : 'bank Account',
-		pluralName : 'bank Accounts',
+		singularName : 'Bank Account',
+		pluralName : 'Bank Accounts',
 		link : {
-			title : 'bank Accounts'
+			title : 'Bank Accounts'
 		},
 		tabular : {
 			columns : [{

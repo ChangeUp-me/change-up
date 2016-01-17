@@ -1,8 +1,8 @@
 Transactions = new orion.collection('transactions', {
-	  singularName: 'transaction',
-	  pluralName: 'transactions',
+	  singularName: 'Transaction',
+	  pluralName: 'Transactions',
 	  link: {
-	    title: 'transactions'
+	    title: 'Transactions'
 	  },
 	  tabular: {
 	    columns: [{

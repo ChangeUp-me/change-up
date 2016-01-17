@@ -21,37 +21,28 @@ Template.registerHelper('featuredTime', function (date) {
 Template.registerHelper('productReviewStars', function(reviewObj) {
   var reviews = reviewObj.hash.reviews || [];
   var color = reviewObj.hash.color || 'red';
-
+  var stars = [];
   var totalReviewRating = 0;
 
   //add up the rating from each review
   for (var i = 0; i < reviews.length; i++) {
-    totalReviewRating += reviews[i].rating;
+    totalReviewRating += reviews[i].rating || 0;
   }
 
   //get the average number of stars
-  var total = Math.ceil(totalReviewRating / reviews.length);
-
-  var stars = [];
+  //--> hahahaha ASK SIRI WHAT 0/0 IS!!!
+  var total = Math.ceil(totalReviewRating / reviews.length) || 0;
 
   //we should never have more than 5 stars
-  if (total > 5) {
-    console.warn('total was greater than 5 stars: ' + total);
-    total = 5;
-  }
+  if (total > 5) total = 5;
 
   //add stars to product object
-  for (var i = 0; i < total; i++) {
-    stars.push({
-      color: color
-    });
-  }
-
-  //for ever star missing add a grey star
-  for (var i = 0; i < 5 - total; i++) {
-    stars.push({
-      color: 'gray'
-    });
+  for (var i = 0; i < total + (5 - total); i++) {
+    if(i < total) {
+      stars.push({color: color});
+    } else {
+      stars.push({color: 'gray'});
+    }
   }
 
   return stars;

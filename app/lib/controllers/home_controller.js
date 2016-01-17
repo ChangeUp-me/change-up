@@ -34,7 +34,10 @@ HomeController = RouteController.extend({
     this.next();
   },
   onBeforeAction: function () {
-    this.next();
+    if(!Meteor.user() && !Meteor.loggingIn()) {
+      return this.next();
+    }
+    Router.go('shop');
   },
   
   // The same thing as providing a function as the second parameter. You can
