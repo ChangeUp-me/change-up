@@ -74,6 +74,7 @@
 	}
 
 	function order () {
+		//@todo - this should be (itemId)
 		return new SimpleSchema({
 			orderId : {
 				type : String,

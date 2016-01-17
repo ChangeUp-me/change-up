@@ -1,21 +1,22 @@
 (function () {
 	//send a newly created vendor an email
-	Vendors.after.insert(function send_vendor_email(userId, doc) {
-	  var user = Meteor.users.findOne(doc.userId);
+	Meteor.users.after.update(function (userId, doc, fieldNames, modifier, options) {
+		var updateObj = modifier.$set;
+		var user = Meteor.users.findOne(doc._id);
 
-	  if(!user)
-	    return console.error("a vendor was created for a user that doesn't exist");
-
-	  try{
-	  	var email = user.emails[0].address;
-	  	Email.send({
-				to : email,
-				from : 'terrell.changeup@gmail.com',
-				subject : 'Your Vendor Account Is Ready!',
-				text : 'A new vendor account was created for you.  Sign in to changeup.com to access it.'
-			});
-	  } catch (e) {
-	  	console.error('could not send vendor email', e.stack);
-	  }
+		try {
+			if(_.isObject(updateObj) && _.isArray(updateObj.roles)) {
+				if(updateObj.roles.indexOf('vendor') > -1) {
+					Email.send({
+						to : user.emails[0].address,
+						from : 'terrell.changeup@gmail.com',
+						subject : 'Setup Your Vendor Account!',
+						text : "You now have Vendor access. Log into changeup.com and go to changeup.com/vendorProfile to create your store!"
+					});
+				}
+			} 
+		} catch (e) {
+			console.error('send-vendor-email', e.stack);
+		}
 	});
 })();

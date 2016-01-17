@@ -1,6 +1,6 @@
 Charities = new orion.collection('charities', {
-	singularName : 'charity',
-	pluralName : 'charities',
+	singularName : 'Charity',
+	pluralName : 'Charities',
 	link : {
 		title : 'Charities'
 	},
