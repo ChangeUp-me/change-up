@@ -23,6 +23,13 @@ AccountController = RouteController.extend({
   // return Posts.findOne({_id: this.params._id});
   
   data: function () {
+    var user = Meteor.user();
+
+    try{
+      user.email = user.emails[0].address;
+    } catch (e) {console.warn('user has no email')}
+    
+    return user;
   },
   
   // You can provide any of the hook options

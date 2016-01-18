@@ -1,5 +1,5 @@
 <template name="Navbar">
-  <div id="navbar">
+  <div id="navbar" class="clearfix">
     <ul class="list-unstyled">
       <div class="col-sm-2 hidden-xs">
         <a href="{{pathFor route='shop'}}"><img src="../../../navbar/logo2.svg" alt="ChangeUp Logo"></a>
@@ -10,7 +10,27 @@
         <li><a href="{{pathFor route='charities'}}"><img src="../../../navbar/charities.svg" class="hidden-sm hidden-md hidden-lg" alt="Charities">Charities</a></li>
         <li><a href="{{pathFor route='about'}}"><img src="../../../navbar/aboutus.svg" class="hidden-sm hidden-md hidden-lg" alt="About Us">About Us</a></li>
         <li><a href="{{pathFor route='news'}}"><img src="../../../navbar/news.svg" class="hidden-sm hidden-md hidden-lg" alt="News">News</a></li>
-        <li><a href="{{pathFor route='account'}}"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span></a></li>
+        {{#if isVendor}}
+        <li class="dropdown">
+            <div class="hidden-sm hidden-md hidden-lg">
+              <a href="{{pathFor route='account'}}"><img src="../../../navbar/account.svg" alt="Account">Account</a>
+            </div>
+            <div class="hidden-xs">
+              <a href="{{pathFor route='account'}}" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="false"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span><b class="caret"></b></a>
+              <ul class="dropdown-menu hidden-xs">
+                <li class="col-xs-12"><strong>Vendor pages</strong></li>
+                <li><a href="{{pathFor route='vendorOrders'}}"><img src="../../../navbar/orders.svg" alt="Orders">Orders</a></li>
+                <li><a href="{{pathFor route='vendorProducts'}}"><img src="../../../navbar/my_products.svg" alt="My Products">My Products</a></li>
+                <li><a href="{{pathFor route='vendorProfile'}}"><img src="../../../navbar/profile.svg" alt="Profile">Store Profile</a></li>
+                <li><a href="{{pathFor route='addProduct'}}"><img src="../../../navbar/add_product.svg" alt="Add Product">Add Product</a></li>
+              </ul>
+            </div>
+        </li>
+        {{else}}
+        <li>
+         <a href="{{pathFor route='account'}}"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span></a>
+       </li>
+        {{/if}}
         <li class="hidden-sm hidden-md hidden-lg"><a href="{{pathFor route='checkout'}}"><img src="../../../navbar/checkout.svg" alt="Checkout">Checkout</a></li>
       </div>
     </ul>
