@@ -7,17 +7,7 @@ Template.Account.events({
 /*****************************************************************************/
 /* Account: Helpers */
 /*****************************************************************************/
-Template.Account.helpers({
-	account : function () {
-		var user = Meteor.users.findOne();
-
-		try{
-			user.email = user.emails[0].address;
-		} catch (e) {console.warn('user has no email')}
-		
-		return user;
-	}
-});
+Template.Account.helpers({});
 
 Template.Orders.helpers({
 	index : function (indx) {
