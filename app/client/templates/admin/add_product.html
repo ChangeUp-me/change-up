@@ -2,16 +2,16 @@
 	<div id="add-product">
 		<form id="{{#if _id}}updateProduct{{else}}addProduct{{/if}}" novalidate>
 			<div id="image-upload-window">
+				<input id="imageUpload" name="image" type="file" class="overlay">
 				{{#if image}}
-				{{#with this}}
-					{{> s3Upload}}
-			  {{/with}}
+				<img id="targetImage" src="{{image.url}}">
 				{{else}}
-				{{> s3Upload}}
-				<img src="/icons/white_upload.svg" alt="Upload">
+				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
 				<h4>Upload product image</h4>
 				{{/if}}
+				<div id="uploadProgress"></div>
 			</div>
+
 			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
 			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
 			<input name="price" value="{{price}}" type="text" class="half" placeholder="Price" required>

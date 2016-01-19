@@ -82,7 +82,10 @@
   /*****************************************************************************/
   Template.VendorProfile.onCreated(function() {});
   Template.VendorProfile.onRendered(function() {
-
+    $('#imageUpload').changeUpUpload({
+      targetImage : '#targetImage',
+      progressBar : '#uploadProgress'
+    })
   });
   Template.VendorProfile.onDestroyed(function() {
 

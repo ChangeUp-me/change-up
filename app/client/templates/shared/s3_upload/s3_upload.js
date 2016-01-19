@@ -35,7 +35,7 @@ Template.s3Upload.events({
 	            })
 
 	            target.addClass('new-upload').attr('src', upload.url);
-			  		}, 100)
+			  		}, 200)
 			  	}
 			  }
 			});

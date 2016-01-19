@@ -3,9 +3,14 @@
 		<form id="storeForm" novalidate>
 			<fieldset>
 				<section class="text-center upload-image">
-					{{#with this}}
-					{{> s3Upload}}
-					{{/with}}
+					<input id="imageUpload" name="image" type="file" class="overlay">
+				{{#if image}}
+				<img id="targetImage" src="{{image.url}}">
+				{{else}}
+				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
+				<h4>Upload product image</h4>
+				{{/if}}
+				<div id="uploadProgress"></div>
 				</section>
 			</fieldset>	
 			<fieldset>

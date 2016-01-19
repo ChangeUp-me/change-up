@@ -93,17 +93,27 @@ Template.AddProduct.helpers({
 /*****************************************************************************/
 Template.AddProduct.onCreated(function() {});
 Template.AddProduct.onRendered(function() {
-  var slider = $('input#percentToCharity');
-  var target = $('#charityPerctIndicator');
-  var data = this.data || {};
-  var initVal = (data.percentToCharity || 50);
 
-  target.html(initVal + '%')
-  slider.val(initVal)
+  $('#imageUpload').changeUpUpload({
+    targetImage : '#targetImage',
+    progressBar : '#uploadProgress'
+  })
 
-  slider.on('change', function (){
-    target.html($(this).val() + '%')
-  });
+  function sliderInit () {
+    var slider = $('input#percentToCharity');
+    var target = $('#charityPerctIndicator');
+    var data = this.data || {};
+    var initVal = (data.percentToCharity || 50);
+
+    target.html(initVal + '%')
+    slider.val(initVal)
+
+    slider.on('change', function (){
+      target.html($(this).val() + '%')
+    });
+  }
+
+  sliderInit();
 });
 Template.AddProduct.onDestroyed(function() {
 
