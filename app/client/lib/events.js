@@ -1,4 +1,7 @@
 Template.MasterLayout.events({
+	/**
+	* Like/unlike a product
+	*/
 	'click .like-button' : function toggle_like (event) {
 			var likeBtn = event.target;
 
@@ -22,6 +25,10 @@ Template.MasterLayout.events({
 				})	
 			}
 		},
+
+		/**
+		* Add to cart button
+		*/
 		'submit form.product-item' : function (event) {
 			event.preventDefault();
 
@@ -34,5 +41,21 @@ Template.MasterLayout.events({
 			};
 
 			CART.addItem(cartItem);
-		}
+		},
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -8,9 +8,9 @@
 			<a class="button blue" href="{{pathFor route='about'}}">About Us</a>
 			<a class="button clear gray" href="{{pathFor route='charities'}}">View charities</a>
 		</section>
-   <div id="allItems">
+   <ul id="allItems" class="clearfix">
 		{{#each products}}
-		<div class="product">
+		<li class="product">
 			<div class="product-image">
 				{{#if featuredUntil}}
 				<div class="product-timer">{{featuredTime featuredUntil}}</div>
@@ -48,9 +48,9 @@
 						<a class="button clear gray" href="{{pathFor route='item' data=this}}">View details</a>
 					</div>
 				</form>
-			</div>
+			</li>
 			{{/each}}
-		</div>
+		</ul>
 		<section class="gray text-center">
 			<img src="icons/image_placeholder.svg" alt="Placeholder">
 
