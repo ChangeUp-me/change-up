@@ -14,6 +14,10 @@ VendorOrdersController = RouteController.extend({
   // return Meteor.subscribe('post', this.params._id);
   
   waitOn: function () {
+    return [
+      Meteor.subscribe('users'),
+      Meteor.subscribe('userTransactions')
+    ]
   },
   
   // A data function that can be used to automatically set the data context for
@@ -25,6 +29,14 @@ VendorOrdersController = RouteController.extend({
   data: function () {
     var vendorId = Meteor.user().profile.vendorId;
     var t = Transactions.find({"order.vendorId" : vendorId}).fetch();
+
+    var o;
+    for(var i =0; i < t.length; i++) {
+      t[i].order = _.filter(t[i].order, function (item) {
+        return item.vendorId == vendorId;
+      })
+    }
+
     return {transactions : t};
   },
   

@@ -3,6 +3,24 @@
   /* VendorProfile: Event Handlers */
   /*****************************************************************************/
   Template.VendorProfile.events({
+    "click [data-click-addcharity]" : function (event) {
+      event.preventDefault();
+
+      if(this._id) return Router.go('addCharity');
+
+      var form = document.getElementById("storeForm");
+
+      //save what we have now
+      var store = {
+        storeName : form.storeName.value,
+        storeDescription : form.storeDescription.value,
+        websiteUrl : form.websiteUrl.value
+      };
+
+      Session.set('vendor:create', store);
+
+      Router.go('addCharity');
+    },
     "submit #storeForm" : function (event) {
       event.preventDefault();
       var form = event.target;

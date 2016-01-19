@@ -29,11 +29,11 @@
 				<div><small>Date placed</small></div>
 			</div>
 			<div class="col-xs-6">
-				<div><strong><small>{{#if fufilled}}Fulfilled {{else}} Not Fulfilled{{/if}}</small></strong></div>
+				<div><strong><small>{{#if isFulfilled}}Fulfilled {{else}} Not Fulfilled{{/if}}</small></strong></div>
 				<div><small>Order status</small></div>
 			</div>
 			<div class="col-xs-6">
-				<div><strong><small>{{#if processed}}Processed{{else}}Not Processed {{/if}}</small></strong></div>
+				<div><strong><small>Processed</small></strong></div>
 				<div><small>Payment status</small></div>
 			</div>
 			{{#with totals}}
@@ -69,7 +69,11 @@
 		</div>
 
 		<section>
-			<a class="button blue" href="{{pathFor route='confirmation'}}">Fulfill order</a>
+			{{#if isFulfilled}}
+			<button class="button lightgray">Fulfilled</button>
+			{{else}}
+			<button class="button blue" data-click-fulfill>Fulfill order</button>
+			{{/if}}
 			<a class="button clear gray" href="">Email customer</a>
 		</section>
 	</div>

@@ -10,7 +10,7 @@
 			} 
 			//otherwise just add it to the session
 			else {
-				addCharityToSession.bind(this)();
+				addCharityToSession(this);
 			}
 
 			Router.go('vendorProfile');
@@ -39,17 +39,16 @@
 	/**
 	* Add a charity name and id to a users session
 	*
-	* @note - "this" should be bound to the context of
-	* the charity that was clicked
+	* @param Object charity
 	*/
-	function addCharityToSession () {
+	function addCharityToSession (charity) {
 		var selectedCharities = Session.get('selectedCharities');
 
 		selectedCharities = selectedCharities || [];
 
 		//check if the newley selected charity is already in the session
-		if(charitySelected(selectedCharities, this._id) == -1){
-			selectedCharities.push({id : this._id, name : this.name});
+		if(charitySelected(selectedCharities, charity._id) == -1){
+			selectedCharities.push({id : charity._id, name : charity.name});
 		}
 
 		Session.set('selectedCharities', selectedCharities);
