@@ -23,9 +23,9 @@
 						<small>#{{transactionId}}</small>
 					</div>
 					{{#if paid}}
-						{{#if fufilled}}
+						{{#if isFulfilled}}
 						<div class="col-xs-6 text-right">
-							<a class="button lightgray" href="">Fulfilled</a>
+							<a class="button lightgray" href="{{pathFor route='fulfillment' data=this}}">Fulfilled</a>
 						</div>
 						{{else}}
 						<div class="col-xs-6 text-right">
@@ -46,7 +46,7 @@
 						<div><small>Date placed</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>{{#if fufilled}}Fulfilled{{else}}Not Fulfilled{{/if}}</small></strong></div>
+						<div><strong><small>{{#if isFulfilled}}Fulfilled{{else}}Not Fulfilled{{/if}}</small></strong></div>
 						<div><small>Order status</small></div>
 					</div>
 					<div class="col-xs-6">
@@ -58,31 +58,34 @@
 							<div>Total</div>
 						</div>
 						<div class="col-xs-6 text-right">
-							<div><strong>${{price}}</strong></div>
+							<div><strong>${{total}}</strong></div>
 						</div>
 					</div>
 				</div>
 				{{/each}}
 			</div>
+
+
 			<div class="tab-pane fade" id="open">
+				{{#each transactions}}
+				{{#unless isFulfilled}}
 				<div class="queue-item">
 					<div class="col-xs-6">
-						<strong>CMYK Shirt</strong>
-						<small>#4711890</small>
+						<small>#{{transactionId}}</small>
 					</div>
-					<div class="col-xs-6 text-right">
-						<a class="button blue" href="{{pathFor route='fulfillment'}}">Fulfill order</a>
-					</div>
+						<div class="col-xs-6 text-right">
+							<a class="button blue" href="{{pathFor route='fulfillment' data=this}}">Fulfill order</a>
+						</div>
 					<div class="col-xs-6">
-						<div><strong><small>John Smith</small></strong></div>
+						<div><strong><small>{{billing.creditCardName}}</small></strong></div>
 						<div><small>Customer</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>11/23/2015</small></strong></div>
+						<div><strong><small>{{formatDate timestamp}}</small></strong></div>
 						<div><small>Date placed</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>Not fulfilled</small></strong></div>
+						<div><strong><small>Not Fulfilled</small></strong></div>
 						<div><small>Order status</small></div>
 					</div>
 					<div class="col-xs-6">
@@ -94,31 +97,34 @@
 							<div>Total</div>
 						</div>
 						<div class="col-xs-6 text-right">
-							<div><strong>$92.00</strong></div>
+							<div><strong>${{total}}</strong></div>
 						</div>
 					</div>
 				</div>
+				{{/unless}}
+				{{/each}}
 			</div>
 			
 			<div class="tab-pane fade" id="fulfilled">
+				{{#each transactions}}
+				{{#if isFulfilled}}
 				<div class="queue-item">
 					<div class="col-xs-6">
-						<strong>CMYK Shirt</strong>
-						<small>#4711890</small>
+						<small>#{{transactionId}}</small>
 					</div>
-					<div class="col-xs-6 text-right">
-						<a class="button lightgray" href="">Fulfilled</a>
-					</div>
+						<div class="col-xs-6 text-right">
+							<a class="button lightgray" href="{{pathFor route='fulfillment' data=this}}">Fulfilled</a>
+						</div>
 					<div class="col-xs-6">
-						<div><strong><small>John Smith</small></strong></div>
+						<div><strong><small>{{billing.creditCardName}}</small></strong></div>
 						<div><small>Customer</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>11/23/2015</small></strong></div>
+						<div><strong><small>{{formatDate timestamp}}</small></strong></div>
 						<div><small>Date placed</small></div>
 					</div>
 					<div class="col-xs-6">
-						<div><strong><small>Not fulfilled</small></strong></div>
+						<div><strong><small>Fulfilled</small></strong></div>
 						<div><small>Order status</small></div>
 					</div>
 					<div class="col-xs-6">
@@ -130,10 +136,12 @@
 							<div>Total</div>
 						</div>
 						<div class="col-xs-6 text-right">
-							<div><strong>$92.00</strong></div>
+							<div><strong>${{total}}</strong></div>
 						</div>
 					</div>
 				</div>
+				{{/if}}
+				{{/each}}
 			</div>
 
 			<div class="tab-pane fade" id="unpaid">

@@ -9,6 +9,7 @@
 		Transactions.attachSchema(new SimpleSchema(schema));
 	}
 
+
 	function transactionsSchema () {
 		return {
 			userId : {
@@ -55,14 +56,6 @@
 			transactionId : {
 	      type : String
 	    },
-	    processed : {
-	      type : Boolean,
-	      defaultValue : false
-	    },
-	    fufilled : {
-	      type : Boolean,
-	      defaultValue : false
-	    },
 	    paid : {
 	    	type : Boolean,
 	    	defaultValue : false
@@ -85,6 +78,10 @@
 						this.unset();
 					}
 				}
+			},
+			fulfilled : {
+				type : Boolean,
+				defaultValue : false
 			},
 			image : {
 				type : Object,
