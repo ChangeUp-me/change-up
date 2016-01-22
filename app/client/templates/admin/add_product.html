@@ -1,5 +1,9 @@
 <template name="AddProduct">
-	<div id="add-product">
+	<section class="page-header text-center">
+		<h2>Add Product</h2>
+	</section>
+
+	<div id="add-product" class="page">
 		<form id="{{#if _id}}updateProduct{{else}}addProduct{{/if}}" novalidate>
 			<div id="image-upload-window">
 				<input id="imageUpload" name="image" type="file" class="overlay">
@@ -17,21 +21,24 @@
 			<input name="price" value="{{price}}" type="text" class="half" placeholder="Price" required>
 			<input name="shippingPrice" value="{{shippingPrice}}" type="text" class="half" placeholder="Shipping rate" required>
 			<div>&nbsp;</div>
-			<label>Select all size available</label>
-			<ul class="size-select list-inline">
-				{{#each sizes}}
-				  {{#if selected}}
-					<li class="selected">{{size}}</li>
-					{{else}}
-					<li>{{size}}</li>
-					{{/if}}
-				{{/each}}
-			</ul>
-			<label>Percentage going to charity - <span id="charityPerctIndicator"></span></label>
-			
-			<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
+			<div class="col-sm-6">
+				<label class="col-sm-6 col-md-12">Select all size available</label>
+				<ul class="size-select list-inline col-sm-6 col-md-12">
+					{{#each sizes}}
+					  {{#if selected}}
+						<li class="selected">{{size}}</li>
+						{{else}}
+						<li>{{size}}</li>
+						{{/if}}
+					{{/each}}
+				</ul>
+			</div>
+			<div class="col-sm-6">
+				<label class="col-sm-6 col-md-12">Percentage going to charity - <span id="charityPerctIndicator"></span></label>
+				<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
+			</div>
 
-		<button type="submit" class="button blue" href="{{pathFor route='vendorProducts'}}">{{#if _id}} Update Product{{else}}Add Product{{/if}}</button>
+			<button type="submit" class="button blue" href="{{pathFor route='vendorProducts'}}">{{#if _id}} Update Product{{else}}Add Product{{/if}}</button>
 		</form>
 	</div>
 </template>

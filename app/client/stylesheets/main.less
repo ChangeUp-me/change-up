@@ -3,7 +3,7 @@
 /*****************************************************************************/
 @cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
 @tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
-@offwhite: #F4F1E9;				/* Navbar background */
+@offwhite: #F1F1F1;				/* Navbar background */
 @beige: #E6E4DB;				/* Section divider */
 @gray: #919191;					/* Buttons */
 @charcoal: #2A2A2A;				/* Footer background */
@@ -414,6 +414,7 @@ input[type=range] {
 	-webkit-appearance: none;
 	width: 100%;
 	margin: 5px 0 30px;
+	background: white;
 	border: none;
 }
 input[type=range]:focus {
@@ -637,5 +638,26 @@ input[type=range]:focus::-ms-fill-upper {
 		background: white;
 		box-shadow: 0 1px 10px 5px #ddd;
 		border-radius: 4px;
+	}
+
+	form {
+		border-top: none;
+		input, textarea {
+			width: 95%;
+			margin: 20px 0 0;
+			background: @offwhite;
+			border-bottom: none;
+			&.half {
+				float: none;
+				width: 46.8%;
+				margin: 20px 0.6% 0;
+				border-right: none;
+			}
+		}
+		label {
+			margin-left: 10px;
+			font-size: 14px;
+			color: @gray;
+		}
 	}
 }

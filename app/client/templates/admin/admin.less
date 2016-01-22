@@ -3,7 +3,7 @@
 /*****************************************************************************/
 @cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
 @tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
-@offwhite: #F4F1E9;				/* Navbar background */
+@offwhite: #F1F1F1;				/* Navbar background */
 @beige: #E6E4DB;				/* Section divider */
 @gray: #919191;					/* Buttons */
 @charcoal: #2A2A2A;				/* Footer background */
@@ -24,6 +24,16 @@
 		margin: 15px auto 0;
 		padding: 15px 0 0;
 		border-top: 1px solid @gray;
+	}
+}
+
+#add-product {
+	max-width: 1100px;
+	margin: 0 0 40px;
+	padding: 0 0 10px;
+	.col-sm-6 {
+		margin: 10px 0;
+		text-align: left;
 	}
 }
 
@@ -60,10 +70,10 @@ ul.size-select {
 	width: 100%;
 	max-width: 400px;
 	margin: 0 auto 20px;
-	text-align: center;
-	li {
+		li {
 		width: 46px;
 		height: 46px;
+		text-align: center;
 		font-size: 17px;
 		line-height: 2.5;
 		border: 1px solid @silver;
@@ -115,3 +125,7 @@ ul.select-list-items{
 	}
 }
 
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+
+}
