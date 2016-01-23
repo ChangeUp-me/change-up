@@ -35,7 +35,7 @@ Template.AddProduct.events({
       if(err)
         return sAlert.error(err);
 
-      sAlert.success('product updated');
+      Router.go('vendorProducts');
     });
   },
   "submit #addProduct" : function (event) {
@@ -56,7 +56,7 @@ Template.AddProduct.events({
        return console.error(err);
       }
 
-      sAlert.success('product created');
+      Router.go('vendorProducts');
     });
   },
   "click .size-select li" : function (event) {
