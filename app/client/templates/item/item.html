@@ -1,7 +1,7 @@
 <template name="Item">
 	<div class="item">
-		<div class="product">
-			<div class="product-image">
+		<div class="product page-header">
+			<div class="product-image col-sm-4">
 				{{#if product.featuredUntil}}
 				<div class="product-timer">{{featuredTime product.featuredUntil}}</div>
 				{{/if}}
@@ -18,23 +18,50 @@
 				<img src="{{product.image.url}}">
 				{{/if}}
 			</div>
-			<div class="product-name col-xs-8">
+			<div class="product-name col-xs-8 col-sm-6">
 				<h4><strong>{{product.name}}</strong></h4>
 			</div>
-			<div class="price col-xs-4">
+			<div class="price col-xs-2">
 				<h4>&#36;{{product.price}}</h4>
 			</div>
-			<div class="vendor col-xs-12"><a href="{{pathFor route='vendor' data=product}}">{{vendor.storeName}}</a></div>
+			<div class="vendor col-sm-8"><a href="{{pathFor route='vendor' data=product}}">{{vendor.storeName}}</a></div>
 
-			<form class="col-xs-12 product-item">
-				{{#with product}}
-					{{>ProductOptions}}
-				{{/with}}
+			<form class="col-sm-8 product-item">
+				<div class="hidden-sm hidden-md hidden-lg">
+					{{#with product}}
+						{{>ProductOptions}}
+					{{/with}}
+				</div>
 
 				<div class="stats col-xs-12">
 					<span class="likes">{{product.likeCount}} likes</span>
 					<span class="reviews">{{noOfReviews product.reviews}}</span>
 					<span class="share pull-right"><img src="/icons/share_gray.svg" alt="Share"></span>
+				</div>
+
+				<div class="hidden-xs">
+					<div class="col-xs-12">
+						<select>
+							<option>Charity 1</option>
+							<option>Charity 2</option>
+							<option>Charity 3</option>
+						</select>
+
+						<input type="num" style="width:50px;" placeholder="1">
+					</div>
+
+					<div class="col-xs-12">
+						<label class="col-sm-6 col-md-12">Select all size available</label>
+						<ul class="size-select list-inline col-sm-6 col-md-12">
+							{{#each sizes}}
+							  {{#if selected}}
+								<li class="selected">{{size}}</li>
+								{{else}}
+								<li>{{size}}</li>
+								{{/if}}
+							{{/each}}
+						</ul>
+					</div>
 				</div>
 
 				<div class="buttons col-xs-12">
@@ -43,71 +70,78 @@
 			</form>
 		</div>
 
-		<ul class="nav nav-tabs" role="tablist">
-			<li class="col-xs-4 active">
-				<a href="#product" role="tab" data-toggle="tab">Product</a>
-			</li>
-			<li class="col-xs-4">
-				<a href="#vendor" role="tab" data-toggle="tab">Vendor</a>
-			</li>
-			<li class="col-xs-4">
-				<a href="#charities" role="tab" data-toggle="tab">Charities</a>
-			</li>
-		</ul>
-
-		<div class="tab-content">
-			<div class="tab-pane fade active in" id="product">
-				<div><strong>Description</strong></div>
-				<p>{{product.description}}</p>
-
-				<div><strong>Details</strong></div>
-				<p>{{product.details}}</p>
-			</div>
-			<div class="tab-pane fade text-center" id="vendor">
-				{{#if vendor.image}}
-				<img src="{{vendor.image.url}}" alt="Logo">
-				{{/if}}
-
-				<h2>{{vendor.storeName}}</h2>
-				<p>{{vendor.storeDescription}}</p>
-				<a class="button clear gray" href="{{pathFor route='vendor' data=product}}">Learn more</a>
-			</div>
-			<div class="tab-pane fade" id="charities">
-				{{#each charities}}
-				<div class="charity">
-					<div class="col-xs-9">
-						<h3>{{name}}</h3>
-						<div>{{category}}</div>
-					</div>
-					<div class="col-xs-3 text-right">
-						{{#if image}}
-						<img src="{{image.url}}" alt="Arc Logo">
-						{{/if}}
-					</div>
-					<div class="learn-more">
-						<h4><a href="">Learn more</a></h4>
-					</div>
-				</div>
-				{{/each}}
-			</div>
-		</div>
-
-		<section id="rating">
-			<ul class="list-inline text-center">
-				{{#each productReviewStars reviews=product.reviews color='red'}}
-				<li><img src="/icons/star_{{color}}.svg" alt="Star"></li>
-				{{/each}}
-				<li class="reviewNo">({{ noOfReviewsNoText product.reviews }})</li>
+		<div class="page-header" id="product-details">
+			<ul class="nav nav-tabs" role="tablist">
+				<li class="col-xs-4 active">
+					<a href="#product" role="tab" data-toggle="tab">Product</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="#vendor" role="tab" data-toggle="tab">Vendor</a>
+				</li>
+				<li class="col-xs-4">
+					<a href="#charities" role="tab" data-toggle="tab">Charities</a>
+				</li>
 			</ul>
 
-			<a class="button orange" href="{{pathFor route='reviews' data=product}}">Read reviews</a>
-		</section>
+			<div class="tab-content">
+				<div class="tab-pane fade active in" id="product">
+					<div class="row">
+						<div class="col-sm-6">
+							<div><strong>Description</strong></div>
+							<p>{{product.description}}</p>
+						</div>
+						<div class="col-sm-6">
+							<div><strong>Details</strong></div>
+							<p>{{product.details}}</p>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane fade text-center" id="vendor">
+					{{#if vendor.image}}
+					<img src="{{vendor.image.url}}" alt="Logo">
+					{{/if}}
 
-		<section class="blue text-center">
-			<h2>Let's make it yours</h2>
+					<h2>{{vendor.storeName}}</h2>
+					<p>{{vendor.storeDescription}}</p>
+					<a class="button clear gray" href="{{pathFor route='vendor' data=product}}">Learn more</a>
+				</div>
+				<div class="tab-pane fade" id="charities">
+					{{#each charities}}
+					<div class="charity">
+						<div class="col-xs-9">
+							<h3>{{name}}</h3>
+							<div>{{category}}</div>
+						</div>
+						<div class="col-xs-3 text-right">
+							{{#if image}}
+							<img src="{{image.url}}" alt="Arc Logo">
+							{{/if}}
+						</div>
+						<div class="learn-more">
+							<h4><a href="">Learn more</a></h4>
+						</div>
+					</div>
+					{{/each}}
+				</div>
+			</div>
 
-			<a class="button white" href="">Add to cart</a>
-			<a class="button clear white back" href="{{pathFor route='shop'}}">Back to shop</a>
-		</section>
+			<section id="rating">
+				<ul class="list-inline text-center">
+					{{#each productReviewStars reviews=product.reviews color='red'}}
+					<li><img src="/icons/star_{{color}}.svg" alt="Star"></li>
+					{{/each}}
+					<li class="reviewNo">({{ noOfReviewsNoText product.reviews }})</li>
+				</ul>
+
+				<a class="button orange" href="{{pathFor route='reviews' data=product}}">Read reviews</a>
+			</section>
+
+			<section class="blue text-center">
+				<h2>Let's make it yours</h2>
+
+				<a class="button white" href="">Add to cart</a>
+				<a class="button clear white back" href="{{pathFor route='shop'}}">Back to shop</a>
+			</section>
+		</div>
 	</div>
 </template>

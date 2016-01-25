@@ -64,3 +64,43 @@
 .item {
 	text-align: center;
 }
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	div.product {
+		border-bottom: none;
+		.product-image {
+			padding: 0;
+		}
+		.product-name {
+			h4 {
+				font-size: 30px;
+			}
+		}
+		.price {
+			h4 {
+				font-size: 22px;
+				font-weight: bold;
+				color: @cyan;
+			}
+		}
+	}
+	#product-details {
+		margin: 0 auto 40px;
+		padding: 0;
+		.tab-content {
+			width: 95%;
+			margin: 10px auto 0;
+			.col-sm-6 {
+				text-align: left;
+			}
+		}
+	}
+	.blue {
+		padding: 40px 0 70px;
+		.button {
+			display: inline-block;
+			margin: 0 5px;
+		}
+	}
+}
