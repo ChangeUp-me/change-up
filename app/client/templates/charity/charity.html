@@ -1,5 +1,5 @@
 <template name="Charity">
-	<div class="charity">
+	<div class="charity page">
 		<section class="text-center">
 			{{#if image}}
 			<img src="{{image.url}}" alt="Arc Logo">
@@ -13,8 +13,9 @@
 			<h3>About</h3>
 			<p>{{about}}</p>
 		</section>
+	</div>
 
-		<section class="blue text-center">
+	<section class="blue text-center">
 			<h2>Support us</h2>
 
 			<p>Support "{{name}}" by donating to them directly, or by purchasing your newest gear from ChangeUp.</p>
@@ -24,5 +25,4 @@
 			<a class="button clear white" href="{{websiteLink}}" target="_blank">Visit website</a>
 			{{/if}}
 		</section>
-	</div>
 </template>
