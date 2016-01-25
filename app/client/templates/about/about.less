@@ -1,5 +1,150 @@
 /*****************************************************************************/
 /* About: Style */
 /*****************************************************************************/
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+.fullscreen {
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
 .about {
+}
+
+#about-header {
+	padding: 30px 0;
+	background: url('images/background-about-header.png') no-repeat center center;
+	.fullscreen;
+	h2 {
+		color: @mocha;
+	}
+	p {
+		color: @mocha;
+	}
+}
+#about-what {
+	padding: 30px 0;
+}
+#about-where {
+	padding: 30px 0;
+	h2 {
+		color: @mocha;
+	}
+	p {
+		color: @mocha;
+	}
+	.col-sm-6 {
+		padding: 0;
+	}
+}
+#about-when {
+	padding: 30px 0;
+	img {
+		width: 90%;
+		max-width: 700px;
+	}
+}
+#about-why {
+	padding: 30px 0;
+	background: url('images/background-about-why.png') no-repeat right center;
+	.fullscreen;
+	h2 {
+		color: white;
+	}
+	p {
+		color: white;
+	}
+	.col-sm-6 {
+		padding: 0;
+	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	#about-header {
+		padding: 30vh 0;
+		h2 {
+			max-width: 800px;
+			margin: auto;
+			color: @mocha;
+			font-size: 60px;
+		}
+		p {
+			max-width: 800px;
+			margin: 40px auto;
+			color: @mocha;
+			font-size: 18px;
+		}
+		.button {
+			display: inline-block;
+			margin: 0 5px;
+		}
+	}
+	#about-what {
+		padding: 20vh 0;
+		background: linear-gradient( rgba(34, 173, 219, 0.8), rgba(34, 173, 219, 0.8)), url('images/background-about-what.png') no-repeat center bottom;
+		.fullscreen;
+		h2 {
+			max-width: 800px;
+			margin: auto;
+			font-size: 60px;
+		}
+		p {
+			max-width: 800px;
+			margin: 40px auto;
+			font-size: 18px;
+		}
+	}
+	#about-where {
+		padding: 15vh 0;
+		text-align: left;
+		background: url('images/background-about-where.png') no-repeat center center;
+		.fullscreen;
+		h2 {
+			font-size: 60px;
+		}
+		p {
+			width: 100%;
+			margin-top: 30px;
+			font-size: 18px;
+		}
+	}
+	#about-when {
+		padding: 5vh 0;
+		h2 {
+			max-width: 800px;
+			margin: auto;
+			color: @mocha;
+			font-size: 60px;
+		}
+		p {
+			max-width: 800px;
+			margin: 30px auto;
+			color: @mocha;
+			font-size: 18px;
+		}
+	}
+	#about-why {
+		padding: 15vh 0;
+		text-align: left;
+		background: url('images/background-about-why.png') no-repeat center center;
+		.fullscreen;
+		h2 {
+			font-size: 60px;
+		}
+		p {
+			width: 100%;
+			margin-top: 30px;
+			font-size: 18px;
+		}
+	}
 }

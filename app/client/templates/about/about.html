@@ -1,25 +1,54 @@
 <template name="About">
-	<div id="about" class="page text-center">
-		<section class="text-center">
-			<h2>Who we are.<br>What we do.</h2>
+	<div class="about">
+		<section class="text-center" id="about-header">
+			<div class="container">
+				<h2>Motivating global impact.</h2>
 
-			<p class="col-xs-12">The American Refugee Committee is an international, nonprofit, nonsectarian organiztion that has provided humanitarian assistance and training to millions of beneficiaries over the past 30 years.</p>
+				<p>We are an online marketplace where you can purchase exclusive products and make an impact in the process by allocating a portion of every transaction to one of our Charitable Partners.</p>
+
+				<a class="button blue" href="{{pathFor route='shop'}}">Shop</a>
+				<a class="button orange" href="{{pathFor route='charities'}}">View charities</a>
+			</div>
 		</section>
 
-		<section id="bio" class="text-center">
-			<h3>About</h3>
+		<section class="text-center blue" id="about-what">
+			<div class="container">
+				<h2>What do we sell?</h2>
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-			cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-			proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				<p>ChangeUp hosts a variety of boutique and enduring products, ranging from first-rate apparel and accessories to modern and diverse art. We partner only with vendors who produce high quality work and are passionate about doing good in the world.</p>
 
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-			tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-			quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-			consequat.</p>
+				<a class="button clear white" href="{{pathFor route='shop'}}">Shop now</a>
+			</div>
+		</section>
+
+		<section class="text-center gray" id="about-where">
+			<div class="container">
+				<div class="col-sm-6">
+					<h2>Where does the money go?</h2>
+
+					<p>Just like we take care to choose our Vendor Partners, so do we take great care in choosing which charities we Partner with. While not-for-profit work is always well intended, the industry is riddled with operational inefficiencies and a lack of clarity in where the dollars are destined. That’s why ChangeUp is proud to Partner with non profits like Charity Water, ______ and ______, organizations with truly impactful missions and well architected structures that mirror their good intent.</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="text-center" id="about-when">
+			<div class="container">
+				<h2>When does the money reach a charity?</h2>
+
+				<p>When you make a purchase on ChangeUp, the charitable dollars will reach that organization by the end of the day. The world doesn’t wait and neither do we. </p>
+
+				<img src="images/about-when.png" width="90%" alt="When">
+			</div>
+		</section>
+
+		<section class="text-center" id="about-why">
+			<div class="container">
+				<div class="col-sm-6 col-sm-offset-6">
+					<h2>Why are we doing this?</h2>
+
+					<p>Our mindset is this - the buying and selling of goods (and services) it’s such an important part of our everyday lives. It’s not something that is going away. So why not leverage the commercial industry to help other people? Let’s build a brand selling amazing curated products where everyone can help change the world. Now that sounds like a new type of company.</p>
+				</div>
+			</div>
 		</section>
 	</div>
 </template>
