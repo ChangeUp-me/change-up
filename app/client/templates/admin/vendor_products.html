@@ -1,13 +1,16 @@
 <template name="VendorProducts">
 	<div id="vendor-products">
+		<section class="page-header hidden-xs text-center">
+			<h2>My Products</h2>
+		</section>
 		<div class="inventory">
 			<div id="items">
 				{{#each products}}
 				<div class="item col-xs-12">
-					<div class="portrait col-xs-5">
+					<div class="portrait col-xs-5 col-sm-3 col-md-5">
 						<img src="{{image.url}}" alt="Item">
 					</div>
-					<div class="details col-xs-7">
+					<div class="details col-xs-7 col-sm-9 col-md-7">
 						<strong>{{name}}</strong>
 						<div><small>{{vendorName}}</small></div>
 
@@ -19,6 +22,9 @@
 				</div>
 				{{/each}}
 			</div>
+			<section class="col-xs-12 text-center">
+				<a class="button blue" href="{{pathFor route='addProduct'}}">Add product</a>
+			</section>
 		</div>
 	</div>
 </template>

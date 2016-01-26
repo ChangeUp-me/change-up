@@ -28,7 +28,7 @@
 }
 
 #add-product {
-	max-width: 1100px;
+	max-width: 1010px;
 	margin: 0 0 40px;
 	padding: 0 0 10px;
 	.col-sm-6 {
@@ -127,5 +127,58 @@ ul.select-list-items{
 
 /* Tablet and Desktop */
 @media (min-width: 768px) {
+	#vendor-products {
+		.inventory {
+			#items {
+				width: 100%;
+				max-width: 1020px;
+				background: transparent;
+				.item {
+					width: 99.1%;
+					height: 158px;
+					margin: 5px;
+					text-align: left;
+					background: white;
+					border: none;
+					border-radius: 5px;
+					box-shadow: 0 1px 10px 5px #ddd;
+					overflow: hidden;
+					.portrait {
+						img {
+							margin: -15px;
+							height: 158px;
+							object-fit: cover;
+						}
+					}
+					.details {
+						height: 100%;
+						strong {
+							font-size: 25px;
+							line-height: 1;
+						}
+						small {
+							font-size: 16px;
+						}
+						h4 {
+							position: absolute;
+							bottom: -5px;
+							font-size: 24px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
 
+@media (min-width: 1034px) {
+	#vendor-products {
+		.inventory {
+			#items {
+				.item {
+					width: 500px;
+				}
+			}
+		}
+	}
 }
