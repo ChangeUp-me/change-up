@@ -5,9 +5,6 @@ Template.Reviews.events({
 	'submit form#review' : function (event) {
 		event.preventDefault();
 
-		if(!Meteor.user())
-			return sAlert.info('please login to leave a review');
-
 		var form = event.target;
 		var productId = this._id;
 
@@ -23,11 +20,17 @@ Template.Reviews.events({
 			return sAlert.error('please leave a rating');
 		}
 
-		Meteor.call('addProductReview', productId, review, function (err) {
-			if(err)
-				return sAlert.error(err);
-
-			Router.go('/item/'+productId);
+		Meteor.call('addProductReview', productId, review, function (err, data) {
+			if(err){
+				sAlert.error(err);
+			} else if (data === "please log in to post a review"){
+				sAlert.error(data);
+			} else if (data === "review updated"){
+				sAlert.success(data);
+			} else {
+				sAlert.success('review posted');
+				// Router.go('/item/'+productId);
+			}
 		});
 	},
 	'click #review-stars li' : function (event) {
@@ -35,7 +38,7 @@ Template.Reviews.events({
 		var stars = star.prevAll();
 		var nextStars = star.nextAll();
 
-		//select the clicked star and 
+		//select the clicked star and
 		//ever star before it
 		star.addClass('selected');
 		stars.addClass('selected');
@@ -61,6 +64,21 @@ Template.Reviews.onCreated(function () {
 });
 
 Template.Reviews.onRendered(function () {
+
+	// if (Products.find({_id : this.data._id },{'reviews.$.userId':Meteor.userId()}).fetch()){
+	// 	var productReview = (Products.find({_id : this.data._id },{'reviews.$.userId':Meteor.userId()}).fetch())[0];
+	// 	console.log(productReview);
+	// }
+	if (Meteor.userId()){
+		Meteor.call('getMyReview', this.data._id, function (err, data) {
+			if (data) {
+				$('#write').text('Update your review');
+				$('#reviewTitle').val(data.title);
+				$('#comment').val(data.comment);
+				console.log(data);
+			}
+		})
+	}
 });
 
 Template.Reviews.onDestroyed(function () {

@@ -103,10 +103,12 @@
         type: Number
       },
       title: {
-        type: String
+        type: String,
+				optional: true
       },
       name: {
-        type: String
+        type: String,
+				optional: true
       },
       userId: {
         type: String
@@ -122,7 +124,8 @@
         }
       },
       comment: {
-        type: String
+        type: String,
+				optional: true
       }
     })
   }

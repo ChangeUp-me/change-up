@@ -19,7 +19,7 @@ Meteor.methods({
 	},
 	updateUser : function update_user (userObj) {
 		Meteor.users.update({_id : this.userId}, {$set : userObj});
-	},	
+	},
 	deleteUser : function delete_user () {
 		Meteor.users.remove({_id : this.userId})
 	},
@@ -31,6 +31,22 @@ Meteor.methods({
 	*/
 	addUserRole : function add_user_role (role) {
 		Roles.setUserRoles(this.userId, role);
+	},
+
+	getMyReview: function(productId) {
+		var productReview = Products.findOne({_id : productId },{'reviews.$.userId': this.userId });
+		if (productReview){
+			productReview = productReview.reviews;
+			for (var i = 0; i < productReview.length; i++) {
+				if (productReview[i].userId === this.userId) {
+					productReview = productReview[i];
+					break;
+				}
+			}
+			return productReview;
+		} else {
+			return null;
+		}
 	}
 });
 

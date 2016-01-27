@@ -21,19 +21,29 @@ Meteor.methods({
 	},
 	updateProduct : function update_products (productId, productObj) {
 		delete productObj._id;
-		
+
 		Products.update({_id : productId}, {$set : productObj});
 	},
 	addProductReview : function add_product_review (productId, reviewObj) {
-		var user = Meteor.user();
+		var user = this.userId;
+		reviewObj['userId'] = user;
+		if (!user){
+			return "please log in to post a review";
+		} else if (Products.findOne({_id : productId },{'reviews.$.userId': user })) {
+			Products.update({ _id: productId, "reviews.userId": user }, { $set: { 'reviews.$': reviewObj } });
+			return "review updated";
+		} else {
+			Products.update({_id : productId}, {$push : {reviews : reviewObj}});
+			return true;
+		}
 
-		reviewObj.userId = user._id;
-		reviewObj.name = user.profile.name;
-
-		if(!reviewObj.userId)
-			throw new Meteor.Error('not-logged-in', "please log in to post a review");
-
-		Products.update({_id : productId}, {$push : {reviews : reviewObj}});
+		// reviewObj.userId = user._id;
+		// reviewObj.name = user.profile.name;
+		//
+		// if(!reviewObj.userId)
+		// 	throw new Meteor.Error('not-logged-in', "please log in to post a review");
+		//
+		// Products.update({_id : productId}, {$push : {reviews : reviewObj}});
 	}
 });
 
