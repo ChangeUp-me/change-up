@@ -7,6 +7,14 @@ Template.Navbar.events({
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-nav');
 		}
+	},
+
+	'click #logout': function() {
+		Meteor.logout(function(error) {
+			if(!error) {
+				window.location.replace('/shop');
+			}
+		});
 	}
 });
 
