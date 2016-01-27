@@ -1,6 +1,15 @@
 /*****************************************************************************/
 /* Login: Style */
 /*****************************************************************************/
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
 .login-screen {
 	position: absolute;
 	top: 0;
@@ -19,5 +28,25 @@
 		bottom: 8px;
 		left: 0;
 		right: 0;
+	}
+}
+
+@media (min-width: 768px) {
+	.login-screen {
+		padding: 5vh 0;
+		background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('images/background-login.png');
+		background-size: cover;
+		input:not([type="checkbox"]) {
+			display: block;
+			max-width: 400px;
+			margin: 10px auto 0;
+			color: @mocha;
+			background: transparent;
+			border-bottom: 1px solid @gray;
+		}
+		.check {
+			max-width: 400px;
+			margin: 0px auto 30px;
+		}
 	}
 }
