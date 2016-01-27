@@ -61,6 +61,32 @@ a {
 	}
 }
 
+.modal-backdrop {
+	display: none;
+}
+
+.modal {
+	i {
+		margin: 5px;
+		padding: 10px;
+		width: 80px;
+		color: white;
+		font-size: 60px;
+		border-radius: 5px;
+		transition: filter 0.8s, -webkit-filter 0.8s;
+		&:hover, &:focus, &:active {
+			-webkit-filter: brightness(50%);
+			filter: brightness(50%);
+		}
+	}
+	i.fa-facebook {
+		background: #3b5998;
+	}
+	i.fa-twitter {
+		background: #00aced;
+	}
+}
+
 form {
 	border-top: 1px solid @gray;
 	input, textarea {
