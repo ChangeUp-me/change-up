@@ -21,3 +21,8 @@ Handlebars.registerHelper('admin', function () {
     return true;
   }
 });
+
+
+Handlebars.registerHelper('productLink', function () {
+    return (document.location.origin+'/item/'+productId.get());
+});

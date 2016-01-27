@@ -3,6 +3,10 @@
 	/* Shop: Event Handlers */
 	/*****************************************************************************/
 	Template.Shop.events({
+		'click .openShareWidget': function(){
+			productId.set(this._id);
+	    $('#shareModal').modal('show');
+	  }
 	});
 
 	/*****************************************************************************/
@@ -16,7 +20,7 @@
 
 			if(products) {
 				var result = getIds(products);
-				
+
 				vendorIds = result[0];
 				productIds = result[1];
 
@@ -118,4 +122,3 @@
 		return products;
 	}
 })();
-
