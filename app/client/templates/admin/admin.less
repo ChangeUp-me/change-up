@@ -111,9 +111,6 @@ ul.select-list-items{
 	}
 }
 
-.admin {
-}
-
 #vendor-profile{
 	.upload-image{
 		position: relative;
@@ -127,10 +124,50 @@ ul.select-list-items{
 
 /* Tablet and Desktop */
 @media (min-width: 768px) {
+	#vendor-orders {
+		.nav-tabs {
+			max-width: 1010px;
+			margin: 5px auto;
+			background: white;
+			border-radius: 4px;
+			box-shadow: 0 1px 10px 5px #ddd;
+			overflow: hidden;
+			.active a {
+				color: white;
+				background: @cyan;
+			}
+			a {
+				border: none;
+			}
+		}
+		.tab-content {
+			display: inline-block;
+			width: 100%;
+			max-width: 1020px;
+			margin: 0 auto 50px;
+		}
+		.queue-item {
+			float: left;
+			width: 100%;
+			max-width: 499px;
+			margin: 5px 4px;
+			padding: 25px 25px 5px;
+			background: white;
+			text-align: left;
+			font-size: 17px;
+			border: none;
+			border-radius: 4px;
+			box-shadow: 0 1px 10px 5px #ddd;
+			.col-xs-6 {
+				margin: 0 0 15px;
+				padding: 0;
+			}
+		}
+	}
+
 	#vendor-products {
 		.inventory {
 			#items {
-				width: 100%;
 				max-width: 1020px;
 				background: transparent;
 				.item {
