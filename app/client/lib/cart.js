@@ -52,7 +52,7 @@ CART = (function () {
 	cart.getTotals = function () {
 		var cart = this.getItems();
 		var total = 0;
-		var shippingTotal = 6.00;
+		var shippingTotal = 6.00; //TODO: make rate modular
 
 		_.each(cart, function (val, indx) {
 			total = (val.price * Math.max(1,val.quantity)) + total;
@@ -61,9 +61,10 @@ CART = (function () {
 		if(total == 0) shippingTotal = 0;
 
 		return {
-			subTotal : total,
-			shipping : shippingTotal,
-			total : total + shippingTotal
+			//Rounds up to the nearest penny
+			subTotal : Math.ceil(total * 100)/100,
+			shipping : Math.ceil(shippingTotal * 100)/100,
+			total : Math.ceil((total + shippingTotal) * 100)/100
 		};
 	};
 
