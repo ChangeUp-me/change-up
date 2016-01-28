@@ -29,7 +29,7 @@
 						{{/if}}
 
 						{{#if image}}
-						<img src="{{image.url}}" alt="">
+						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="{{image.url}}" alt=""></a>
 						{{/if}}
 					</div>
 					<div class="product-name col-xs-8">
