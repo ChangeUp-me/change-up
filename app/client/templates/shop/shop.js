@@ -7,8 +7,8 @@
 			productId.set(this._id);
 			productName.set(this.name);
 			productDescription.set(this.description);
-	    $('#shareModal').modal('show');
-	  }
+			$('#shareModal').modal('show');
+		}
 	});
 
 	/*****************************************************************************/
