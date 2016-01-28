@@ -45,6 +45,9 @@ Template.Reviews.events({
 
 		//unselect every star after the clicked star
 		nextStars.removeClass('selected');
+	},
+	'click #write-toggle': function() {
+		$("#review-panel").slideToggle();
 	}
 });
 
@@ -79,6 +82,8 @@ Template.Reviews.onRendered(function () {
 			}
 		})
 	}
+
+	$("#review-panel").hide();
 });
 
 Template.Reviews.onDestroyed(function () {

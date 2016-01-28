@@ -1,7 +1,10 @@
 <template name="Reviews">
-	<div id="reviews" class="page">
-		<div class="text-center"><a href="{{pathFor route='item'}}">Back</a></div>
+	<section class="text-center page-header">
+		<a class="back-button" href="javascript:history.back()"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
+		<h2>Product Reviews</h2>
+	</section>
 
+	<div id="reviews" class="page">
 		<section id="rating" class="blue text-center">
 			<ul class="list-inline">
 				{{#each productReviewStars reviews=reviews color='white'}}
@@ -9,7 +12,7 @@
 				{{/each}}
 			</ul>
 
-			<a class="button white" href="#write">Write a review</a>
+			<a class="button white" id="write-toggle" href="">Write a review</a>
 		</section>
 
 		{{#each reviews}}
@@ -28,22 +31,22 @@
 		</div>
 		{{/each}}
 
-		<h3 id="write" class="divider text-center">Write a review</h3>
+		<div id="review-panel">
+			<section class="text-center">
+				<ul class="list-inline" id="review-stars">
+					{{#each reviewStars}}
+						<li class="review-star"></li>
+					{{/each}}
+				</ul>
 
-		<section class="text-center">
-			<ul class="list-inline" id="review-stars">
-				{{#each reviewStars}}
-					<li class="review-star"></li>
-				{{/each}}
-			</ul>
+				<div><small>Rate this product</small></div>
+			</section>
 
-			<div><small>Rate this product</small></div>
-		</section>
-
-		<form id="review" novalidate>
-			<input type="text" placeholder="Title" name="reviewTitle" id="reviewTitle">
-			<textarea name="comment" placeholder="Comments" rows="8" id="comment"></textarea>
-			<button class="button blue">Submit review</button>
-		</form>
+			<form id="review" novalidate>
+				<input type="text" placeholder="Title" name="reviewTitle" id="reviewTitle">
+				<textarea name="comment" placeholder="Comments" rows="8" id="comment"></textarea>
+				<button class="button blue">Submit review</button>
+			</form>
+		</div>
 	</div>
 </template>

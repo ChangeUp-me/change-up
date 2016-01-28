@@ -293,6 +293,10 @@ section {
 	}
 }
 
+.page, .page-header {
+	position: relative;
+}
+
 #page-title {
 	margin: 10px auto 20px;
 	color: @mocha;
@@ -358,7 +362,6 @@ ul.nav.nav-tabs {
 .product {
 	display: inline-block;
 	width: 100%;
-	max-width: 300px;
 	padding: 0 0 10px;
 	text-align: left;
 	border-bottom: 12px solid @beige;
@@ -663,9 +666,11 @@ input[type=range]:focus::-ms-fill-upper {
 	.page-header {
 		max-width: 1010px;
 		margin: 40px auto 10px;
-		padding: 5px 0 10px;
+		padding: 2px 0 10px;
 		background: white;
 		box-shadow: 0 1px 10px 5px #ddd;
+		border-radius: 4px;
+		overflow: hidden;
 	}
 
 	.page {
@@ -677,6 +682,15 @@ input[type=range]:focus::-ms-fill-upper {
 		background: white;
 		box-shadow: 0 1px 10px 5px #ddd;
 		border-radius: 4px;
+		overflow: hidden;
+	}
+
+	.back-button {
+		top: 25px;
+		left: 25px;
+		img {
+			height: 30px;
+		}
 	}
 
 	form {
