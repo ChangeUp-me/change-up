@@ -137,6 +137,7 @@ form {
 		color: @gray;
 	}
 	.check {
+		display: inline-block;
 		width: 100%;
 		padding: 12px 20px 5px;
 		text-align: left;
@@ -452,6 +453,7 @@ ul.nav.nav-tabs {
 			}
 		}
 		.share {
+			cursor: pointer;
 			img {
 				max-width: 23px;
 				margin: 5px 0 0;
@@ -651,10 +653,15 @@ input[type=range]:focus::-ms-fill-upper {
 			}
 		}
 	}
+	#total {
+		text-align: left;
+		.col-xs-12 {
+			padding: 5px 10px;
+		}
+	}
 	#overview {
 		text-align: center;
 		.details {
-			float: none;
 			width: 90%;
 			margin: auto;
 			padding: 5px 0 15px;
@@ -704,6 +711,13 @@ input[type=range]:focus::-ms-fill-upper {
 		overflow: hidden;
 	}
 
+	.divider {
+		margin: 40px 0 0;
+		padding: 0;
+		background: white;
+		border: none;
+	}
+
 	.back-button {
 		top: 25px;
 		left: 25px;
@@ -730,6 +744,19 @@ input[type=range]:focus::-ms-fill-upper {
 			margin-left: 10px;
 			font-size: 14px;
 			color: @gray;
+		}
+	}
+
+	.cart, .inventory {
+		#overview {
+			width: 93%;
+			margin: auto;
+			.details {
+				width: 48%;
+				min-height: 123px;
+				margin: 0 1%;
+				border-bottom: 1px solid @gray;
+			}
 		}
 	}
 }

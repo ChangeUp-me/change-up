@@ -46,13 +46,19 @@
 
 				<div class="hidden-xs">
 					<div class="col-xs-12">
-						<select>
-							<option>Charity 1</option>
-							<option>Charity 2</option>
-							<option>Charity 3</option>
-						</select>
+						<div class="col-sm-6">
+							<label>Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"></label>
+							<select>
+								{{#each charities}}
+									<option>{{name}}</option>
+								{{/each}}
+							</select>
+						</div>
 
-						<input type="num" style="width:50px;" placeholder="1">
+						<div class="col-sm-6">
+							<label>Quantity</label>
+							<input type="num" placeholder="1">
+						</div>
 					</div>
 
 					<div class="col-xs-12">

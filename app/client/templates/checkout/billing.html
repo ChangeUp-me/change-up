@@ -8,8 +8,10 @@
 
 		<form id="billing">
 			<div class="check">
-				<input id="sameAs" type="checkbox" name="billing" value="billing">
-				<label for="billing">Billing address same as shipping</label>
+				<div class="col-xs-12">
+					<input id="sameAs" type="checkbox" name="billing" value="billing">
+					<label for="billing">Billing address same as shipping</label>
+				</div>
 			</div>
 			<fieldset>
 				<input value="{{fullName}}" name="fullName" type="text" placeholder="Full name" required>
@@ -35,10 +37,14 @@
 				{{/unless}}
 			</fieldset>
 			<div class="check">
-				<input type="checkbox" name="save" value="save">
-				<label for="stay">Save information for quick purchase</label>
-				<input type="checkbox" name="agree" value="agree">
-				<label for="stay">I agree to the Terms &amp; Conditions</label>
+				<div class="col-xs-12">
+					<input type="checkbox" name="save" value="save">
+					<label for="stay">Save information for quick purchase</label>
+				</div>
+				<div class="col-xs-12">
+					<input type="checkbox" name="agree" value="agree">
+					<label for="stay">I agree to the Terms &amp; Conditions</label>
+				</div>
 			</div>
 			<div id="subtotal">
 				<div class="col-xs-6"><strong>Total</strong></div>

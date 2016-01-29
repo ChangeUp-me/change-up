@@ -12,7 +12,7 @@
 
 		<div class="cart">
 			<div id="overview">
-				<div class="details col-xs-12">
+				<div class="details col-sm-6">
 					<h4>Ship to:</h4>
 					<div>{{checkout.shipping.fullName}}</div>
 					<div>{{checkout.shipping.addressOne}}</div>
@@ -23,7 +23,7 @@
 					</a>
 				</div>
 
-				<div class="details col-xs-12">
+				<div class="details col-sm-6">
 					<h4>Bill to:</h4>
 					<div>{{checkout.billing.fullName}}</div>
 					<div>{{checkout.billing.addressOne}}</div>
@@ -34,7 +34,7 @@
 					</a>
 				</div>
 
-				<div class="details col-xs-12">
+				<div class="details col-sm-6">
 					<h4>Pay with:</h4>
 					<div>{{checkout.billing.creditCardName}}</div>
 					<div>Visa ending with {{checkout.billing.creditCardNumber}}</div>
@@ -45,7 +45,7 @@
 					</a>
 				</div>
 
-				<div class="details col-xs-12">
+				<div class="details col-sm-6">
 					<h4>Charity:</h4>
 					<div>{{charity.name}}</div>
 					<div>{{charity.category}}</div>
@@ -58,7 +58,7 @@
 
 			<h3 class="divider">Cart</h3>
 
-			<div id="items" style="width:100%">
+			<div id="items">
 				{{#each cartItems}}
 				<div class="item col-xs-12">
 					<div class="portrait col-xs-5">
@@ -69,9 +69,9 @@
 						<div><small>{{vendorName}}</small></div>
 
 						<h4>&#36;{{price}}</h4>
-						<div><small>x{{quantity}} | {{size}} | {{color}}</small></div>
+						<div><small>x{{quantity}} {{#if size}}| {{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
 
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
+						<!--<img class="edit" src="icons/edit_pencil.svg" alt="Edit">-->
 						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
 					</div>
 				</div>
