@@ -15,8 +15,15 @@
 	/* Shop: Helpers */
 	/*****************************************************************************/
 	Template.Shop.helpers({
+		// featuredProducts: function() {
+		// 	var fpIDs = FeaturedProducts.findOne().products;
+		// 	var products = Products.find({_id:{$in:fpIDs}}).fetch();
+		// 	console.log(products);
+		// },
 		products : function () {
-			var products = Products.find({},{limit : 10, sort : {featuredPosition : 1}}).fetch();
+			// var products = Products.find({},{limit : 10, sort : {featuredPosition : 1}}).fetch();
+			var fpIDs = FeaturedProducts.findOne().products;
+			var products = Products.find({_id:{$in:fpIDs}}).fetch();
 			var vendorIds = [];
 			var productIds = [];
 
@@ -42,9 +49,6 @@
 			}
 
 			return products;
-		},
-		featuredProducts : function () {
-			
 		}
 	});
 
