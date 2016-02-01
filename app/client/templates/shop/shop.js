@@ -42,6 +42,9 @@
 			}
 
 			return products;
+		},
+		featuredProducts : function () {
+			
 		}
 	});
 

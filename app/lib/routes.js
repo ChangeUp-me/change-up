@@ -5,13 +5,13 @@ Router.configure({
 });
 
 
-Router.route('/', {
-  name: 'home',
-  controller: 'HomeController',
-  where: 'client'
-});
+// Router.route('/', {
+//   name: 'home',
+//   controller: 'HomeController',
+//   where: 'client'
+// });
 
-Router.route('shop', {
+Router.route('/', {
   name: 'shop',
   controller: 'ShopController',
   where: 'client'
