@@ -2,7 +2,7 @@
   CharitiesSchema = new SimpleSchema({
 		name : {
 			type : String,
-			max : 28
+			max : 32
 		},
 		image : orion.attribute('image', {
 	    optional: true,
@@ -11,7 +11,7 @@
 		description : {
 			type : String,
 			defaultValue : '',
-			max : 254
+			max : 256
 		},
 		about : {
 			type : String,
@@ -28,6 +28,6 @@
 			optional : true,
 		}
 	})
-	
+
 	Charities.attachSchema(CharitiesSchema);
 })();

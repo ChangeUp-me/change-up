@@ -170,7 +170,8 @@
 			},
 			image : {
 				type : Object,
-				blackbox : true
+				blackbox : true,
+				optional : true
 			},
 			productId : {
 				type : String

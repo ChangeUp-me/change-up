@@ -22,40 +22,24 @@ Template.MasterLayout.events({
 					if(err){
 						console.error(err);
 					}
-				})	
+				})
 			}
 		},
 
 		/**
 		* Add to cart button
 		*/
-		'submit form.product-item' : function (event) {
-			event.preventDefault();
-
-			var form = event.target;
-			var cartItem = {
-				productId : form.productId.value,
-				size : form.size.value,
-				quantity : parseInt(form.quantity.value) || 1,
-				image : this.image
-			};
-
-			CART.addItem(cartItem);
-		},
+		// 'submit form.product-item' : function (event) {
+		// 	event.preventDefault();
+		//
+		// 	var form = event.target;
+		// 	var cartItem = {
+		// 		productId : form.productId.value,
+		// 		size : form.size.value,
+		// 		quantity : parseInt(form.quantity.value) || 1,
+		// 		image : this.image
+		// 	};
+		//
+		// 	CART.addItem(cartItem);
+		// },
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

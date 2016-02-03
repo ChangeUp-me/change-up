@@ -20,26 +20,29 @@ Template.Item.helpers({
 	charities : function () {
 		return this.charities;
 	},
-
-	sizes : function () {
-		var sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-		var selfSizes = this.sizes;
-
-		//if the user has sizes set make them uppercase
-		if(selfSizes) {
-			selfSizes = selfSizes.map(function (size) {
-			return size.toUpperCase();
-		})
+	sizes: function(){
+		return this.product.sizes;
 	}
 
-	sizes = sizes.map(function (size) {
-		if(selfSizes && selfSizes.indexOf(size) > -1)
-			return {size : size, selected : true};
-		else
-			return {size : size, selected : false};
-		})
-		return sizes;
-	}
+	// sizes : function () {
+	// 	var sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+	// 	var selfSizes = this.sizes;
+	//
+	// 	//if the user has sizes set make them uppercase
+	// 	if(selfSizes) {
+	// 		selfSizes = selfSizes.map(function (size) {
+	// 		return size.toUpperCase();
+	// 	})
+	// }
+	//
+	// sizes = sizes.map(function (size) {
+	// 	if(selfSizes && selfSizes.indexOf(size) > -1)
+	// 		return {size : size, selected : true};
+	// 	else
+	// 		return {size : size, selected : false};
+	// 	})
+	// 	return sizes;
+	// }
 });
 
 /*****************************************************************************/

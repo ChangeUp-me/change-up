@@ -13,8 +13,11 @@ Meteor.methods({
 		if(!id) {
 			throw new Meteor.Error('not-an-id', 'no charity given');
 		}
-
-		Vendors.update({userId : Meteor.userId()}, {$addToSet : { charities : id }});
+		if (Vendors.findOne({userId : Meteor.userId()}).charities.length >= 3){
+			throw new Meteor.Error('too many charities');
+		} else {
+			Vendors.update({userId : Meteor.userId()}, {$addToSet : { charities : id }});
+		}
 	},
 
 	/**

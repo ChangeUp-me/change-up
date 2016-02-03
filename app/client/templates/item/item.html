@@ -4,7 +4,7 @@
 			<a class="back-button" href="javascript:history.back()"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
 			<h2>Product Info</h2>
 		</section>
-	
+
 		<div class="product page-header">
 			<div class="product-image col-sm-4">
 				{{#if product.featuredUntil}}
@@ -21,6 +21,8 @@
 
 				{{#if product.image}}
 				<img src="{{product.image.url}}">
+				{{else}}
+				<img src="../../../images/noImage.png">
 				{{/if}}
 			</div>
 			<div class="product-name col-xs-8 col-sm-6">
@@ -46,7 +48,7 @@
 
 				<div class="hidden-xs">
 					<div class="col-xs-12">
-						<div class="col-sm-6">
+						<div class="col-sm-8">
 							<label>Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"></label>
 							<select>
 								{{#each charities}}
@@ -55,20 +57,27 @@
 							</select>
 						</div>
 
-						<div class="col-sm-6">
+						<div class="col-sm-4">
 							<label>Quantity</label>
-							<input type="num" placeholder="1">
+							<input type="number" placeholder="1">
 						</div>
 					</div>
 
 					<div class="col-xs-12">
-						<label class="col-sm-6 col-md-12">Select all size available</label>
+						<label class="col-sm-6 col-md-12">Select a size</label>
 						<ul class="size-select list-inline col-sm-6 col-md-12">
-							{{#each sizes}}
+							<!-- {{#each sizes}}
 							  {{#if selected}}
 								<li class="selected">{{size}}</li>
 								{{else}}
 								<li>{{size}}</li>
+								{{/if}}
+							{{/each}} -->
+							{{#each sizes}}
+								{{#if selected}}
+								<li class="selected">{{this}}</li>
+								{{else}}
+								<li>{{this}}</li>
 								{{/if}}
 							{{/each}}
 						</ul>

@@ -20,12 +20,22 @@
 
 			buildItems(element, 'quantity', quantities, inputVal);
 		},
-		'click li[data-quantity]' : function (event) {
-			selectOption($(event.target), 'quantity');
-		},
-		'click li[data-size]' : function (event) {
-			selectOption($(event.target), 'size');
-		},
+		// 'click li[data-quantity]' : function (event) {
+		// 	selectOption($(event.target), 'quantity');
+		// },
+		// 'click li[data-size]' : function (event) {
+		// 	selectOption($(event.target), 'size');
+		// },
+		"click .size-select li" : function (event, template) {
+			var allSizes= [];
+			for (var i = 0; i < template.data.sizes.length; i++) {
+				allSizes.push(template.data._id+""+template.data.sizes[i])
+			}
+			$('#' + allSizes.join(',#')).removeClass('selected');
+			$('#' + allSizes.join(',#')).data('value', '');
+			$(event.target).toggleClass('selected');
+			$(event.target).data('value', 'selected');
+		}
 
 	});
 
@@ -33,6 +43,18 @@
 	/* ProductOptions: Helpers */
 	/*****************************************************************************/
 	Template.ProductOptions.helpers({
+		charities: function(){
+			var charitiesId = Vendors.findOne({'_id':(this.vendorId)}).charities;
+			var charitiesObj = Charities.find({_id:{ $in: charitiesId}}).fetch();
+			var charities= [];
+			for (var i = 0; i < charitiesObj.length; i++) {
+				charities.push(charitiesObj[i].name);
+			}
+			return charities;
+		},
+		sizes: function(){
+			return this.sizes;
+		}
 
 	});
 
@@ -43,11 +65,12 @@
 	});
 
 	Template.ProductOptions.onRendered(function () {
-		$(document).on('click', closeDropdown)
+		// $(document).on('click', closeDropdown)
+		//console.log(this.data)
 	});
 
 	Template.ProductOptions.onDestroyed(function () {
-		$(document).off('click', closeDropdown);
+		// $(document).off('click', closeDropdown);
 	});
 
 
@@ -59,10 +82,10 @@
 	*/
 	function closeDropdown (event) {
 		if(!$(event.target).closest('.product-option').length) {
-	    if($('.sd-items').is(":visible")) {
-	      $('.sd-items').removeClass('open');
-	    }
-	  } 	
+			if($('.sd-items').is(":visible")) {
+				$('.sd-items').removeClass('open');
+			}
+		}
 	}
 
 	/**
@@ -72,14 +95,14 @@
 	* @param {String} attrName - the type of option that these items belong to ex : (quantity, size)
 	* @param {Array} items - a list of items ot append to the element ['itemone', 'itemtwo']
 	* @param {String|Number} inputVal - the current value of the input form element
- 	*/
+	*/
 	function buildItems (element, attrName, items, inputVal) {
 		element.empty();
 		var ele;
 
 		items.forEach(function (val, indx) {
 			ele = $('<li data-'+attrName+'="'+val+'" class="sd-item">'+ val +'</li>').appendTo(element);
-			
+
 			if(val.toString().toLowerCase() == inputVal.toString().toLowerCase()) {
 				selectOption(ele, attrName);
 			}
@@ -105,4 +128,3 @@
 		//element.parent().removeClass('open');
 	}
 })();
-
