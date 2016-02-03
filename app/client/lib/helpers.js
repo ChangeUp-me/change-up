@@ -11,7 +11,18 @@ Template.registerHelper('featuredTime', function (date) {
 
   var then = date;
   var now = Date.now();
-      
+
+  var hours = moment(then).diff(now, 'hours');
+  var minutes =  moment(then).diff(now, 'minutes');
+
+  return hours + 'h ' + (minutes - (60 * hours)) + 'm';
+})
+
+Template.registerHelper('featuredProductsTime', function () {
+
+  var then = FeaturedProducts.findOne({'current':true}).date;
+  var now = Date.now();
+
   var hours = moment(then).diff(now, 'hours');
   var minutes =  moment(then).diff(now, 'minutes');
 

@@ -24,13 +24,17 @@ Handlebars.registerHelper('admin', function () {
 
 
 Handlebars.registerHelper('productLink', function () {
-    return (document.location.origin+'/item/'+productId.get());
+  return (document.location.origin+'/item/'+productId.get());
 });
 
 Handlebars.registerHelper('productName', function () {
-    return productName.get();
+  return productName.get();
 });
 
 Handlebars.registerHelper('productDescription', function () {
+  try {
     return (productDescription.get()).replace(/ /g,'%20');
+  } catch (e) {
+
+  }
 });
