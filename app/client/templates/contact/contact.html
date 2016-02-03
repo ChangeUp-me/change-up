@@ -1,13 +1,15 @@
 <template name="Contact">
 	<div id="contact" class="page text-center">
-		<h2>Ask us anything</h2>
-		<p>We strive in providing rapid customer support to you.</p>
+		<div id="messageFeedbackContainer">
+			<h2 id="messageFeedback">Ask us anything</h2>
+			<p>We strive in providing rapid customer support to you.</p>
+		</div>
 
 		<form>
-			<input type="text" placeholder="Name" required>
-			<input type="email" placeholder="Email" required>
-			<textarea placeholder="What's on your mind?" rows="4" required></textarea>
-			<a class="button orange" href="">Send</a>
+			<input id="name" type="text" placeholder="Name" required>
+			<input id="email" type="email" placeholder="Email" required>
+			<textarea id="message" placeholder="What's on your mind?" rows="4" required></textarea>
+			<a class="button orange" id="submit" href="">Send</a>
 		</form>
 	</div>
 </template>
