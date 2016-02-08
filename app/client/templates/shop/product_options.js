@@ -48,7 +48,7 @@
 			var charitiesObj = Charities.find({_id:{ $in: charitiesId}}).fetch();
 			var charities= [];
 			for (var i = 0; i < charitiesObj.length; i++) {
-				charities.push(charitiesObj[i].name);
+				charities.push({"id":charitiesObj[i]._id, "name": charitiesObj[i].name});
 			}
 			return charities;
 		},

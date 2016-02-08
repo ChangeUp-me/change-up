@@ -13,6 +13,7 @@
 			event.preventDefault();
 			var selectedSize;
 			var quantity = template.find('#quantity'+this._id).value;
+			var charity = template.find('#charities'+this._id).value;
 			for (var i = 0; i < this.sizes.length; i++) {
 				if ($("#"+this._id+""+this.sizes[i]).data('value') === "selected"){
 					selectedSize = this.sizes[i];
@@ -22,7 +23,8 @@
 				productId : this._id,
 				size : selectedSize,
 				quantity : parseInt(quantity),
-				image : this.image
+				image : this.image,
+				charityId: charity
 			};
 
 			if (cartItem.size === undefined){
