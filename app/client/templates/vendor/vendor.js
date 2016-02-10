@@ -7,7 +7,11 @@ Template.Vendor.events({
 /*****************************************************************************/
 /* Vendor: Helpers */
 /*****************************************************************************/
-Template.Vendor.helpers({});
+Template.Vendor.helpers({
+  vendorProducts : function () {
+    return Products.find({'vendorId' : this._id }).fetch();
+  }
+});
 
 /*****************************************************************************/
 /* Vendor: Lifecycle Hooks */
