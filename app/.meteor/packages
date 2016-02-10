@@ -45,3 +45,8 @@ orionjs:relationships
 service-configuration
 zimme:bootstrap-hover-dropdown
 okgrow:router-autoscroll
+
+
+orionjs:file-attribute
+orionjs:filesystem
+#vsivsi:orion-file-collection

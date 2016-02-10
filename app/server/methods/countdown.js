@@ -61,5 +61,5 @@ Meteor.startup(function () {
     }
   }
   // Check to update featured products on a hourly basis
-  Meteor.setInterval(updateFeaturedProducts, 3600000);
+  Meteor.setInterval(updateFeaturedProducts, 10000);
 });
