@@ -386,6 +386,19 @@ ul.nav.nav-tabs {
 	form.product-options{
 		border-top: 0;
 	}
+	.product-options {
+		label {
+			margin: 5px 0;
+		}
+		.size-select {
+			li {
+				width: 35px;
+				height: 35px;
+				font-size: 13px;
+				line-height: 2.6;
+			}
+		}
+	}
 	.product-image {
 		position: relative;
 		.product-timer {
@@ -401,11 +414,12 @@ ul.nav.nav-tabs {
 		}
 		.like-button {
 			position: absolute;
-			top: 0;
-			right: 0;
+			top: 10px;
+			right: 10px;
+			z-index: 100;
 			img {
 				width: 25px;
-				margin: 10px;
+				margin: 0;
 			}
 		}
 		img {
@@ -729,10 +743,11 @@ input[type=range]:focus::-ms-fill-upper {
 	form {
 		border-top: none;
 		input, textarea {
-			width: 95%;
-			margin: 20px 0 0;
-			background: @offwhite;
+			width: 100%;
+			padding: 5px;
 			border-bottom: none;
+			border: 1px solid @silver;
+			border-radius: 3px;
 			&.half {
 				float: none;
 				width: 46.8%;

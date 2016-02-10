@@ -118,9 +118,9 @@
 					<p>{{vendor.storeDescription}}</p>
 					<a class="button clear gray" href="{{pathFor route='vendor' data=product}}">Learn more</a>
 				</div>
-				<div class="tab-pane fade" id="charities">
+				<div class="tab-pane fade product-sponsors" id="charities">
 					{{#each charities}}
-					<div class="charity">
+					<div class="charity text-left">
 						<div class="col-xs-9">
 							<h3>{{name}}</h3>
 							<div>{{category}}</div>
@@ -131,7 +131,7 @@
 							{{/if}}
 						</div>
 						<div class="learn-more">
-							<h4><a href="">Learn more</a></h4>
+							<h4><a href="{{pathFor route='charity' data=this}}">Learn more</a></h4>
 						</div>
 					</div>
 					{{/each}}

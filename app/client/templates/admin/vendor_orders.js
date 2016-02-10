@@ -7,6 +7,8 @@ Template.VendorOrders.events({
 /*****************************************************************************/
 /* VendorOrders: Helpers */
 /*****************************************************************************/
+
+
 Template.VendorOrders.helpers({
 	total : function () {
 		var total = 0;
@@ -27,6 +29,20 @@ Template.VendorOrders.helpers({
 		});
 
 		return unfulfilledItems.length > 0 ? false : true;
+	},
+	count : function() {
+		var incomplete = 0;
+
+		this.transactions.forEach(function() {
+			this.order.forEach(function (item) {
+				if(item.fulfilled == false) {
+					incomplete++;
+				}
+			});
+		});
+		debugger;
+
+		return incomplete;
 	}
 });
 
