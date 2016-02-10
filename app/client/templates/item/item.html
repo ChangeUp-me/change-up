@@ -7,8 +7,8 @@
 
 		<div class="product page-header">
 			<div class="product-image col-sm-4">
-				{{#if product.featuredUntil}}
-				<div class="product-timer">{{featuredTime product.featuredUntil}}</div>
+				{{#if featuredProductsTime}}
+				<div class="product-timer">{{ featuredProductsTime }}</div>
 				{{/if}}
 
 				{{#with product}}
