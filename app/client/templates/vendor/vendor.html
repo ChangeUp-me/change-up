@@ -36,7 +36,7 @@
 					<h4>${{price}}</h4>
 				</div>
 				<div class="vendor col-xs-12"><a href="{{pathFor route='vendor' data=this}}">{{storeName}}</a></div>
-				<form class="col-xs-12 product-item">
+				<div class="col-xs-12 product-item">
 					{{#with this}}
 					{{>ProductOptions}}
 					{{/with}}
@@ -51,7 +51,7 @@
 						<button type="submit" class="button blue add-to-cart-btn">Add to cart</button>
 						<a class="button clear gray" href="{{pathFor route='item' data=this}}">View details</a>
 					</div>
-				</form>
+				</div>
 			</li>
 			{{/each}}
 		</ul>

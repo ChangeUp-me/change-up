@@ -4,28 +4,6 @@
 	/*****************************************************************************/
 
 	Template.ProductOptions.events({
-		'click .size.select' : function (event) {
-			var sizes = this.sizes;
-			var element = $(event.target).closest('.product-options').find('.sd-items');
-			var inputVal = $(event.target).closest('.product-options').find('input[name="size"]').val();
-
-			if(!sizes) return;
-
-			buildItems(element, 'size', sizes, inputVal);
-		},
-		'click .quantity.select' : function (event) {
-			var quantities = [1,2,3,4,5,6];
-			var element = $(event.target).closest('.product-options').find('.sd-items');
-			var inputVal = $(event.target).closest('.product-options').find('input[name="quantity"]').val();
-
-			buildItems(element, 'quantity', quantities, inputVal);
-		},
-		// 'click li[data-quantity]' : function (event) {
-		// 	selectOption($(event.target), 'quantity');
-		// },
-		// 'click li[data-size]' : function (event) {
-		// 	selectOption($(event.target), 'size');
-		// },
 		"click .size-select li" : function (event, template) {
 			var allSizes= [];
 			for (var i = 0; i < template.data.sizes.length; i++) {
