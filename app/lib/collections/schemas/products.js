@@ -56,16 +56,10 @@
 				type: String,
 				optional: true
 			},
-			// image: {
-			// 	type: Object,
-			// 	label: 'Photo', // We use this function to make i18n work in autoform
-			// 	optional: true
-			// },
-			'image.url': {
-				type: String,
-				label: 'Photo URL', // We use this function to make i18n work in autoform
-				optional: true
-			},
+			image : orion.attribute('image', {
+	      optional: true,
+	      label: 'Photo Url'
+	    }),
 			shippingPrice: {
 				type: String,
 				defaultValue: '0.0'
