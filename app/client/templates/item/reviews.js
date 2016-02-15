@@ -67,18 +67,12 @@ Template.Reviews.onCreated(function () {
 });
 
 Template.Reviews.onRendered(function () {
-
-	// if (Products.find({_id : this.data._id },{'reviews.$.userId':Meteor.userId()}).fetch()){
-	// 	var productReview = (Products.find({_id : this.data._id },{'reviews.$.userId':Meteor.userId()}).fetch())[0];
-	// 	console.log(productReview);
-	// }
 	if (Meteor.userId()){
 		Meteor.call('getMyReview', this.data._id, function (err, data) {
 			if (data) {
 				$('#write').text('Update your review');
 				$('#reviewTitle').val(data.title);
 				$('#comment').val(data.comment);
-				console.log(data);
 			}
 		})
 	}
