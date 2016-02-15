@@ -7,10 +7,6 @@
 
 		<div class="product page-header">
 			<div class="product-image col-sm-4">
-				{{#if featuredProductsTime}}
-				<div class="product-timer">{{ featuredProductsTime }}</div>
-				{{/if}}
-
 				{{#with product}}
 				{{#if userLiked}}
 				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup.svg" alt="Like"></div>

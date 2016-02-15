@@ -20,9 +20,9 @@
 			<li class="product">
 				<div class="vendor-image">
 					{{#if image}}
-					<a class="vendor-image" href="{{pathFor route='item' data=this}}"><img src="{{image.url}}" alt=""></a>
+					<a class="vendor-image" href="/vendors/{{_id}}"><img src="{{image.url}}" alt="storeName"></a>
 					{{else}}
-					<a class="vendor-image" href="{{pathFor route='item' data=this}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
+					<a class="vendor-image" href="/vendors/{{_id}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
 					{{/if}}
 				</div>
 				<div class="vendor-name col-xs-12">

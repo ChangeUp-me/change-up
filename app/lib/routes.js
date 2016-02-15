@@ -5,12 +5,6 @@ Router.configure({
 });
 
 
-// Router.route('/', {
-//   name: 'home',
-//   controller: 'HomeController',
-//   where: 'client'
-// });
-
 Router.route('/', {
   name: 'shop',
   controller: 'ShopController',

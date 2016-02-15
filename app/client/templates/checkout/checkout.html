@@ -4,37 +4,35 @@
 		<section class="empty-cart-placeholder">
 			<h2>Your Cart Is Empty</h2>
 			<img src="/icons/cart.svg" alt="cart">
-			<a href="/shop" class="button blue">Go Shopping!</a>
+			<a href="/" class="button blue">Go Shopping!</a>
 		</section>
 		{{else}}
 		<section class="page-header text-center">
 			<a class="back-button" href="/shop"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
-			
-			<h2>Select your charity</h2>
 
-			<p>ChangeUp donated 8% of your total cart's prince to a charity of your choosing. No aded costs will be added to your total! All you have to do is decide which cause or charity who wish to contribute to.</p>
+			<h2>Your Cart</h2>
+
 		</section>
 
-		<div id="charities">
-			{{#each charities}}
-				<div class="charity">
-					<div class="box-wrapper">
-						<div class="charity-header col-xs-9 col-sm-12">
-							<h3>{{name}}</h3>
-							<div>{{category}}</div>
-						</div>
-						{{#if image}}
-						<div class="charity-logo col-xs-3 col-sm-12 text-right">
-							<img src="{{image.url}}" alt="Arc Logo">
-						</div>
-						{{/if}}
-						<p class="col-xs-12">{{description}}</p>
-						<div class="select">
-							<button class="button blue">Select</button>
-						</div>
-					</div>
+		<div class="container">
+			{{#each itemsInCart}}
+			<div class="itemInCart row">
+				<div class="col-xs-12 col-sm-4">
+					<img src="{{image.url}}" alt="Item Image">
 				</div>
+				<div class="col-xs-12 col-sm-8">
+					{{#each detailsOfItem productId}}
+					<h3>{{this.name}}</h3>
+					<h4>${{this.price}} x {{../quantity}} | ${{ price this.price ../quantity }}</h4>
+					{{/each}}
+					<h5>{{size}}</h5>
+					<img class="delete" src="/icons/delete_trash.svg" alt="Delete">
+				</div>
+			</div>
 			{{/each}}
+			<div class="select">
+				<button class="button blue continueCart">Continue</button>
+			</div>
 		</div>
 		{{/if}}
 	</div>

@@ -3,14 +3,15 @@
 /* Checkout: Event Handlers */
 /*****************************************************************************/
 Template.Checkout.events({
-	'click .charity' : function (event) {
-		var charity = {
-			name : this.name,
-			category : this.category,
-			id : this._id
-		};
+	'click .continueCart' : function () {
+		Router.go('/shipping');
+	},
+	'click .delete' : function (event) {
+		var id = this.id;
 
-		Router.go('/shipping?charity='+encodeURIComponent(JSON.stringify(charity)));
+		if(!id) return sAlert.error('could not delete this item');
+
+		CART.removeItem(id);
 	}
 });
 
@@ -156,9 +157,8 @@ Template.Shipping.events({
 		Session.set('checkout:shipping', shippingInfo);
 
 		var shipping = encodeURIComponent(JSON.stringify(shippingInfo));
-		var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
 
-		Router.go('/billing?shipping='+ shipping + '&charity=' + charity);
+		Router.go('/billing?shipping='+ shipping);
 	}
 });
 
@@ -195,14 +195,14 @@ Template.Summary.events({
 		  if(!transactionId) {
 		    sAlert.error('something went wrong, please try again later');
 		    return console.error('no transaction id');
-		   } 
+		   }
 
 		   if(billing.save && user) {
 		      CHECKOUT.saveUserInfo(shipping, billing);
 		   }
 
 		   CART.empty();
-		    	
+
 		   Router.go('/confirmation/' + transactionId);
 		});
 	}
@@ -212,8 +212,14 @@ Template.Summary.events({
 /* Checkout: Helpers */
 /*****************************************************************************/
 Template.Checkout.helpers({
-	charities : function () {
-		return Charities.find().fetch();
+	itemsInCart : function () {
+		return Meteor.user().profile.cart;
+	},
+	detailsOfItem : function(productId) {
+		return Products.find({_id: productId }).fetch();
+	},
+	price : function (price, quantity) {
+		return (price*quantity);
 	},
 	cartEmpty : function () {
 		var cart = CART.getItems() || [];
