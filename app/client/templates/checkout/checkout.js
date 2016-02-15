@@ -87,10 +87,9 @@ Template.Billing.events({
 				//url encode billing, shipping, and charity params
 				billing = encodeURIComponent(JSON.stringify(billing));
 				shipping = encodeURIComponent(shipping);
-				var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
 
 				//take us to the summary page
-				Router.go('/summary?' + 'billing=' + billing +'&shipping=' + shipping + '&charity=' + charity);
+				Router.go('/summary?' + 'billing=' + billing +'&shipping=' + shipping);
 		  };
 
 			//if this is a new user sign them up
@@ -168,7 +167,6 @@ Template.Summary.events({
 
 		var billing = Session.get('checkout:billing');
 		var shipping = Session.get('checkout:shipping');
-		var charity = Session.get('checkout:charity');
 		var user = Meteor.user();
 		var cart = CART.getItems(); //@todo
 		var email = billing.email;
@@ -177,15 +175,12 @@ Template.Summary.events({
 
 		delete billing.stripeToken;
 
-		if(!charity)
-			return sAlert.error('please select a charity');
-
 		//disable button
 		button.prop('disabled', true);
 
 		sAlert.info('processing...');
 
-		Meteor.call('checkout',cart, charity, billing, shipping, stripeToken, email, function (err, transactionId) {
+		Meteor.call('checkout',cart, billing, shipping, stripeToken, email, function (err, transactionId) {
 		  button.prop('disabled', false);
 		  if(err){
 		    console.log(err);
