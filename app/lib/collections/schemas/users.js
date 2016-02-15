@@ -77,6 +77,10 @@
 				}
 			}
 		},
+		"profile.reviews" : {
+			type : [String],
+			optional : true
+		},
 		heartbeat: {
       type: Date,
       optional: true

@@ -144,7 +144,12 @@ Router.route('contact', {
   where: 'client'
 });
 
-Router.route('vendor/:vendorId', {
+Router.route('vendors', {
+  name: 'vendorsList',
+  where: 'client'
+});
+
+Router.route('vendors/:vendorId', {
   name: 'vendor',
   controller: 'VendorController',
   where: 'client'

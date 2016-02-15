@@ -1,0 +1,76 @@
+<template name="Shop">
+	<div class="shop text-center">
+		<section id="shop-header">
+			<img src="icons/logo_dark.svg" class="hidden-sm hidden-md hidden-lg" alt="ChangeUp logo">
+			<h2>Exclusive products.<br>Inclusive community.</h2>
+			<p>Immersive products providing support for charities around the world.</p>
+
+			<div class="hidden-sm hidden-md hidden-lg">
+				<a class="button blue" href="{{pathFor route='about'}}">About Us</a>
+				<a class="button clear gray" href="{{pathFor route='charities'}}">View charities</a>
+			</div>
+			<div class="hidden-xs">
+				<a class="button orange" href="{{pathFor route='about'}}">About Us</a>
+				<a class="button clear white" href="{{pathFor route='charities'}}">View charities</a>
+			</div>
+		</section>
+
+   		<ul id="allItems" class="clearfix">
+			{{#each products}}
+				<li class="product">
+					<div class="product-image">
+						<!-- {{#if featuredUntil}}
+						<div class="product-timer">{{featuredTime featuredUntil}}</div>
+						{{/if}} -->
+						<div class="product-timer">{{ featuredProductsTime }}</div>
+						{{#if userLiked}}
+						<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup.svg" alt="Like"></div>
+						{{else}}
+						<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup_gray.svg" alt="Like"></div>
+						{{/if}}
+
+						{{#if image}}
+						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="{{image.url}}" alt=""></a>
+						{{else}}
+						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
+						{{/if}}
+					</div>
+					<div class="product-name col-xs-8">
+						<h4><strong>{{name}}</strong></h4>
+					</div>
+					<div class="price col-xs-4">
+						<h4>${{price}}</h4>
+					</div>
+					<div class="vendor col-xs-12"><a href="{{pathFor route='vendor' data=this}}">{{storeName}}</a></div>
+					<form class="col-xs-12 product-item">
+						{{#with this}}
+						{{>ProductOptions}}
+						{{/with}}
+
+						<div class="stats col-xs-12">
+							<span class="likes">{{likeCount}} likes</span>
+							<span class="reviews">{{noOfReviews reviews}}</span>
+							<span class="share openShareWidget pull-right"><img src="icons/share_gray.svg" alt="Share"></span>
+						</div>
+
+						<div class="buttons col-xs-12">
+							<button type="submit" class="button blue add-to-cart-btn">Add to cart</button>
+							<a class="button clear gray" href="{{pathFor route='item' data=this}}">View details</a>
+						</div>
+					</form>
+				</li>
+			{{/each}}
+		</ul>
+
+		<section class="gray text-center" id="support">
+			<div class="container">
+				<img src="icons/image_placeholder.svg" class="hidden-sm hidden-md hidden-lg" alt="Placeholder">
+
+				<h2>Support a cause that speaks to you</h2>
+				<p>Every item backs three specific charities. Select the one that you feel most passionate about and love your newly purchased item knowing it goes to a great cause.</p>
+
+				<a class="button blue" href="{{pathFor route='charities'}}">Our charities</a>
+			</div>
+		</section>
+	</div>
+</template>
