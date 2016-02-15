@@ -15,9 +15,9 @@
 			</div>
 		</section>
 
-		<ul id="allItems" class="clearfix">
+		<ul id="vendor-list" class="clearfix">
 			{{#each vendors}}
-			<li class="product">
+			<li class="vendor text-center">
 				<div class="vendor-image">
 					{{#if image}}
 					<a class="vendor-image" href="/vendors/{{_id}}"><img src="{{image.url}}" alt="storeName"></a>
@@ -26,7 +26,7 @@
 					{{/if}}
 				</div>
 				<div class="vendor-name col-xs-12">
-					<h4 class="text-center"><strong>{{storeName}}</strong></h4>
+					<h3 class="text-center"><strong>{{storeName}}</strong></h3>
 				</div>
 				<div class="vendor-details col-xs-12">
 					<p>{{storeDescription}}</p>
