@@ -50,7 +50,7 @@
 					<div class="col-xs-12">
 						<div class="col-sm-8">
 							<label>Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"></label>
-							<select id="charities">
+							<select id="charities-select">
 								{{#each charities}}
 									<option value="{{_id}}">{{name}}</option>
 								{{/each}}
@@ -86,18 +86,18 @@
 		<div class="page-header" id="product-details">
 			<ul class="nav nav-tabs" role="tablist">
 				<li class="col-xs-4 active">
-					<a href="#product" role="tab" data-toggle="tab">Product</a>
+					<a href="#product-tab" role="tab" data-toggle="tab">Product</a>
 				</li>
 				<li class="col-xs-4">
-					<a href="#vendor" role="tab" data-toggle="tab">Vendor</a>
+					<a href="#vendor-tab" role="tab" data-toggle="tab">Vendor</a>
 				</li>
 				<li class="col-xs-4">
-					<a href="#charities" role="tab" data-toggle="tab">Charities</a>
+					<a href="#charities-tab" role="tab" data-toggle="tab">Charities</a>
 				</li>
 			</ul>
 
 			<div class="tab-content">
-				<div class="tab-pane fade active in" id="product">
+				<div class="tab-pane fade active in" id="product-tab">
 					<div class="row">
 						<div class="col-sm-6">
 							<div><strong>Description</strong></div>
@@ -109,7 +109,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="tab-pane fade text-center" id="vendor">
+				<div class="tab-pane fade text-center" id="vendor-tab">
 					{{#if vendor.image}}
 					<img src="{{vendor.image.url}}" alt="Logo">
 					{{/if}}
@@ -118,7 +118,7 @@
 					<p>{{vendor.storeDescription}}</p>
 					<a class="button clear gray" href="{{pathFor route='vendor' data=product}}">Learn more</a>
 				</div>
-				<div class="tab-pane fade product-sponsors" id="charities">
+				<div class="tab-pane fade product-sponsors" id="charities-tab">
 					{{#each charities}}
 					<div class="charity text-left">
 						<div class="col-xs-9">
