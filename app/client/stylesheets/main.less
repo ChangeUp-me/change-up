@@ -209,7 +209,7 @@ form {
 		background: transparent;
 		&.gray {
 			color: @gray;
-			border: 2px solid @gray;
+			box-shadow: @gray 0px 0px 0px 2px inset;
 			&:hover, &:active, &:focus {
 				color: white;
 				background: @gray;
@@ -217,7 +217,7 @@ form {
 		}
 		&.white {
 			color: white;
-			border: 2px solid white;
+			box-shadow: white 0px 0px 0px 2px inset;
 			&:hover, &:active, &:focus {
 				color: @cyan;
 				background: white;
