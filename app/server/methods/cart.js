@@ -99,9 +99,9 @@
 
 	  	return finalCharge.wait();
 	  },
-	  checkout: function checkout(cart, charity, billing, shipping, stripeToken, email) {
+	  checkout: function checkout(cart, billing, shipping, stripeToken, email) {
 	    var $checkoutResponse = new Future();
-	    var checkout = new CHECKOUT(shipping, billing, charity, stripeToken, email, cart);
+	    var checkout = new CHECKOUT(shipping, billing, stripeToken, email, cart);
 
 	    var existingCustomer = checkout.getCustomer();
 
@@ -115,25 +115,3 @@
 	  }
 	})
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

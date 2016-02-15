@@ -1,6 +1,6 @@
 CHECKOUT = (function () {
 
-	function checkout (shipping, billing, charity, stripeToken, email, cart) {
+	function checkout (shipping, billing, stripeToken, email, cart) {
 		try{
 			this.stripeApiKey = "sk_mKLYgZGYkqjzg5DPyyc0u2hrYnhgR"//Meteor.settings.private.stripe.apiKey;
 
@@ -15,7 +15,6 @@ CHECKOUT = (function () {
 		this.cart = cart;
 		this.shipping = shipping;
 		this.billing = billing;
-		this.charity = charity;
 		this.stripeToken = stripeToken;
 		this.email = email;
 		this.stripe = StripeAPI(this.stripeApiKey);
@@ -63,7 +62,7 @@ CHECKOUT = (function () {
 		this._getOrder();
 
 		//set the final price
-		this._getFinalPrice();		
+		this._getFinalPrice();
 
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
@@ -103,7 +102,7 @@ CHECKOUT = (function () {
 		   return $Fiber.throw(new Meteor.Error("create-customer-failed", "couldn't create a new customer"));
 		  }
 
-		  //save 
+		  //save
 
 		  self.stripeCustomer = stripeCustomer;
 		  self._createStripeCharge(null, save_new_transaction);
@@ -193,8 +192,8 @@ CHECKOUT = (function () {
 	checkout.prototype._getFinalPrice = function () {
 		var finalPrice = 0;
 	  _.each(this.order, function(product) {
-	    finalPrice = (parseFloat(product.price) * parseInt(product.quantity)) 
-	    	+ finalPrice 
+	    finalPrice = (parseFloat(product.price) * parseInt(product.quantity))
+	    	+ finalPrice
 	    	+ parseFloat(product.shippingPrice);
 	  });
 
@@ -286,7 +285,6 @@ CHECKOUT = (function () {
 		var obj = {
 			order: this.order,
 			price: parseFloat(this.finalPrice).toFixed(2),
-			charityId: this.charity.id, //charity.id,
 			currency: 'usd',
 			email: this.email,
 			shipping: this.shipping,
@@ -337,15 +335,13 @@ CHECKOUT = (function () {
 	function checkArgs () {
 		var shipping = arguments[0];
 		var billing = arguments[1];
-		var charity = arguments[2];
-		var stripeToken = arguments[3];
-		var email = arguments[4];
-		var cart = arguments[5];
+		var stripeToken = arguments[2];
+		var email = arguments[3];
+		var cart = arguments[4];
 
 		check(cart, Array);
 		check(billing, billingCheck());
 		check(shipping, shippingCheck());
-		check(charity,charityCheck());
 		check({token : stripeToken}, {token : String});
 	  check({email : email}, {email : String});
 	}
@@ -370,7 +366,7 @@ CHECKOUT = (function () {
 			state : String,
 			country : String
 		}
-	}	
+	}
 
 	function billingCheck (billing) {
 		var bill = {
