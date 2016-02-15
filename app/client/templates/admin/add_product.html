@@ -19,8 +19,18 @@
 
 			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
 			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
-			<input name="price" value="{{price}}" type="text" class="half" placeholder="Price" required>
-			<input name="shippingPrice" value="{{shippingPrice}}" type="text" class="half" placeholder="Shipping rate" required>
+
+			<div class="input-group">
+				<label class="col-xs-12 text-left">Price</label>
+				<span class="input-group-addon">$</span>
+				<input name="price" value="{{price}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
+			</div>
+
+			<div class="input-group">
+				<label class="col-xs-12 text-left">Shipping</label>
+				<span class="input-group-addon">$</span>
+				<input name="shippingPrice" value="{{shippingPrice}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
+			</div>
 			<div>&nbsp;</div>
 			<div class="col-sm-6">
 				<label class="col-sm-6 col-md-12">Select all size available</label>
