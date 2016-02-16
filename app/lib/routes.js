@@ -5,12 +5,6 @@ Router.configure({
 });
 
 
-// Router.route('/', {
-//   name: 'home',
-//   controller: 'HomeController',
-//   where: 'client'
-// });
-
 Router.route('/', {
   name: 'shop',
   controller: 'ShopController',
@@ -144,7 +138,12 @@ Router.route('contact', {
   where: 'client'
 });
 
-Router.route('vendor/:vendorId', {
+Router.route('vendors', {
+  name: 'vendorsList',
+  where: 'client'
+});
+
+Router.route('vendors/:vendorId', {
   name: 'vendor',
   controller: 'VendorController',
   where: 'client'

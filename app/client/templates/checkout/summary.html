@@ -18,9 +18,9 @@
 					<div>{{checkout.shipping.addressOne}}</div>
 					<div>{{checkout.shipping.city}}, {{checkout.shipping.state}} {{checkout.shipping.zipcode}}</div>
 
-					<a href="{{pathFor route='shipping'}}">
+					<!-- <a href="{{pathFor route='shipping'}}">
 						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					</a>
+					</a> -->
 				</div>
 
 				<div class="details col-sm-6">
@@ -29,30 +29,20 @@
 					<div>{{checkout.billing.addressOne}}</div>
 					<div>{{checkout.billing.city}}, {{checkout.billing.state}}. {{checkout.billing.zipcode}}</div>
 
-					<a href="{{pathFor route='billing'}}">
+					<!-- <a href="{{pathFor route='billing'}}">
 						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					</a>
+					</a> -->
 				</div>
 
-				<div class="details col-sm-6">
+				<div class="details col-xs-12">
 					<h4>Pay with:</h4>
 					<div>{{checkout.billing.creditCardName}}</div>
 					<div>Visa ending with {{checkout.billing.creditCardNumber}}</div>
 					<div>Exp. {{checkout.billing.cardExp}}</div>
 
-					<a href="{{pathFor route='billing'}}">
+					<!-- <a href="{{pathFor route='billing'}}">
 						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					</a>
-				</div>
-
-				<div class="details col-sm-6">
-					<h4>Charity:</h4>
-					<div>{{charity.name}}</div>
-					<div>{{charity.category}}</div>
-
-					<a href="{{pathFor route='checkout'}}">
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-					</a>
+					</a> -->
 				</div>
 			</div>
 
@@ -93,7 +83,7 @@
 					<div class="col-xs-6"><strong>Total</strong></div>
 					<div class="col-xs-6 text-right"><strong>&#36;{{cartTotals.total}}</strong></div>
 				</div>
-				
+
 				<div class="col-xs-12">
 					<button id="checkout" class="button orange">Complete order</button>
 				</div>

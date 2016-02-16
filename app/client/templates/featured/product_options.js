@@ -43,12 +43,11 @@
 	});
 
 	Template.ProductOptions.onRendered(function () {
-		// $(document).on('click', closeDropdown)
-		//console.log(this.data)
+
 	});
 
 	Template.ProductOptions.onDestroyed(function () {
-		// $(document).off('click', closeDropdown);
+
 	});
 
 

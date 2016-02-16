@@ -10,16 +10,22 @@
 		<ul class="charity-items" id="charities">
 			{{#each charities}}
 			<li class="charity">
-				<div class="col-xs-9">
-					<h3>{{name}}</h3>
-					<div>{{category}}</div>
+				<div class="box-wrapper">
+					<div class="charity-header col-xs-9 col-sm-12">
+						<h3>{{name}}</h3>
+						<div>{{category}}</div>
+					</div>
+					{{#if image}}
+					<div class="charity-logo col-xs-3 col-sm-12 text-right">
+						<a href="{{pathFor route='charity' data=this}}"><img src="{{image.url}}" alt="Arc Logo"></a>
+					</div>
+					{{/if}}
+					<p class="col-xs-12">{{description}}</p>
+					<div class="learn-more">
+						<button type="button" class="button blue">Select</button>
+						<!-- href="{{pathFor route='vendorProfile'}}" -->
+					</div>
 				</div>
-				<div class="col-xs-3 text-right">
-					<img src="images/arc_logo.png" alt="Arc Logo">
-				</div>
-				<p class="col-xs-12">{{description}}</p>
-				<button type="button" class="button blue">Select</button>
-				<!-- href="{{pathFor route='vendorProfile'}}" -->
 			</li>
 			{{/each}}
 		</ul>

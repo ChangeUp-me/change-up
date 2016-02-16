@@ -23,11 +23,11 @@ Template.s3Upload.events({
 			  		console.error('upload-error', upload);
 			    	return sAlert.error('upload failed');
 			  	} else {
-			  		//setting a timeout to prevent decoding 
+			  		//setting a timeout to prevent decoding
 			  		//before the image is ready
 			  		Meteor.setTimeout(function () {
 			  			var information = orion.helpers.analizeColorFromBase64(base64);
-			  		
+
 				  		Session.set('upload:image', {
 	              fileId: upload.fileId,
 	              url: upload.url,
@@ -41,7 +41,6 @@ Template.s3Upload.events({
 			});
 			Tracker.autorun(function () {
 			  var progress = upload.progress();
-			  console.log(progress);
 			});
 		});
    }

@@ -4,7 +4,7 @@
 	} else if(Meteor.isClient) {
 		var schema = transactionsSchema();
 
-		schema = _.omit(schema, ['order','charityId','transactionId','stripeCustomer','price','userId']);
+		schema = _.omit(schema, ['order','transactionId','stripeCustomer','price','userId']);
 
 		Transactions.attachSchema(new SimpleSchema(schema));
 	}
@@ -20,9 +20,6 @@
 				type : [order()],
 			},
 			price : {
-				type : String
-			},
-			charityId: {
 				type : String
 			},
 			currency : {

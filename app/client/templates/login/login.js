@@ -15,8 +15,6 @@ Template.Login.events({
 				return sAlert.error("we couldn't log you in with those credentials");
 			}
 
-			console.log(Meteor.userId())
-
 			Router.go('shop');
 		});
 	}

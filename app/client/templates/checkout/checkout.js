@@ -3,14 +3,15 @@
 /* Checkout: Event Handlers */
 /*****************************************************************************/
 Template.Checkout.events({
-	'click .charity' : function (event) {
-		var charity = {
-			name : this.name,
-			category : this.category,
-			id : this._id
-		};
+	'click .continueCart' : function () {
+		Router.go('/shipping');
+	},
+	'click .delete' : function (event) {
+		var id = this.id;
 
-		Router.go('/shipping?charity='+encodeURIComponent(JSON.stringify(charity)));
+		if(!id) return sAlert.error('could not delete this item');
+
+		CART.removeItem(id);
 	}
 });
 
@@ -86,10 +87,9 @@ Template.Billing.events({
 				//url encode billing, shipping, and charity params
 				billing = encodeURIComponent(JSON.stringify(billing));
 				shipping = encodeURIComponent(shipping);
-				var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
 
 				//take us to the summary page
-				Router.go('/summary?' + 'billing=' + billing +'&shipping=' + shipping + '&charity=' + charity);
+				Router.go('/summary?' + 'billing=' + billing +'&shipping=' + shipping);
 		  };
 
 			//if this is a new user sign them up
@@ -156,9 +156,8 @@ Template.Shipping.events({
 		Session.set('checkout:shipping', shippingInfo);
 
 		var shipping = encodeURIComponent(JSON.stringify(shippingInfo));
-		var charity = encodeURIComponent(JSON.stringify(Session.get('checkout:charity')));
 
-		Router.go('/billing?shipping='+ shipping + '&charity=' + charity);
+		Router.go('/billing?shipping='+ shipping);
 	}
 });
 
@@ -168,7 +167,6 @@ Template.Summary.events({
 
 		var billing = Session.get('checkout:billing');
 		var shipping = Session.get('checkout:shipping');
-		var charity = Session.get('checkout:charity');
 		var user = Meteor.user();
 		var cart = CART.getItems(); //@todo
 		var email = billing.email;
@@ -177,15 +175,12 @@ Template.Summary.events({
 
 		delete billing.stripeToken;
 
-		if(!charity)
-			return sAlert.error('please select a charity');
-
 		//disable button
 		button.prop('disabled', true);
 
 		sAlert.info('processing...');
 
-		Meteor.call('checkout',cart, charity, billing, shipping, stripeToken, email, function (err, transactionId) {
+		Meteor.call('checkout',cart, billing, shipping, stripeToken, email, function (err, transactionId) {
 		  button.prop('disabled', false);
 		  if(err){
 		    console.log(err);
@@ -195,14 +190,14 @@ Template.Summary.events({
 		  if(!transactionId) {
 		    sAlert.error('something went wrong, please try again later');
 		    return console.error('no transaction id');
-		   } 
+		   }
 
 		   if(billing.save && user) {
 		      CHECKOUT.saveUserInfo(shipping, billing);
 		   }
 
 		   CART.empty();
-		    	
+
 		   Router.go('/confirmation/' + transactionId);
 		});
 	}
@@ -212,8 +207,14 @@ Template.Summary.events({
 /* Checkout: Helpers */
 /*****************************************************************************/
 Template.Checkout.helpers({
-	charities : function () {
-		return Charities.find().fetch();
+	itemsInCart : function () {
+		return Meteor.user().profile.cart;
+	},
+	detailsOfItem : function(productId) {
+		return Products.find({_id: productId }).fetch();
+	},
+	price : function (price, quantity) {
+		return (price*quantity);
 	},
 	cartEmpty : function () {
 		var cart = CART.getItems() || [];

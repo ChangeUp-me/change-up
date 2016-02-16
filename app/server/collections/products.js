@@ -27,9 +27,10 @@ Meteor.methods({
 	addProductReview : function add_product_review (productId, reviewObj) {
 		var user = this.userId;
 		reviewObj['userId'] = user;
+
 		if (!user){
 			return "please log in to post a review";
-		} else if (Products.findOne({_id : productId },{'reviews.$.userId': user })) {
+		} else if (Products.findOne({_id : productId },{'reviews.$.userId': user }) !== 0) {
 			Products.update({ _id: productId, "reviews.userId": user }, { $set: { 'reviews.$': reviewObj } });
 			return "review updated";
 		} else {
@@ -37,6 +38,8 @@ Meteor.methods({
 			return true;
 		}
 
+		Meteor.users.update({_id: user}, {$addToSet: {'profile.reviews':productId}});
+		
 		// reviewObj.userId = user._id;
 		// reviewObj.name = user.profile.name;
 		//

@@ -14,7 +14,6 @@ function parseProductForm (form) {
       $('.size-select li.selected').each(function (indx, val) {
         sizes.push($(this).text());
       })
-      // console.log('the size', sizes);
       return sizes;
     }()
   };
