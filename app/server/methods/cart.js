@@ -102,16 +102,54 @@
 	  checkout: function checkout(cart, billing, shipping, stripeToken, email) {
 	    var $checkoutResponse = new Future();
 	    var checkout = new CHECKOUT(shipping, billing, stripeToken, email, cart);
-
 	    var existingCustomer = checkout.getCustomer();
+	    var user = Meteor.user();
 
 	    if(existingCustomer) {
-	    	checkout.chargeExistingCustomer(existingCustomer, $checkoutResponse);
+	    	checkout.chargeExistingCustomer(existingCustomer, customerCharged);
 	    } else {
-	    	checkout.chargeNewCustomer($checkoutResponse);
+	    	checkout.chargeNewCustomer(customerCharged);
 	    }
 
 	    return $checkoutResponse.wait();
+
+	    function customerCharged (err, transactionNum) {
+	    	if(err) {
+	    		return $checkoutResponse.throw(err);
+	    	}
+
+	    	$checkoutResponse.return(transactionNum);
+
+	    	//send email async
+	    	Meteor.setTimeout(function () {
+	    		var body = "";
+	    		var br = '\n'
+
+	    		body += "Buyer Name : " + billing.creditCardName + br;
+	    		body += "Payment Number : " + transactionNum + br;
+	    		body += "Payment Date : " + moment(Date.now()).format("MMM Do YYYY") + br; 
+	    		body += "Payment Card : " + billing.lastFour + br;
+	    		body += br;
+
+	    		//add the product names and prices
+	    		_.each(checkout.order, function (item) {
+	    			body += item.productName + ' : $' + item.price + ' X' + item.quantity + br;
+	    		});
+
+	    		body += "shipping : $6.00" + br;
+	    		body += "total : $" +  checkout.finalPrice + br;
+	    		body += "Thank You." + br;
+	    		body += "Sincerely," + br;
+	    		body += "ChangeUp";
+
+	    		Email.send({
+						to : user.emails[0].address,
+						from : 'noreply@changeup.com', 
+						subject : 'Order receipt',
+						text : body
+					})
+	    	});
+	    };
 	  }
 	})
 })();
