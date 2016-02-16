@@ -102,13 +102,19 @@
 	  checkout: function checkout(cart, charity, billing, shipping, stripeToken, email) {
 	    var $checkoutResponse = new Future();
 	    var checkout = new CHECKOUT(shipping, billing, charity, stripeToken, email, cart);
-
 	    var existingCustomer = checkout.getCustomer();
 
+	    var customerCharged = function (err, transaction) {
+	    	if(err) {
+	    		return $checkoutResponse.throw(err);
+	    	}
+	    	$checkoutResponse.return(transaction);
+	    };
+
 	    if(existingCustomer) {
-	    	checkout.chargeExistingCustomer(existingCustomer, $checkoutResponse);
+	    	checkout.chargeExistingCustomer(existingCustomer, customerCharged);
 	    } else {
-	    	checkout.chargeNewCustomer($checkoutResponse);
+	    	checkout.chargeNewCustomer(customerCharged);
 	    }
 
 	    return $checkoutResponse.wait();

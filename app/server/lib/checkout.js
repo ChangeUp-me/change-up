@@ -31,7 +31,7 @@ CHECKOUT = (function () {
 		this.finalPrice;
 	}
 
-	checkout.prototype.chargeExistingCustomer = function (customer, $Fiber) {
+	checkout.prototype.chargeExistingCustomer = function (customer, callback) {
 		var self = this;
 
 		this._getOrder();
@@ -40,14 +40,14 @@ CHECKOUT = (function () {
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
 				console.error(err);
-				return $Fiber.throw(new Meteor.Error("charge-failed","charge failed"));
+				return callback(new Meteor.Error("charge-failed","charge failed"));
 			}
 
 			self.stripeCharge = stripeCharge;
 
 			var transactionObj = self._getTransactionObj();
 			var transaction = Transactions.insert(transactionObj);
-			$Fiber.return(transaction);
+			callback(null, transaction);
 
 			//send each vendor an email
 			self._sendVendorEmails(self.vendorIds);
@@ -56,7 +56,7 @@ CHECKOUT = (function () {
 		self._createStripeCharge(customer, save_new_transaction);
 	}
 
-	checkout.prototype.chargeNewCustomer = function ($Fiber) {
+	checkout.prototype.chargeNewCustomer = function (callback) {
 		var self = this;
 
 		//set the order property
@@ -68,7 +68,7 @@ CHECKOUT = (function () {
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
 				console.error(err);
-				return $Fiber.throw(new Meteor.Error("charge-failed","charge failed"));
+				return callback(new Meteor.Error("charge-failed","charge failed"));
 			}
 
 			self.stripeCharge = stripeCharge;
@@ -86,10 +86,10 @@ CHECKOUT = (function () {
 			try{
 				var transactionObj = self._getTransactionObj();
 				var transaction = Transactions.insert(transactionObj);
-				$Fiber.return(transaction);
+				callback(null, transaction);
 			} catch ($e) {
 				console.error('save-new-transaction', $e);
-				$Fiber.throw($e);
+				callback($e);
 			}
 
 			//send each vendor an email
@@ -100,7 +100,7 @@ CHECKOUT = (function () {
 		function charge_new_customer(err, stripeCustomer){
 			if(err) {
 		   console.error('charge-new-customer', err);
-		   return $Fiber.throw(new Meteor.Error("create-customer-failed", "couldn't create a new customer"));
+		   return callback(new Meteor.Error("create-customer-failed", "couldn't create a new customer"));
 		  }
 
 		  //save 
