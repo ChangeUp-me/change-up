@@ -31,7 +31,6 @@ Template.VendorOrders.helpers({
 		return unfulfilledItems.length > 0 ? false : true;
 	},
 	count : function() {
-<<<<<<< HEAD
 		var incomplete = 0;
 		var transactions = this.transactions || [];
 
@@ -44,9 +43,7 @@ Template.VendorOrders.helpers({
 		});
 		
 		return incomplete;
-=======
-		return Transactions.find({$and: [{'order.vendorId': Meteor.user().profile.vendorId},{'order.fulfilled':false}]}).count();
->>>>>>> 3dc46b53cb53bfe35933c7046d7659699a226151
+		//return Transactions.find({$and: [{'order.vendorId': Meteor.user().profile.vendorId},{'order.fulfilled':false}]}).count();
 	}
 });
 
