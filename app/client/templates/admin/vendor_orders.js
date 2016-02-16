@@ -32,16 +32,16 @@ Template.VendorOrders.helpers({
 	},
 	count : function() {
 		var incomplete = 0;
+		var transactions = this.transactions || [];
 
-		this.transactions.forEach(function() {
-			this.order.forEach(function (item) {
+		transactions.forEach(function(t) {
+			t.order.forEach(function (item) {
 				if(item.fulfilled == false) {
 					incomplete++;
 				}
 			});
 		});
-		debugger;
-
+		
 		return incomplete;
 	}
 });
