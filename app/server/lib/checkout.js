@@ -183,7 +183,7 @@ CHECKOUT = (function () {
 
 	  //convert order to array
 	  var order = [];
-	  _(self.order).each(function (elem, key) {
+	  _.each(self.order, function (elem, key) {
 	  	order.push(elem);
 	  });
 
