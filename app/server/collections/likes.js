@@ -9,10 +9,9 @@ Meteor.methods({
 		}
 
 		Likes.update({productId : productId, userId : Meteor.userId()}, {$set : {vendorId : vendorId}}, {upsert : true}, function (err, count) {
-			if(err || !count)
-				return;
-
-			Products.update({_id : productId}, {$inc : {likeCount : 1}})
+			if(!err) {
+				Products.update({_id : productId}, {$inc : {likeCount : 1}})
+			}
 		});
 	},
 	deleteLike : function delete_like (productId) {
@@ -23,10 +22,9 @@ Meteor.methods({
 		}
 
 		Likes.remove({productId : productId, userId : user}, function (err) {
-			if(err)
-				return;
-
-			Products.update({_id : productId}, {$inc : {likeCount : -1}})
+			if (!err) {
+				Products.update({_id : productId}, {$inc : {likeCount : -1}});
+			}
 		})
 	}
 })
@@ -37,19 +35,19 @@ Meteor.publish('allLikes', function () {
 
 /*
 Meteor.publish('likes', function publish_likes (productId, userId, vendorId) {
-	var selector = {
-			productId : productId
-		};
+var selector = {
+productId : productId
+};
 
-		//count the number of product likes
-		//for a user
-		if(userId)
-			selector.userId = Meteor.userId();
+//count the number of product likes
+//for a user
+if(userId)
+selector.userId = Meteor.userId();
 
-		//count the number of product likes for
-		// a vendor
-		if(vendorId)
-			selector.vendorId = vendorId;
+//count the number of product likes for
+// a vendor
+if(vendorId)
+selector.vendorId = vendorId;
 
-		return Likes.find(selector);
+return Likes.find(selector);
 });*/

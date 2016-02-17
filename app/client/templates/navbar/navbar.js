@@ -12,7 +12,7 @@ Template.Navbar.events({
 	'click #logout': function() {
 		Meteor.logout(function(error) {
 			if(!error) {
-				window.location.replace('/shop');
+				window.location.replace('/');
 			}
 		});
 	}
