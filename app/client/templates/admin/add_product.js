@@ -93,16 +93,21 @@ Template.AddProduct.helpers({
 Template.AddProduct.onCreated(function() {});
 Template.AddProduct.onRendered(function() {
 
+  var data = this.data;
+
   $('#imageUpload').changeUpUpload({
     targetImage : '#targetImage',
     progressBar : '#uploadProgress'
-  })
+  });
 
-  function sliderInit () {
+  function sliderInit (data) {
+    data = data || {};
+
     var slider = $('input#percentToCharity');
     var target = $('#charityPerctIndicator');
-    var data = this.data || {};
-    var initVal = (data.percentToCharity || 50);
+    var initVal = data.percentToCharity || 50;
+
+    console.log('the init value', data)
 
     target.html(initVal + '%')
     slider.val(initVal)
@@ -112,7 +117,7 @@ Template.AddProduct.onRendered(function() {
     });
   }
 
-  sliderInit();
+  sliderInit(data);
 });
 Template.AddProduct.onDestroyed(function() {
 
