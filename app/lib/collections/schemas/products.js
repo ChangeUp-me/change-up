@@ -56,7 +56,7 @@
 				type: String,
 				optional: true
 			},
-			image : orion.attribute('image', {
+			images : orion.attribute('images', {
 	      optional: true,
 	      label: 'Photo Url'
 	    }),
