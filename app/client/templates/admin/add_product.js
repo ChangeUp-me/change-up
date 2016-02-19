@@ -25,9 +25,20 @@ Template.AddProduct.events({
     var form = event.target;
     var product = parseProductForm(form);
     var image = Session.get('upload:image');
+    var images = getImages();
+
+    function getImages () {
+      return $.map($('#productImages').children(), function (image, indx) {
+        return Session.get('upload:image:' + $(image).attr('id'));
+      });
+    }
 
     if(image) {
       product.image = image;
+    }
+
+    if(images.length > 0) {
+      product.images = images;
     }
 
     Meteor.call('updateProduct', this._id, product, function (err) {
@@ -85,6 +96,17 @@ Template.AddProduct.helpers({
     })
 
     return sizes;
+  },
+  productImages : function () {
+    var images = this.images || [];
+    var productImages = [];
+
+    for(var i = 0; i < 5; i++) {
+      var p = images[i] || {};
+      productImages.push(p);
+    }
+
+    return productImages;
   }
 });
 /*****************************************************************************/
@@ -97,8 +119,19 @@ Template.AddProduct.onRendered(function() {
 
   $('#imageUpload').changeUpUpload({
     targetImage : '#targetImage',
-    progressBar : '#uploadProgress'
+    progressBar : '#uploadProgress',
+    sessionName : 'upload:image'
   });
+
+  var $this;
+  $('#productImages').children().each(function (indx, image){
+    $this = $(this);
+    $this.find('input').changeUpUpload({
+      targetImage : '#' + $this.find('img').attr('id'),
+      progressBar : '#' + $this.find('div').attr('id'),
+      sessionName : 'upload:image:' + $this.attr('id')
+    })
+  })
 
   function sliderInit (data) {
     data = data || {};
@@ -120,6 +153,7 @@ Template.AddProduct.onRendered(function() {
   sliderInit(data);
 });
 Template.AddProduct.onDestroyed(function() {
-
-
+  $('#productImages').children().each(function () {
+    Session.set('upload:image:' + $(this).attr('id'), undefined);
+  })
 });

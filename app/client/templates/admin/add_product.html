@@ -17,6 +17,21 @@
 				<div id="uploadProgress"></div>
 			</div>
 
+			<span>extra product images (optional)</span>
+			<ul id="productImages" class="product-uploaded-images clearfix">
+				{{#each productImages}}
+				<li class="pui-item" id="image{{@index}}">
+					<input id="imageUpload{{@index}}" name="image" type="file" class="overlay">
+					{{#if url}}
+					<img id="targetImage{{@index}}" class="target-image" src="{{url}}">
+					{{else}}
+					<img id="targetImage{{@index}}" class="target-image">
+					{{/if}}
+					<div id="uploadProgress{{@index}}"></div>
+				</li>
+				{{/each}}
+			</ul>
+
 			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
 			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
 
