@@ -60,6 +60,10 @@
 	      optional: true,
 	      label: 'Photo Url'
 	    }),
+	    images : orion.attribute('images', {
+	      optional: true,
+	      label: 'Photo Urls'
+	    }),
 			shippingPrice: {
 				type: String,
 				defaultValue: '0.0'

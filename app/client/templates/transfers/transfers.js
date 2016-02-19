@@ -22,8 +22,8 @@ Template.Transfers.helpers({
 			total : total,
 			vendor : vendorTotal,
 			charity : charityTotal,
-			charityPerct : percToCharity * 100,
-			vendorPerct : percToVendor * 100
+			charityPerct : Math.floor(percToCharity * 100),
+			vendorPerct : Math.floor(percToVendor * 100)
 		}
 	}
 });

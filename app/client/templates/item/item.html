@@ -6,20 +6,25 @@
 		</section>
 
 		<div class="product page-header">
-			<div class="product-image col-sm-4">
+			<div class="product-image col-sm-4" style="padding:1rem">
 				{{#with product}}
 				{{#if userLiked}}
 				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup.svg" alt="Like"></div>
 				{{else}}
 				<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup_gray.svg" alt="Like"></div>
 				{{/if}}
-				{{/with}}
 
-				{{#if product.image}}
-				<img src="{{product.image.url}}">
+				{{#if image}}
+				<div id="owl-example" class="owl-carousel">
+				{{#each productImages}}
+					<div><img src="{{url}}"></div>
+				{{/each}}
+				</div>
 				{{else}}
 				<img src="../../../images/noImage.png">
 				{{/if}}
+
+				{{/with}}
 			</div>
 			<div class="product-name col-xs-8 col-sm-6">
 				<h4><strong>{{product.name}}</strong></h4>

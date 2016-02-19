@@ -64,6 +64,21 @@ Template.Item.helpers({
 	},
 	sizes: function(){
 		return this.product.sizes;
+	},
+	productImages : function () {
+		var images = [];
+
+		if(this.image) {
+			images.push(this.image);
+		}
+
+		if(this.images) {
+			_.each(this.images, function (item) {
+				images.push(item);
+			})
+		}
+
+		return images;
 	}
 
 	// sizes : function () {
@@ -91,9 +106,14 @@ Template.Item.helpers({
 /* Item: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Item.onCreated(function () {
+	console.log('this', this);
 });
 
 Template.Item.onRendered(function () {
+	$(".owl-carousel").owlCarousel({
+		singleItem : true,
+		items : 1,
+	});
 });
 
 Template.Item.onDestroyed(function () {
