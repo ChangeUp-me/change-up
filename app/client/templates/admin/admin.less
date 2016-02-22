@@ -10,6 +10,36 @@
 @mocha: #434343;				/* Titles */
 @silver: #C7C7C7;				/* Body text */
 
+
+/**
+* extra upload images
+*/
+ul.product-uploaded-images{
+	padding: 1rem;
+	margin: 0;
+	text-align: center;
+	li.pui-item{
+		width: 50px;
+		margin-left: 1rem;
+		position: relative;
+		height: 50px;
+		background-color: #eee;
+		display: inline-block;
+		overflow: hidden;
+		input.overlay{
+			z-index: 99;
+		}
+		img{
+			position: absolute;
+			width: 100%;
+			top: 0;
+			left: 0;
+			height: 100%;
+		}
+	}
+}
+
+
 /**
 * Orion Admin Styles
 */

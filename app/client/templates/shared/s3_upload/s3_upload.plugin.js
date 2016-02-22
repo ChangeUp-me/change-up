@@ -18,6 +18,8 @@
 		this.progressBar = this.settings.progressBar;
 		this.targetImage = this.settings.targetImage;
 
+		this.progressId = this.progressBar.replace(/#/g, "") + "_prog";
+
 		if(!this.progressBar) {
 			throw new Error('no progressbar given');
 		}
@@ -62,6 +64,7 @@
 
 			$(self.element).on('change', function attempt_upload(event) {
 				var files = $(this)[0].files;
+				Session.set('upload:current', self.progressId);
 
 				self._uploadImage(files, function (err, result) {
 					if(err) {
@@ -83,6 +86,11 @@
 			});
 		},
 		_showProgressBar : function (prog) {
+			//only show progress bar for element being uploaded
+			console.log('current', Session.get('upload:current'))
+			if(Session.get('upload:current') !== this.progressId)
+				return;
+
 			var bar = this.progressBar.find('.progress-bar');
 			bar.css('width', prog + '%');
 			this.progressBar.show();
@@ -115,7 +123,7 @@
 			}, callback)
 		},
 		_setImageSession : function (upload) {
-			Session.set('upload:image', {
+			Session.set(this.settings.sessionName, {
 	      fileId: upload.id,
 	      url: upload.url,
 	      //@todo
