@@ -1,3 +1,3 @@
 Meteor.startup(function () {
-	Stripe.setPublishableKey('pk_bohRkRD79OI8j8wJgB2KAiWEjO3D7');
+	Stripe.setPublishableKey('pk_test_CPKPACN0ZoxV1mvNjjnvVnvQ');
 });
