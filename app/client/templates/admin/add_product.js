@@ -7,8 +7,8 @@ function parseProductForm (form) {
     name : form.name.value,
     description : form.description.value,
     price : form.price.value,
-    shippingPrice : form.shippingPrice.value,
     percentToCharity : form.percentage.value,
+    oneSize : $('#noSize').is(':checked'),
     sizes : function () {
       var sizes = [];
       $('.size-select li.selected').each(function (indx, val) {
@@ -32,7 +32,7 @@ Template.AddProduct.events({
 
     Meteor.call('updateProduct', this._id, product, function (err) {
       if(err)
-        return sAlert.error(err);
+      return sAlert.error(err);
 
       Router.go('vendorProducts');
     });
@@ -52,7 +52,7 @@ Template.AddProduct.events({
     Meteor.call('insertProduct', product, function (err) {
       if(err) {
         sAlert.error(err);
-       return console.error(err);
+        return console.error(err);
       }
 
       Router.go('vendorProducts');
@@ -60,6 +60,15 @@ Template.AddProduct.events({
   },
   "click .size-select li" : function (event) {
     $(event.target).toggleClass('selected');
+  },
+  "click #noSize" : function () {
+    if ($('#noSize').is(':checked')){
+      $('.size-select').hide();
+      $('.sizeLi').removeClass('selected');
+    } else {
+      $('.size-select').show();
+      $('.sizeLi').removeClass('selected');
+    }
   }
 });
 /*****************************************************************************/
@@ -79,9 +88,9 @@ Template.AddProduct.helpers({
 
     sizes = sizes.map(function (size) {
       if(selfSizes && selfSizes.indexOf(size) > -1)
-         return {size : size, selected : true};
+      return {size : size, selected : true};
       else
-        return {size : size, selected : false};
+      return {size : size, selected : false};
     })
 
     return sizes;
@@ -92,6 +101,13 @@ Template.AddProduct.helpers({
 /*****************************************************************************/
 Template.AddProduct.onCreated(function() {});
 Template.AddProduct.onRendered(function() {
+  try {
+    if (this.data.oneSize) {
+      $('.size-select').hide();
+      $('#noSize').prop('checked', true);
+      $('.sizeLi').removeClass('selected');
+    }
+  } catch (e) {}
 
   $('#imageUpload').changeUpUpload({
     targetImage : '#targetImage',

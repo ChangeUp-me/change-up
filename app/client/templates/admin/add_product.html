@@ -20,36 +20,42 @@
 			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
 			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
 
-			<div class="input-group">
-				<label class="col-xs-12 text-left">Price</label>
-				<span class="input-group-addon">$</span>
-				<input name="price" value="{{price}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
-			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-6 input-group">
+					<label class="col-xs-12 text-left">Price</label>
+					<span class="input-group-addon">$</span>
+					<input name="price" value="{{price}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
+				</div>
 
-			<div class="input-group">
+				<div class="col-xs-12 col-sm-6">
+
+					<label class="col-xs-12">Select all size available</label>
+					<ul class="size-select list-inline col-xs-12">
+						{{#each sizes}}
+						{{#if selected}}
+						<li class="sizeLi selected">{{size}}</li>
+						{{else}}
+						<li class="sizeLi">{{size}}</li>
+						{{/if}}
+						{{/each}}
+					</ul>
+
+					<label class="checkbox-inline"><input type="checkbox" id="noSize" value="">Size Doesn't Matter?</label>
+				</div>
+				<!-- <div class="input-group">
 				<label class="col-xs-12 text-left">Shipping</label>
 				<span class="input-group-addon">$</span>
 				<input name="shippingPrice" value="{{shippingPrice}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
-			</div>
-			<div>&nbsp;</div>
-			<div class="col-sm-6">
-				<label class="col-sm-6 col-md-12">Select all size available</label>
-				<ul class="size-select list-inline col-sm-6 col-md-12">
-					{{#each sizes}}
-					  {{#if selected}}
-						<li class="selected">{{size}}</li>
-						{{else}}
-						<li>{{size}}</li>
-						{{/if}}
-					{{/each}}
-				</ul>
-			</div>
-			<div class="col-sm-6">
-				<label class="col-sm-6 col-md-12">Percentage going to charity - <span id="charityPerctIndicator"></span></label>
-				<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
-			</div>
+			</div> -->
+
+		</div>
+
+		<div class="col-sm-12">
+			<label class="col-sm-12 col-md-12">Percentage going to charity - <span id="charityPerctIndicator"></span></label>
+			<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
+		</div>
 
 		<button type="submit" class="button blue">{{#if _id}} Update Product{{else}}Add Product{{/if}}</button>
-		</form>
-	</div>
+	</form>
+</div>
 </template>

@@ -67,6 +67,7 @@
 	    });
 	  },
 	  createStripeCustomer : function create_stripe_customer(token, email) {
+			console.log('CREATE')
 	  	var Stripe = Meteor.settings.private.stripe.apiKey;;
 	  	var customer = new Future();
 
@@ -127,7 +128,7 @@
 
 	    		body += "Buyer Name : " + billing.creditCardName + br;
 	    		body += "Payment Number : " + transactionNum + br;
-	    		body += "Payment Date : " + moment(Date.now()).format("MMM Do YYYY") + br; 
+	    		body += "Payment Date : " + moment(Date.now()).format("MMM Do YYYY") + br;
 	    		body += "Payment Card : " + billing.lastFour + br;
 	    		body += br;
 
@@ -144,7 +145,7 @@
 
 	    		Email.send({
 						to : user.emails[0].address,
-						from : 'noreply@changeup.com', 
+						from : 'noreply@changeup.com',
 						subject : 'Order receipt',
 						text : body
 					})

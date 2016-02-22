@@ -2,7 +2,7 @@ CHECKOUT = (function () {
 
 	function checkout (shipping, billing, stripeToken, email, cart) {
 		try{
-			this.stripeApiKey = "sk_mKLYgZGYkqjzg5DPyyc0u2hrYnhgR"//Meteor.settings.private.stripe.apiKey;
+			this.stripeApiKey = "sk_test_ktIiEvAZc1rW3e1Q4clVi0OC"//Meteor.settings.private.stripe.apiKey;
 
 			//check that all the given arguments are valid
 			checkArgs.apply(this, arguments);

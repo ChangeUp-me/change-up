@@ -1,0 +1,13 @@
+{
+	"galaxy.meteor.com": {
+		"env": {
+			"ROOT_URL": "http://changeup.checkmate.media",
+			"MONGO_URL": "mongodb://root:password@apollo.modulusmongo.net:27017/hUtiz7yp"
+		}
+	},
+	"private": {
+		"stripe": {
+			"apiKey":"sk_test_ktIiEvAZc1rW3e1Q4clVi0OC"
+		}
+	}
+}

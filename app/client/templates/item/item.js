@@ -41,14 +41,14 @@ Template.Item.events({
 			charityId: charity
 		};
 
-		if (cartItem.size === undefined){
-			sAlert.error('select a size');
+		if (!Meteor.user()) {
+			sAlert.error('please sign in');
 		} else if (cartItem.quantity < 1) {
 			sAlert.error('select a quantity more than 1');
 		} else if (isNaN(cartItem.quantity)) {
 			sAlert.error('select a quantity');
-		} else if (!Meteor.user()) {
-      sAlert.error('please sign in');
+		} else if (cartItem.size === undefined && !template.data.product.oneSize) {
+			sAlert.error('select a size');
     }  else {
 			CART.addItem(cartItem);
 		}

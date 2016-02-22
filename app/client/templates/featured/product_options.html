@@ -6,7 +6,7 @@
 					<label>Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"></label>
 					<select id="charities{{../_id}}">
 						{{#each charities}}
-							<option value="{{this.id}}">{{this.name}}</option>
+						<option value="{{this.id}}">{{this.name}}</option>
 						{{/each}}
 					</select>
 				</div>
@@ -16,19 +16,20 @@
 					<input type="number" min="1" id="quantity{{../_id}}" value="1">
 				</div>
 			</div>
-
+			{{#unless oneSize}}
 			<div class="col-xs-12">
 				<label class="col-sm-6 col-md-12">Select a size</label>
 				<ul class="size-select list-inline col-sm-6 col-md-12">
 					{{#each sizes}}
-						{{#if selected}}
-						<li id="{{../_id}}{{this}}" data-value="" class="selected">{{this}}</li>
-						{{else}}
-						<li id="{{../_id}}{{this}}" data-value="">{{this}}</li>
-						{{/if}}
+					{{#if selected}}
+					<li id="{{../_id}}{{this}}" data-value="" class="selected">{{this}}</li>
+					{{else}}
+					<li id="{{../_id}}{{this}}" data-value="">{{this}}</li>
+					{{/if}}
 					{{/each}}
 				</ul>
 			</div>
+			{{/unless}}
 		</fieldset>
 		<fieldset class="dropdown-wrap row">
 			<div class="select-dropdown col-xs-6">

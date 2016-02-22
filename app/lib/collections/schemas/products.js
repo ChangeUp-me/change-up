@@ -52,6 +52,11 @@
 				optional: true,
 				defaultValue: []
 			},
+			oneSize: {
+				type: Boolean,
+				optional: true,
+				defaultValue: false
+			},
 			details: {
 				type: String,
 				optional: true
