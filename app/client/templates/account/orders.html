@@ -6,7 +6,7 @@
 
 	<div id="orders" class="page">
 		<div class="cart">
-			<section id="overview" class="text-center">
+			<!-- <section id="overview" class="text-center">
 				<div class="col-sm-6">
 					<h4>Ship to:</h4>
 					<div>{{shipping.fullName}}</div>
@@ -32,7 +32,7 @@
 					<div>John Smith</div>
 					<div>World Hunger</div>
 				</div>
-			</section>
+			</section> -->
 			{{#each transactions}}
 			<h3 class="divider">Order: {{index @index}}</h3>
 
@@ -49,8 +49,6 @@
 						<h4>&#36;{{price}}</h4>
 						<div><small>x{{quantity}} | {{size}} | {{color}}</small></div>
 
-						<img class="edit" src="icons/edit_pencil.svg" alt="Edit">
-						<img class="delete" src="icons/delete_trash.svg" alt="Delete">
 					</div>
 				</div>
 				{{/each}}

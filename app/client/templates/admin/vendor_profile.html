@@ -12,7 +12,7 @@
 				{{/if}}
 				<div id="uploadProgress"></div>
 				</section>
-			</fieldset>	
+			</fieldset>
 			<fieldset>
 				<label>Store infomation</label>
 				<input name="storeName" type="text" value="{{storeName}}" placeholder="Name" required>
@@ -29,6 +29,7 @@
 					</li>
 					{{/each}}
 				</ul>
+				<input name="shippingPrice" type="number" value="{{shippingPrice}}" placeholder="Shipping Price" step="0.01" min="0.00" required>
 				<button type="button" class="button gray" data-click-addcharity>Add charity</button>
 				<br>
 				<button type="submit" class="button blue">Update profile</button>
@@ -36,7 +37,7 @@
 		</form>
 		<!--
 		<label>Personal infomation</label>
-		<form>	
+		<form>
 			<input type="text" placeholder="Full name" required>
 			<input type="text" placeholder="Email" required>
 			<input type="text" placeholder="Password" required>

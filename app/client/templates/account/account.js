@@ -14,27 +14,25 @@ Template.Orders.helpers({
 		return (parseInt(indx) || 0) + 1;
 	},
 	totals : function () {
-		var orderTotal = 0;
+		var orderTotal = this.price;
 		var subTotal = 0;
 		var shippingPrice = 0;
 
 		try{
 			var orders = this.order;
-
 			var o;
-      for(var i = 0; i < orders.length; i++) {
-        o = orders[i];
-        subTotal = subTotal +  (parseFloat(o.price) *  o.quantity);
-        shippingPrice = parseFloat(o.shippingPrice);
-      }
+			for(var i = 0; i < orders.length; i++) {
+				o = orders[i];
+				subTotal = subTotal +  (parseFloat(o.price) *  o.quantity);
+			}
 		} catch (e) {
-			console.error(e.stack);
 		}
+		shippingPrice = orderTotal-subTotal;
 
 		return {
-			total : (subTotal + shippingPrice).toFixed(2),
+			total : orderTotal,
 			subTotal : subTotal.toFixed(2),
-			shipping : shippingPrice.toFixed(2),
+			shipping : shippingPrice
 		};
 	}
 })

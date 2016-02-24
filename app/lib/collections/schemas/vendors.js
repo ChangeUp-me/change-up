@@ -56,6 +56,10 @@ function vendorSchema () {
       type: Array,
       optional: true,
     },
+    shippingPrice: {
+      type: Number,
+      optional: true
+    },
     "unseenOrders.$": {
       type: Object,
       optional: true,

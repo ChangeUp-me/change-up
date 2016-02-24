@@ -1,6 +1,6 @@
 CART = (function () {
 	var cart = {};
-	
+
 	cart.addItem = function (item) {
 		if(Meteor.userId()) {
 			this._setItemToServer(item);
@@ -38,11 +38,11 @@ CART = (function () {
 	cart.empty = function () {
 		if(Meteor.userId()) {
 			Meteor.call('updateUser', {
-		    "profile.cart" : []
-		   }, function (err){
-		   	if(err)
-		   		return console.error('cart-empty', err);
-		   });
+				"profile.cart" : []
+			}, function (err){
+				if(err)
+				return console.error('cart-empty', err);
+			});
 		}
 
 		this._deleteCookie();
@@ -52,7 +52,29 @@ CART = (function () {
 	cart.getTotals = function () {
 		var cart = this.getItems();
 		var total = 0;
-		var shippingTotal = 6.00; //TODO: make rate modular
+		var shippingTotal = 0;
+		var shippingTotalArray = [];
+		var duplicates = {};
+		var cleanedArray = [];
+
+
+		for (var i = 0; i < cart.length; i++) {
+			var shippingInfo = {'vendorId': cart[i].vendorId, "vendorShipping": Vendors.findOne({_id: cart[i].vendorId}).shippingPrice}
+
+			shippingTotalArray.push(shippingInfo)
+		}
+
+
+		for (var i = 0; i < shippingTotalArray.length; i++) {
+			if (!duplicates[shippingTotalArray[i].vendorId]) {
+				duplicates[shippingTotalArray[i].vendorId] = true;
+				cleanedArray.push(shippingTotalArray[i]);
+			}
+		}
+
+		for (var i = 0; i < cleanedArray.length; i++) {
+			shippingTotal += cleanedArray[i].vendorShipping;
+		}
 
 		_.each(cart, function (val, indx) {
 			total = (val.price * Math.max(1,val.quantity)) + total;
@@ -77,7 +99,7 @@ CART = (function () {
 			}
 
 			if(!_.isArray(c.items))
-				c = {items : []};
+			c = {items : []};
 
 			return c.items;
 		});
@@ -114,14 +136,14 @@ CART = (function () {
 
 		//find the index of the item to be removed
 		var indx = cart.findIndex(function(item) {
-	    return item.id == id;
-	  })
+			return item.id == id;
+		})
 
 		//remove it from the cart array
-	  cart.splice(indx, 1);
+		cart.splice(indx, 1);
 
-	  this._setCartCookie(cart);
-	  this._setSession(cart);
+		this._setCartCookie(cart);
+		this._setSession(cart);
 	}
 
 	cart._removeItemFromServer = function (id) {
@@ -155,8 +177,8 @@ CART = (function () {
 
 		//check if the item is already in the cart
 		var indx = cart.findIndex(function(item) {
-	    return ((cartItem.productId == item.productId) && cartItem.size == item.size);
-	  })
+			return ((cartItem.productId == item.productId) && cartItem.size == item.size);
+		})
 
 		if (indx > -1) {
 			//if it is just increment the quantity

@@ -17,6 +17,7 @@
         websiteUrl : form.websiteUrl.value
       };
 
+      console.log(form);
       Session.set('vendor:create', store);
 
       Router.go('addCharity');
@@ -30,6 +31,7 @@
         storeName : form.storeName.value,
         storeDescription : form.storeDescription.value,
         websiteUrl : form.websiteUrl.value,
+        shippingPrice : form.shippingPrice.value,
         charities : function () {
           var charities = [];
           _.forEach($('#selectlist').children(), function (val, indx){
@@ -39,6 +41,8 @@
         }()
       }
 
+      console.log(store);
+      
       if(image) {
         store.image = image;
       }
@@ -49,7 +53,7 @@
           return sAlert.error(err);
         }
 
-        Session.set('selectedCharities', null); 
+        Session.set('selectedCharities', null);
 
         sAlert.success('vendor updated!')
       })
@@ -68,10 +72,10 @@
           }
         })
       }
-      //vendor being created for the first time 
+      //vendor being created for the first time
       else {
         removeCharityFromSession(this.id);
-      } 
+      }
     }
   });
   /*****************************************************************************/
@@ -114,9 +118,9 @@
   /**
   * Joins a Charities name to the proper id
   *
-  * @note - this is done seperately as mongodb is 
+  * @note - this is done seperately as mongodb is
   * non relational and doesn't have join queries.
-  * 
+  *
   * @param {Array} Charities - an array of charities [{id : 'idone', name :'charityname' }]
   * @param {Object} Vendor - a vendors object {charities : ['idone']}
   */
@@ -157,6 +161,3 @@
     }
 
 })();
-
-
-

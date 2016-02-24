@@ -8,9 +8,6 @@ Template.Item.events({
 		productDescription.set(this.product.description);
 		$('#shareModal').modal('show');
 	},
-	// "click .size-select li" : function (event) {
-	// 	$(event.target).toggleClass('selected');
-	// },
 	"click .size-select li" : function (event, template) {
 		var allSizes= [];
 		for (var i = 0; i < template.data.product.sizes.length; i++) {
@@ -106,7 +103,7 @@ Template.Item.helpers({
 /* Item: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Item.onCreated(function () {
-	console.log('this', this);
+
 });
 
 Template.Item.onRendered(function () {
