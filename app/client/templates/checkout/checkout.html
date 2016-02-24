@@ -1,39 +1,40 @@
 <template name="Checkout">
 	<div id="checkout">
 		{{#if cartEmpty}}
-		<section class="empty-cart-placeholder">
-			<h2>Your Cart Is Empty</h2>
-			<img src="/icons/cart.svg" alt="cart">
-			<a href="/" class="button blue">Go Shopping!</a>
-		</section>
+			<section class="empty-cart-placeholder">
+				<h2>Your Cart Is Empty</h2>
+				<img src="/icons/cart.svg" alt="cart">
+				<a href="/" class="button blue">Go Shopping!</a>
+			</section>
 		{{else}}
-		<section class="page-header text-center">
-			<a class="back-button" href="/"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
+			<section class="page-header text-center">
+				<a class="back-button" href="/"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
+				<h2>Your Cart</h2>
+			</section>
 
-			<h2>Your Cart</h2>
-
-		</section>
-
-		<div class="container">
-			{{#each itemsInCart}}
-			<div class="itemInCart row">
-				<div class="col-xs-12 col-sm-4">
-					<img src="{{image.url}}" alt="Item Image">
-				</div>
-				<div class="col-xs-12 col-sm-8">
-					{{#each detailsOfItem productId}}
-					<h3>{{this.name}}</h3>
-					<h4>${{this.price}} x {{../quantity}} | ${{ price this.price ../quantity }}</h4>
+			<div class="cart page-header" id="checkout-page">
+				<div id="items">
+					{{#each itemsInCart}}
+						<div class="item col-xs-12">
+							<div class="portrait col-xs-5">
+								<img src="{{image.url}}" alt="Item Image">
+							</div>
+							<div class="details col-xs-7">
+								{{#each detailsOfItem productId}}
+									<h3>{{this.name}}</h3>
+									<h4>${{this.price}} x {{../quantity}} = ${{ price this.price ../quantity }}</h4>
+								{{/each}}
+								<h5>{{size}}</h5>
+								<img class="delete" src="/icons/delete_trash.svg" alt="Delete">
+							</div>
+						</div>
 					{{/each}}
-					<h5>{{size}}</h5>
-					<img class="delete" src="/icons/delete_trash.svg" alt="Delete">
+				</div>
+
+				<div class="select">
+					<button class="button blue continueCart">Continue</button>
 				</div>
 			</div>
-			{{/each}}
-			<div class="select">
-				<button class="button blue continueCart">Continue</button>
-			</div>
-		</div>
 		{{/if}}
 	</div>
 </template>
