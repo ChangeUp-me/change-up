@@ -236,6 +236,9 @@ Template.Summary.helpers({
 			shipping : Session.get('checkout:shipping')
 		}
 	},
+	billingLink : function () {
+		return '/billing?shipping='+ encodeURIComponent(JSON.stringify(Session.get('checkout:shipping')));
+	},
 	charity : function () {
 		return Session.get('checkout:charity');
 	}
