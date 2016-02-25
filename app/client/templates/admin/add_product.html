@@ -17,7 +17,7 @@
 				<div id="uploadProgress"></div>
 			</div>
 
-			<span>extra product images (optional)</span>
+			<div class="col-xs-12 text-center">Additional product images (optional)</div>
 			<ul id="productImages" class="product-uploaded-images clearfix">
 				{{#each productImages}}
 				<li class="pui-item" id="image{{@index}}">
@@ -35,7 +35,7 @@
 			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
 			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
 
-			<div class="row">
+			<!-- <div class="row"> -->
 				<div class="col-xs-12 col-sm-6 input-group">
 					<label class="col-xs-12 text-left">Price</label>
 					<span class="input-group-addon">$</span>
@@ -43,8 +43,12 @@
 				</div>
 
 				<div class="col-xs-12 col-sm-6">
-
-					<label class="col-xs-12">Select all size available</label>
+					<label class="col-xs-12" id="size-select-label">Select all size available
+					<span id="size-toggle">
+						<input type="checkbox" id="noSize" value="">
+						<label>N/A</label>
+					</span>
+					</label>
 					<ul class="size-select list-inline col-xs-12">
 						{{#each sizes}}
 						{{#if selected}}
@@ -54,9 +58,9 @@
 						{{/if}}
 						{{/each}}
 					</ul>
+				<!-- </div> -->
 
-					<label class="checkbox-inline"><input type="checkbox" id="noSize" value="">Size Doesn't Matter?</label>
-				</div>
+				
 				<!-- <div class="input-group">
 				<label class="col-xs-12 text-left">Shipping</label>
 				<span class="input-group-addon">$</span>

@@ -120,9 +120,9 @@ form {
 		outline: none;
 		resize: vertical;
 		&.half {
-			width: 82%;
+			float: left;
+			width: 50%;
 			padding: 14.5px;
-			border-top: 1px solid #919191;
 			border-right: 1px solid @gray;
 		}
 		&[type="checkbox"] {
@@ -141,9 +141,10 @@ form {
 		color: @gray;
 	}
 	.input-group {
-		display: inline-block;
+		display: block;
 		margin-top: -5px;
-		width: 49.2%;
+		width: 90%;
+		margin: 0 auto 25px;
 		.input-group-addon {
 			display: inline-block;
 			margin-right: -7px;
@@ -160,11 +161,14 @@ form {
 	.check {
 		display: inline-block;
 		width: 100%;
-		padding: 12px 20px 5px;
+		padding: 12px 8px 5px;
 		text-align: left;
 		vertical-align: bottom;
 		.pull-right {
 			margin: 10px 0;
+		}
+		label {
+			display: inline;
 		}
 	}
 }
@@ -347,8 +351,8 @@ section {
 	width: 100%;
 	margin: 0;
 	padding: 15px;
+	text-align: center;
 	background: @offwhite;
-	border-top: 1px solid @gray;
 	border-bottom: 1px solid @gray;
 }
 
@@ -368,6 +372,10 @@ ul.nav.nav-tabs {
 			-khtml-user-select: none;
 			-moz-user-select: none;
 			user-select: none;
+			transition: color 0.3s, background 0.3s, border 0.3s;
+			&:hover, &:active, &:focus {
+				border-color: #eee;
+			}
 		}
 		&.active a {
 			color: @gray;
@@ -590,7 +598,7 @@ input[type=range]:focus::-ms-fill-upper {
 	background: @gray;
 }
 
-#charities {
+#charities, #charities-tab {
 	.charity {
 		padding: 15px 0 0;
 		border-bottom: 8px solid @beige;
@@ -698,6 +706,7 @@ input[type=range]:focus::-ms-fill-upper {
 	}
 	#overview {
 		text-align: center;
+		border-bottom: 1px solid @gray;
 		.details {
 			width: 90%;
 			margin: auto;
@@ -785,10 +794,13 @@ input[type=range]:focus::-ms-fill-upper {
 			color: @gray;
 		}
 		.input-group {
+			float: left !important;
+			display: inline-block;
+			width: 49.2%;
 			margin-top: 0;
 			.input-group-addon {
 				float: none;
-				margin-left: -9px;
+				margin-left: 20px;
 				padding: 9px 4% 9px 3%;
 				border-color: @silver;
 				border-right: none;
@@ -805,6 +817,7 @@ input[type=range]:focus::-ms-fill-upper {
 		#overview {
 			width: 93%;
 			margin: auto;
+			border: none;
 			.details {
 				width: 48%;
 				min-height: 123px;

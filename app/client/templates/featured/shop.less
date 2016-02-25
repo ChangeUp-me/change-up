@@ -11,6 +11,51 @@
 @silver: #C7C7C7;				/* Body text */
 
 .shop {
+	#shop-header {
+		padding: 50px 15px;
+		background: url('images/background-shop.png') no-repeat center center;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		h2 {
+			margin: 0;
+			color: white;
+			font-size: 27px;
+		}
+		p {
+			color: white;
+			font-size: 15px;
+		}
+		.button {
+			margin: 5px 0;
+			display: inline-block;
+		}
+	}
+	#allItems {
+		.product {
+			h4 {
+				margin: 10px 0 0;
+			}
+			.product-options {
+				.col-xs-8 {
+					margin: 10px 0;
+					padding: 0;
+				}
+				input {
+					width: 100%;
+					padding: 5px;
+					border-bottom: none;
+					border: 1px solid @silver;
+					border-radius: 3px;
+				}	
+			}
+			.sizes, .stats {
+				margin: 0;
+				padding: 0;
+			}
+		}
+	}
 }
 
 /* Tablet and Desktop */
@@ -19,13 +64,7 @@
 		#shop-header {
 			margin: 0 0 20px;
 			padding: 20vh 0 22vh;
-			background: url('images/background-shop.png') no-repeat center center;
-			-webkit-background-size: cover;
-			-moz-background-size: cover;
-			-o-background-size: cover;
-			background-size: cover;
 			h2 {
-				color: white;
 				font-size: 60px;
 			}
 			p {
@@ -34,7 +73,6 @@
 			}
 			.button {
 				margin: 0 5px;
-				display: inline-block;
 			}
 		}
 		#support {
@@ -71,10 +109,6 @@
 			.button {
 				display: inline-block;
 				width: 49%;
-			}
-			.stats {
-				margin: 10px 0 0;
-				padding: 0;
 			}
 		}
 	}

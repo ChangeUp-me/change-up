@@ -17,7 +17,7 @@
 					{{#each itemsInCart}}
 						<div class="item col-xs-12">
 							<div class="portrait col-xs-5">
-								<img src="{{image.url}}" alt="Item Image">
+								<a class="product-image" href="/item/{{productId}}"><img src="{{image.url}}" alt="Item Image"></a>
 							</div>
 							<div class="details col-xs-7">
 								{{#each detailsOfItem productId}}

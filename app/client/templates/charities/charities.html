@@ -12,23 +12,23 @@
 
 		<div id="charities">
 			{{#each charities}}
-			<div class="charity">
-				<div class="box-wrapper">
-					<div class="charity-header col-xs-9 col-sm-12">
-						<h3>{{name}}</h3>
-						<div>{{category}}</div>
-					</div>
-					{{#if image}}
-					<div class="charity-logo col-xs-3 col-sm-12 text-right">
-						<a href="{{pathFor route='charity' data=this}}"><img src="{{image.url}}" alt="Arc Logo"></a>
-					</div>
-					{{/if}}
-					<p class="col-xs-12">{{description}}</p>
-					<div class="learn-more">
-						<h4><a href="{{pathFor route='charity' data=this}}">Learn more</a></h4>
+				<div class="charity">
+					<div class="box-wrapper">
+						<div class="charity-header col-xs-7 col-sm-12">
+							<h3>{{name}}</h3>
+							<div>{{category}}</div>
+						</div>
+						{{#if image}}
+							<div class="charity-logo col-xs-5 col-sm-12 text-right">
+								<a href="{{pathFor route='charity' data=this}}"><img src="{{image.url}}" alt="Arc Logo"></a>
+							</div>
+						{{/if}}
+						<p class="col-xs-12">{{description}}</p>
+						<div class="learn-more">
+							<h4><a href="{{pathFor route='charity' data=this}}">Learn more</a></h4>
+						</div>
 					</div>
 				</div>
-			</div>
 			{{/each}}
 		</div>
 

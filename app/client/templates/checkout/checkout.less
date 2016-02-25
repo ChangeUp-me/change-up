@@ -19,6 +19,14 @@
 	#checkout-page {
 		margin: 0 auto 40px;
 		padding: 0;
+		h3 {
+			margin: 5px 0;
+			color: @mocha;
+		}
+		h4 {
+			margin: 0 0 15px;
+			font-size: 15px;
+		}
 		.item {
 			padding: 0;
 			.portrait {
@@ -39,6 +47,7 @@
 		padding: 0;
 		text-align: center;
 		background: @offwhite;
+		cursor: pointer;
 		a {
 			display: inline-block;
 			width: 100%;
@@ -105,6 +114,36 @@ form.checkout-form{
 		.cart {
 			#items {
 				width: 95%;
+			}
+		}
+	}
+
+	.checkout-form {
+		input {
+			padding: 15px;
+			border: none;
+			border-bottom: 1px solid @silver;
+			border-radius: 0;
+			&.address {
+				float: left;
+				width: 50%;
+				border-right: 1px solid @silver;
+			}
+			&.half {
+				float: left;
+				width: 25%;
+				margin: 0;
+				padding: 15px;
+				border-right: 1px solid @silver;
+			}
+
+		}
+		&#billing {
+			input {
+				&:first-child {
+					margin-top: 20px;
+					border-top: 1px solid @silver;
+				}
 			}
 		}
 	}

@@ -30,6 +30,25 @@ div.product{
 	.like-button{
 		padding: 1rem;
 	}
+	.product-item {
+		display: inline-block;
+		padding: 0;
+	}
+	input[type="number"] {
+		width: 50px;
+		margin: 0 0 10px;
+		padding: 5px 10px;
+		background: white;
+		border: 1px solid @silver;
+	}
+}
+
+#product-details {
+	.tab-content {
+		.row {
+			padding: 20px 15px;
+		}
+	}
 }
 
 #reviews {
@@ -110,10 +129,20 @@ div.product{
 		margin: 0 auto 40px;
 		padding: 0;
 		.tab-content {
-			width: 95%;
+			width: 100%;
 			margin: 10px auto 0;
+			padding: 0;
+			#product-tab, #vendor-tab {
+				padding: 0 25px;
+			}
+			#charities-tab {
+				margin-top: -10px;
+			}
 			.col-sm-6 {
 				text-align: left;
+			}
+			.row {
+				padding: 0;
 			}
 		}
 	}
