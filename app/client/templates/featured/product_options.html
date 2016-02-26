@@ -16,20 +16,20 @@
 					<input type="number" min="1" id="quantity{{../_id}}" value="1">
 				</div>
 			</div>
-			{{#unless oneSize}}
 			<div class="col-xs-12 sizes">
-				<label class="col-sm-6 col-md-12">Select a size</label>
-				<ul class="size-select list-inline col-sm-6 col-md-12">
-					{{#each sizes}}
-					{{#if selected}}
-					<li id="{{../_id}}{{this}}" data-value="" class="selected">{{this}}</li>
-					{{else}}
-					<li id="{{../_id}}{{this}}" data-value="">{{this}}</li>
-					{{/if}}
-					{{/each}}
-				</ul>
+				{{#unless oneSize}}
+					<label class="col-sm-6 col-md-12">Select a size</label>
+					<ul class="size-select list-inline col-sm-6 col-md-12">
+						{{#each sizes}}
+						{{#if selected}}
+						<li id="{{../_id}}{{this}}" data-value="" class="selected">{{this}}</li>
+						{{else}}
+						<li id="{{../_id}}{{this}}" data-value="">{{this}}</li>
+						{{/if}}
+						{{/each}}
+					</ul>
+				{{/unless}}
 			</div>
-			{{/unless}}
 		</fieldset>
 		<fieldset class="dropdown-wrap row">
 			<div class="select-dropdown col-xs-6">
