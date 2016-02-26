@@ -118,7 +118,7 @@
 	    	if(err) {
 	    		return $checkoutResponse.throw(err);
 	    	}
-
+				makePurchase(cart);
 	    	$checkoutResponse.return(transactionNum);
 
 	    	//send email async
@@ -149,6 +149,8 @@
 						subject : 'Order receipt',
 						text : body
 					})
+
+
 	    	});
 	    };
 	  }

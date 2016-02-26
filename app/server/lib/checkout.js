@@ -33,14 +33,6 @@ CHECKOUT = (function () {
 			shippingTotalArray.push(shippingInfo)
 		}
 
-
-		// $.each(shippingTotalArray, function(i, el) {
-		// 	if (!duplicates[el.vendorId]) {
-		// 		duplicates[el.vendorId] = true;
-		// 		cleanedArray.push(el);
-		// 	}
-		// });
-
 		for (var i = 0; i < shippingTotalArray.length; i++) {
 			if (!duplicates[shippingTotalArray[i].vendorId]) {
 				duplicates[shippingTotalArray[i].vendorId] = true;
@@ -52,8 +44,6 @@ CHECKOUT = (function () {
 			this.shippingCost += cleanedArray[i].vendorShipping;
 		}
 		// end calculating shipping fee
-
-		console.log(this.shippingCost)
 
 		this.shipping.name = this.shipping.fullName;
 		this.shipping.address = this.shipping.addressOne;

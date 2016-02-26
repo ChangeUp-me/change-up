@@ -1,7 +1,7 @@
 Meteor.methods({
   whatTimeIsIt : function () {
     var now = new Date(); // get today's date
-    var end = ((now.getMonth()+1)+"/"+now.getDay()+"/"+now.getFullYear()+" 23:59:59 GMT")
+    var end = ((now.getMonth()+1)+"/"+now.getDay()+"/"+now.getFullYear()+" 23:59:59 EST")
     end = new Date(end);
     return {'serverNow': today, "serverEnd": end}
   }
@@ -12,7 +12,7 @@ Meteor.startup(function () {
   // Function to update Featured products
   function updateFeaturedProducts() {
     var now = new Date(); // get today's date
-    var end = ((now.getUTCMonth()+1)+"/"+now.getUTCDate()+"/"+now.getUTCFullYear()+" 23:59:59 GMT");
+    var end = ((now.getUTCMonth()+1)+"/"+now.getUTCDate()+"/"+now.getUTCFullYear()+" 23:59:59 EST");
     end = new Date(end);
 
     try {
@@ -61,5 +61,5 @@ Meteor.startup(function () {
     }
   }
   // Check to update featured products on a hourly basis
-  Meteor.setInterval(updateFeaturedProducts, 10000);
+  Meteor.setInterval(updateFeaturedProducts, 3600000);
 });
