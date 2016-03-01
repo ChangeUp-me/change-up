@@ -1,3 +1,46 @@
+#vendors-header {
+	padding: 50px 15px;
+	background: url('images/background-vendor-header.png') no-repeat top center;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	h2 {
+		margin: 0;
+		color: white;
+		font-size: 27px;
+	}
+	p {
+		color: white;
+		font-size: 15px;
+	}
+	.button {
+		margin: 5px 0;
+		display: inline-block;
+	}
+}
+
+@font-size: 16px;
+@line-height: 1.4;
+@lines-to-show: 6;
+
+.vendor-details {
+	margin: 0 0 20px;
+	p {
+		display: block;											/* Fallback for non-webkit */
+		display: -webkit-box;
+		max-width: 300px;
+		height: @font-size * @line-height * @lines-to-show; 	/* Fallback for non-webkit */
+		margin: 0 auto;
+	 	font-size: @font-size;
+		line-height: @line-height;
+		-webkit-line-clamp: @lines-to-show;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
 #vendor-list {
 	max-width: 1120px;
 	margin: 0 auto 50px;
@@ -20,6 +63,24 @@
 					opacity: 0.6;
 				}
 			}
+		}
+	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	#vendors-header {
+		margin: 0 0 20px;
+		padding: 20vh 0 22vh;
+		h2 {
+			font-size: 60px;
+		}
+		p {
+			color: white;
+			font-size: 18px;
+		}
+		.button {
+			margin: 0 5px;
 		}
 	}
 }
