@@ -196,6 +196,11 @@ Router.route('addProduct/:_id?', {
   where: 'client',
 });
 
+Router.route('admin/report', {
+  name: 'adminReports',
+  where: 'client'
+});
+
 
 function check_logged_in() {
   if (!Meteor.userId()) {
