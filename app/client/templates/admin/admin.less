@@ -193,6 +193,52 @@ ul.select-list-items{
     border-radius: 500px;
 }
 
+#fulfillment {
+	.section-header {
+		display: inline-block;
+		width: 100%;
+		padding: 10px 0;
+		border-bottom: 1px solid @silver;
+		h4 {
+			color: @mocha;
+			font-weight: bold;
+		}
+	}
+	.section-footer {
+		display: inline-block;
+		width: 100%;
+		padding: 10px 0;
+		border-top: 1px solid @silver;
+	}
+	.inventory {
+		color: @mocha;
+		.row {
+			.text-left {
+				color: @silver;
+			}
+		}
+		#totals {
+			padding: 15px;
+			.total {
+				.text-left {
+					color: @mocha;
+				}
+			}
+		}
+	}
+	.queue-item {
+		.row {
+			display: inline-block;
+			width: 100%;
+			margin: auto;
+			padding: 15px 0;
+			&:not(:last-child) {
+				border-bottom: 1px solid @silver;
+			}
+		}
+	}
+}
+
 /* Tablet and Desktop */
 @media (min-width: 768px) {
 	#vendor-orders {
@@ -237,17 +283,35 @@ ul.select-list-items{
 	}
 
 	#fulfillment {
+		margin: 0 0 40px;
 		.inventory {
 			width: 594px;
 			margin: 5px;
 			padding: 0;
-			.item:last-child {
-				border: none;
+			#items {
+				padding: 0 15px;
+			}
+			.row {
+				padding: 8px 0;
+				.pull-right {
+					color: @mocha;
+				}
+			}
+			#totals {
+				padding: 0 15px;
+				.subtotal {
+					padding: 0 15px 5px;
+					border-bottom: 1px solid @silver;
+				}
+				.total {
+					padding: 10px 15px;
+				}
 			}
 		}
 		.queue-item {
 			max-width: 400px;
 			margin: 5px;
+			padding: 0;
 			text-align: left;
 			vertical-align: top;
 		}

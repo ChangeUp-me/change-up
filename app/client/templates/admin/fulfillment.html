@@ -6,6 +6,121 @@
 
 	<div id="fulfillment">
 		<div class="inventory page">
+			<div class="section-header">
+				<div class="col-xs-6 text-left">
+					<h4>Order Details</h4>
+				</div>
+				<div class="col-xs-6 text-right">
+					<h4>{{formatDate timestamp}}</h4>
+				</div>
+			</div>
+			<div id="items">
+				{{#each order}}
+				<div class="item col-xs-12">
+					<div class="portrait col-xs-6 col-sm-2">
+						<img src="{{image.url}}" alt="Item">
+					</div>
+					<div class="details col-xs-6">
+						<strong>{{productName}}</strong>
+						<div><small>{{#if size}}| {{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
+					</div>
+					<div class="col-xs-2 text-right">
+						x{{quantity}}
+					</div>
+					<div class="col-xs-4 col-sm-2 text-right">
+						&#36;{{price}}
+					</div>
+				</div>
+				{{/each}}
+			</div>
+
+			{{#with totals}}
+				<div class="col-sm-6 hidden-xs">
+					<!-- offset -->	
+				</div>
+				<div id="totals" class="col-sm-6">
+					<div class="subtotal">
+						<div class="row">
+							<div class="col-xs-6 text-left">
+								<div>Subtotal</div>
+							</div>
+							<div class="col-xs-6 text-right">
+								<div>${{subTotal}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6 text-left">
+								<div>Shipping</div>
+							</div>
+							<div class="col-xs-6 text-right">
+								<div>${{shipping}}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6 text-left">
+								<div>Tax</div>
+							</div>
+							<div class="col-xs-6 text-right">
+								<div>${{tax}}</div>
+							</div>
+						</div>
+					</div>
+					<div class="total">
+						<div class="row">
+							<div class="col-xs-6 text-left">
+								<div>Total</div>
+							</div>
+							<div class="col-xs-6 text-right">
+								<div><strong>${{total}}</strong></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="section-footer">
+					<div class="col-sm-6 hidden-xs">
+						<!-- offset -->
+					</div>
+					<div class="col-sm-6 text-center">
+						{{#if isFulfilled}}
+							<button class="button lightgray">Fulfilled</button>
+						{{else}}
+							<button class="button blue" data-click-fulfill>Fulfill order</button>
+						{{/if}}
+					</div>
+				</div>
+			{{/with}}
+		</div>
+
+		<div class="queue-item page text-center">
+			<div class="section-header">
+				<div class="col-xs-12">
+					<h4>Customer</h4>
+				</div>
+			</div>
+			<div class="col-xs-12">
+				<div class="row">
+					<strong>{{billing.creditCardName}}</strong>
+					<div>name@domain.ext</div>
+				</div>
+				<div class="row">
+					<strong>Shipping Address</strong>
+					<div>1234 Fake St.</div>
+					<div>Town, CT. 012345</div>
+					<div>123-456-7890</div>
+				</div>
+				<div class="row">
+					<strong>Billing Address</strong>
+					<div>1234 Fake St.</div>
+					<div>Town, CT. 012345</div>
+					<div>123-456-7890</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--
+	<div id="fulfillment">
+		<div class="inventory page">
 			<div id="items">
 				{{#each order}}
 				<div class="item col-xs-12">
@@ -14,7 +129,7 @@
 					</div>
 					<div class="details col-xs-7">
 						<strong>{{productName}}</strong>
-						<div><small><!--Locally Roasted--></small></div>
+						<div><small></small></div>
 
 						<h4>&#36;{{price}}</h4>
 						<div><small>x{{quantity}} {{#if size}}| {{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
@@ -82,4 +197,5 @@
 			<a class="button clear gray" href="">Email customer</a>
 		</section>
 	</div>
+	-->
 </template>
