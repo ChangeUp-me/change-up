@@ -21,10 +21,10 @@
 						<img src="{{image.url}}" alt="Item">
 					</div>
 					<div class="details col-xs-6">
-						<strong>{{productName}}</strong>
-						<div><small>{{#if size}}| {{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
+						<strong>{{this.productName}}</strong>
+						<div><small>{{#if size}}{{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
 					</div>
-					<div class="col-xs-2 text-right">
+					<div class="col-xs-2">
 						x{{quantity}}
 					</div>
 					<div class="col-xs-4 col-sm-2 text-right">
@@ -99,20 +99,18 @@
 			</div>
 			<div class="col-xs-12">
 				<div class="row">
-					<strong>{{billing.creditCardName}}</strong>
-					<div>name@domain.ext</div>
+					<h4>{{billing.creditCardName}}</h4>
+					<div>{{email}}</div>
 				</div>
 				<div class="row">
-					<strong>Shipping Address</strong>
-					<div>1234 Fake St.</div>
-					<div>Town, CT. 012345</div>
-					<div>123-456-7890</div>
+					<h4>Shipping Address</h4>
+					<div>{{this.shipping.address}}</div>
+					<div>{{this.shipping.city}}, {{this.shipping.state}}. {{this.shipping.zipcode}}</div>
 				</div>
 				<div class="row">
-					<strong>Billing Address</strong>
-					<div>1234 Fake St.</div>
-					<div>Town, CT. 012345</div>
-					<div>123-456-7890</div>
+					<h4>Billing Address</h4>
+					<div>{{this.shipping.address}}</div>
+					<div>{{this.shipping.city}}, {{this.shipping.state}}. {{this.shipping.zipcode}}</div>
 				</div>
 			</div>
 		</div>

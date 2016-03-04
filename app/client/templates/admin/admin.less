@@ -194,15 +194,15 @@ ul.select-list-items{
 }
 
 #fulfillment {
+	h4 {
+		color: @mocha;
+		font-weight: bold;
+	}
 	.section-header {
 		display: inline-block;
 		width: 100%;
 		padding: 10px 0;
 		border-bottom: 1px solid @silver;
-		h4 {
-			color: @mocha;
-			font-weight: bold;
-		}
 	}
 	.section-footer {
 		display: inline-block;
@@ -234,6 +234,9 @@ ul.select-list-items{
 			padding: 15px 0;
 			&:not(:last-child) {
 				border-bottom: 1px solid @silver;
+			}
+			h4 {
+				margin: 0 0 10px;
 			}
 		}
 	}
