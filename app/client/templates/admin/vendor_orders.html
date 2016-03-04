@@ -13,7 +13,7 @@
 					<th class="col-5">Date</th>
 					<th class="col-5">Customer</th>
 					<th class="col-5">Status</th>
-					<th class="col-5">Total</th>
+					<th class="col-5 text-right">Total</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -22,26 +22,44 @@
 					<td class="col-5" data-title="Date">2/28/2016, 6:35pm</td>
 					<td class="col-5" data-title="Customer">John Smith</td>
 					<td class="col-5" data-title="Status">Unfulfilled</td>
-					<td class="col-5" data-title="Total">$29.99</td>
+					<td class="col-5 text-right" data-title="Total">$29.99</td>
 				</tr>
 				<tr>
 					<td class="col-5" data-title="Order">#001</td>
 					<td class="col-5" data-title="Date">2/28/2016, 6:35pm</td>
 					<td class="col-5" data-title="Customer">John Smith</td>
 					<td class="col-5" data-title="Status">Unfulfilled</td>
-					<td class="col-5" data-title="Total">$29.99</td>
+					<td class="col-5 text-right" data-title="Total">$29.99</td>
 				</tr>
 				<tr>
 					<td class="col-5" data-title="Order">#002</td>
 					<td class="col-5" data-title="Date">2/28/2016, 6:35pm</td>
 					<td class="col-5" data-title="Customer">John Smith</td>
 					<td class="col-5" data-title="Status">Unfulfilled</td>
-					<td class="col-5" data-title="Total">$29.99</td>
+					<td class="col-5 text-right" data-title="Total">$29.99</td>
 				</tr>
+				{{#each transactions}}
+					<tr>
+						<td class="col-5" data-title="Order">
+							<a href="{{pathFor route='fulfillment' data=this}}">#{{transactionId}}</a>
+						</td>
+						<td class="col-5" data-title="Date">{{formatDate timestamp}}</td>
+						<td class="col-5" data-title="Customer">{{billing.creditCardName}}</td>
+						<td class="col-5" data-title="Status">
+							{{#if isFulfilled}}
+								<a class="button lightgray" href="{{pathFor route='fulfillment' data=this}}">Fulfilled</a>
+							{{else}}
+								<a class="button orange" href="{{pathFor route='fulfillment' data=this}}">Not Fulfilled</a>
+							{{/if}}
+						</td>
+						<td class="col-5 text-right" data-title="Total">${{total}}</td>
+					</tr>
+				{{/each}}
 			</tbody>
 		</table>
 	</div>
 
+	<!--
 	<div id="vendor-orders">
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="col-xs-3 active">
@@ -224,4 +242,5 @@
 			</div>
 		</div>
 	</div>
+	-->
 </template>
