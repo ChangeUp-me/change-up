@@ -29,6 +29,13 @@
 				text-align: right;
 			}
 		}
+		.col-xs-2 {
+			padding: 10px;
+			text-align: left;
+			&.text-right {
+				text-align: right;
+			}
+		}
 		.button {
 			display: inline-block;
 			width: auto;
@@ -41,11 +48,15 @@
 @media only screen and (max-width: 800px) {
 
 	#no-more-tables {
+		margin: 0;
 		table {
 			tbody {
 				text-align: right;
 			}
-			.col-5 {
+			tr:nth-child(odd) {
+				background: #fafafa;
+			}
+			.col-5, .col-xs-2 {
 				width: auto;
 				padding: 10px 15px 10px 30%;
 				text-align: right;

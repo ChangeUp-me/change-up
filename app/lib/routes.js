@@ -161,6 +161,12 @@ Router.route('vendorOrders', {
   where: 'client'
 });
 
+Router.route('vendorStatements', {
+  name: 'vendorStatements',
+  controller: 'VendorStatementsController',
+  where: 'client'
+});
+
 Router.route('fulfillment/:_id', {
   name: 'fulfillment',
   controller: 'FulfillmentController'
