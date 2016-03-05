@@ -2,7 +2,7 @@
 Meteor.startup(function() {
   if(Meteor.isClient) {
     return SEO.config({
-      title: 'Change Up',
+      title: 'Featured | Change Up',
       meta: {
         'description': 'Change Up | Exclusive Products, Inclusive Community.', //155 characters.
         'robots': 'all',
@@ -47,3 +47,15 @@ staticSEO(
 	routeName = 'vendorsList',
 	title = 'Vendors | Change Up',
 );
+
+// ** Checkout ** //
+staticSEO(
+  routeName = 'checkout',
+  title = 'Checkout | Change Up'
+);
+
+// ** Transfers ** //
+staticSEO(
+  routeName = 'transfers',
+  title = 'Transfers | Change Up'
+)

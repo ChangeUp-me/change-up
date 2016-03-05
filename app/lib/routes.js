@@ -33,7 +33,19 @@ Router.route('account', {
   name: 'account',
   controller: 'AccountController',
   where: 'client',
-  onAfterAction : check_logged_in
+  onAfterAction : function(){
+      check_logged_in
+      var user = this.data();
+      console.log(user);
+      if (!Meteor.isClient) {
+        return;
+      }
+      if(user){
+        SEO.set({
+          title: user.profile.name + " | Change Up",
+        });
+      }
+  }
 });
 
 Router.route('orders', {
@@ -82,6 +94,17 @@ Router.route('item/:_id', {
   name: 'item',
   controller: 'ItemController',
   where: 'client',
+  onAfterAction : function(){
+      var item = this.data();
+      if (!Meteor.isClient) {
+        return;
+      }
+      if(item){
+        SEO.set({
+          title: item.pageTitle + " | Change Up",
+        });
+      }
+  }
 });
 
 Router.route('reviews/:_id', {
@@ -155,14 +178,14 @@ Router.route('vendors/:vendorId', {
     }
     if(vendor){
       SEO.set({
-        title: vendor.storeName,
+        title: vendor.storeName + " | Change Up",
         meta: {
           'description': vendor.storeDescription
         },
         og: {
           'type': 'article',
           'article:author': "Change Up",
-          'title': vendor.storeName,
+          'title': vendor.storeName+ " | Change Up",
           'description': vendor.storeDescription,
         }
       });
