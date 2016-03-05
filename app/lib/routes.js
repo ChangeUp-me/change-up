@@ -146,7 +146,28 @@ Router.route('vendors', {
 Router.route('vendors/:vendorId', {
   name: 'vendor',
   controller: 'VendorController',
-  where: 'client'
+  where: 'client',
+  onAfterAction:function(){
+    var vendor = this.data();
+    console.log(vendor);
+    if (!Meteor.isClient) {
+      return;
+    }
+    if(vendor){
+      SEO.set({
+        title: vendor.storeName,
+        meta: {
+          'description': vendor.storeDescription
+        },
+        og: {
+          'type': 'article',
+          'article:author': "Change Up",
+          'title': vendor.storeName,
+          'description': vendor.storeDescription,
+        }
+      });
+    }
+  }
 });
 
 Router.route('transfers', {
