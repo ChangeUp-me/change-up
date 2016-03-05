@@ -1,0 +1,113 @@
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+#no-more-tables {
+	margin: 0 auto 40px;
+	padding: 0;
+	table {
+		width: 100%;
+		thead {
+			color: @mocha;
+			background: @offwhite;
+		}
+		tbody {
+			tr:not(:last-child) {
+				border-bottom: 1px solid @silver;
+			}
+		}
+		.col-5 {
+			width: 20%;
+			padding: 10px;
+			text-align: left;
+			&.text-right {
+				text-align: right;
+			}
+		}
+		.col-xs-2 {
+			padding: 10px;
+			text-align: left;
+			&.text-right {
+				text-align: right;
+			}
+		}
+		.button {
+			display: inline-block;
+			width: auto;
+			margin: 0;
+			padding: 1px 10px 3px;
+		}
+	}
+}
+
+@media only screen and (max-width: 800px) {
+
+	#no-more-tables {
+		margin: 0;
+		table {
+			tbody {
+				text-align: right;
+			}
+			tr:nth-child(odd) {
+				background: #fafafa;
+			}
+			.col-5, .col-xs-2 {
+				width: auto;
+				padding: 10px 15px 10px 30%;
+				text-align: right;
+			}
+		}
+	}
+	
+	/* Force table to not be like tables anymore */
+	#no-more-tables table, 
+	#no-more-tables thead, 
+	#no-more-tables tbody, 
+	#no-more-tables th, 
+	#no-more-tables td, 
+	#no-more-tables tr { 
+		display: block; 
+	}
+ 
+	/* Hide table headers (but not display: none;, for accessibility) */
+	#no-more-tables thead tr { 
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+ 
+	#no-more-tables tr { border: 1px solid #ccc; }
+ 
+	#no-more-tables td { 
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee; 
+		position: relative;
+		padding-left: 50%; 
+		white-space: normal;
+		text-align:left;
+	}
+ 
+	#no-more-tables td:before { 
+		/* Now like a table header */
+		position: absolute;
+		/* Top/left values mimic padding */
+		top: 6px;
+		left: 6px;
+		width: 45%; 
+		padding-right: 10px; 
+		white-space: nowrap;
+		text-align:left;
+		font-weight: bold;
+	}
+ 
+	/*
+	Label the data
+	*/
+	#no-more-tables td:before { content: attr(data-title); }
+}

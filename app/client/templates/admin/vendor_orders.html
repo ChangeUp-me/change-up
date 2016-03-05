@@ -5,6 +5,40 @@
 		<div class="order-count">{{ count }}</div>
 	</section>
 
+	<div id="no-more-tables" class="page-header">
+		<table>
+			<thead>
+				<tr>
+					<th class="col-5">Order</th>
+					<th class="col-5">Date</th>
+					<th class="col-5">Customer</th>
+					<th class="col-5">Status</th>
+					<th class="col-5 text-right">Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{#each transactions}}
+					<tr>
+						<td class="col-5" data-title="Order">
+							<a href="{{pathFor route='fulfillment' data=this}}">#{{transactionId}}</a>
+						</td>
+						<td class="col-5" data-title="Date">{{formatDate timestamp}}</td>
+						<td class="col-5" data-title="Customer">{{billing.creditCardName}}</td>
+						<td class="col-5" data-title="Status">
+							{{#if isFulfilled}}
+								<a class="button lightgray" href="{{pathFor route='fulfillment' data=this}}">Fulfilled</a>
+							{{else}}
+								<a class="button orange" href="{{pathFor route='fulfillment' data=this}}">Not Fulfilled</a>
+							{{/if}}
+						</td>
+						<td class="col-5 text-right" data-title="Total">${{total}}</td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+
+	<!--
 	<div id="vendor-orders">
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="col-xs-3 active">
@@ -187,4 +221,5 @@
 			</div>
 		</div>
 	</div>
+	-->
 </template>
