@@ -2,13 +2,13 @@ Meteor.startup(function () {
 	//smtp
 	process.env.MAIL_URL = "smtp://terrell.changeup@gmail.com:changeup1234@smtp.gmail.com:587";
 
-	var superUser = Meteor.users.findOne({'emails.address' : 'admin@changeup.com'});
+	var superUser = Meteor.users.findOne({'emails.address' : 'geoff.bruskin@changeup.me'});
 
 	//create an admin if there is none
 	if(!superUser) {
 		try {
 			var id = Accounts.createUser({
-				email : "admin@changeup.com",
+				email : "geoff.bruskin@changeup.me",
 				password : "changeup1234",
 				profile : {
 					name : "admin",

@@ -118,7 +118,7 @@
 
 	    	<div class="col-xs-6 col-sm-12 col-md-6">
 	    		<div class="col-sm-4">
-	    			<a href="{{pathFor route='admin'}}">
+	    			<a href="{{#if isVendor}}{{pathFor route='vendorOrders'}}{{else}}{{pathFor route='login'}}{{/if}}">
 	    				<svg viewBox="0 0 43 41" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
 							<g id="Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
 								<g id="Shop" sketch:type="MSArtboardGroup" transform="translate(-364.000000, -6420.000000)" fill="#FAFAFA">
@@ -130,7 +130,7 @@
 								</g>
 							</g>
 						</svg>
-	    				Vendor login
+	    				{{#if isVendor}}Vendor orders{{else}}Vendor login{{/if}}
 	    			</a>
 	    		</div>
 	    		<div class="col-sm-4">
@@ -161,7 +161,7 @@
 						</g>
 					</g>
 					</svg>
-	    			203-555-5555
+						860-227-1480
 	    		</div>
 	    	</div>
     	</div>

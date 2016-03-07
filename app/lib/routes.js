@@ -174,10 +174,10 @@ Router.route('contact', {
   where: 'client'
 });
 
-Router.route('vendors', {
-  name: 'vendorsList',
-  where: 'client'
-});
+// Router.route('vendors', {
+//   name: 'vendorsList',
+//   where: 'client'
+// });
 
 Router.route('vendors/:vendorId', {
   name: 'vendor',
