@@ -23,7 +23,7 @@ Template.Cart.events({
 /*****************************************************************************/
 
 Template.registerHelper('cartItems', function () {
-	return CART.getItems();
+		return CART.getItems();
 })
 
 Template.registerHelper('cartTotals', function () {

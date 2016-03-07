@@ -208,7 +208,7 @@ Template.Summary.events({
 /*****************************************************************************/
 Template.Checkout.helpers({
 	itemsInCart : function () {
-		return Meteor.user().profile.cart;
+		return CART.getItems();
 	},
 	detailsOfItem : function(productId) {
 		return Products.find({_id: productId }).fetch();

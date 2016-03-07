@@ -34,17 +34,15 @@ Router.route('account', {
   controller: 'AccountController',
   where: 'client',
   onAfterAction : function(){
-      check_logged_in
-      var user = this.data();
-      console.log(user);
-      if (!Meteor.isClient) {
-        return;
-      }
-      if(user){
-        SEO.set({
-          title: user.profile.name + " | Change Up",
-        });
-      }
+    check_logged_in
+    var user = this.data();
+    if(user) {
+      SEO.set({
+        title: user.profile.name + " | Change Up",
+      });
+    } else {
+      this.redirect('/login');
+    }
   }
 });
 
@@ -69,19 +67,34 @@ Router.route('checkout', {
 Router.route('shipping', {
   name: 'shipping',
   controller: 'ShippingController',
-  where: 'client'
+  where: 'client',
+  onAfterAction : function(){
+    if (!Meteor.user()) {
+      this.redirect('/login');
+    }
+  }
 });
 
 Router.route('billing', {
   name: 'billing',
   controller: 'BillingController',
-  where: 'client'
+  where: 'client',
+  onAfterAction : function(){
+    if (!Meteor.user()) {
+      this.redirect('/');
+    }
+  }
 });
 
 Router.route('summary', {
   name: 'summary',
   controller: 'SummaryController',
-  where: 'client'
+  where: 'client',
+  onAfterAction : function(){
+    if (!Meteor.user()) {
+      this.redirect('/');
+    }
+  }
 });
 
 Router.route('confirmation/:_id', {
@@ -95,15 +108,15 @@ Router.route('item/:_id', {
   controller: 'ItemController',
   where: 'client',
   onAfterAction : function(){
-      var item = this.data();
-      if (!Meteor.isClient) {
-        return;
-      }
-      if(item){
-        SEO.set({
-          title: item.pageTitle + " | Change Up",
-        });
-      }
+    var item = this.data();
+    if (!Meteor.isClient) {
+      return;
+    }
+    if(item){
+      SEO.set({
+        title: item.pageTitle + " | Change Up",
+      });
+    }
   }
 });
 
