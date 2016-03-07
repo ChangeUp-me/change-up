@@ -64,7 +64,6 @@ CART = (function () {
 			shippingTotalArray.push(shippingInfo)
 		}
 
-
 		for (var i = 0; i < shippingTotalArray.length; i++) {
 			if (!duplicates[shippingTotalArray[i].vendorId]) {
 				duplicates[shippingTotalArray[i].vendorId] = true;
@@ -73,7 +72,7 @@ CART = (function () {
 		}
 
 		for (var i = 0; i < cleanedArray.length; i++) {
-			shippingTotal += cleanedArray[i].vendorShipping;
+			shippingTotal += parseFloat(cleanedArray[i].vendorShipping) || 0;
 		}
 
 		_.each(cart, function (val, indx) {
