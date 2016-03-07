@@ -18,32 +18,7 @@ CHECKOUT = (function () {
 		this.stripeToken = stripeToken;
 		this.email = email;
 		this.stripe = StripeAPI(this.stripeApiKey);
-		this.shippingCost = 0;
-
-
-		// calculate shipping fee
-		var shippingTotalArray = [];
-		var duplicates = {};
-		var cleanedArray = [];
-
-
-		for (var i = 0; i < cart.length; i++) {
-			var shippingInfo = {'vendorId': cart[i].vendorId, "vendorShipping": Vendors.findOne({_id: cart[i].vendorId}).shippingPrice}
-
-			shippingTotalArray.push(shippingInfo)
-		}
-
-		for (var i = 0; i < shippingTotalArray.length; i++) {
-			if (!duplicates[shippingTotalArray[i].vendorId]) {
-				duplicates[shippingTotalArray[i].vendorId] = true;
-				cleanedArray.push(shippingTotalArray[i]);
-			}
-		}
-
-		for (var i = 0; i < cleanedArray.length; i++) {
-			this.shippingCost += cleanedArray[i].vendorShipping;
-		}
-		// end calculating shipping fee
+		this.shippingCost = this._getShippingCost(cart);
 
 		this.shipping.name = this.shipping.fullName;
 		this.shipping.address = this.shipping.addressOne;
@@ -64,7 +39,7 @@ CHECKOUT = (function () {
 
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
-				console.error(err);
+				console.error(err, err.stack);
 				return callback(new Meteor.Error("charge-failed","charge failed"));
 			}
 
@@ -92,7 +67,7 @@ CHECKOUT = (function () {
 
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
-				console.error(err);
+				console.error(err, err.stack);
 				return callback(new Meteor.Error("charge-failed","charge failed"));
 			}
 
@@ -125,6 +100,7 @@ CHECKOUT = (function () {
 	function charge_new_customer(err, stripeCustomer){
 		if(err) {
 			console.error('charge-new-customer', err);
+			console.error(err.stack);
 			return callback(new Meteor.Error("create-customer-failed", "couldn't create a new customer"));
 		}
 
@@ -217,6 +193,7 @@ checkout.prototype._getOrder = function () {
 
 checkout.prototype._getFinalPrice = function () {
 	var finalPrice = 0;
+
 	_.each(this.order, function(product) {
 		finalPrice = (parseFloat(product.price) * parseInt(product.quantity))
 		+ finalPrice;
@@ -355,6 +332,33 @@ checkout.prototype._findProductIds = function () {
 
 	return productIds;
 };
+
+checkout.prototype._getShippingCost = function (cart) {
+		var shippingTotalArray = [];
+		var duplicates = {};
+		var cleanedArray = [];
+		var shippingCost = 0;
+
+
+		for (var i = 0; i < cart.length; i++) {
+			var shippingInfo = {'vendorId': cart[i].vendorId, "vendorShipping": Vendors.findOne({_id: cart[i].vendorId}).shippingPrice}
+
+			shippingTotalArray.push(shippingInfo)
+		}
+
+		for (var i = 0; i < shippingTotalArray.length; i++) {
+			if (!duplicates[shippingTotalArray[i].vendorId]) {
+				duplicates[shippingTotalArray[i].vendorId] = true;
+				cleanedArray.push(shippingTotalArray[i]);
+			}
+		}
+
+		for (var i = 0; i < cleanedArray.length; i++) {
+			shippingCost += parseFloat(cleanedArray[i].vendorShipping) || 0;
+		}
+
+		return shippingCost;
+	};
 
 
 /**

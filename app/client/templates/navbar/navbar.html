@@ -34,7 +34,9 @@
          <a href="{{pathFor route='account'}}"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span></a>
        </li>
         {{/if}}
+        {{#if isGuest}}
         <li><a href="{{pathFor route='checkout'}}"><img src="../../../navbar/cart.svg" alt="Checkout">Checkout</a></li>
+        {{/if}}
       </div>
     </ul>
     {{#if isVendor}}
