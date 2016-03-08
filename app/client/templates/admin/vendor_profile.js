@@ -55,7 +55,8 @@
 
         Session.set('selectedCharities', null);
 
-        sAlert.success('vendor updated!')
+        sAlert.success('Your store profile has been updated!');
+        Router.go('vendorProducts');
       })
     },
 

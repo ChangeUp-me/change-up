@@ -9,6 +9,8 @@
 			productDescription.set(this.description);
 			$('#shareModal').modal('show');
 		},
+
+
 		'click .add-to-cart-btn': function(event, template){
 			event.preventDefault();
 			var selectedSize;
@@ -27,18 +29,18 @@
 				charityId: charity
 			};
 
-			if (!Meteor.user()) {
-				sAlert.error('please sign in');
-			} else if (cartItem.quantity < 1) {
+			if (cartItem.quantity < 1) {
 				sAlert.error('select a quantity more than 1');
 			} else if (isNaN(cartItem.quantity)) {
 				sAlert.error('select a quantity');
 			} else if (cartItem.size === undefined && !this.oneSize) {
 				sAlert.error('select a size');
-			}  else {
+			} else  {
 				CART.addItem(cartItem);
 			}
 		}
+
+
 	});
 
 	/*****************************************************************************/
@@ -46,33 +48,37 @@
 	/*****************************************************************************/
 	Template.Shop.helpers({
 		products : function () {
-			var fpIDs = FeaturedProducts.findOne().products;
-			var products = Products.find({_id:{$in:fpIDs}}).fetch();
-			var vendorIds = [];
-			var productIds = [];
+			try {
+				var fpIDs = FeaturedProducts.findOne().products;
+				var products = Products.find({_id:{$in:fpIDs}}).fetch();
+				var vendorIds = [];
+				var productIds = [];
 
-			if(products) {
-				var result = getIds(products);
+				if(products) {
+					var result = getIds(products);
 
-				vendorIds = result[0];
-				productIds = result[1];
+					vendorIds = result[0];
+					productIds = result[1];
 
 
-				//find which products the user has liked
-				var likes = Likes.find({userId : Meteor.userId(), productId : {$in : productIds}}).fetch();
+					//find which products the user has liked
+					var likes = Likes.find({userId : Meteor.userId(), productId : {$in : productIds}}).fetch();
 
-				//find the vendor that owns each product
-				var vendors = Vendors.find({_id : {$in : vendorIds}}).fetch();
+					//find the vendor that owns each product
+					var vendors = Vendors.find({_id : {$in : vendorIds}}).fetch();
 
-				//join the vendors name to the correct products
-				products = joinVendorsWithProducts(products, vendors);
+					//join the vendors name to the correct products
+					products = joinVendorsWithProducts(products, vendors);
 
-				if(likes) {
-					products  = addLikestoProducts(products, likes);
+					if(likes) {
+						products  = addLikestoProducts(products, likes);
+					}
 				}
-			}
 
-			return products;
+				return products;
+			} catch (e) {
+
+			}
 		}
 	});
 

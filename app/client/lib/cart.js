@@ -90,6 +90,22 @@ CART = (function () {
 		};
 	};
 
+	cart.signedIn = function () {
+		if(Meteor.userId()) {
+			cart = this._getCartCookie();
+			for (var i = 0; i<cart.length; i++) {
+				delete cart[i]['id'];
+				delete cart[i]['vendorId'];
+				delete cart[i]['shippingPrice'];
+				delete cart[i]['price'];
+				delete cart[i]['name'];
+				this._setItemToServer(cart[i]);
+			}
+			this._deleteCookie();
+			this._deleteSession();
+		}
+	};
+
 	cart._getCartCookie = function () {
 		return Cookie.get('cart', function (c) {
 			try{

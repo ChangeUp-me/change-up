@@ -12,6 +12,19 @@ Template.Footer.events({
 /* Footer: Helpers */
 /*****************************************************************************/
 Template.Footer.helpers({
+	isVendor : function() {
+		try {
+			var roles = Meteor.user().roles;
+			var found = $.inArray("vendor", roles);
+			if (found !== (-1)) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (e) {
+			return false;
+		}
+	}
 });
 
 /*****************************************************************************/
