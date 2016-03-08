@@ -9,9 +9,9 @@
 				if(updateObj.roles.indexOf('vendor') > -1) {
 					Email.send({
 						to : user.emails[0].address,
-						from : 'terrell.changeup@gmail.com',
-						subject : 'Setup Your Vendor Account!',
-						text : "You now have Vendor access. Log into changeup.com and go to changeup.com/vendorProfile to create your store!"
+						from : 'matt.melillo@changeup.me',
+						subject : 'Setup Yosur Vendor Account!',
+						text : "A vendor account has been made for you on ChangeUp.me. To set up your store, login at changeup.me/login with your username and password. Then go to changeup.me/vendorProfile to create your store!"
 					});
 				}
 			} 

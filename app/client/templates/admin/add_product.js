@@ -57,7 +57,7 @@ Template.AddProduct.events({
     if(image) {
       product.image = image;
     } else {
-      return sAlert.error('product must have an image');
+      return sAlert.error('Whoops! You forgot to add a product image.');
     }
 
     Meteor.call('insertProduct', product, function (err) {
