@@ -1,0 +1,22 @@
+<template name="input">
+  <label for="{{id}}">{{label}}</label>
+  <input type="{{type}}"
+    id="{{id}}"
+    class="{{class}}"
+    placeholder="{{placeholder}}"
+    value="{{value}}"
+    {{disabled}}
+    {{readonly}}
+    />
+    <p class="help-block">{{message}}</p>
+</template>
+
+<template name="select">
+  <label>{{label}}</label>
+  <select class="{{class}}" {{multiple}}>
+    {{#each selectOptions}}
+      <option value='{{this.value}}' id="{{this.id}}" class="{{this.class}}">{{this.lable}}</option>
+    {{/each}}
+  </select>
+  <p class="help-block">{{message}}</p>
+</template>

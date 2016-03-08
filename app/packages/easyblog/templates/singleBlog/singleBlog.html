@@ -1,0 +1,19 @@
+<template name="singleBlog">
+  {{> singleBlogTemplate object=(blog)}}
+</template>
+
+<template name="singleBlogTemplate">
+  <section class="page blog">
+    <div class="author"><a href="">{{getAuthor object.createdBy}}</a> in <a href="">{{object.category}}</a></div>
+    <div class="date"><small>{{formatDate object.createdAt}}</small></div>
+
+    {{#if object.mainPicture}}
+      <img src="{{object.mainPicture.url}}" alt="{{object.title}}">
+    {{/if}}
+
+    <h2>{{object.title}}</h2>
+    {{{object.blogContent}}}
+
+    <a href="/blogs" class="button blue" title="Back to Blogs">Back to Blogs</a>
+  </section>
+</template>

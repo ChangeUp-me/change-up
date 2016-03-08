@@ -1,0 +1,55 @@
+@font-face {
+	font-family: 'Muli';
+	src: url("fonts/muli/Muli.ttf");
+}
+
+.page.blog {
+	max-width: 1010px;
+	margin: 50px 0;
+	padding: 25px 30px 15px;
+	text-align: center;
+	.author {
+		float: left;
+		display: inline-block;
+		margin: 0 0 15px;
+	}
+	.date {
+		float: right;
+	}
+	img {
+		max-width: 100%;
+		margin: 0 0 20px;
+	}
+	h2 {
+		margin: 0 0 20px;
+	}
+	span {
+		margin: 0 0 20px;
+		font-family: 'Muli' !important;
+		font-size: 16px !important;
+	}
+	p {
+		width: 100%;
+	}
+	.button {
+		margin: 30px auto 10px;
+	}
+}
+
+@media (min-width: 768px) {
+	.page.blog {
+		text-align: left;
+		.author {
+			float: none;
+			display: block;
+			margin: 0;
+		}
+		.date {
+			float: none;
+			margin: 0 0 20px;
+		}
+		.button {
+			margin: 30px 0 10px;
+		}
+	}
+}
