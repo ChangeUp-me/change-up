@@ -1,0 +1,49 @@
+<template name="allBlogs">
+  {{> allBlogsTemplate
+    title="News & Update"
+    allBlogs=(Blogs)
+  }}
+
+  <!-- <nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav> -->
+</template>
+
+
+<template name="allBlogsTemplate">
+  <div class="text-center">
+    <h1>{{title}}</h1>
+  </div>
+
+  <hr>
+
+  {{#each (allBlogs)}}
+  <div class="col-sm-12 col-md-6">
+    <div class="row">
+      <h3>{{getAuthor createdBy}}</h3> in <small>{{category}}</small>
+      <p class="blogDate">{{formatDate createdAt}}</p>
+      {{#if thumbnail}}
+      <img src="{{thumbnail.url}}" alt="{{title}}">
+      {{/if}}
+      <h1>{{title}}</h1>
+      <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}" id="{{_id}}" class="blogId">Read more...</a>
+    </div>
+  </div>
+  {{/each}}
+</template>

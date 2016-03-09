@@ -1,0 +1,28 @@
+<template name="singleBlog">
+  {{> singleBlogTemplate object=(blog)}}
+</template>
+
+<template name="singleBlogTemplate">
+  <div class="container">
+    <div class="container-fluid">
+      <div class="row">
+        <h3>{{getAuthor object.createdBy}}</h3> in
+        <small> {{object.category}}</small>
+        <p>{{formatDate object.createdAt}}</p>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="page-header">
+          <h2>{{object.title}}</h2>
+      </div>
+      <div class="content">
+        {{{object.blogContent}}}
+      </div>
+    </div>
+
+    <div class="block-center">
+      <a href="/blogs" class="btn btn-default" title="Back to Blogs">Back to Blogs</a>
+    </div>
+  </div>
+</template>

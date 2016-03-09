@@ -1,0 +1,54 @@
+<template name="blogCreate">
+  {{> blogTemplate}}
+</template>
+
+
+
+<template name="blogTemplate">
+  <div class="page-header">
+    <h1> Create a blog post</h1>
+  </div>
+
+  {{#autoForm collection="Blog" doc=this id="blogCreateForm" type="insert"}}
+      <div class="col-sm-12">
+        {{> afQuickField name="title"}}
+      </div>
+
+      <div class="col-sm-12">
+        {{> afQuickField name="thumbnail"}}
+      </div>
+
+      <div class="col-sm-12">
+        {{> afQuickField name="mainPicture"}}
+      </div>
+
+      <div class="col-sm-12">
+        <label for="categories">Blog Category</label>
+        {{> afFieldInput name="category" type="select" id="categories" options=(blogCategories)}}
+      </div>
+
+      <!-- {{#if (contributors)}}
+        <div class="col-sm-12">
+          <label for="contributors">Select a Contributor</label>
+          {{> afFieldInput name="contributor" type="select" id="contributors" options=(contributors)}}
+        </div>
+      {{/if}} -->
+
+      <div class="col-sm-12">
+        {{> afQuickField name="blogContent"}}
+      </div>
+
+      <div class="col-sm-12">
+        <button type="submit" class="btn">Create</button>
+      </div>
+  {{/autoForm}}
+
+</template>
+
+
+
+
+<!-- checkbox for blog  -->
+<template name="checkbox">
+  <label><input type="checkbox" class="blog-checkbox" {{onlineStatus}}>Publish</label>
+</template>
