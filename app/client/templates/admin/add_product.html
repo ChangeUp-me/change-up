@@ -60,7 +60,7 @@
 					</ul>
 				<!-- </div> -->
 
-				
+
 				<!-- <div class="input-group">
 				<label class="col-xs-12 text-left">Shipping</label>
 				<span class="input-group-addon">$</span>
@@ -70,9 +70,11 @@
 		</div>
 
 		<div class="col-sm-12">
-			<label class="col-sm-12 col-md-12">Select the percentage of the sale of this product going to a charity. - <span id="charityPerctIndicator"></span></label>
+			<label class="col-sm-12 col-md-12">Select a percentage from 4-90% for charity.</label>
 			<br>
-			<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
+			<label class="col-sm-12 col-md-12"><span id="charityPerctIndicator" class="text-center"></span></label>
+			<br>
+			<input type="range" name="percentage" id="percentToCharity" value="44" min="4" max="90" data-show-value="true">
 		</div>
 
 		<button type="submit" class="button blue">{{#if _id}} Save {{else}}Add Product{{/if}}</button>
