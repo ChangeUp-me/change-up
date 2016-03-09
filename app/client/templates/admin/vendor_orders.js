@@ -10,6 +10,60 @@ Template.VendorOrders.events({
 
 
 Template.VendorOrders.helpers({
+	myOrders : function () {
+		return Transactions.find().fetch();
+	},
+	settings: function () {
+		return {
+			collection: Transactions,
+			rowsPerPage: 10,
+			showFilter: true,
+			fields: [
+				{
+					key: 'order.0.fulfilled',
+					label: 'Fulfilled',
+					sortOrder: 0,
+					sortDirection: 'descending',
+					fn: function (value) {
+						if (value === false) {
+							return new Spacebars.SafeString("<button class=\"button orange\">Not Fulfilled</button>");
+						} else if (value === true) {
+							return new Spacebars.SafeString("<button class=\"button lightgray\">Fulfilled</button>");
+						}
+					}
+				}, {
+					key: 'timestamp',
+					label: 'Date',
+					sortOrder: 1,
+					sortDirection: 'descending',
+					fn: function (value) {
+						return new Spacebars.SafeString(value.toLocaleDateString());
+					}
+				}, {
+					key: 'transactionId',
+					label: 'Transaction Id'
+				}, {
+					key: 'billing.creditCardName',
+					label: 'Customer',
+					fn: function (value) {
+						return new Spacebars.SafeString(value);
+					}
+				}, {
+					key: 'price',
+					label: 'Total',
+					fn: function (value) {
+						return new Spacebars.SafeString("$"+value);
+					}
+				}, {
+					key: '_id',
+					label: '',
+					fn: function (value) {
+						return new Spacebars.SafeString("<a href=\"fulfillment/"+value+"\">View Order</a>");
+					}
+				}
+			]
+		};
+	},
 	total : function () {
 		var total = 0;
 		_.each(this.order, function (item) {
@@ -41,7 +95,7 @@ Template.VendorOrders.helpers({
 				}
 			});
 		});
-		
+
 		return incomplete;
 		//return Transactions.find({$and: [{'order.vendorId': Meteor.user().profile.vendorId},{'order.fulfilled':false}]}).count();
 	}
