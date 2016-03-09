@@ -15,6 +15,18 @@ Meteor.methods({
 
 		var id = Accounts.createUser(userObj);
 
+		if(id) {
+			//send new user an email async
+			Meteor.setTimeout(function () {
+				Email.send({
+					to : userObj.email,
+					from : 'hello@changeup.me',
+					subject : 'Welcome!',
+					text : "You've created a new changeup account!"
+				});
+			})
+		}
+
 		Roles.setUserRoles(id, ['user']);
 	},
 	updateUser : function update_user (userObj) {
