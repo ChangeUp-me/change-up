@@ -17,11 +17,11 @@ Template.Login.events({
 
 			Meteor.setTimeout(function () {
 				var user = Meteor.user();
-			if(user.profile.vendorId) {
-				Router.go('vendorProducts')
-			} else {
-				Router.go('shop');
-			}
+				if(user.profile.vendorId) {
+					Router.go('vendorProducts')
+				} else {
+					Router.go('shop');
+				}
 			}, 500)
 		});
 	},
@@ -37,12 +37,14 @@ Template.Login.events({
        return sAlert.error(err);
       }
 
-      var user = Meteor.user();
-			if(user.profile.vendorId) {
-				Router.go('vendorProducts')
-			} else {
-				Router.go('shop');
-			}
+      Meteor.setTimeout(function () {
+				var user = Meteor.user();
+				if(user.profile.vendorId) {
+					Router.go('vendorProducts')
+				} else {
+					Router.go('shop');
+				}
+			}, 500)
     });
 	}
 });
