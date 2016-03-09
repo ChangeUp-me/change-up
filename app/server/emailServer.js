@@ -4,7 +4,7 @@ Meteor.startup(function () {
   ContactUs.before.insert(function(userId, message) {
     Email.send({
       from: (message.name),
-      to: "michael@checkmatecreations.com",
+      to: "geoff.bruskin@changeup.me",
       replyTo: (message.email),
       subject: "Contact Us Submission",
       text: (message.message)

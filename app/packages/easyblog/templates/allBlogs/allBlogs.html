@@ -1,0 +1,58 @@
+<template name="allBlogs">
+  {{> allBlogsTemplate
+    title="News &amp; Updates"
+    allBlogs=(Blogs)
+  }}
+
+  <!-- <nav>
+  <ul class="pagination">
+    <li>
+      <a href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li>
+      <a href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav> -->
+</template>
+
+
+<template name="allBlogsTemplate">
+  <section class="text-center page-header">
+    <h1>{{title}}</h1>
+  </section>
+
+  <section class="container" id="blog-container">
+    {{#each (allBlogs)}}
+      <div class="post">
+        <div class="author"><a href="">{{getAuthor createdBy}}</a> in <a href="">{{category}}</a></div>
+        <div class="date"><small>{{formatDate createdAt}}</small></div>
+        {{#if thumbnail}}
+          <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}">
+            <img src="{{thumbnail.url}}" alt="{{title}}">
+          </a>
+        {{/if}}
+        <h3>{{title}}</h3>
+        <div class="preview">{{getText blogContent}}</div>
+        <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}" id="{{_id}}" class="blogId">Read more...</a>
+      </div>
+    {{/each}}
+  </section>
+
+  <!-- <section class="text-center" id="blog-footer">
+      <div class="container">
+        <h2>Support a Cause Today</h2>
+
+        <a href="{{pathFor 'featured'}}" class="button clear white">Shop now</a>
+      </div>
+    </section> -->
+</template>

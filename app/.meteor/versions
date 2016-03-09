@@ -4,8 +4,8 @@ accounts-oauth@1.1.8
 accounts-password@1.1.4
 accounts-twitter@1.0.6
 aldeed:autoform@5.8.1
-aldeed:collection2@2.8.0
-aldeed:collection2-core@1.0.0
+aldeed:collection2@2.9.0
+aldeed:collection2-core@1.1.0
 aldeed:schema-deny@1.0.1
 aldeed:schema-index@1.0.1
 aldeed:simple-schema@1.5.3
@@ -43,6 +43,7 @@ facebook@1.2.2
 fastclick@1.0.7
 fortawesome:fontawesome@4.5.0
 geojson-utils@1.0.4
+gpandey:easyblog@0.0.1
 hot-code-push@1.0.0
 html-tools@1.0.5
 htmljs@1.0.5
@@ -84,6 +85,7 @@ mongo@1.1.3
 mongo-id@1.0.1
 mrgalaxy:stripe@2.2.2
 mrt:moment@2.8.1
+natestrauser:animate-css@3.5.1
 nicolaslopezj:options@1.0.1
 nicolaslopezj:reactive-templates@1.2.1
 nicolaslopezj:roles@2.1.2
@@ -110,6 +112,7 @@ orionjs:image-attribute@1.7.0
 orionjs:lang-en@1.7.0
 orionjs:relationships@1.7.0
 orionjs:s3@1.7.0
+orionjs:summernote@1.7.0
 package-version-parser@3.0.4
 practicalmeteor:chai@2.1.0_1
 practicalmeteor:loglevel@1.2.0_2
@@ -137,6 +140,7 @@ spacebars-compiler@1.0.7
 spiderable@1.0.9
 srp@1.0.4
 standard-minifiers@1.0.2
+summernote:standalone@0.6.16
 templating@1.1.5
 templating-tools@1.0.0
 tracker@1.0.9
@@ -153,6 +157,8 @@ velocity:core@0.10.10
 velocity:meteor-internals@1.1.0_7
 velocity:meteor-stubs@1.1.1
 velocity:shim@0.1.0
+vsivsi:file-collection@1.3.1
+vsivsi:orion-file-collection@0.2.3
 webapp@1.2.3
 webapp-hashing@1.0.5
 zimme:bootstrap-hover-dropdown@2.1.3

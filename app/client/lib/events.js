@@ -6,7 +6,7 @@ Template.MasterLayout.events({
 			var likeBtn = event.target;
 
 			if(!Meteor.userId()) {
-				return sAlert.info('please login in order to like this product');
+				return sAlert.info('In order to like this product, login or create an account here');
 			}
 
 			if(this.userLiked) {

@@ -1,0 +1,85 @@
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+#blog-container {
+	max-width: 1010px;
+	margin: 0 auto 10px;
+	padding: 0;
+	.post {
+		display: inline-block;
+		width: 100%;
+		margin: 8px 0;
+		padding: 15px 20px 0;
+		background: white;
+		text-align: left;
+		border-top: 1px solid @silver;
+		.author {
+			display: inline-block;
+			margin: 0 0 15px;
+		}
+		.date {
+			float: right;
+		}
+		img {
+			width: 100%;
+			max-width: none;
+			max-height: 200px;
+			margin: 0 0 15px;
+			object-fit: cover;
+			transition: filter 0.7s, -webkit-filter 0.7s;
+			-webkit-backface-visibility: hidden;
+			backface-visibility: hidden;
+			&:hover, &:focus, &:active {
+				-webkit-filter: brightness(65%);
+				filter: brightness(65%);
+			}
+		}
+		h3 {
+			margin: 0 0 15px;
+		}
+		.preview {
+			margin: 0 0 15px;
+		}
+	}
+}
+
+#blog-footer {
+	color: white;
+	background: linear-gradient( rgba(252, 110, 92, 0.8), rgba(252, 110, 92, 0.8)), url('../public/images/background-about-what.png') no-repeat center bottom;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	h2 {
+		color: white;
+	}
+}
+
+@media (min-width: 768px) {
+	#blog-container {
+		margin: 0 auto 50px;
+		-webkit-column-count: 2;
+		column-count: 2;
+		.post {
+			max-width: 500px;
+			padding: 15px 20px;
+			border: none;
+			border-radius: 4px;
+			box-shadow: 0 1px 10px 5px #ddd;
+			.author {
+				display: block;
+				margin: 0;
+			}
+			.date {
+				float: none;
+				margin: 0 0 15px;
+			}
+		}
+	}
+}

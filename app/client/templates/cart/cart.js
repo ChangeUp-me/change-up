@@ -12,7 +12,7 @@ Template.Cart.events({
 	'click .delete' : function (event) {
 		var id = this.id;
 
-		if(!id) return sAlert.error('could not delete this item');
+		if(!id) return sAlert.error('We could not delete this item at this time.');
 
 		CART.removeItem(id);
 	}
@@ -23,7 +23,7 @@ Template.Cart.events({
 /*****************************************************************************/
 
 Template.registerHelper('cartItems', function () {
-	return CART.getItems();
+		return CART.getItems();
 })
 
 Template.registerHelper('cartTotals', function () {

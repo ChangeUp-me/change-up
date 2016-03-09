@@ -37,8 +37,6 @@ Meteor.startup(function () {
           }
         }
         FeaturedProducts.insert({'date': end, 'products': arrayOfObjects, 'current': true});
-      } else {
-        console.log("Not A New Date, Not Updating Featured Products");
       }
     } catch (e) {
       console.log("First Time Featured Products");
