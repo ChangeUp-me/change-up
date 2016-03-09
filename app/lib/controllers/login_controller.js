@@ -34,7 +34,8 @@ LoginController = RouteController.extend({
     this.next();
   },
   onBeforeAction: function () {
-    if (Meteor.userId()) {
+    console.log('logging in ', Meteor.loggingIn())
+    if (Meteor.userId() && !Meteor.loggingIn()) {
       this.redirect('/');
     } else {
       this.next();
