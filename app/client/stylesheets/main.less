@@ -186,6 +186,9 @@ form {
 	border-radius: 2px;
 	outline: none;
 	transition: color 0.3s, background 0.3s, filter 0.3s, -webkit-filter 0.3s;
+	&.add-to-cart-btn{
+		border : 1px solid #22addb;
+	}
 	&.blue {
 		color: white;
 		background: @cyan;
@@ -245,6 +248,9 @@ form {
 		background-repeat: no-repeat;
 		background-position: 20px;
 	}
+	&.facebook, &.twitter{
+		cursor: pointer;
+	}
 	&.facebook {
 		color: white;
 		background: #3b5998;
@@ -260,6 +266,26 @@ form {
 		background-size: 20px;
 		background-repeat: no-repeat;
 		background-position: 20px;
+	}
+}
+
+select {
+	appearance: none;
+	-webkit-appearance: none;
+	width: 100%;
+	height: auto;
+	margin: 0 0 10px;
+	padding: 5px 8px;
+	padding-right: 25px;
+	background: url('icons/icon_caret_down.png') no-repeat center right 8px;
+	background-size: 12px;
+	border: 1px solid @silver;
+	border-radius: 4px;
+	outline: none;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	&:hover, &:active, &:focus {
+		outline: none;
 	}
 }
 

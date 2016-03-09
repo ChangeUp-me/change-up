@@ -145,12 +145,10 @@
 
 	    		Email.send({
 						to : user.emails[0].address,
-						from : 'noreply@changeup.com',
+						from : 'hello@changeup.me',
 						subject : 'Order receipt',
 						text : body
 					})
-
-
 	    	});
 	    };
 	  }

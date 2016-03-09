@@ -26,8 +26,6 @@ Template.vendorsList.events({
       sAlert.error('select a quantity more than 1');
     } else if (isNaN(cartItem.quantity)) {
       sAlert.error('select a quantity');
-    } else if (!Meteor.user()) {
-      sAlert.error('please sign in');
     } else {
       CART.addItem(cartItem);
     }

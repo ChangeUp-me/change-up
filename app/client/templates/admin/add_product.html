@@ -36,28 +36,28 @@
 			<textarea type="text" name="description" value="{{description}}" placeholder="Product Description" rows="8" required></textarea>
 
 			<!-- <div class="row"> -->
-				<div class="col-xs-12 col-sm-6 input-group">
-					<label class="col-xs-12 text-left">Price</label>
-					<span class="input-group-addon">$</span>
-					<input name="price" value="{{price}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
-				</div>
+			<div class="col-xs-12 col-sm-6 input-group">
+				<label class="col-xs-12 text-left">Price</label>
+				<span class="input-group-addon">$</span>
+				<input name="price" value="{{price}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
+			</div>
 
-				<div class="col-xs-12 col-sm-6">
-					<label class="col-xs-12" id="size-select-label">Select all sizes offered:
+			<div class="col-xs-12 col-sm-6">
+				<label class="col-xs-12" id="size-select-label">Select all sizes offered:
 					<span id="size-toggle">
 						<input type="checkbox" id="noSize" value="">
 						<label>N/A</label>
 					</span>
-					</label>
-					<ul class="size-select list-inline col-xs-12">
-						{{#each sizes}}
-						{{#if selected}}
-						<li class="sizeLi selected">{{size}}</li>
-						{{else}}
-						<li class="sizeLi">{{size}}</li>
-						{{/if}}
-						{{/each}}
-					</ul>
+				</label>
+				<ul class="size-select list-inline col-xs-12">
+					{{#each sizes}}
+					{{#if selected}}
+					<li class="sizeLi selected">{{size}}</li>
+					{{else}}
+					<li class="sizeLi">{{size}}</li>
+					{{/if}}
+					{{/each}}
+				</ul>
 				<!-- </div> -->
 
 

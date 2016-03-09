@@ -3,6 +3,8 @@ CHECKOUT = (function () {
 	function checkout (shipping, billing, stripeToken, email, cart) {
 		try{
 			this.stripeApiKey = "sk_test_ktIiEvAZc1rW3e1Q4clVi0OC"//Meteor.settings.private.stripe.apiKey;
+			this.baseUrl = "http://changeup.me";
+			this.mailchimp = new Mailchimp("59d589bd95de09e03eef8b665f52fa7c-us13");
 
 			//check that all the given arguments are valid
 			checkArgs.apply(this, arguments);
@@ -18,32 +20,7 @@ CHECKOUT = (function () {
 		this.stripeToken = stripeToken;
 		this.email = email;
 		this.stripe = StripeAPI(this.stripeApiKey);
-		this.shippingCost = 0;
-
-
-		// calculate shipping fee
-		var shippingTotalArray = [];
-		var duplicates = {};
-		var cleanedArray = [];
-
-
-		for (var i = 0; i < cart.length; i++) {
-			var shippingInfo = {'vendorId': cart[i].vendorId, "vendorShipping": Vendors.findOne({_id: cart[i].vendorId}).shippingPrice}
-
-			shippingTotalArray.push(shippingInfo)
-		}
-
-		for (var i = 0; i < shippingTotalArray.length; i++) {
-			if (!duplicates[shippingTotalArray[i].vendorId]) {
-				duplicates[shippingTotalArray[i].vendorId] = true;
-				cleanedArray.push(shippingTotalArray[i]);
-			}
-		}
-
-		for (var i = 0; i < cleanedArray.length; i++) {
-			this.shippingCost += cleanedArray[i].vendorShipping;
-		}
-		// end calculating shipping fee
+		this.shippingCost = this._getShippingCost(cart);
 
 		this.shipping.name = this.shipping.fullName;
 		this.shipping.address = this.shipping.addressOne;
@@ -64,7 +41,14 @@ CHECKOUT = (function () {
 
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
-				console.error(err);
+				console.error(err, err.stack);
+
+				//the customer probably doesn't exist anymore
+				//try to create a new customer
+				if(err.param == 'customer') {
+					return self.chargeNewCustomer(callback);
+				}
+				
 				return callback(new Meteor.Error("charge-failed","charge failed"));
 			}
 
@@ -74,8 +58,10 @@ CHECKOUT = (function () {
 			var transaction = Transactions.insert(transactionObj);
 			callback(null, transaction);
 
-			//send each vendor an email
-			self._sendVendorEmails(self.vendorIds);
+			//send each vendor an email async
+			Meteor.setTimeout(function () {
+				self._sendVendorEmails(self.vendorIds);
+			});
 		}
 
 		self._createStripeCharge(customer, save_new_transaction);
@@ -92,7 +78,7 @@ CHECKOUT = (function () {
 
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
-				console.error(err);
+				console.error(err, err.stack);
 				return callback(new Meteor.Error("charge-failed","charge failed"));
 			}
 
@@ -118,13 +104,16 @@ CHECKOUT = (function () {
 		}
 
 		//send each vendor an email
-		self._sendVendorEmails(self.vendorIds);
+		Meteor.setTimeout(function () {
+			self._sendVendorEmails(self.vendorIds);
+		});
 	}
 
 	//@todo - check if customer already exists first
 	function charge_new_customer(err, stripeCustomer){
 		if(err) {
 			console.error('charge-new-customer', err);
+			console.error(err.stack);
 			return callback(new Meteor.Error("create-customer-failed", "couldn't create a new customer"));
 		}
 
@@ -217,6 +206,7 @@ checkout.prototype._getOrder = function () {
 
 checkout.prototype._getFinalPrice = function () {
 	var finalPrice = 0;
+
 	_.each(this.order, function(product) {
 		finalPrice = (parseFloat(product.price) * parseInt(product.quantity))
 		+ finalPrice;
@@ -253,24 +243,46 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 
 	if(vendors) {
 		var userIds = [];
+		var order = this.order;
+		var billing = this.billing;
+		var vendorEmails = {};
+		var body = "";
+		var br = '\n';
 
-		//get each userId from vendor
 		vendors.forEach(function (vendor){
+			//get each userId from vendor
 			userIds.push(vendor.userId);
+
+			vendorEmails[vendor.userId] = [];
+			body = "";
+
+			//construct order email for each vendor
+			_.forEach(order, function (item) {
+				if(item.vendorId == vendor._id) {
+					body += "Buyer Name : " + billing.creditCardName + br;
+	    		body += "Payment Date : " + moment(Date.now()).format("MMM Do YYYY") + br;
+	    		body += "Payment Card : " + billing.lastFour + br;
+	    		body += br;
+
+	    		vendorEmails[vendor.userId].push(body);
+				}
+			});
 		});
 
 		//find Each user
 		var users = Meteor.users.find({_id : {$in : userIds}}).fetch();
 
 		try{
-			//send an email to each user
+			//send emails to each vendor
 			users.forEach(function (user) {
-				Email.send({
-					to : user.emails[0].address,
-					from : 'terrell.changeup@gmail.com',
-					subject : 'new order!',
-					text : 'A new order has been submitted. Log on to changeup.com to check it out!'
-				})
+				_.forEach(vendorEmails[user._id], function (email) {
+					Email.send({
+						to : user.emails[0].address,
+						from : 'hello@changeup.me',
+						subject : 'new order!',
+						text : email
+					})
+				});
 			})
 		} catch (e) {
 			console.error('send-vendor-email', 'vendor might not have an email');
@@ -355,6 +367,74 @@ checkout.prototype._findProductIds = function () {
 
 	return productIds;
 };
+
+checkout.prototype._subscribeCustomer = function () {
+		var name = billing.creditCardName || "";
+		name = name.trim().split(" ");
+		var firstName = name[0];
+		var lastName = "";
+
+		if(name.length > 1) {
+			lastName = name[name.length - 1];
+		}
+
+		//ratingMessage
+		var ratingMessage = "";
+		var baseUrl = this.baseUrl;
+
+		_.forEach(this.order, function (item) {
+			ratingMessage += this.baseUrl + "/item/" + item.productId + '\n';
+		});
+
+		var result = this.mailchimp('lists', 'subscribe', {
+			email_address : this.email,
+			merge_fields : {
+				FNAME : firstName,
+				LNAME : lastName,
+				mc_notes : [{
+					note : ratingMessage
+				}]
+			},
+			status : "subscribed",
+			list_id : "69989",
+			double_optin : false
+		}, function (error, result) {
+			if(error) {
+				console.error(error);
+			}
+		});
+
+		console.log('the result', result);
+	}
+
+checkout.prototype._getShippingCost = function (cart) {
+		var shippingTotalArray = [];
+		var duplicates = {};
+		var cleanedArray = [];
+		var shippingCost = 0;
+
+
+		for (var i = 0; i < cart.length; i++) {
+			var shippingInfo = {'vendorId': cart[i].vendorId, "vendorShipping": Vendors.findOne({_id: cart[i].vendorId}).shippingPrice}
+
+			shippingTotalArray.push(shippingInfo)
+		}
+
+		for (var i = 0; i < shippingTotalArray.length; i++) {
+			if (!duplicates[shippingTotalArray[i].vendorId]) {
+				duplicates[shippingTotalArray[i].vendorId] = true;
+				cleanedArray.push(shippingTotalArray[i]);
+			}
+		}
+
+		for (var i = 0; i < cleanedArray.length; i++) {
+			shippingCost += parseFloat(cleanedArray[i].vendorShipping) || 0;
+		}
+
+		return shippingCost;
+	};
+
+
 
 
 /**

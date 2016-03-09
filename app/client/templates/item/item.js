@@ -38,9 +38,7 @@ Template.Item.events({
 			charityId: charity
 		};
 
-		if (!Meteor.user()) {
-			sAlert.error('please sign in');
-		} else if (cartItem.quantity < 1) {
+		if (cartItem.quantity < 1) {
 			sAlert.error('select a quantity more than 1');
 		} else if (isNaN(cartItem.quantity)) {
 			sAlert.error('select a quantity');

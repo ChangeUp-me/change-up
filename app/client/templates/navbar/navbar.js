@@ -29,6 +29,9 @@ Template.Navbar.helpers({
 	},
 	isLoggedIn : function () {
 		return Meteor.userId();
+	},
+	isGuest :function () {
+		return !Meteor.userId();
 	}
 });
 
