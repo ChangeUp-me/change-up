@@ -22,7 +22,7 @@ Meteor.methods({
 					to : userObj.email,
 					from : 'hello@changeup.me',
 					subject : 'Welcome!',
-					text : "You've created a new changeup account!"
+					text : "You've created a new changeup account!  Go to http://changeup.me/login and login with your credentials."
 				});
 			})
 		}

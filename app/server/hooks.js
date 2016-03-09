@@ -11,7 +11,7 @@
 						to : user.emails[0].address,
 						from : 'hello@changeup.me',
 						subject : 'Setup Yosur Vendor Account!',
-						text : "A vendor account has been made for you on ChangeUp.me. To set up your store, login at changeup.me/login with your username and password. Then go to changeup.me/vendorProfile to create your store!"
+						text : "A vendor account has been made for you on ChangeUp.me. To set up your store, login at http://changeup.me/login with your username and password. Then go to http://changeup.me/vendorProfile to create your store!"
 					});
 				}
 			} 
