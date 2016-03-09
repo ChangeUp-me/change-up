@@ -1,10 +1,6 @@
 <template name="allBlogs">
   {{> allBlogsTemplate
-<<<<<<< HEAD
-    title="News & Update"
-=======
     title="News &amp; Updates"
->>>>>>> f72d973fe65b6dc4a350bd670c954009afd01dca
     allBlogs=(Blogs)
   }}
 
@@ -31,27 +27,6 @@
 
 
 <template name="allBlogsTemplate">
-<<<<<<< HEAD
-  <div class="text-center">
-    <h1>{{title}}</h1>
-  </div>
-
-  <hr>
-
-  {{#each (allBlogs)}}
-  <div class="col-sm-12 col-md-6">
-    <div class="row">
-      <h3>{{getAuthor createdBy}}</h3> in <small>{{category}}</small>
-      <p class="blogDate">{{formatDate createdAt}}</p>
-      {{#if thumbnail}}
-      <img src="{{thumbnail.url}}" alt="{{title}}">
-      {{/if}}
-      <h1>{{title}}</h1>
-      <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}" id="{{_id}}" class="blogId">Read more...</a>
-    </div>
-  </div>
-  {{/each}}
-=======
   <section class="text-center page-header">
     <h1>{{title}}</h1>
   </section>
@@ -72,13 +47,4 @@
       </div>
     {{/each}}
   </section>
-
-  <!-- <section class="text-center" id="blog-footer">
-      <div class="container">
-        <h2>Support a Cause Today</h2>
-
-        <a href="{{pathFor 'featured'}}" class="button clear white">Shop now</a>
-      </div>
-    </section> -->
->>>>>>> f72d973fe65b6dc4a350bd670c954009afd01dca
 </template>
