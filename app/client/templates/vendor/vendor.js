@@ -20,6 +20,7 @@ Template.Vendor.events({
       charityId: charity
     };
 
+
     if (cartItem.quantity < 1) {
       sAlert.error('select a quantity more than 1');
     } else if (isNaN(cartItem.quantity)) {

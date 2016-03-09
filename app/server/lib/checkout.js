@@ -40,6 +40,13 @@ CHECKOUT = (function () {
 		function save_new_transaction (err, stripeCharge) {
 			if(err) {
 				console.error(err, err.stack);
+
+				//the customer probably doesn't exist anymore
+				//try to create a new customer
+				if(err.param == 'customer') {
+					return self.chargeNewCustomer(callback);
+				}
+				
 				return callback(new Meteor.Error("charge-failed","charge failed"));
 			}
 
@@ -49,8 +56,10 @@ CHECKOUT = (function () {
 			var transaction = Transactions.insert(transactionObj);
 			callback(null, transaction);
 
-			//send each vendor an email
-			self._sendVendorEmails(self.vendorIds);
+			//send each vendor an email async
+			Meteor.setTimeout(function () {
+				self._sendVendorEmails(self.vendorIds);
+			});
 		}
 
 		self._createStripeCharge(customer, save_new_transaction);
@@ -93,7 +102,9 @@ CHECKOUT = (function () {
 		}
 
 		//send each vendor an email
-		self._sendVendorEmails(self.vendorIds);
+		Meteor.setTimeout(function () {
+			self._sendVendorEmails(self.vendorIds);
+		});
 	}
 
 	//@todo - check if customer already exists first
@@ -230,24 +241,46 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 
 	if(vendors) {
 		var userIds = [];
+		var order = this.order;
+		var billing = this.billing;
+		var vendorEmails = {};
+		var body = "";
+		var br = '\n';
 
-		//get each userId from vendor
 		vendors.forEach(function (vendor){
+			//get each userId from vendor
 			userIds.push(vendor.userId);
+
+			vendorEmails[vendor.userId] = [];
+			body = "";
+
+			//construct order email for each vendor
+			_.forEach(order, function (item) {
+				if(item.vendorId == vendor._id) {
+					body += "Buyer Name : " + billing.creditCardName + br;
+	    		body += "Payment Date : " + moment(Date.now()).format("MMM Do YYYY") + br;
+	    		body += "Payment Card : " + billing.lastFour + br;
+	    		body += br;
+
+	    		vendorEmails[vendor.userId].push(body);
+				}
+			});
 		});
 
 		//find Each user
 		var users = Meteor.users.find({_id : {$in : userIds}}).fetch();
 
 		try{
-			//send an email to each user
+			//send emails to each vendor
 			users.forEach(function (user) {
-				Email.send({
-					to : user.emails[0].address,
-					from : 'terrell.changeup@gmail.com',
-					subject : 'new order!',
-					text : 'A new order has been submitted. Log on to changeup.com to check it out!'
-				})
+				_.forEach(vendorEmails[user._id], function (email) {
+					Email.send({
+						to : user.emails[0].address,
+						from : 'hello@changeup.me',
+						subject : 'new order!',
+						text : email
+					})
+				});
 			})
 		} catch (e) {
 			console.error('send-vendor-email', 'vendor might not have an email');
