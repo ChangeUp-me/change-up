@@ -31,64 +31,59 @@
 						&#36;{{price}}
 					</div>
 				</div>
-				{{/each}}
-			</div>
 
-			{{#with totals}}
-				<div class="col-sm-6 hidden-xs">
-					<!-- offset -->	
-				</div>
-				<div id="totals" class="col-sm-6">
-					<div class="subtotal">
-						<div class="row">
-							<div class="col-xs-6 text-left">
-								<div>Subtotal</div>
+				{{#with totals}}
+					<div class="col-sm-6 hidden-xs">
+						<!-- offset -->
+					</div>
+					<div id="totals" class="col-sm-6">
+						<div class="subtotal">
+							<div class="row">
+								<div class="col-xs-6 text-left">
+									<div>Subtotal</div>
+								</div>
+								<div class="col-xs-6 text-right">
+									<div>${{subTotal}}</div>
+								</div>
 							</div>
-							<div class="col-xs-6 text-right">
-								<div>${{subTotal}}</div>
+							<div class="row">
+								<div class="col-xs-6 text-left">
+									<div>Shipping</div>
+								</div>
+								<div class="col-xs-6 text-right">
+									<div>${{shipping}}</div>
+								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-xs-6 text-left">
-								<div>Shipping</div>
-							</div>
-							<div class="col-xs-6 text-right">
-								<div>${{shipping}}</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 text-left">
-								<div>Tax</div>
-							</div>
-							<div class="col-xs-6 text-right">
-								<div>${{tax}}</div>
+						<div class="total">
+							<div class="row">
+								<div class="col-xs-6 text-left">
+									<div>Total</div>
+								</div>
+								<div class="col-xs-6 text-right">
+									<div><strong>${{total}}</strong></div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="total">
-						<div class="row">
-							<div class="col-xs-6 text-left">
-								<div>Total</div>
-							</div>
-							<div class="col-xs-6 text-right">
-								<div><strong>${{total}}</strong></div>
-							</div>
-						</div>
-					</div>
-				</div>
+				{{/with}}
+
 				<div class="section-footer">
 					<div class="col-sm-6 hidden-xs">
 						<!-- offset -->
 					</div>
 					<div class="col-sm-6 text-center">
-						{{#if isFulfilled}}
+						{{#if fulfilled}}
 							<button class="button lightgray">Fulfilled</button>
 						{{else}}
 							<button class="button blue" data-click-fulfill>Fulfill order</button>
 						{{/if}}
 					</div>
 				</div>
-			{{/with}}
+				{{/each}}
+			</div>
+
+
 		</div>
 
 		<div class="queue-item page text-center">

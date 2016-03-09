@@ -8,17 +8,17 @@ Template.Contact.events({
     var email = template.find('#email').value;
     var message = template.find('#message').value;
     if (name === "" || email === "" || message === "") {
-      $('#messageFeedback').text("Please Fill Everything Out");
+      $('#messageFeedback').text("Whoops! Make sure to fill in all fields so we know how to contact you!");
       $('#messageFeedbackContainer').addClass("alert, alert-danger");
     } else {
       var messageObj = {'name':name, 'email':email, "message":message};
       Meteor.call('saveMessage', messageObj, function(err) {
         if (!err) {
-          $('#messageFeedback').text("Thank You, We've Received Your Message");
+          $('#messageFeedback').text("Thank You! We have received your message and will get back to you shortly.");
           $('#messageFeedbackContainer').removeClass("alert, alert-danger");
           $('#messageFeedbackContainer').addClass("alert, alert-success");
         } else {
-          $('#messageFeedback').text("Sorry, We Didn't Receive Your Message");
+          $('#messageFeedback').text("Thank You! We have received your message and will get back to you shortly.");
           $('#messageFeedbackContainer').addClass("alert, alert-danger");
         }
       });

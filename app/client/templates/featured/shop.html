@@ -1,7 +1,7 @@
 <template name="Shop">
 	<div class="shop text-center">
 		<section id="shop-header">
-			<!-- <img src="icons/logo_dark.svg" class="hidden-sm hidden-md hidden-lg" alt="ChangeUp logo"> -->
+		<div class="animated fadeInUp">
 			<h2>Exclusive products.<br>Inclusive community.</h2>
 			<p>Immersive products providing support for charities around the world.</p>
 
@@ -9,8 +9,10 @@
 				<a class="button orange" href="{{pathFor route='about'}}">About Us</a>
 				<a class="button clear white" href="{{pathFor route='charities'}}">View charities</a>
 			</div>
+		</div>
 		</section>
 
+			<span id="featured"></span>
    		<ul id="allItems" class="clearfix">
 			{{#each products}}
 				<li class="product">

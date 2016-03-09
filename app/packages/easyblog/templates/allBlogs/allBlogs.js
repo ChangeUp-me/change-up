@@ -28,3 +28,15 @@ Template.allBlogsTemplate.events({
      console.log(id);
   }
 });
+<<<<<<< HEAD
+=======
+
+Template.allBlogsTemplate.helpers({
+  'getText':function(htmlContent){
+    var htmlContainer = document.createElement("div");
+    htmlContainer.innerHTML = htmlContent;
+
+    return htmlContainer.textContent.substr(0,150).trim() + "...";
+  }
+});
+>>>>>>> f72d973fe65b6dc4a350bd670c954009afd01dca

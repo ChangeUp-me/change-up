@@ -21,6 +21,21 @@ Template.Register.events({
 			}
 			Router.go('shop');
 		});
+	},
+	'click #facebook' : function login_with_facebook (event) {
+		event.preventDefault();
+
+		Meteor.loginWithFacebook({
+			requestPermissions : ['public_profile', 'email'],
+			loginStyle : 'popup'
+		}, function(err){
+      if (err) {
+      	console.error(err);
+       return sAlert.error(err);
+      }
+
+      Router.go('shop')
+    });
 	}
 });
 

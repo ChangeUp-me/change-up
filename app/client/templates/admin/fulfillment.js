@@ -4,6 +4,7 @@
 Template.Fulfillment.events({
 	"click [data-click-fulfill]" : function (event) {
 		var ids = _.pluck(this.order, 'orderId');
+		console.log("hello");
 
 		Meteor.call('fulfillOrder', ids, function (err) {
 			if(err){
@@ -21,21 +22,19 @@ Template.Fulfillment.events({
 /*****************************************************************************/
 Template.Fulfillment.helpers({
 	totals : function () {
+		console.log(this);
 		var shipping = 0;
 		var total = 0;
-		var order = this.order || [];
+		var order = this;
 		var subTotal = 0;
-		var tax = 2;
 
 		order.forEach(function (item) {
-			shipping = item.shippingPrice;
-			total += parseFloat(item.price * item.quantity);
+			subTotal += parseFloat(item.price * item.quantity);
 		});
 
 		return {
-			subTotal : parseFloat(Math.max(0, total - shipping - tax)).toFixed(2),
+			subTotal : parseFloat(subTotal).toFixed(2),
 			shipping : parseFloat(shipping).toFixed(2),
-			tax : parseFloat(tax).toFixed(2),
 			total : parseFloat(total).toFixed(2)
 		}
 	},

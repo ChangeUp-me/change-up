@@ -9,7 +9,7 @@ Template.Checkout.events({
 	'click .delete' : function (event) {
 		var id = this.id;
 
-		if(!id) return sAlert.error('could not delete this item');
+		if(!id) return sAlert.error('We could not delete this item at this time.');
 
 		CART.removeItem(id);
 	}
@@ -40,22 +40,22 @@ Template.Billing.events({
 
 		//check if a guest failed to enter a password
 		if(!Meteor.userId() && (!password || password.length < 2))
-			return sAlert.info('please enter a password');
+			return sAlert.info('Whoops! That password doesnt work. Please try again.');
 
 		//check for an email
 		if(!billing.email)
-			return sAlert.error('please enter a valid email');
+			return sAlert.error('Whoops! That email doesnt work. Please try again.');
 
 		//check if the signed the agreement
 		if(!billing.agree)
-			return sAlert.info('please agree to the terms and conditions to continue');
+			return sAlert.info('Please agree to the terms and conditions to continue.');
 
 		//validate the credit card
 		if(!CHECKOUT.validateCard(card)) return;
 
 		button.prop('disabled', true);
 
-		sAlert.info('processing pleas wait...');
+		sAlert.info('Stay Put! We are processing your order!');
 
 		//create a stripecard token
 		CHECKOUT.createToken(card, function token_created (status, response) {
@@ -82,7 +82,7 @@ Template.Billing.events({
 				}
 
 				if(!shipping)
-					return sAlert.error('something was wrong with your shipping info');
+					return sAlert.error('Whoops! It looks like there is something not correct with your shipping info.');
 
 				//url encode billing, shipping, and charity params
 				billing = encodeURIComponent(JSON.stringify(billing));
@@ -110,7 +110,7 @@ Template.Billing.events({
 							Meteor.loginWithPassword(billing.email, password, function (err) {
 								if(err) {
 									//if login fails send them an error
-									return sAlert.error('this user email already exists, and we could not log you in with that password');
+									return sAlert.error('Hmmm, this email already exists in our system. Please try with a different email.');
 								}
 
 								var cart = Session.get('cart');
@@ -119,7 +119,7 @@ Template.Billing.events({
 								Meteor.call('setCart', cart, function (err) {
 									if(err) {
 										console.error(err);
-										return sAlert.error('something went wrong... please try again later');
+										return sAlert.error('Oh no! Something went wrong... please try again later.');
 									}
 
 									goToUrl();
@@ -129,7 +129,7 @@ Template.Billing.events({
 							//the email doesn't exist, but something went wrong
 							//with trying to log this user in.
 							console.error(err);
-							return sAlert.error("Something went wrong..please try again later");
+							return sAlert.error("Oh no! Something went wrong..please try again later");
 						}
 					} else {
 						goToUrl();
@@ -149,7 +149,7 @@ Template.Shipping.events({
 		var form = event.target;
 
 		if(!form.checkValidity()) {
-			return sAlert.error('woops looks like you missed some fields!');
+			return sAlert.error('Whoops! You managed to miss some fields.');
 		}
 
 		var shippingInfo = CHECKOUT.getShipping(form);
@@ -188,7 +188,7 @@ Template.Summary.events({
 		  }
 
 		  if(!transactionId) {
-		    sAlert.error('something went wrong, please try again later');
+		    sAlert.error('Whoops! Something went wrong, please try again later.');
 		    return console.error('no transaction id');
 		   }
 
@@ -208,7 +208,7 @@ Template.Summary.events({
 /*****************************************************************************/
 Template.Checkout.helpers({
 	itemsInCart : function () {
-		return Meteor.user().profile.cart;
+		return CART.getItems();
 	},
 	detailsOfItem : function(productId) {
 		return Products.find({_id: productId }).fetch();

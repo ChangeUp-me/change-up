@@ -22,7 +22,8 @@ Package.onUse(function(api) {
     'vsivsi:orion-file-collection',
     'aldeed:tabular',
     'iron:router',
-    'manuelschoebel:ms-seo'
+    'manuelschoebel:ms-seo',
+    'less'
   ])
   api.use(['ecmascript',
   'blaze-html-templates@1.0.1',
@@ -37,6 +38,7 @@ Package.onUse(function(api) {
   'aldeed:collection2@2.9.0',
   'tracker@1.0.9',
   'mongo@1.1.3',
+  'less@2.5.1',
   'aldeed:tabular@1.6.0',
   'aldeed:simple-schema@1.5.3',
   'matb33:collection-hooks@0.8.1',
@@ -45,18 +47,24 @@ Package.onUse(function(api) {
   'manuelschoebel:ms-seo@0.4.1'
 ]);
   api.addFiles([
+    'templates/easyblog.html',
     'templates/createBlog/blogCreate.html',
     'templates/createBlog/blogCreate.js',
-    'templates/easyblog.html',
+    'templates/createBlog/blogCreate.less',
     'templates/allBlogs/allBlogs.html',
-    'templates/singleBlog/singleBlog.html',
     'templates/allBlogs/allBlogs.js',
+    'templates/allBlogs/allBlogs.less',
+    'templates/singleBlog/singleBlog.html',
+    'templates/singleBlog/singleBlog.less',
     'templates/updateBlog/blogUpdate.html',
     'templates/updateBlog/blogUpdate.js'
   ], 'client');
+
+
   api.addFiles(['easyblog.js',
     'routes.js',
   ]);
+  
   api.export(['Blog','SeoCollection', 'blogController', 'easyBlog', 'singleBlogController']);
 });
 

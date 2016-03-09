@@ -50,44 +50,64 @@ CART = (function () {
 	}
 
 	cart.getTotals = function () {
-		var cart = this.getItems();
-		var total = 0;
-		var shippingTotal = 0;
-		var shippingTotalArray = [];
-		var duplicates = {};
-		var cleanedArray = [];
+		try {
+			var cart = this.getItems();
+			var total = 0;
+			var shippingTotal = 0;
+			var shippingTotalArray = [];
+			var duplicates = {};
+			var cleanedArray = [];
 
 
-		for (var i = 0; i < cart.length; i++) {
-			var shippingInfo = {'vendorId': cart[i].vendorId, "vendorShipping": Vendors.findOne({_id: cart[i].vendorId}).shippingPrice}
+			for (var i = 0; i < cart.length; i++) {
+				var shippingInfo = {'vendorId': cart[i].vendorId, "vendorShipping": Vendors.findOne({_id: cart[i].vendorId}).shippingPrice}
 
-			shippingTotalArray.push(shippingInfo)
-		}
-
-
-		for (var i = 0; i < shippingTotalArray.length; i++) {
-			if (!duplicates[shippingTotalArray[i].vendorId]) {
-				duplicates[shippingTotalArray[i].vendorId] = true;
-				cleanedArray.push(shippingTotalArray[i]);
+				shippingTotalArray.push(shippingInfo)
 			}
+
+			for (var i = 0; i < shippingTotalArray.length; i++) {
+				if (!duplicates[shippingTotalArray[i].vendorId]) {
+					duplicates[shippingTotalArray[i].vendorId] = true;
+					cleanedArray.push(shippingTotalArray[i]);
+				}
+			}
+
+
+			for (var i = 0; i < cleanedArray.length; i++) {
+				shippingTotal += parseFloat(cleanedArray[i].vendorShipping) || 0;
+			}
+
+			_.each(cart, function (val, indx) {
+				total = (val.price * Math.max(1,val.quantity)) + total;
+			})
+
+			if(total == 0) shippingTotal = 0;
+
+			return {
+				//Rounds up to the nearest penny
+				subTotal : Math.ceil(total * 100)/100,
+				shipping : Math.ceil(shippingTotal * 100)/100,
+				total : Math.ceil((total + shippingTotal) * 100)/100
+			}
+		} catch (e) {
+
 		}
+	};
 
-		for (var i = 0; i < cleanedArray.length; i++) {
-			shippingTotal += cleanedArray[i].vendorShipping;
+	cart.signedIn = function () {
+		if(Meteor.userId()) {
+			cart = this._getCartCookie();
+			for (var i = 0; i<cart.length; i++) {
+				delete cart[i]['id'];
+				delete cart[i]['vendorId'];
+				delete cart[i]['shippingPrice'];
+				delete cart[i]['price'];
+				delete cart[i]['name'];
+				this._setItemToServer(cart[i]);
+			}
+			this._deleteCookie();
+			this._deleteSession();
 		}
-
-		_.each(cart, function (val, indx) {
-			total = (val.price * Math.max(1,val.quantity)) + total;
-		})
-
-		if(total == 0) shippingTotal = 0;
-
-		return {
-			//Rounds up to the nearest penny
-			subTotal : Math.ceil(total * 100)/100,
-			shipping : Math.ceil(shippingTotal * 100)/100,
-			total : Math.ceil((total + shippingTotal) * 100)/100
-		};
 	};
 
 	cart._getCartCookie = function () {

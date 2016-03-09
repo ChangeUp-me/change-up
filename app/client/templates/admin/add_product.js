@@ -54,20 +54,20 @@ Template.AddProduct.events({
     var product = parseProductForm(form);
     var image = Session.get('upload:image');
 
-    if(image) {
-      product.image = image;
+    if (product.price == "" || product.price < 1) {
+      sAlert.error("please put a price greater than $1");
     } else {
-      return sAlert.error('product must have an image');
+      Meteor.call('insertProduct', product, function (err) {
+        if(err) {
+          sAlert.error(err);
+          return console.error(err);
+        }
+
+        Router.go('vendorProducts');
+      });
     }
 
-    Meteor.call('insertProduct', product, function (err) {
-      if(err) {
-        sAlert.error(err);
-        return console.error(err);
-      }
 
-      Router.go('vendorProducts');
-    });
   },
   "click .size-select li" : function (event) {
     $(event.target).toggleClass('selected');
@@ -154,9 +154,7 @@ Template.AddProduct.onRendered(function() {
 
     var slider = $('input#percentToCharity');
     var target = $('#charityPerctIndicator');
-    var initVal = data.percentToCharity || 50;
-
-    console.log('the init value', data)
+    var initVal = data.percentToCharity || 10;
 
     target.html(initVal + '%')
     slider.val(initVal)

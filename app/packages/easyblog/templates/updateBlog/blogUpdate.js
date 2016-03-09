@@ -21,14 +21,6 @@ Template.blogUpdateTemplate.onCreated(function(){
    Meteor.subscribe("singleBlog", blogId);
 });
 
-
-// Template.blogUpdate.helpers({
-//   contributors: function(){
-//
-//   }
-// });
-
-
 AutoForm.addHooks('blogPostUpdateForm',{
   onSuccess:function(error, result){
     console.log("Update Success!!");

@@ -1,22 +1,30 @@
 <template name="Register">
 	<div id="register" class="login-screen">
-		<h4>Register</h4>
+		<div class="animated zoomIn">
+			<h4>Register</h4>
 
-		<img src="icons/logo_dark.svg" alt="ChangeUp">
+			<img src="icons/logo_dark.svg" alt="ChangeUp">
+			<a id="facebook" class="button facebook">Signup with Facebook</a>
 
-		<form id="register_form" novalidate>
-			<input type="text" placeholder="Name" name="name" required>
-			<input type="email" placeholder="Email" name="email" required>
-			<input type="password" placeholder="Password" name="password" required>
-			<input type="password" placeholder="Confirm password" name="passwordConfirm" required>
-			<div class="check">
-				<input type="checkbox" name="stay" value="stay">
-				<label for="stay">Stay logged in</label>
+			<div class="or-bar">
+				<span class="ob-line"></span>
+				<span class="ob-center">OR</span>
+				<span class="ob-line"></span>
 			</div>
-			<!-- <a class="button orange" href="{{pathFor route='shop'}}">Register</a>-->
-			<button type="submit" class="button orange">Register</button>
-		</form>
 
-		<p><a href="{{pathFor route='login'}}">Already have an account? Sign in.</a></p>
+			<form id="register_form" novalidate>
+				<input type="text" placeholder="Name" name="name" required>
+				<input type="email" placeholder="Email" name="email" required>
+				<input type="password" placeholder="Password" name="password" required>
+				<input type="password" placeholder="Confirm password" name="passwordConfirm" required>
+				<div class="check">
+					<input type="checkbox" name="stay" value="stay">
+					<label for="stay">Stay logged in</label>
+				</div>
+				<button type="submit" class="button orange">Register</button>
+			</form>
+
+			<p><a href="{{pathFor route='login'}}">Already have an account? Sign in.</a></p>
+		</div>
 	</div>
 </template>

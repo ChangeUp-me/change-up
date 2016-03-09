@@ -1,10 +1,10 @@
 <template name="AddProduct">
 	<section class="page-header text-center">
 		<a class="back-button" href="{{pathFor route='vendorProducts'}}"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
-		<h2>{{#if _id}}Edit Product{{else}}Add Product{{/if}}</h2>
+		<h2>{{#if _id}}Edit Product{{else}}Add <a href=""></a> Product{{/if}}</h2>
 	</section>
 
-	<div id="add-product" class="page">
+	<div id="add-product" class="page animated zoomIn">
 		<form id="{{#if _id}}updateProduct{{else}}addProduct{{/if}}" novalidate>
 			<div id="image-upload-window">
 				<input id="imageUpload" name="image" type="file" class="overlay">
@@ -12,12 +12,12 @@
 				<img id="targetImage" src="{{image.url}}">
 				{{else}}
 				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
-				<h4>Upload product image</h4>
+				<h4>Upload Product Image</h4>
 				{{/if}}
 				<div id="uploadProgress"></div>
 			</div>
 
-			<div class="col-xs-12 text-center">Additional product images (optional)</div>
+			<div class="col-xs-12 text-center">Add more product photos below! (Optional)</div>
 			<ul id="productImages" class="product-uploaded-images clearfix">
 				{{#each productImages}}
 				<li class="pui-item" id="image{{@index}}">
@@ -32,35 +32,35 @@
 				{{/each}}
 			</ul>
 
-			<input name="name" type="text" value="{{name}}" placeholder="Title" required>
-			<textarea type="text" name="description" value="{{description}}" placeholder="Description" rows="8" required></textarea>
+			<input name="name" type="text" value="{{name}}" placeholder="Product Title" required>
+			<textarea type="text" name="description" value="{{description}}" placeholder="Product Description" rows="8" required></textarea>
 
 			<!-- <div class="row"> -->
-				<div class="col-xs-12 col-sm-6 input-group">
-					<label class="col-xs-12 text-left">Price</label>
-					<span class="input-group-addon">$</span>
-					<input name="price" value="{{price}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
-				</div>
+			<div class="col-xs-12 col-sm-6 input-group">
+				<label class="col-xs-12 text-left">Price</label>
+				<span class="input-group-addon">$</span>
+				<input name="price" value="{{price}}" type="number" min="0" step="0.01" data-number-to-fixed="2" class="money half" placeholder="0.00" required>
+			</div>
 
-				<div class="col-xs-12 col-sm-6">
-					<label class="col-xs-12" id="size-select-label">Select all size available
+			<div class="col-xs-12 col-sm-6">
+				<label class="col-xs-12" id="size-select-label">Select all sizes offered:
 					<span id="size-toggle">
 						<input type="checkbox" id="noSize" value="">
 						<label>N/A</label>
 					</span>
-					</label>
-					<ul class="size-select list-inline col-xs-12">
-						{{#each sizes}}
-						{{#if selected}}
-						<li class="sizeLi selected">{{size}}</li>
-						{{else}}
-						<li class="sizeLi">{{size}}</li>
-						{{/if}}
-						{{/each}}
-					</ul>
+				</label>
+				<ul class="size-select list-inline col-xs-12">
+					{{#each sizes}}
+					{{#if selected}}
+					<li class="sizeLi selected">{{size}}</li>
+					{{else}}
+					<li class="sizeLi">{{size}}</li>
+					{{/if}}
+					{{/each}}
+				</ul>
 				<!-- </div> -->
 
-				
+
 				<!-- <div class="input-group">
 				<label class="col-xs-12 text-left">Shipping</label>
 				<span class="input-group-addon">$</span>
@@ -70,11 +70,14 @@
 		</div>
 
 		<div class="col-sm-12">
-			<label class="col-sm-12 col-md-12">Percentage going to charity - <span id="charityPerctIndicator"></span></label>
-			<input type="range" name="percentage" id="percentToCharity" value="50" min="0" max="100" data-show-value="true">
+			<label class="col-sm-12 col-md-12">Select a percentage from 4-90% for charity.</label>
+			<br>
+			<label class="col-sm-12 col-md-12"><span id="charityPerctIndicator" class="text-center"></span></label>
+			<br>
+			<input type="range" name="percentage" id="percentToCharity" value="44" min="4" max="90" data-show-value="true">
 		</div>
 
-		<button type="submit" class="button blue">{{#if _id}} Update Product{{else}}Add Product{{/if}}</button>
+		<button type="submit" class="button blue">{{#if _id}} Save {{else}}Add Product{{/if}}</button>
 	</form>
 </div>
 </template>

@@ -6,7 +6,7 @@
 		<div class="inventory">
 			<div id="items">
 				{{#each products}}
-				<div class="item col-xs-12">
+				<div class="item col-xs-12 animated zoomInUp">
 					<div class="portrait col-xs-5 col-sm-3 col-md-5">
 						{{#if image.url}}
 						<a class="product-image" href="{{pathFor route='addProduct' data=this}}"><img src="{{image.url}}" alt="Item"></a>
@@ -27,7 +27,7 @@
 				{{/each}}
 			</div>
 			<section class="col-xs-12 text-center">
-				<a class="button blue" href="{{pathFor route='addProduct'}}">Add product</a>
+				<a class="button blue" href="{{pathFor route='addProduct'}}">Add a Product</a>
 			</section>
 		</div>
 	</div>
