@@ -3,6 +3,8 @@ CHECKOUT = (function () {
 	function checkout (shipping, billing, stripeToken, email, cart) {
 		try{
 			this.stripeApiKey = "sk_test_ktIiEvAZc1rW3e1Q4clVi0OC"//Meteor.settings.private.stripe.apiKey;
+			this.baseUrl = "http://changeup.me";
+			this.mailchimp = new Mailchimp("59d589bd95de09e03eef8b665f52fa7c-us13");
 
 			//check that all the given arguments are valid
 			checkArgs.apply(this, arguments);
@@ -366,6 +368,45 @@ checkout.prototype._findProductIds = function () {
 	return productIds;
 };
 
+checkout.prototype._subscribeCustomer = function () {
+		var name = billing.creditCardName || "";
+		name = name.trim().split(" ");
+		var firstName = name[0];
+		var lastName = "";
+
+		if(name.length > 1) {
+			lastName = name[name.length - 1];
+		}
+
+		//ratingMessage
+		var ratingMessage = "";
+		var baseUrl = this.baseUrl;
+
+		_.forEach(this.order, function (item) {
+			ratingMessage += this.baseUrl + "/item/" + item.productId + '\n';
+		});
+
+		var result = this.mailchimp('lists', 'subscribe', {
+			email_address : this.email,
+			merge_fields : {
+				FNAME : firstName,
+				LNAME : lastName,
+				mc_notes : [{
+					note : ratingMessage
+				}]
+			},
+			status : "subscribed",
+			list_id : "69989",
+			double_optin : false
+		}, function (error, result) {
+			if(error) {
+				console.error(error);
+			}
+		});
+
+		console.log('the result', result);
+	}
+
 checkout.prototype._getShippingCost = function (cart) {
 		var shippingTotalArray = [];
 		var duplicates = {};
@@ -392,6 +433,8 @@ checkout.prototype._getShippingCost = function (cart) {
 
 		return shippingCost;
 	};
+
+
 
 
 /**
