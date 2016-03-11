@@ -23,7 +23,9 @@ Package.onUse(function(api) {
     'aldeed:tabular',
     'iron:router',
     'manuelschoebel:ms-seo',
-    'less'
+    'less',
+    'juliancwirko:s-alert',
+    'aldeed:delete-button'
   ])
   api.use(['ecmascript',
   'blaze-html-templates@1.0.1',
@@ -44,7 +46,9 @@ Package.onUse(function(api) {
   'matb33:collection-hooks@0.8.1',
   'aldeed:autoform@5.8.1',
   'vsivsi:orion-file-collection@0.2.3',
-  'manuelschoebel:ms-seo@0.4.1'
+  'manuelschoebel:ms-seo@0.4.1',
+  'juliancwirko:s-alert@3.1.4',
+  'aldeed:delete-button@2.0.0'
 ]);
   api.addFiles([
     'templates/easyblog.html',
@@ -64,7 +68,7 @@ Package.onUse(function(api) {
   api.addFiles(['easyblog.js',
     'routes.js',
   ]);
-  
+
   api.export(['Blog','SeoCollection', 'blogController', 'easyBlog', 'singleBlogController']);
 });
 

@@ -48,3 +48,12 @@ Template.checkbox.events({
     }
   }
 });
+
+AutoForm.addHooks('blogCreateForm', {
+  onSuccess:function(type, result){
+    var blogCreate = sAlert.success("Blog Successfully Created.");
+    Meteor.setTimeout(function(){
+      Router.go('/admin/blog');
+    }, 1500);
+  }
+})

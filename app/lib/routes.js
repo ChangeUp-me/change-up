@@ -22,12 +22,12 @@ Router.route('about', {
   controller: 'AboutController',
   where: 'client'
 });
-
-Router.route('news', {
-  name: 'news',
-  controller: 'NewsController',
-  where: 'client'
-});
+// 
+// Router.route('news', {
+//   name: 'news',
+//   controller: 'NewsController',
+//   where: 'client'
+// });
 
 Router.route('account', {
   name: 'account',

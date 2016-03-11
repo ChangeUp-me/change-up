@@ -1,6 +1,6 @@
-<template name="allBlogs">
+<!-- <template name="allBlogs">
   {{> allBlogsTemplate
-    title="News &amp; Updates"
+    title="News & Updates"
     allBlogs=(Blogs)
   }}
 
@@ -23,28 +23,129 @@
     </li>
   </ul>
 </nav> -->
-</template>
+<!--</template> -->
 
 
 <template name="allBlogsTemplate">
+  {{#if query 'author'}}
+  {{#if authorsBlog}}
   <section class="text-center page-header">
-    <h1>{{title}}</h1>
+    <h1>{{authorsBlog.author}}'s Blog Posts</h1>
   </section>
 
   <section class="container" id="blog-container">
-    {{#each (allBlogs)}}
+    {{#each authorsBlog.blogs}}
       <div class="post">
-        <div class="author"><a href="">{{getAuthor createdBy}}</a> in <a href="">{{category}}</a></div>
+        <div class="author"><a href="/news?author={{getAuthor createdBy}}" id="{{createdB}}">{{getAuthor createdBy}}</a> in <a href="/news?category={{category}}">{{category}}</a></div>
         <div class="date"><small>{{formatDate createdAt}}</small></div>
         {{#if thumbnail}}
-          <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}">
+          <a href="/news/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}">
             <img src="{{thumbnail.url}}" alt="{{title}}">
           </a>
         {{/if}}
         <h3>{{title}}</h3>
-        <div class="preview">{{getText blogContent}}</div>
+        <div class="preview"
+        style="width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;">
+              {{{blogContent}}}
+            </div>
         <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}" id="{{_id}}" class="blogId">Read more...</a>
       </div>
     {{/each}}
   </section>
+
+  <!-- Back button -->
+    <a href="/news" class="btn btn-success">Back to {{title}}</a>
+
+  <!-- Blogs By category -->
+  {{/if}}
+  {{/if}}
+
+
+  {{#if query 'category'}}
+  {{#if blogCategory}}
+
+
+    <section class="text-center page-header">
+      <h1>{{blogCategory.category}} Blog Posts</h1>
+    </section>
+
+    <section class="container" id="blog-container">
+      {{#each blogCategory.blogs}}
+        <div class="post">
+          <div class="author"><a href="/news?author={{getAuthor createdBy}}" id="{{createdB}}">{{getAuthor createdBy}}</a> in <a href="/news?category={{category}}">{{category}}</a></div>
+          <div class="date"><small>{{formatDate createdAt}}</small></div>
+          {{#if thumbnail}}
+            <a href="/blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}">
+              <img src="{{thumbnail.url}}" alt="{{title}}">
+            </a>
+          {{/if}}
+          <h3>{{title}}</h3>
+          <div class="preview"
+          style="width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;">
+                {{{blogContent}}}
+              </div>
+          <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}" id="{{_id}}" class="blogId">Read more...</a>
+        </div>
+      {{/each}}
+    </section>
+
+    <!-- Back button -->
+      <a href="/news" class="btn btn-success">Back to {{title}}</a>
+  {{/if}}
+  {{/if}}
+
+  {{#if query 'author/category'}}
+        <section class="text-center page-header">
+          <h1>{{title}}</h1>
+
+        </section>
+
+        <section class="container" id="blog-container">
+          {{#each (allBlogs)}}
+            <div class="post">
+          <div class="author"><a href="/news?author={{getAuthor createdBy}}" id="{{createdB}}">{{getAuthor createdBy}}</a> in <a href="/news?category={{category}}">{{category}}</a></div>
+          <div class="date"><small>{{formatDate createdAt}}</small></div>
+          {{#if thumbnail}}
+            <a href="/blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}">
+              <img src="{{thumbnail.url}}" alt="{{title}}">
+            </a>
+          {{/if}}
+          <h3>{{title}}</h3>
+          <div class="preview"
+          style="width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;">
+              {{{blogContent}}}
+            </div>
+          <a href="blogs/{{category}}-{{_id}}-{{linkDate createdAt}}-{{makeLink title}}" id="{{_id}}" class="blogId">Read more...</a>
+        </div>
+      {{/each}}
+    </section>
+
+
+    <section class="pageNumbers text-center">
+      <ul class="pagination">
+        {{#each pageNumber}}
+        <li><a href="/news?page={{this}}">{{this}}</a></li>
+        {{/each}}
+    </ul>
+    </section>
+  {{/if}}
+</template>
+
+
+<!-- Delete Template for Blog Index -->
+<template name="deleteBlog">
+  <div class="col-sm-12">
+    {{# quickRemoveButton collection="Blog" _id=this._id onError=onError onSuccess=onSuccess beforeRemove=beforeRemove class="btn text-danger"}}
+    <span class="glyphicon glyphicon-remove"></span>
+    {{/quickRemoveButton}}
+  </div>
 </template>
