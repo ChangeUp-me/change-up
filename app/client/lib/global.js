@@ -3,6 +3,7 @@ productName = new ReactiveVar(null);
 productDescription = new ReactiveVar(null);
 
 Meteor.subscribe('FeaturedProducts');
+Meteor.subscribe('VendorPayouts');
 
 
 Tracker.autorun(function () {

@@ -5,7 +5,8 @@
 	</section>
 
 	<div id="no-more-tables" class="page-header animated zoomIn">
-		<table>
+		{{> reactiveTable collection=vendorStatements settings=vendorStatementsSettings }}
+		<!-- <table>
 			<thead>
 				<tr>
 					<th class="col-xs-2">Payout Date</th>
@@ -66,6 +67,6 @@
 					<td class="col-xs-2 text-right" data-title="Payout Total">$344</td>
 				</tr>
 			</tbody>
-		</table>
+		</table> -->
 	</div>
 </template>

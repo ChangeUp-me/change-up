@@ -10,7 +10,7 @@ Template.VendorOrders.events({
 
 
 Template.VendorOrders.helpers({
-	settings: function () {
+	vendorOrderSettings: function () {
 		return {
 			collection: Transactions,
 			rowsPerPage: 10,
