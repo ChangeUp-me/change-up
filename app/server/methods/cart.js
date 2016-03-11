@@ -106,6 +106,7 @@
 	    var existingCustomer = checkout.getCustomer();
 	    var user = Meteor.user();
 
+
 	    if(existingCustomer) {
 	    	checkout.chargeExistingCustomer(existingCustomer, customerCharged);
 	    } else {
