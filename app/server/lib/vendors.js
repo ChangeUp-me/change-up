@@ -9,6 +9,7 @@ makePurchase = function (cart) {
   // Calculate Vendor Payout
   for (var i = 0; i < cart.length; i++) {
     var existingVendor = -1;
+    var itemPrice = (cart[i].price*cart[i].quantity);
 
     // check if vendor is already in vendorPayout array
     for (var x = 0; x < vendorPayout.length; x++) {
@@ -19,23 +20,29 @@ makePurchase = function (cart) {
 
     // if vendor isnt in transaction info put him there
     if (existingVendor === -1) {
+      var vendorShipping;
+      if (Vendors.findOne({_id: cart[i].vendorId}).shippingPrice !== "" && Vendors.findOne({_id: cart[i].vendorId}).shippingPrice !== undefined) {
+        vendorShipping = Vendors.findOne({_id: cart[i].vendorId}).shippingPrice;
+      } else {
+        vendorShipping = "0";
+      }
       vendorPayout.push({
         'vendorId' : cart[i].vendorId,
         'vendorName' : Vendors.findOne({_id: cart[i].vendorId}).storeName,
-        'vendorShipping' : Vendors.findOne({_id: cart[i].vendorId}).shippingPrice,
-        'vendorProfit' : roundToTwo(cart[i].price) - roundToTwo(cart[i].price*(0.03)) - roundToTwo(cart[i].price*(0.02)) - roundToTwo((cart[i].price/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)),
-        'stripeFee' : roundToTwo(cart[i].price*(0.03)),
-        'changeUpFee' : roundToTwo(cart[i].price*(0.02)),
-        'charityDonation' : roundToTwo((cart[i].price/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)),
+        'vendorShipping' : vendorShipping,
+        'vendorProfit' : roundToTwo(itemPrice) - roundToTwo(itemPrice*(0.029)+(0.30)) - roundToTwo(itemPrice*(0.015)) - roundToTwo((itemPrice/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)),
+        'stripeFee' : roundToTwo(itemPrice*(0.029)+(0.30)),
+        'changeUpFee' : roundToTwo(itemPrice*(0.015)),
+        'charityDonation' : roundToTwo((itemPrice/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)),
         'weekStart' : weekStart,
         'weekEnd' : weekEnd
       });
     } else {
       // if vendor is in transaction info update what they've sold
-      vendorPayout[existingVendor].vendorProfit += roundToTwo(roundToTwo(cart[i].price) - roundToTwo(cart[i].price*(0.03)) - roundToTwo(cart[i].price*(0.02)) - roundToTwo((cart[i].price/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)));
-      vendorPayout[existingVendor].stripeFee += roundToTwo(cart[i].price*(0.03));
-      vendorPayout[existingVendor].changeUpFee += roundToTwo(cart[i].price*(0.02));
-      vendorPayout[existingVendor].charityDonation += roundToTwo((cart[i].price/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity));
+      vendorPayout[existingVendor].vendorProfit += roundToTwo(roundToTwo(itemPrice) - roundToTwo(itemPrice*(0.029)+(0.30)) - roundToTwo(cart[i].price*(0.015)) - roundToTwo((cart[i].price/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)));
+      vendorPayout[existingVendor].stripeFee += roundToTwo(itemPrice*(0.029)+(0.30));
+      vendorPayout[existingVendor].changeUpFee += roundToTwo(itemPrice*(0.015));
+      vendorPayout[existingVendor].charityDonation += roundToTwo((itemPrice/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity));
     }
 
   }
@@ -43,6 +50,7 @@ makePurchase = function (cart) {
   // Calculate Charity Payout
   for (var i = 0; i < cart.length; i++) {
     var existingCharity = -1;
+    var itemPrice = (cart[i].price*cart[i].quantity);
 
     // check if vendor is already in vendorPayout array
     for (var x = 0; x < charityPayout.length; x++) {
@@ -56,13 +64,13 @@ makePurchase = function (cart) {
       charityPayout.push({
         'charityId' : cart[i].charityId,
         'charityName' : Charities.findOne({_id : cart[i].charityId}).name,
-        'charityDonation' : roundToTwo((cart[i].price/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)),
+        'charityDonation' : roundToTwo((itemPrice/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity)),
         'weekStart' : weekStart,
         'weekEnd' : weekEnd
       });
     } else {
       // if vendor is in transaction info update what they've sold
-      charityPayout[existingVendor].charityDonation += roundToTwo((cart[i].price/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity));
+      charityPayout[existingVendor].charityDonation += roundToTwo((itemPrice/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity));
     }
 
   }
@@ -96,7 +104,6 @@ makePurchase = function (cart) {
     } else {
       VendorPayouts.insert(vendorPayout[i]);
     }
-
   }
 
   // Insert or update charity weekly transaction report
@@ -120,7 +127,6 @@ makePurchase = function (cart) {
     } else {
       CharityPayouts.insert(charityPayout[i]);
     }
-
   }
 }
 

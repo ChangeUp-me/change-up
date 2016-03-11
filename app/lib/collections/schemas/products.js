@@ -85,14 +85,6 @@
 			likeCount: {
 				type: Number,
 				defaultValue: 0
-			},
-			featuredPosition : {
-				type : Number,
-				optional : true
-			},
-			featuredUntil : {
-				type : Date,
-				optional : true
 			}
 		}
 	}
