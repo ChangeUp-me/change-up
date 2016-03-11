@@ -17,7 +17,6 @@
         websiteUrl : form.websiteUrl.value
       };
 
-      console.log(form);
       Session.set('vendor:create', store);
 
       Router.go('addCharity');
@@ -25,7 +24,7 @@
     "submit #storeForm" : function (event) {
       event.preventDefault();
       var form = event.target;
-      var image = Session.get('upload:image');
+      var image = $('#targetImage').prop('src');
 
       var store =  {
         storeName : form.storeName.value,
@@ -41,15 +40,15 @@
         }()
       }
 
-      console.log(store);
-      
       if(image) {
-        store.image = image;
+        store.image = {
+          "fileId" : "none",
+          "url" : image
+        }
       }
 
       Meteor.call('updateVendor', store, function (err) {
         if(err){
-          console.error(err);
           return sAlert.error(err);
         }
 
@@ -150,15 +149,15 @@
   * @param {String} id - 'charityid'
   */
   function removeCharityFromSession (id) {
-      var arr = Session.get('selectedCharities') || [];
+    var arr = Session.get('selectedCharities') || [];
 
-      var index = arr.findIndex(function (charity, index) {
-        return charity.id == id;
-      });
+    var index = arr.findIndex(function (charity, index) {
+      return charity.id == id;
+    });
 
-      arr.splice(index,1);
+    arr.splice(index,1);
 
-      Session.set('selectedCharities', arr);
-    }
+    Session.set('selectedCharities', arr);
+  }
 
 })();

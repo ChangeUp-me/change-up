@@ -185,7 +185,6 @@ Router.route('vendors/:vendorId', {
   where: 'client',
   onAfterAction:function(){
     var vendor = this.data();
-    console.log(vendor);
     if (!Meteor.isClient) {
       return;
     }

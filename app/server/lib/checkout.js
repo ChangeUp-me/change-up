@@ -182,7 +182,7 @@ checkout.prototype._getOrder = function () {
 	products.forEach(function(product) {
 		self.order[product._id] = _.extend(self.order[product._id], {
 			price : product.price,
-			shippingPrice : product.shippingPrice,
+			shippingPrice : Vendors.findOne({"_id":product.vendorId}).shippingPrice,
 			vendorId : product.vendorId,
 			image : product.image,
 			productId : product._id,
