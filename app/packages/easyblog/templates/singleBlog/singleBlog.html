@@ -4,7 +4,7 @@
 
 <template name="singleBlogTemplate">
   <section class="page blog">
-    <div class="author"><a href="">{{getAuthor object.createdBy}}</a> in <a href="">{{object.category}}</a></div>
+    <div class="author"><a href="/blogs?author={{getAuthor object.createdBy}}">{{getAuthor object.createdBy}}</a> in <a href="/blogs?category={{object.category}}">{{object.category}}</a></div>
     <div class="date"><small>{{formatDate object.createdAt}}</small></div>
 
     {{#if object.mainPicture}}

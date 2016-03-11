@@ -6,10 +6,21 @@ blogController = RouteController.extend({
     Meteor.subscribe("blog");
   },
   data:function(){
-    var postPerPage = orion.dictionary.get('blog.totalPostsPerPage');
-    console.log(postPerPage);
-    return {
-      'Blogs':Blog.find({}, {'limit':postPerPage}).fetch()
+    if(this.params.query){
+      var postPerPage = orion.dictionary.get('blog.totalPostsPerPage');
+      var pageNum = parseInt(this.params.query.page);
+      var toSkip = (pageNum * postPerPage)-postPerPage;
+      return {
+        // 'Blogs':Blog.find({}, {'limit':postPerPage}).fetch()
+        'Blogs':Blog.find({}, {'skip': toSkip,'limit':postPerPage}).fetch()
+      }
+    }else{
+      var postPerPage = orion.dictionary.get('blog.totalPostsPerPage');
+      console.log(postPerPage);
+      return {
+        // 'Blogs':Blog.find({}, {'limit':postPerPage}).fetch()
+        'Blogs':Blog.find({}, {'skip':0, 'limit': postPerPage}).fetch()
+      }
     }
   }
 });
@@ -103,10 +114,10 @@ easyBlog = {
 // -_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
 
 // Create a object with route name and controller
-var object = { name: 'allBlogs', controller:'blogController'};
-easyBlog.route('/blogs','allBlogs', object);
+var object = { name: 'news', controller:'blogController'};
+easyBlog.route('/news','allBlogs', object);
 // Set the static seo by calling easyBlog.staticSEO for static content.
-easyBlog.staticSEO('allBlogs', 'Easy Blog', {"description":"Easy Blog"});
+easyBlog.staticSEO('allBlogs', 'News', {"description":"News"});
 
 
 

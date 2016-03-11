@@ -54,6 +54,9 @@ Blog = new orion.collection('blog',{
             column: 'online'
           };
         }
+      },
+      {
+        tmpl:Meteor.isClient && Template.deleteBlog
       }
     ]
   }
@@ -71,7 +74,7 @@ Blog.attachSchema(new SimpleSchema ({
     type:String,
     label:"Blog Category",
     optional:true,
-    defaultValue:'uncategorised'
+    defaultValue:'General'
   },
   // contributor:{
   //   type:String,
@@ -134,6 +137,41 @@ if(Meteor.isClient){
 Meteor.subscribe("blog");
 console.log("Test");
 console.log(Blog.find().fetch());
+
+
+// sAlert configuration
+Meteor.startup(function () {
+
+    sAlert.config({
+        effect: '',
+        position: 'top',
+        timeout: 1000,
+        html: false,
+        onRouteClose: true,
+        stack: true,
+        // or you can pass an object:
+        // stack: {
+        //     spacing: 10 // in px
+        //     limit: 3 // when fourth alert appears all previous ones are cleared
+        // }
+        offset: 0, // in px - will be added to first alert (bottom or top - depends of the position in config)
+        beep: false,
+        // examples:
+        // beep: '/beep.mp3'  // or you can pass an object:
+        // beep: {
+        //     info: '/beep-info.mp3',
+        //     error: '/beep-error.mp3',
+        //     success: '/beep-success.mp3',
+        //     warning: '/beep-warning.mp3'
+        // }
+        onClose: _.noop //
+        // examples:
+        // onClose: function() {
+        //     /* Code here will be executed once the alert closes. */
+        // }
+    });
+
+});
 }
 
 
@@ -146,7 +184,7 @@ if(Meteor.isServer){
     return Blog.find({'online':"checked"});
   });
   Meteor.publish('userProfile', function(id){
-    return Meteor.users.find({'_id':id});
+    return Meteor.users.find({'_id':id}, {'fields':{'services':0}});
   })
 
   Meteor.publish("singleBlog", function(id){

@@ -5,6 +5,7 @@
 
 
 <template name="blogUpdateTemplate">
+  {{> sAlert}}
   <div class="page-header">
     <h1> Update blog</h1>
   </div>
@@ -38,8 +39,14 @@
       </div>
 
       <div class="col-sm-12">
+        {{> quickRemoveButton collection="Blog" _id=blogDetails._id onError=onError onSuccess=onSuccess beforeRemove=beforeRemove class="btn btn-danger deleteBtn"}}
+     </div>
+
+      <div class="col-sm-12">
         <button type="submit" class="btn">Update</button>
       </div>
   {{/autoForm}}
+
+
 
 </template>
