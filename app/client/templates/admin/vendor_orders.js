@@ -10,9 +10,6 @@ Template.VendorOrders.events({
 
 
 Template.VendorOrders.helpers({
-	myOrders : function () {
-		return Transactions.find().fetch();
-	},
 	settings: function () {
 		return {
 			collection: Transactions,
@@ -109,8 +106,29 @@ Template.VendorOrders.helpers({
 
 		return unfulfilledItems.length > 0 ? false : true;
 	},
-	count : function() {
-		return Transactions.find({$and: [{'order.vendorId': Meteor.user().profile.vendorId},{'order.fulfilled':false}]}).count();
+	openOrders : function() {
+		try {
+			var transactions = this.transactions;
+			var open = 0;
+
+			for (var i = 0; i < transactions.length; i++) {
+				value = transactions[i].order;
+				var falseVal = 0;
+
+				for (var x = 0; x < value.length; x++) {
+					if (value[x].fulfilled === false) {
+						falseVal ++;
+					}
+				}
+
+				if (falseVal > 0) {
+					open++;
+				}
+			}
+			return open;
+		} catch (e) {
+
+		}
 	}
 });
 
