@@ -53,10 +53,26 @@ Template.AddProduct.events({
     var form = event.target;
     var product = parseProductForm(form);
     var image = Session.get('upload:image');
+    var images = getImages();
+
+    function getImages () {
+      return $.map($('#productImages').children(), function (image, indx) {
+        return Session.get('upload:image:' + $(image).attr('id'));
+      });
+    }
+
+    if(image) {
+      product.image = image;
+    }
+
+    if(images.length > 0) {
+      product.images = images;
+    }
 
     if (product.price == "" || product.price < 1) {
       sAlert.error("please put a price greater than $1");
     } else {
+
       Meteor.call('insertProduct', product, function (err) {
         if(err) {
           sAlert.error(err);

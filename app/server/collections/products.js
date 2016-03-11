@@ -14,7 +14,7 @@ Meteor.methods({
 
 		productObj.vendorId = user.profile.vendorId;
 
-		// Products.insert(productObj);
+		Products.insert(productObj);
 	},
 	deleteProduct : function delete_products (productId) {
 		Products.update({_id : productId}, {$set : {deleted : true}});
