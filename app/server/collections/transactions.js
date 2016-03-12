@@ -44,7 +44,7 @@ Meteor.methods({
 			Meteor.setTimeout(function () {
 				Email.send({
 					to : transaction.email,
-					from : 'terrell.changeup@gmail.com',
+					from : 'hello@changeup.me',
 					subject : 'your order has been shipped!',
 					text : body
 				})

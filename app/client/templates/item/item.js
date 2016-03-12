@@ -23,7 +23,7 @@ Template.Item.events({
 		var selectedSize;
 
 		var quantity = template.find('#quantity').value;
-		var charity = template.find('#charities').value;
+		var charity = template.find('#charities-select').value;
 		for (var i = 0; i < this.product.sizes.length; i++) {
 			if ($("#size"+this.product.sizes[i]).data('value') === "selected"){
 				selectedSize = this.product.sizes[i];
@@ -44,7 +44,7 @@ Template.Item.events({
 			sAlert.error('select a quantity');
 		} else if (cartItem.size === undefined && !template.data.product.oneSize) {
 			sAlert.error('select a size');
-    }  else {
+		}  else {
 			CART.addItem(cartItem);
 		}
 	}
@@ -55,7 +55,12 @@ Template.Item.events({
 /*****************************************************************************/
 Template.Item.helpers({
 	charities : function () {
-		return this.charities;
+		if (this.charities.length === 0) {
+			var charities = Charities.find({},{limit:3}).fetch();
+			return charities;
+		} else {
+			return this.charities;
+		}
 	},
 	sizes: function(){
 		return this.product.sizes;

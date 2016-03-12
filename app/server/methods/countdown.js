@@ -19,22 +19,58 @@ Meteor.startup(function () {
       var varLast = FeaturedProducts.findOne({'current': true}).date;
 
       if (end > varLast){
+
+        // // Randomly select 6 items. Holding Off On This For Now
+        // console.log("Updating Featured Products");
+        // FeaturedProducts.update({}, {$set: {'current': false}}, {multi: true}); //update all items in collection to not be current day
+        // var newProducts = Products.find().fetch(); //get length of all products in store
+        // if (newProducts.length < 6){ //if all products in store less than 6 set no of items to select to no of items in store
+        //   var noOfProducts = newProducts.length;
+        // } else { // if more than 6, set no of products to 6
+        //   var noOfProducts = 6;
+        // }
+        // var arrayOfObjects = []; // holder for the place in the array of products well select from
+        // for (var i = 0; i < noOfProducts; i){
+        //   var randomlySelectedObj = Math.floor((Math.random()*newProducts.length)); //randomly select a number between 0 and no of products in shop
+        //   var inArray = _.contains(arrayOfObjects, (newProducts[randomlySelectedObj]._id)); // boolean to see if id already selected
+        //   if (inArray === false){ // if id not in array
+        //     arrayOfObjects.push(newProducts[randomlySelectedObj]._id); //insert into array
+        //     i++; // increment
+        //   }
+        // }
+        // FeaturedProducts.insert({'date': end, 'products': arrayOfObjects, 'current': true});
+
+        // 6 Random Items From 6 Random Vendors
         console.log("Updating Featured Products");
         FeaturedProducts.update({}, {$set: {'current': false}}, {multi: true}); //update all items in collection to not be current day
-        var newProducts = Products.find().fetch(); //get length of all products in store
-        if (newProducts.length < 6){ //if all products in store less than 6 set no of items to select to no of items in store
-          var noOfProducts = newProducts.length;
-        } else { // if more than 6, set no of products to 6
-          var noOfProducts = 6;
+
+        var possibleVendorList = Vendors.find().fetch(); //get length of all vendors in store
+        if (possibleVendorList.length < 6){ //if all vendors in changeup less than 6 set no of vendors to select to no of vendors in store
+          var noOfVendors = possibleVendorList.length;
+        } else { // if more than 6, set no of vendors to 6
+          var noOfVendors = 6;
         }
-        var arrayOfObjects = []; // holder for the place in the array of products well select from
-        for (var i = 0; i < noOfProducts; i){
-          var randomlySelectedObj = Math.floor((Math.random()*newProducts.length)); //randomly select a number between 0 and no of products in shop
-          var inArray = _.contains(arrayOfObjects, (newProducts[randomlySelectedObj]._id)); // boolean to see if id already selected
+
+        var arrayOfVendors = []; // holder for the place in the array of vendors well select from
+        for (var i = 0; i < noOfVendors; i){
+          var randomlySelectedObj = Math.floor((Math.random()*possibleVendorList.length)); //randomly select a number between 0 and no of products in shop
+          var inArray = _.contains(arrayOfVendors, (possibleVendorList[randomlySelectedObj]._id)); // boolean to see if id already selected
           if (inArray === false){ // if id not in array
-            arrayOfObjects.push(newProducts[randomlySelectedObj]._id); //insert into array
+            arrayOfVendors.push(possibleVendorList[randomlySelectedObj]._id); //insert into array
             i++; // increment
           }
+        }
+
+        var arrayOfObjects = []; // holder for the place in the array of products well select from
+        for (var i = 0; i < arrayOfVendors.length; i++){
+          try {
+            var vendorsItems = Products.find({'vendorId':arrayOfVendors[i]}).fetch();
+            var randomlySelectedObj = Math.floor((Math.random()*newProducts.length)); //randomly select a number between 0 and no of products in shop
+            arrayOfObjects.push(vendorsItems[randomlySelectedObj]._id); //insert into array
+          } catch (e) {
+
+          }
+
         }
         FeaturedProducts.insert({'date': end, 'products': arrayOfObjects, 'current': true});
       }

@@ -3,8 +3,12 @@ Meteor.publish('FeaturedProducts', function(){
 })
 
 Meteor.publish('VendorPayouts', function(){
-  var vendorId = Meteor.users.findOne({"_id":this.userId}).profile.vendorId;
-  if (vendorId) {
-    return VendorPayouts.find({'vendorId':vendorId});
+  try {
+    var vendorId = Meteor.users.findOne({"_id":this.userId}).profile.vendorId;
+    if (vendorId) {
+      return VendorPayouts.find({'vendorId':vendorId});
+    }
+  } catch (e) {
+
   }
-})
+});

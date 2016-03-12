@@ -32,6 +32,18 @@ Template.Navbar.helpers({
 	},
 	isGuest :function () {
 		return !Meteor.userId();
+	},
+	storeMade : function () {
+		try {
+			var storeName = Vendors.findOne({"_id":Meteor.user().profile.vendorId}).storeName;
+			if (storeName !== null && storeName !== undefined && storeName !== "") {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (e) {
+			return false;
+		}
 	}
 });
 
