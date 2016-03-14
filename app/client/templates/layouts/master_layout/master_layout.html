@@ -6,7 +6,10 @@
 			{{> Cart }}
 			<a href="#" class="toggle-nav hidden-sm hidden-md hidden-lg"><img src="/icons/menu.svg" class="Menu"></a>
 			<a href="#" class="toggle-cart"><img src="/icons/cart.svg" class="Cart"></a>
-			<h4 id="page-title" class="text-center hidden-sm hidden-md hidden-lg">{{ pageTitle }}</h4>
+			<!-- <h4 id="page-title" class="text-center hidden-sm hidden-md hidden-lg">{{ pageTitle }}</h4> -->
+			<div id="page-title" class="text-center hidden-sm hidden-md hidden-lg">
+				<a href="/"><img src="/navbar/logo_secondary.svg" height="35px" alt="Logo"></a>
+			</div>
 			{{> yield}}
 			{{> Footer }}
 		</div>
