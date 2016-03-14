@@ -19,17 +19,4 @@
 			console.error('send-vendor-email', e.stack);
 		}
 	});
-
-	//when a new user is created
-	Accounts.onCreateUser(function (options, user) {
-		var services = user.services;
-
-		//if they login with facebook
-		if(_.isObject(services) && _.isObject(services.facebook)) {
-			var email = services.facebook.email || 'email@example.com';
-			user.emails = [{address : email, verified : true}];
-		}
-
-		return user;
-	});
 })();

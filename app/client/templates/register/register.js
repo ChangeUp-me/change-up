@@ -6,10 +6,12 @@ Template.Register.events({
 		event.preventDefault();
 
 		var form = event.target;
+		var password = form.password.value;
+		var email = form.email.value;
 
 		Meteor.call('insertUser',{
-			email : form.email.value,
-			password : form.password.value,
+			email : email,
+			password : password,
 			profile : {
 				name : form.name.value,
 				dateRegistered : Date.now()
@@ -19,7 +21,14 @@ Template.Register.events({
 				console.error(err);
 				return sAlert.error("The Signup Failed");
 			}
-			Router.go('shop');
+			Meteor.loginWithPassword(email, password, function (err) {
+				if(err) {
+					console.error(err);
+					return sAlert.error('we could not log you in');
+				}
+
+				Router.go('shop');
+			})
 		});
 	},
 	'click #facebook' : function login_with_facebook (event) {
