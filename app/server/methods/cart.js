@@ -113,6 +113,35 @@
 	    }
 
 	    return $checkoutResponse.wait();
+	    //moment("2010-10-20 4:30",       "YYYY-MM-DD HH:mm");
+
+	    function sendReviewEmail () {
+	    	var user = Meteor.user();
+
+	    	var req = {
+	    		message : {
+	    			text : "",
+	    			subject : "Are You Happy With Your Purchase?",
+	    			from_email : "hello@changeup.me",
+	    			to : [{
+	    				email : email,
+	    				name : billing.creditCardName,
+	    				type : "to"
+	    			}],	
+	    		},
+	    		send_at : ""
+	    	}
+
+	    	Mandrill.messages.send({
+	    		html : "",
+	    		subject : "",
+	    		from_email : "",
+	    		from_name : "",
+	    		to : [{
+
+	    		}]
+	    	})
+	    }
 
 	    function customerCharged (err, transactionNum) {
 	    	if(err) {
