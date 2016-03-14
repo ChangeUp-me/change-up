@@ -1,8 +1,8 @@
 {
 	"galaxy.meteor.com": {
 		"env": {
-			"ROOT_URL": "http://changeup.checkmate.media",
-			"MONGO_URL": "mongodb://root:password@apollo.modulusmongo.net:27017/hUtiz7yp"
+			"ROOT_URL": "http://www.changeup.me",
+			"MONGO_URL": "mongodb://change-up:zV9Ud4XYcsSB@ds037415.mlab.com:37415/change-up"
 		}
 	},
 	"private": {
