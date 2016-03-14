@@ -36,8 +36,14 @@
 		},
 		sizes: function(){
 			return this.sizes;
+		},
+		fixingVendorsSize : function () {
+			if (this.sizes.length === 0) {
+				return false;
+			} else {
+				return true;
+			}
 		}
-
 	});
 
 	/*****************************************************************************/
