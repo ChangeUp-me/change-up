@@ -8,11 +8,12 @@
 		<form id="{{#if _id}}updateProduct{{else}}addProduct{{/if}}" novalidate>
 			<div id="image-upload-window">
 				<input id="imageUpload" name="image" type="file" class="overlay">
+				<div id="crophere"></div>
 				{{#if image}}
 				<img id="targetImage" src="{{image.url}}">
 				{{else}}
 				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
-				<h4>Upload Product Image</h4>
+				<h4 id="uploadtext">Upload Product Image</h4>
 				{{/if}}
 				<div id="uploadProgress"></div>
 			</div>
