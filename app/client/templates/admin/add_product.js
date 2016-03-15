@@ -149,15 +149,38 @@ Template.AddProduct.onRendered(function() {
 
   var data = this.data;
 
-  $('#imageUpload').changeUpUpload({
+  var cropper = new changeupCropper($('#crophere'));
+
+  var upload = new changeUpUpload($('#imageUpload')[0], {
     targetImage : '#targetImage',
     progressBar : '#uploadProgress',
     sessionName : 'upload:image'
+  })
+
+  //call this before the cropper element is created
+  cropper.onBeforeCrop = function () {
+    $('#targetImage').hide();
+    $('#uploadtext').hide();
+  };
+
+  //when a user clicks the save button
+  cropper.onSave = function (image, files) {
+   $('#targetImage').attr('src',image).show().css('opacity', .5);
+
+   //upload the files to amazon s3
+   upload.upload(files, function on_upload_finished () {
+    $('#targetImage').css('opacity', 1);
+   });
+  };
+
+  //when a user uploads an image start the cropper
+  $('#imageUpload').on('change', function (event) {
+    console.log($(this)[0].files);
+    cropper.startCropper(event.currentTarget.files[0]);
   });
 
-  var $this;
   $('#productImages').children().each(function (indx, image){
-    $this = $(this);
+    var $this = $(this);
     $this.find('input').changeUpUpload({
       targetImage : '#' + $this.find('img').attr('id'),
       progressBar : '#' + $this.find('div').attr('id'),
