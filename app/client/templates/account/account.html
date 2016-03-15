@@ -1,83 +1,88 @@
 <template name="Account">
-	<div id="account" class="page animated zoomIn">
+	<div id="account" class="page">
 		<h1 class="text-center">My Account</h1>
 
 		<div class="col-sm-12 text-center"><a href="{{pathFor route='orders'}}">View orders</a></div>
 
-		<label>Info</label>
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Full name</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.name}}"></div>
-		</div>
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Location</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="CT"></div>
-		</div>
 
 		<label>Account</label>
 		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Email</div>
-			<div class="col-xs-8 col-sm-12"><input type="email" placeholder="{{email}}"></div>
+			<div class="col-xs-4 col-sm-12">Full name</div>
+			<div class="col-xs-8 col-sm-12"><input type="text" id="accountName" placeholder="(insert name)" value="{{profile.name}}"></div>
 		</div>
 		<div class="row col-sm-6">
+			<div class="col-xs-4 col-sm-12">Email</div>
+			<div class="col-xs-8 col-sm-12"><input type="email" id="accountEmail" placeholder="(insert email)" value="{{email}}" disabled></div>
+		</div>
+		<!-- <div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Password</div>
 			<div class="col-xs-8 col-sm-12"><input type="password" placeholder="*********"></div>
-		</div>
+		</div> -->
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Phone</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="111-222-3333"></div>
+			<div class="col-xs-8 col-sm-12"><input type="text" id="accountPhone" placeholder="(insert phone)" value="{{profile.phone}}"></div>
+		</div>
+		<div class="row col-sm-12">
+			<a href="#" class="button blue" id="accountSave">Save Account Details</a>
 		</div>
 
 		<label>Payment</label>
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Credit card</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.cardBrand}} Card ending in {{profile.billing.lastFour}}"></div>
-		</div>
-		{{#if profile.billing}}
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Name on card</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.creditCardName}}"></div>
-		</div>
-		{{/if}}
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Exp. date</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" placeholder="12/25"></div>
-		</div>
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Shipping</div>
-			<div class="col-xs-8 col-sm-12">
-				<div>{{profile.shipping.fullName}}</div>
-				<div>{{profile.shipping.addressOne}}</div>
-				<div>{{profile.shipping.city}}, {{profile.shipping.state}}. {{profile.shipping.zipcode}}</div>
-			</div>
-		</div>
-		<div class="row col-sm-6">
-			<div class="col-xs-4 col-sm-12">Billing</div>
-			<div class="col-xs-8 col-sm-12">
-				<div>{{profile.billing.fullName}}</div>
-				<div>{{profile.billing.addressOne}}</div>
-				<div>{{profile.shipping.city}}, {{profile.shipping.state}}. {{profile.shipping.zipcode}}</div>
-			</div>
-		</div>
-
-		<label>Connect</label>
-		<div class="row col-sm-6">
-			<div class="col-xs-4">Facebook</div>
-			<div class="col-xs-8">
-				<div class="onoffswitch">
-					<input type="checkbox" name="facebook" class="onoffswitch-checkbox" id="facebook" checked>
-					<label class="onoffswitch-label" for="facebook"></label>
-				</div>
-			</div>
-		</div>
-		<div class="row col-sm-6">
-			<div class="col-xs-4">Twitter</div>
-			<div class="col-xs-8">
-				<div class="onoffswitch">
-					<input type="checkbox" name="twitter" class="onoffswitch-checkbox" id="twitter" checked>
-					<label class="onoffswitch-label" for="twitter"></label>
-				</div>
-			</div>
-		</div>
+		<!-- <div class="row col-sm-6">
+		<div class="col-xs-4 col-sm-12">Credit card</div>
+		<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.cardBrand}} Card ending in {{profile.billing.lastFour}}"></div>
 	</div>
+	{{#if profile.billing}}
+	<div class="row col-sm-6">
+	<div class="col-xs-4 col-sm-12">Name on card</div>
+	<div class="col-xs-8 col-sm-12"><input type="text" placeholder="{{profile.billing.creditCardName}}"></div>
+</div>
+{{/if}}
+<div class="row col-sm-6">
+<div class="col-xs-4 col-sm-12">Exp. date</div>
+<div class="col-xs-8 col-sm-12"><input type="text" placeholder="12/25"></div>
+</div> -->
+<div class="row col-sm-6">
+	<div class="col-xs-4 col-sm-12">Shipping</div>
+	<div class="col-xs-8 col-sm-12">
+		<div class="col-xs-12"><input type="text" id="shippingName" placeholder="(insert shipping name)" value="{{profile.shipping.fullName}}"></div>
+		<div class="col-xs-12"><input type="text" id="shippingStreet" placeholder="(insert shipping street address)" value="{{profile.shipping.addressOne}}"></div>
+		<div class="col-xs-12"><input type="text" id="shippingCity" placeholder="(insert shipping city)" value="{{profile.shipping.city}}"></div>
+		<div class="col-xs-12"><input type="text" id="shippingState" placeholder="(insert shipping state)" value="{{profile.shipping.state}}"></div>
+		<div class="col-xs-12"><input type="text" id="shippingZip" placeholder="(insert shipping zip)" value="{{profile.shipping.zipcode}}"></div>
+	</div>
+</div>
+<div class="row col-sm-6">
+	<div class="col-xs-4 col-sm-12">Billing</div>
+	<div class="col-xs-8 col-sm-12">
+		<div class="col-xs-12"><input type="text" id="billingName" placeholder="(insert billling name)" value="{{profile.billing.fullName}}"></div>
+		<div class="col-xs-12"><input type="text" id="billingStreet" placeholder="(insert billling street address)" value="{{profile.billing.addressOne}}"></div>
+		<div class="col-xs-12"><input type="text" id="billingCity" placeholder="(insert billling city)" value="{{profile.billing.city}}"></div>
+		<div class="col-xs-12"><input type="text" id="billingState" placeholder="(insert billling state)" value="{{profile.billing.state}}"></div>
+		<div class="col-xs-12"><input type="text" id="billingZip" placeholder="(insert billling zip)" value="{{profile.billing.zipcode}}"></div>
+	</div>
+</div>
+<div class="row col-sm-12">
+	<a href="#" class="button blue" id="paymentSave">Save Billing Details</a>
+</div>
+
+<!-- <label>Connect</label>
+<div class="row col-sm-6">
+<div class="col-xs-4">Facebook</div>
+<div class="col-xs-8">
+<div class="onoffswitch">
+<input type="checkbox" name="facebook" class="onoffswitch-checkbox" id="facebook" checked>
+<label class="onoffswitch-label" for="facebook"></label>
+</div>
+</div>
+</div>
+<div class="row col-sm-6">
+<div class="col-xs-4">Twitter</div>
+<div class="col-xs-8">
+<div class="onoffswitch">
+<input type="checkbox" name="twitter" class="onoffswitch-checkbox" id="twitter" checked>
+<label class="onoffswitch-label" for="twitter"></label>
+</div>
+</div>
+</div> -->
+</div>
 </template>

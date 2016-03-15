@@ -42,7 +42,7 @@ Template.Item.events({
 			sAlert.error('select a quantity more than 1');
 		} else if (isNaN(cartItem.quantity)) {
 			sAlert.error('select a quantity');
-		} else if (cartItem.size === undefined && !template.data.product.oneSize) {
+		} else if (this.product.sizes.length !== 0 && cartItem.size === undefined && !template.data.product.oneSize) {
 			sAlert.error('select a size');
 		}  else {
 			CART.addItem(cartItem);
@@ -54,6 +54,13 @@ Template.Item.events({
 /* Item: Helpers */
 /*****************************************************************************/
 Template.Item.helpers({
+	fixingVendorsSize : function () {
+		if (this.product.sizes.length === 0) {
+			return false;
+		} else {
+			return true;
+		}
+	},
 	charities : function () {
 		if (this.charities.length === 0) {
 			var charities = Charities.find({},{limit:3}).fetch();

@@ -25,7 +25,7 @@ Template.Vendor.events({
       sAlert.error('select a quantity more than 1');
     } else if (isNaN(cartItem.quantity)) {
       sAlert.error('select a quantity');
-    } else if (cartItem.size === undefined && !this.oneSize) {
+    } else if (this.sizes.length !== 0 && cartItem.size === undefined && !this.oneSize) {
       sAlert.error('select a size');
     }  else {
       CART.addItem(cartItem);
