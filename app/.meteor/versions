@@ -62,6 +62,7 @@ iron:router@1.0.12
 iron:url@1.0.11
 jeffpatzer:jquery-payment@0.0.5
 jeremy:selectize@0.12.1_5
+jonblum:jquery-cropper@2.3.0
 jquery@1.11.4
 juliancwirko:s-alert@3.1.4
 launch-screen@1.0.4
