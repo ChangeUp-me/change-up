@@ -2,7 +2,7 @@ CHECKOUT = (function () {
 
 	function checkout (shipping, billing, stripeToken, email, cart) {
 		try{
-			this.stripeApiKey = "sk_test_ktIiEvAZc1rW3e1Q4clVi0OC"//Meteor.settings.private.stripe.apiKey;
+			this.stripeApiKey = "sk_live_rNjG94LGyl52oDz7ZMTCSilq"//Meteor.settings.private.stripe.apiKey;
 			this.baseUrl = "http://www.changeup.me";
 			//this.mailchimp = new Mailchimp("59d589bd95de09e03eef8b665f52fa7c-us13");
 

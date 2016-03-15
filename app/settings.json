@@ -7,7 +7,7 @@
 	},
 	"private": {
 		"stripe": {
-			"apiKey":"sk_test_ktIiEvAZc1rW3e1Q4clVi0OC"
+			"apiKey":"sk_live_rNjG94LGyl52oDz7ZMTCSilq"
 		}
 	}
 }

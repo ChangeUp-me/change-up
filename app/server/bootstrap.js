@@ -46,7 +46,7 @@ Meteor.startup(function () {
 	}
 });
 
-// Meteor.settings.private.stripe.apiKey = 'sk_test_ktIiEvAZc1rW3e1Q4clVi0OC';
+// Meteor.settings.private.stripe.apiKey = 'sk_live_rNjG94LGyl52oDz7ZMTCSilq';
 
 S3.config = {
 	key: 'AKIAIT4YEBGC7OQX2C5A',
