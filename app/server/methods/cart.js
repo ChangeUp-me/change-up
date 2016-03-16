@@ -113,35 +113,6 @@
 	    }
 
 	    return $checkoutResponse.wait();
-	    //moment("2010-10-20 4:30",       "YYYY-MM-DD HH:mm");
-
-	    function sendReviewEmail () {
-	    	var user = Meteor.user();
-
-	    	var req = {
-	    		message : {
-	    			text : "",
-	    			subject : "Are You Happy With Your Purchase?",
-	    			from_email : "hello@changeup.me",
-	    			to : [{
-	    				email : email,
-	    				name : billing.creditCardName,
-	    				type : "to"
-	    			}],	
-	    		},
-	    		send_at : ""
-	    	}
-
-	    	Mandrill.messages.send({
-	    		html : "",
-	    		subject : "",
-	    		from_email : "",
-	    		from_name : "",
-	    		to : [{
-
-	    		}]
-	    	})
-	    }
 
 	    function customerCharged (err, transactionNum) {
 	    	if(err) {
@@ -154,6 +125,14 @@
 	    	Meteor.setTimeout(function () {
 	    		var body = "";
 	    		var br = '\n'
+
+	    		try{
+	    			//send out review emails
+	    			//@note - function down below
+	    			sendReviewEmail(email, checkout, billing);
+	    		} catch (e) {
+	    			console.error(e);
+	    		}
 
 	    		body += "Buyer Name : " + billing.creditCardName + br;
 	    		body += "Payment Number : " + transactionNum + br;
@@ -182,4 +161,37 @@
 	    };
 	  }
 	})
+
+	function sendReviewEmail (email, checkout, billing) {
+	    	var twoWeeks = moment.utc().add(14, 'days').format()
+	    	var message = "";
+	    	var br = '\n';
+
+	    	message += "Leave a review for your items:" + br;
+
+	    	//add the product names and prices
+	    	_.each(checkout.order, function (item) {
+	    		message += item.productName + " : http://changeup.me/item" + item.productId + br;
+	    	});
+
+	    	var req = {
+	    		message : {
+	    			text : message,
+	    			subject : "Are You Happy With Your Purchase?",
+	    			from_email : "noreply@changeup.me",
+	    			from_name : "roreply",
+	    			to : [{
+	    				email : email,
+	    				name : billing.creditCardName,
+	    				type : "to"
+	    			}],	
+	    		},
+	    		send_at : twoWeeks
+	    	}
+
+	    	Mandrill.messages.send(req, function (err, result) {
+	    		console.log('err', err);
+	    		console.log('result', result);
+	    	})
+	    }
 })();
