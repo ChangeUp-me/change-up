@@ -2,9 +2,9 @@ CHECKOUT = (function () {
 
 	function checkout (shipping, billing, stripeToken, email, cart) {
 		try{
-			// this.stripeApiKey = "sk_live_rNjG94LGyl52oDz7ZMTCSilq"//Meteor.settings.private.stripe.apiKey;
-			// Test
-			this.stripeApiKey = "sk_test_Q9FAVkLWaoB0eWjSBKm9XL9Y"
+			this.stripeApiKey = "sk_live_rNjG94LGyl52oDz7ZMTCSilq"//Meteor.settings.private.stripe.apiKey;
+			// // Test
+			// this.stripeApiKey = "sk_test_Q9FAVkLWaoB0eWjSBKm9XL9Y"
 			this.baseUrl = "http://www.changeup.me";
 			//this.mailchimp = new Mailchimp("59d589bd95de09e03eef8b665f52fa7c-us13");
 
