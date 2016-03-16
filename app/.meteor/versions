@@ -164,4 +164,5 @@ vsivsi:file-collection@1.3.1
 vsivsi:orion-file-collection@0.2.3
 webapp@1.2.3
 webapp-hashing@1.0.5
+wylio:mandrill@1.0.1
 zimme:bootstrap-hover-dropdown@2.1.3

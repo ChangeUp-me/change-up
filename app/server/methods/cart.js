@@ -127,6 +127,14 @@
 	    		var body = "";
 	    		var br = '\n'
 
+	    		try{
+	    			//send out review emails
+	    			//@note - function down below
+	    			sendReviewEmail(email, checkout, billing);
+	    		} catch (e) {
+	    			console.error(e);
+	    		}
+
 	    		body += "Buyer Name : " + billing.creditCardName + br;
 	    		body += "Payment Number : " + transactionNum + br;
 	    		body += "Payment Date : " + moment(Date.now()).format("MMM Do YYYY") + br;
@@ -154,4 +162,37 @@
 	    };
 	  }
 	})
+
+	function sendReviewEmail (email, checkout, billing) {
+	    	var twoWeeks = moment.utc().add(14, 'days').format()
+	    	var message = "";
+	    	var br = '\n';
+
+	    	message += "Leave a review for your items:" + br;
+
+	    	//add the product names and prices
+	    	_.each(checkout.order, function (item) {
+	    		message += item.productName + " : http://changeup.me/item" + item.productId + br;
+	    	});
+
+	    	var req = {
+	    		message : {
+	    			text : message,
+	    			subject : "Are You Happy With Your Purchase?",
+	    			from_email : "noreply@changeup.me",
+	    			from_name : "roreply",
+	    			to : [{
+	    				email : email,
+	    				name : billing.creditCardName,
+	    				type : "to"
+	    			}],	
+	    		},
+	    		send_at : twoWeeks
+	    	}
+
+	    	Mandrill.messages.send(req, function (err, result) {
+	    		console.log('err', err);
+	    		console.log('result', result);
+	    	})
+	    }
 })();
