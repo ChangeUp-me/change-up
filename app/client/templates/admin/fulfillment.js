@@ -4,9 +4,8 @@
 Template.Fulfillment.events({
 	"click [data-click-fulfill]" : function (event) {
 		var ids = _.pluck(this.order, 'orderId');
-		console.log("hello");
 
-		Meteor.call('fulfillOrder', ids, function (err) {
+		Meteor.call('fulfillOrder', this._id, ids, function (err) {
 			if(err){
 				console.error(err);
 				return sAlert.error('order could not be fulfilled');
@@ -22,34 +21,53 @@ Template.Fulfillment.events({
 /*****************************************************************************/
 Template.Fulfillment.helpers({
 	totals : function () {
-		console.log(this);
-		var shipping = 0;
-		var total = 0;
-		var order = this;
-		var subTotal = 0;
+		try {
+			var shipping = 0;
+			var total = 0;
+			var order = this.order;
+			var subTotal = 0;
 
-		order.forEach(function (item) {
-			subTotal += parseFloat(item.price * item.quantity);
-		});
+			for (var i = 0; i < order.length; i++) {
+				subTotal += parseFloat(order[i].price * order[i].quantity);
+			}
 
-		return {
-			subTotal : parseFloat(subTotal).toFixed(2),
-			shipping : parseFloat(shipping).toFixed(2),
-			total : parseFloat(total).toFixed(2)
+			if (order[0].shippingPrice){
+				shipping = Number(order[0].shippingPrice);
+			}
+
+			subTotal = parseFloat(subTotal).toFixed(2);
+			shipping = parseFloat(shipping).toFixed(2);
+			total = parseFloat(Number(subTotal)+Number(shipping)).toFixed(2);
+
+			return {
+				"subTotal" : subTotal,
+				"shipping" : shipping,
+				"total" : total
+			}
+		} catch (e) {
+
 		}
 	},
 	isFulfilled : function () {
-		var unfulfilledItems = [];
-		var order = this.order || [];
+		try {
+			var order = this.order;
+			var tOF = true;
+			var falseVal = 0;
 
-		//check if there are any unfulfilled items
-		order.forEach(function (item) {
-			if(item.fulfilled == false) {
-				unfulfilledItems.push('false')
+			for (var i = 0; i < order.length; i++) {
+				if (order[i].fulfilled === false) {
+					falseVal ++;
+				}
 			}
-		});
 
-		return unfulfilledItems.length > 0 ? false : true;
+			if (falseVal > 0) {
+				tOF = false;
+			}
+
+			return tOF === false ? false : true;
+		} catch (e) {
+
+		}
 	}
 });
 

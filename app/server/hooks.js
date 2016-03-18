@@ -10,26 +10,13 @@
 					Email.send({
 						to : user.emails[0].address,
 						from : 'hello@changeup.me',
-						subject : 'Setup Yosur Vendor Account!',
-						text : "A vendor account has been made for you on ChangeUp.me. To set up your store, login at http://changeup.me/login with your username and password. Then go to http://changeup.me/vendorProfile to create your store!"
+						subject : 'Setup Your Vendor Account!',
+						text : "A vendor account has been made for you on ChangeUp.me. To set up your store, login at http://www.changeup.me/login with your username and password. Then go to http://www.changeup.me/vendorProfile to create your store!"
 					});
 				}
-			} 
+			}
 		} catch (e) {
 			console.error('send-vendor-email', e.stack);
 		}
-	});
-
-	//when a new user is created
-	Accounts.onCreateUser(function (options, user) {
-		var services = user.services;
-
-		//if they login with facebook
-		if(_.isObject(services) && _.isObject(services.facebook)) {
-			var email = services.facebook.email || 'email@example.com';
-			user.emails = [{address : email, verified : true}];
-		}
-
-		return user;
 	});
 })();

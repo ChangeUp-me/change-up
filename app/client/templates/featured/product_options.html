@@ -17,6 +17,7 @@
 				</div>
 			</div>
 			<div class="col-xs-12 sizes">
+				{{#if fixingVendorsSize}}
 				{{#unless oneSize}}
 					<label class="col-sm-6 col-md-12">Select a size</label>
 					<ul class="size-select list-inline col-sm-6 col-md-12">
@@ -29,6 +30,7 @@
 						{{/each}}
 					</ul>
 				{{/unless}}
+				{{/if}}
 			</div>
 		</fieldset>
 		<fieldset class="dropdown-wrap row">

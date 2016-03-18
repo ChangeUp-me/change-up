@@ -2,7 +2,9 @@ CHECKOUT = (function () {
 
 	function checkout (shipping, billing, stripeToken, email, cart) {
 		try{
-			this.stripeApiKey = "sk_test_ktIiEvAZc1rW3e1Q4clVi0OC"//Meteor.settings.private.stripe.apiKey;
+			this.stripeApiKey = "sk_live_rNjG94LGyl52oDz7ZMTCSilq"//Meteor.settings.private.stripe.apiKey;
+			// // Test
+			// this.stripeApiKey = "sk_test_Q9FAVkLWaoB0eWjSBKm9XL9Y"
 			this.baseUrl = "http://www.changeup.me";
 			//this.mailchimp = new Mailchimp("59d589bd95de09e03eef8b665f52fa7c-us13");
 
@@ -182,7 +184,7 @@ checkout.prototype._getOrder = function () {
 	products.forEach(function(product) {
 		self.order[product._id] = _.extend(self.order[product._id], {
 			price : product.price,
-			shippingPrice : product.shippingPrice,
+			shippingPrice : Vendors.findOne({"_id":product.vendorId}).shippingPrice,
 			vendorId : product.vendorId,
 			image : product.image,
 			productId : product._id,

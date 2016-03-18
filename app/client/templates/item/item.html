@@ -62,6 +62,7 @@
 							<input type="number" min="1" id="quantity" placeholder="1">
 						</div>
 					</div>
+					{{#if fixingVendorsSize}}
 					{{#unless product.oneSize}}
 					<div class="col-xs-12">
 						<label class="col-sm-6 col-md-12">Select a size</label>
@@ -76,10 +77,14 @@
 						</ul>
 					</div>
 					{{/unless}}
+					{{/if}}
 				</div>
 
 				<div class="buttons col-xs-12">
 					<button class="button blue add-to-cart-btn" type="submit">Add to cart</button>
+					{{#with product}}
+					<div class="charitable-percent">Charitable Percentage : {{percentToCharity}}%</div>
+					{{/with}}
 				</div>
 			</div>
 		</div>

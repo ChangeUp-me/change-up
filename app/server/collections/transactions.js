@@ -5,12 +5,15 @@ Meteor.methods({
 	updateTransaction : function update_transactions (transactionId, transactionObj) {
 		Transactions.update({_id : transactionId, userId : this.userId}, {$set : transactionObj})
 	},
-	fulfillOrder : function fulfill_order (itemIds) {
-		Transactions.update({
-			'order.orderId' : {$in : itemIds}
-		}, {
-			$set : {'order.$.fulfilled' : true}
-		});
+	fulfillOrder : function fulfill_order (transaction, itemIds) {
+		for (var i = 0; i < itemIds.length; i++) {
+			Transactions.update({
+				'_id' : transaction,
+				'order.orderId' : itemIds[i]
+			}, {
+				$set : {'order.$.fulfilled' : true}
+			});
+		}
 
 		var transaction = Transactions.findOne({'order.orderId': itemIds[0]});
 		var vendor = Vendors.findOne({userId : Meteor.userId()});
@@ -41,7 +44,7 @@ Meteor.methods({
 			Meteor.setTimeout(function () {
 				Email.send({
 					to : transaction.email,
-					from : 'terrell.changeup@gmail.com',
+					from : 'hello@changeup.me',
 					subject : 'your order has been shipped!',
 					text : body
 				})
@@ -57,7 +60,7 @@ Meteor.publish('transaction', function publish_transaction (transactionId) {
 });
 
 Meteor.publish('userTransactions', function publish_transactions () {
-	return Transactions.find({userId : this.userId})	
+	return Transactions.find({userId : this.userId})
 });
 
 Meteor.publish('vendorTransactions', function vendor_transactions () {
@@ -73,6 +76,6 @@ Meteor.publish('allTransactions', function all_transactions () {
 	if(isAdmin) {
 		return Transactions.find({});
 	} else {
-		return Transactions.find({userId : this.userId})	
+		return Transactions.find({userId : this.userId})
 	}
 });

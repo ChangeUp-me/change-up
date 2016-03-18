@@ -23,7 +23,7 @@ Template.Item.events({
 		var selectedSize;
 
 		var quantity = template.find('#quantity').value;
-		var charity = template.find('#charities').value;
+		var charity = template.find('#charities-select').value;
 		for (var i = 0; i < this.product.sizes.length; i++) {
 			if ($("#size"+this.product.sizes[i]).data('value') === "selected"){
 				selectedSize = this.product.sizes[i];
@@ -42,9 +42,9 @@ Template.Item.events({
 			sAlert.error('select a quantity more than 1');
 		} else if (isNaN(cartItem.quantity)) {
 			sAlert.error('select a quantity');
-		} else if (cartItem.size === undefined && !template.data.product.oneSize) {
+		} else if (this.product.sizes.length !== 0 && cartItem.size === undefined && !template.data.product.oneSize) {
 			sAlert.error('select a size');
-    }  else {
+		}  else {
 			CART.addItem(cartItem);
 		}
 	}
@@ -54,8 +54,20 @@ Template.Item.events({
 /* Item: Helpers */
 /*****************************************************************************/
 Template.Item.helpers({
+	fixingVendorsSize : function () {
+		if (this.product.sizes.length === 0) {
+			return false;
+		} else {
+			return true;
+		}
+	},
 	charities : function () {
-		return this.charities;
+		if (this.charities.length === 0) {
+			var charities = Charities.find({},{limit:3}).fetch();
+			return charities;
+		} else {
+			return this.charities;
+		}
 	},
 	sizes: function(){
 		return this.product.sizes;

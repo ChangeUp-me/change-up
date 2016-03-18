@@ -1,8 +1,8 @@
 // Meteor.startup(function() {
 //
-//     StripeAPI.setPublishableKey('pk_test_CPKPACN0ZoxV1mvNjjnvVnvQ');
+//     StripeAPI.setPublishableKey('pk_live_PXAxfFGFaAhNLCcXcNkTzXwQ');
 //     var handler = StripeCheckout.configure({
-// 		key: 'pk_test_CPKPACN0ZoxV1mvNjjnvVnvQ',
+// 		key: 'pk_live_PXAxfFGFaAhNLCcXcNkTzXwQ',
 // 		token: function(token) {}
 // 	});
 // });

@@ -10,24 +10,34 @@ Template.VendorOrders.events({
 
 
 Template.VendorOrders.helpers({
-	myOrders : function () {
-		return Transactions.find().fetch();
-	},
-	settings: function () {
+	vendorOrderSettings: function () {
 		return {
 			collection: Transactions,
 			rowsPerPage: 10,
 			showFilter: true,
 			fields: [
 				{
-					key: 'order.0.fulfilled',
+					key: 'order',
 					label: 'Fulfilled',
 					sortOrder: 0,
 					sortDirection: 'descending',
 					fn: function (value) {
-						if (value === false) {
+						var tOF = true;
+						var falseVal = 0;
+
+						for (var i = 0; i < value.length; i++) {
+							if (value[i].fulfilled === false) {
+								falseVal ++;
+							}
+						}
+
+						if (falseVal > 0) {
+							tOF = false;
+						}
+
+						if (tOF === false) {
 							return new Spacebars.SafeString("<button class=\"button orange\">Not Fulfilled</button>");
-						} else if (value === true) {
+						} else if (tOF === true) {
 							return new Spacebars.SafeString("<button class=\"button lightgray\">Fulfilled</button>");
 						}
 					}
@@ -49,10 +59,22 @@ Template.VendorOrders.helpers({
 						return new Spacebars.SafeString(value);
 					}
 				}, {
-					key: 'price',
+					key: 'order',
 					label: 'Total',
 					fn: function (value) {
-						return new Spacebars.SafeString("$"+value);
+						var total = 0;
+						try {
+							for (var i = 0; 0 < value.length; i++) {
+								total += ((value[i].price)*(value[i].quantity));
+							}
+						} catch (e) {
+
+						}
+
+						if (value[0].shippingPrice){
+							total += Number(value[0].shippingPrice);
+						}
+						return new Spacebars.SafeString("$"+total);
 					}
 				}, {
 					key: '_id',
@@ -84,20 +106,29 @@ Template.VendorOrders.helpers({
 
 		return unfulfilledItems.length > 0 ? false : true;
 	},
-	count : function() {
-		var incomplete = 0;
-		var transactions = this.transactions || [];
+	openOrders : function() {
+		try {
+			var transactions = this.transactions;
+			var open = 0;
 
-		transactions.forEach(function(t) {
-			t.order.forEach(function (item) {
-				if(item.fulfilled == false) {
-					incomplete++;
+			for (var i = 0; i < transactions.length; i++) {
+				value = transactions[i].order;
+				var falseVal = 0;
+
+				for (var x = 0; x < value.length; x++) {
+					if (value[x].fulfilled === false) {
+						falseVal ++;
+					}
 				}
-			});
-		});
 
-		return incomplete;
-		//return Transactions.find({$and: [{'order.vendorId': Meteor.user().profile.vendorId},{'order.fulfilled':false}]}).count();
+				if (falseVal > 0) {
+					open++;
+				}
+			}
+			return open;
+		} catch (e) {
+
+		}
 	}
 });
 

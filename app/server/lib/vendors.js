@@ -52,14 +52,15 @@ makePurchase = function (cart) {
     var existingCharity = -1;
     var itemPrice = (cart[i].price*cart[i].quantity);
 
-    // check if vendor is already in vendorPayout array
+    // check if charity is already in charityPayout array
     for (var x = 0; x < charityPayout.length; x++) {
       if (charityPayout[x].charityId === cart[i].charityId) {
         existingCharity = x;
       }
     }
 
-    // if vendor isnt in transaction info put him there
+
+    // if charity isnt in transaction info put him there
     if (existingCharity === -1) {
       charityPayout.push({
         'charityId' : cart[i].charityId,
@@ -69,8 +70,8 @@ makePurchase = function (cart) {
         'weekEnd' : weekEnd
       });
     } else {
-      // if vendor is in transaction info update what they've sold
-      charityPayout[existingVendor].charityDonation += roundToTwo((itemPrice/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity));
+      // if charity is in transaction info update what they've sold
+      charityPayout[existingCharity].charityDonation += roundToTwo((itemPrice/100)*(Products.findOne({_id: cart[i].productId}).percentToCharity));
     }
 
   }

@@ -22,7 +22,7 @@ Router.route('about', {
   controller: 'AboutController',
   where: 'client'
 });
-// 
+//
 // Router.route('news', {
 //   name: 'news',
 //   controller: 'NewsController',
@@ -174,10 +174,10 @@ Router.route('contact', {
   where: 'client'
 });
 
-// Router.route('vendors', {
-//   name: 'vendorsList',
-//   where: 'client'
-// });
+Router.route('vendors', {
+  name: 'vendorsList',
+  where: 'client'
+});
 
 Router.route('vendors/:vendorId', {
   name: 'vendor',
@@ -185,7 +185,6 @@ Router.route('vendors/:vendorId', {
   where: 'client',
   onAfterAction:function(){
     var vendor = this.data();
-    console.log(vendor);
     if (!Meteor.isClient) {
       return;
     }

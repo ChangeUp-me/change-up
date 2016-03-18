@@ -14,7 +14,6 @@ Template.registerHelper('featuredTime', function (date) {
 
   var hours = moment(then).diff(now, 'hours');
   var minutes =  moment(then).diff(now, 'minutes');
-
   return hours + 'h ' + (minutes - (60 * hours)) + 'm';
 })
 

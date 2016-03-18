@@ -4,15 +4,16 @@
 		<h2>{{#if _id}}Edit Product{{else}}Add <a href=""></a> Product{{/if}}</h2>
 	</section>
 
-	<div id="add-product" class="page animated zoomIn">
+	<div id="add-product" class="page">
 		<form id="{{#if _id}}updateProduct{{else}}addProduct{{/if}}" novalidate>
 			<div id="image-upload-window">
 				<input id="imageUpload" name="image" type="file" class="overlay">
+				<div id="crophere"></div>
 				{{#if image}}
 				<img id="targetImage" src="{{image.url}}">
 				{{else}}
 				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
-				<h4>Upload Product Image</h4>
+				<h4 id="uploadtext">Upload Product Image</h4>
 				{{/if}}
 				<div id="uploadProgress"></div>
 			</div>

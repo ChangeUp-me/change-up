@@ -1,4 +1,4 @@
-(function ($, window, document, undefined) {
+changeUpUpload = (function ($, window, document, undefined) {
 	"use strict";
 
 	/**
@@ -9,7 +9,8 @@
 	var pluginName = 'changeUpUpload';
 	var defaults = {};
 
-	function Plugin (element, options) {
+	function Plugin (element, options, instanceCreatedByPlugin) {
+		options = options || {};
 		this.element = element;
 		this.settings = $.extend( {}, defaults, options );
 		this._defaults = defaults;
@@ -17,8 +18,6 @@
 
 		this.progressBar = this.settings.progressBar;
 		this.targetImage = this.settings.targetImage;
-
-		this.progressId = this.progressBar.replace(/#/g, "") + "_prog";
 
 		if(!this.progressBar) {
 			throw new Error('no progressbar given');
@@ -28,24 +27,44 @@
 			throw new Error('no targetimage given');
 		}
 
+		this.progressId = this.progressBar.replace(/#/g, "") + "_prog";
+
 		this.targetImage = $(this.targetImage);
 		this.progressBar = $(this.progressBar);
 
 		this.first = true;
 
-		this.init();
+		this._addUploadTracker();
+
+		if(instanceCreatedByPlugin) this.init();
 	}
 
 	$.extend(Plugin.prototype, {
 		init : function () {
 			//this.otherFunc();
 			var self = this;
-			self.progressBar.append(self._createProgressBar());
+
+			$(self.element).on('change', function () {
+				self._attemptUpload($(this)[0].files);
+			});
+		},
+		upload : function (files, callback) {
+			var self = this;
+			callback = callback || _.noop;
+
+			self._attemptUpload(files, callback);
+		},
+		_addUploadTracker : function () {
+			var self = this;
+			self.progressBar.html(self._createProgressBar());
 
 			Tracker.autorun(function (comp) {
 				var prog = S3.collection.find().fetch();
 				prog = prog.length > 0 ? prog[0].percent_uploaded : 0;
 
+				//if the input element is no longer in the document
+				//(probably because the route changed)
+				//than kill the tracker
 				if (!$.contains(document, self.element)) {
 				    comp.stop();
 				    return;
@@ -55,43 +74,46 @@
 					return self._hideProgressBar();
 				}
 
+				//if we have some progress show the progress bar
 				if(prog > 0) {
 					self._showProgressBar(prog);
 				} else {
 					self._hideProgressBar();
 				}
 			});
+		},
+		_attemptUpload : function (files, callback) {
+			var self = this;
+			Session.set('upload:current', self.progressId);
 
-			$(self.element).on('change', function attempt_upload(event) {
-				var files = $(this)[0].files;
-				Session.set('upload:current', self.progressId);
+			self._uploadImage(files, function (err, result) {
+				if(err) {
+					console.error('upload', err);
+					return sAlert.error('image failed to upload');
+				}
 
-				self._uploadImage(files, function (err, result) {
-					if(err) {
-						console.error('upload', err);
-						return sAlert.error('image failed to upload');
-					}
+				self.targetImage.attr('src', result.url);
+				
+				self._setImageSession({
+					id : result._id,
+					url : result.url
+				})
 
-					self.targetImage.attr('src', result.url);
+				self._hideProgressBar();
 
-					self._setImageSession({
-						id : result._id,
-						url : result.url
-					})
+				if(callback) callback();
 
-					self._hideProgressBar();
-
-					S3.collection.remove({});
-				});
+				S3.collection.remove({});
 			});
 		},
 		_showProgressBar : function (prog) {
 			//only show progress bar for element being uploaded
-			console.log('current', Session.get('upload:current'))
 			if(Session.get('upload:current') !== this.progressId)
 				return;
 
 			var bar = this.progressBar.find('.progress-bar');
+
+			console.log('found the bar', bar);
 			bar.css('width', prog + '%');
 			this.progressBar.show();
 		},
@@ -141,9 +163,10 @@
 	$.fn[pluginName] = function (options) {
 		return this.each(function () {
 			if(!$.data(this, "plugin_" + pluginName)) {
-				$.data(this, "plugin_" + pluginName, new Plugin(this, options));
+				$.data(this, "plugin_" + pluginName, new Plugin(this, options, true));
 			}
 		});
 	}
+	return Plugin;
 
 })(jQuery, window, document); 

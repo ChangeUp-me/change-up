@@ -2,11 +2,11 @@
   <div id="navbar" class="clearfix">
     <ul class="list-unstyled">
       <div class="col-sm-2 hidden-xs">
-        <a href="{{pathFor route='shop'}}"><img src="../../../navbar/logo2.svg" alt="ChangeUp Logo"></a>
+        <a href="{{pathFor route='shop'}}"><img src="../../../navbar/logo_secondary.svg" alt="ChangeUp Logo"></a>
       </div>
       <div class="col-sm-10">
         <li><a href="{{pathFor route='shop'}}#featured"><img src="../../../navbar/featured.svg" class="hidden-sm hidden-md hidden-lg" alt="Featured">Featured</a></li>
-        <!-- <li><a href="{{pathFor route='vendorsList'}}"><img src="../../../navbar/shop.svg" class="hidden-sm hidden-md hidden-lg" alt="Vendors">Vendors</a></li> -->
+        <li><a href="{{pathFor route='vendorsList'}}"><img src="../../../navbar/shop.svg" class="hidden-sm hidden-md hidden-lg" alt="Vendors">Vendors</a></li>
         <li><a href="{{pathFor route='charities'}}"><img src="../../../navbar/charities.svg" class="hidden-sm hidden-md hidden-lg" alt="Charities">Charities</a></li>
         <li><a href="{{pathFor route='about'}}"><img src="../../../navbar/aboutus.svg" class="hidden-sm hidden-md hidden-lg" alt="About Us">About Us</a></li>
         <li><a href="{{pathFor route='news'}}"><img src="../../../navbar/news.svg" class="hidden-sm hidden-md hidden-lg" alt="News">News</a></li>
@@ -23,8 +23,10 @@
               <li><a href="{{pathFor route='vendorProfile'}}"><img src="../../../navbar/shop.svg" alt="Profile">Store Profile</a></li>
               <li><a href="{{pathFor route='vendorOrders'}}"><img src="../../../navbar/orders.svg" alt="Orders">Orders</a></li>
               <li><a href="{{pathFor route='vendorStatements'}}"><img src="../../../navbar/statements.svg" alt="Statements">Statements</a></li>
+              {{ #if storeMade }}
               <li><a href="{{pathFor route='vendorProducts'}}"><img src="../../../navbar/my_products.svg" alt="My Products">My Products</a></li>
               <li><a href="{{pathFor route='addProduct'}}"><img src="../../../navbar/add_product.svg" alt="Add Product">Add Product</a></li>
+              {{ /if }}
               <li id="logout"><a href="#"><img src="../../../navbar/logout.svg" alt="Logout">Log Out</a></li>
             </ul>
           </div>
@@ -56,8 +58,10 @@
       <li><a href="{{pathFor route='vendorProfile'}}"><img src="../../../navbar/shop.svg" alt="Profile">Store Profile</a></li>
       <li><a href="{{pathFor route='vendorOrders'}}"><img src="../../../navbar/orders.svg" alt="Orders">Orders</a></li>
       <li><a href="{{pathFor route='vendorStatements'}}"><img src="../../../navbar/statements.svg" alt="Statements">Statements</a></li>
+      {{ #if storeMade }}
       <li><a href="{{pathFor route='vendorProducts'}}"><img src="../../../navbar/my_products.svg" alt="My Products">My Products</a></li>
       <li><a href="{{pathFor route='addProduct'}}"><img src="../../../navbar/add_product.svg" alt="Add Product">Add Product</a></li>
+      {{ /if }}
     </ul>
     {{ /if }}
     {{#if isAdmin}}
