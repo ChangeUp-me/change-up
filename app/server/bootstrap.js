@@ -29,5 +29,5 @@ S3.config = {
 	key: 'AKIAIT4YEBGC7OQX2C5A',
 	secret: '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',
 	bucket: 'change-up',
-	region : 'us-west-2'
+	// region : 'us-west-2'
 };
