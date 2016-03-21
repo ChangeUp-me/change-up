@@ -15,6 +15,42 @@
 		</div>
 	</div>
 
+	<!-- signup modal -->
+	<div class="modal fade" id="signupmodal" role="document">
+		<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+    		<div class="modal-body">
+        	<div id="registerpopup">
+						<div>
+							<h4>Join Changeup</h4>
+							<a data-click-facebookregister id="facebook" class="button facebook">Signup with Facebook</a>
+
+							<div class="or-bar">
+								<span class="ob-line"></span>
+								<span class="ob-center">OR</span>
+								<span class="ob-line"></span>
+							</div>
+
+							<form data-submit-emailregister id="register_form" novalidate>
+								<input type="text" placeholder="Name" name="name" required>
+								<input type="email" placeholder="Email" name="email" required>
+								<input type="password" placeholder="Password" name="password" required>
+								<input type="password" placeholder="Confirm password" name="passwordConfirm" required>
+								<div class="check">
+									<input type="checkbox" name="stay" value="stay">
+									<label for="stay">Stay logged in</label>
+								</div>
+								<button type="submit" class="button orange">Register</button>
+							</form>
+
+							<p><a href="{{pathFor route='login'}}">Already have an account? Sign in.</a></p>
+						</div>
+					</div>
+      	</div>
+    	</div>
+    </div>
+	</div>
+
 	<!-- Modals -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">

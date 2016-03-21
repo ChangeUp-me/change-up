@@ -9,3 +9,11 @@ Template.MasterLayout.events({
 		}
 	}
 });
+
+
+Template.MasterLayout.onRendered(function () {
+	Meteor.setTimeout(function () {
+		console.log('doing this')
+		$('#signupmodal').modal('show');
+	},3000)
+})
