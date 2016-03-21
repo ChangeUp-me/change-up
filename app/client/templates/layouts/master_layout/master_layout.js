@@ -12,8 +12,12 @@ Template.MasterLayout.events({
 
 
 Template.MasterLayout.onRendered(function () {
-	Meteor.setTimeout(function () {
-		console.log('doing this')
-		$('#signupmodal').modal('show');
-	},3000)
+	//show popup to a user X seconds after they first land on the site
+	if(!Meteor.user() && !Cookie.get('signup_popup')) {
+		Cookie.set('signup_popup', 'popped')
+
+		Meteor.setTimeout(function () {
+			$('#signupmodal').modal('show');
+		},7000);
+	}
 })
