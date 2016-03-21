@@ -293,10 +293,10 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 	}
 }
 
-checkout.prototype._refundCustomer = function (stripeCharge) {
+checkout.prototype._refundCustomer = function (stripeCharge, callback) {
 	if(!stripeCharge) return console.error('no charge object given to refund');
 
-	this.stripe.charges.refund(stripeCharge.id);
+	this.stripe.charges.refund(stripeCharge.id, Meteor.bindEnvironment(callback));
 };
 
 checkout.prototype._createStripeCharge = function (customerId, callback) {

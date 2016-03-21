@@ -2,6 +2,20 @@
 /* Fulfillment: Event Handlers */
 /*****************************************************************************/
 Template.Fulfillment.events({
+	"click [data-click-cancel]" : function (event) {
+		var ids = _.pluck(this.order, 'orderId');
+
+		Meteor.call('cancelOrder', this._id, ids, function (err) {
+			if(err) {
+				console.error(err);
+				return sAlert.error('order could not be cancelled');
+			}
+			Meteor.setTimeout(function () {
+				Router.go('vendorOrders');
+			},1000)
+			sAlert.success('order cancelled');
+		})
+	},
 	"click [data-click-fulfill]" : function (event) {
 		var ids = _.pluck(this.order, 'orderId');
 

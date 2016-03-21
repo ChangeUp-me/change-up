@@ -28,7 +28,8 @@ Template.VendorStatements.helpers({
             var vendorShipping = transaction.vendorShipping;
             var vendorProfit = transaction.vendorProfit;
             var sales = Number(stripeFee)+Number(changeUpFee)+Number(charityDonation)+Number(vendorShipping)+Number(vendorProfit);
-            return new Spacebars.SafeString("$"+sales);
+            console.log('the value', new Spacebars.SafeString("$"+(sales || 0)));
+            return new Spacebars.SafeString("$"+(sales || 0));
           }
         }, {
           key: '_id',
