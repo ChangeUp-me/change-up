@@ -27,6 +27,9 @@ Template.MasterLayout.events({
 					return sAlert.error('we could not log you in');
 				}
 
+				$('#signupmodal').modal('hide');
+				sAlert.success("you've been signed up!");
+
 				Router.go('shop');
 			})
 		});
@@ -45,6 +48,9 @@ Template.MasterLayout.events({
       	console.error(err);
        return sAlert.error(err);
       }
+
+      $('#signupmodal').modal('hide');
+			sAlert.success("you've been signed up!");
 
       Router.go('shop')
     });
