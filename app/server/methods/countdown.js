@@ -42,7 +42,7 @@ Meteor.startup(function () {
 
         // 6 Random Items From 6 Random Vendors
         console.log("Updating Featured Products");
-        // FeaturedProducts.update({}, {$set: {'current': false}}, {multi: true}); //update all items in collection to not be current day
+        FeaturedProducts.update({}, {$set: {'current': false}}, {multi: true}); //update all items in collection to not be current day
         FeaturedProducts.remove({});
         var possibleVendorList = Vendors.find().fetch(); //get all vendors in store
         possibleVendorList = shuffle(possibleVendorList);

@@ -22,16 +22,17 @@
 	/*****************************************************************************/
 	Template.ProductOptions.helpers({
 		charities: function(){
-			try {
-				var charitiesId = Vendors.findOne({'_id':(this.vendorId)}).charities;
+			var charitiesId = Vendors.findOne({'_id':(this.vendorId)}).charities;
+			if (charitiesId.length !== 0){
 				var charitiesObj = Charities.find({_id:{ $in: charitiesId}}).fetch();
 				var charities= [];
 				for (var i = 0; i < charitiesObj.length; i++) {
 					charities.push({"id":charitiesObj[i]._id, "name": charitiesObj[i].name});
 				}
 				return charities;
-			} catch (e) {
-
+			} else {
+				var charities = Charities.find({},{limit:3}).fetch();
+				return charities;
 			}
 		},
 		sizes: function(){
