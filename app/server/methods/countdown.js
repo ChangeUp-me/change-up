@@ -42,8 +42,8 @@ Meteor.startup(function () {
 
         // 6 Random Items From 6 Random Vendors
         console.log("Updating Featured Products");
-        FeaturedProducts.update({}, {$set: {'current': false}}, {multi: true}); //update all items in collection to not be current day
-
+        // FeaturedProducts.update({}, {$set: {'current': false}}, {multi: true}); //update all items in collection to not be current day
+        FeaturedProducts.remove({});
         var possibleVendorList = Vendors.find().fetch(); //get all vendors in store
         possibleVendorList = shuffle(possibleVendorList);
         var arrayOfObjects = [];
@@ -100,7 +100,8 @@ Meteor.startup(function () {
     }
   }
   // Check to update featured products on a hourly basis
-  Meteor.setInterval(updateFeaturedProducts, 3600000);
+  // Meteor.setInterval(updateFeaturedProducts, 3600000);
+  Meteor.setInterval(updateFeaturedProducts, 3600);
 });
 
 function shuffle(array) {
