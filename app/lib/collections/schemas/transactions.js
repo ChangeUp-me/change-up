@@ -76,6 +76,9 @@
 					}
 				}
 			},
+			charityId : {
+				type : String
+			},
 			fulfilled : {
 				type : Boolean,
 				defaultValue : false

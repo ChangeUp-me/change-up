@@ -22,6 +22,8 @@ Template.vendorsList.events({
 
     if (cartItem.size === undefined){
       sAlert.error('select a size');
+    } else if(!cartItem.charityId){
+        sAlert.error('select a charity');
     } else if (cartItem.quantity < 1) {
       sAlert.error('select a quantity more than 1');
     } else if (isNaN(cartItem.quantity)) {

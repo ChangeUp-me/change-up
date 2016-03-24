@@ -17,6 +17,7 @@ autoupdate@1.2.4
 babel-compiler@5.8.24_1
 babel-runtime@0.1.4
 base64@1.0.4
+benmgreene:moment-range@2.10.6
 binary-heap@1.0.4
 blaze@2.1.3
 blaze-html-templates@1.0.1
@@ -78,6 +79,8 @@ mdg:validation-error@0.4.0
 meteor@1.1.10
 meteor-base@1.0.1
 meteor-platform@1.2.3
+meteorhacks:aggregate@1.3.0
+meteorhacks:collection-utils@1.2.0
 meteorhacks:inject-initial@1.0.3
 minifiers@1.1.7
 minimongo@1.0.10
@@ -86,6 +89,7 @@ mobile-status-bar@1.0.6
 momentjs:moment@2.11.2
 mongo@1.1.3
 mongo-id@1.0.1
+mongo-livedata@1.0.9
 mrgalaxy:stripe@2.2.2
 mrt:moment@2.8.1
 natestrauser:animate-css@3.5.1

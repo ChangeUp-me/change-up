@@ -40,6 +40,8 @@ Template.Item.events({
 
 		if (cartItem.quantity < 1) {
 			sAlert.error('select a quantity more than 1');
+		} else if(!cartItem.charityId) {
+			sAlert.error('select a charity');
 		} else if (isNaN(cartItem.quantity)) {
 			sAlert.error('select a quantity');
 		} else if (this.product.sizes.length !== 0 && cartItem.size === undefined && !template.data.product.oneSize) {
