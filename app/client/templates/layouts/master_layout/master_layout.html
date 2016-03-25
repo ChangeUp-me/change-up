@@ -15,6 +15,36 @@
 		</div>
 	</div>
 
+	<!-- signup popup modal -->
+	<div class="modal fade" id="signupmodal" role="document">
+		<div class="modal-dialog" role="document">
+    	<div class="modal-content">
+    		<div class="modal-body">
+    			<img src="/images/logo.svg" alt="ChangeUp" class="floating-logo">
+        	<div id="registerpopup">
+        		<a href="{{pathFor route='login'}}" class="button blue login" >Log In</a>
+						<div>
+							<a data-click-facebookregister id="facebook" class="button facebook">Continue with Facebook</a>
+
+							<div class="or-bar">
+								<span class="ob-line"></span>
+								<span class="ob-center">OR</span>
+								<span class="ob-line"></span>
+							</div>
+
+							<form data-submit-emailregister id="register_form" novalidate>
+								<input type="text" placeholder="Name" name="name" required>
+								<input type="email" placeholder="Email" name="email" required>
+								<input type="password" placeholder="Password" name="password" required>
+								<button type="submit" class="button orange">Sign Up</button>
+							</form>
+						</div>
+					</div>
+      	</div>
+    	</div>
+    </div>
+	</div>
+
 	<!-- Modals -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">

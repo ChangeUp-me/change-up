@@ -65,7 +65,7 @@ TransfersController = RouteController.extend({
         c = cs[t.charityId];
         v = vd[item.vendorId];
         return _.extend(item, _.pick(t, 'currency','timestamp'), {
-          charityName : c.name,
+          charityName : charities.name,
           storeName : v.storeName
         })
       });

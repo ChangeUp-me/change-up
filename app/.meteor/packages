@@ -57,6 +57,9 @@ natestrauser:animate-css
 aslagle:reactive-table
 jonblum:jquery-cropper
 wylio:mandrill
-http
 spiderable
 gpandey:easyblog
+meteorhacks:aggregate
+benmgreene:moment-range
+momentjs:moment
+percolate:synced-cron

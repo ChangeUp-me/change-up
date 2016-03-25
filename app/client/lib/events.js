@@ -1,7 +1,60 @@
 Template.MasterLayout.events({
 	/**
-	* Like/unlike a product
+	* register a user through email
 	*/
+	'submit [data-submit-emailregister]' : function email_register (event) {
+		event.preventDefault();
+
+		var form = event.target;
+		var password = form.password.value;
+		var email = form.email.value;
+
+		Meteor.call('insertUser',{
+			email : email,
+			password : password,
+			profile : {
+				name : form.name.value,
+				dateRegistered : Date.now()
+			}
+		}, function (err) {
+			if(err) {
+				console.error(err);
+				return sAlert.error("The Signup Failed");
+			}
+			Meteor.loginWithPassword(email, password, function (err) {
+				if(err) {
+					console.error(err);
+					return sAlert.error('we could not log you in');
+				}
+
+				$('#signupmodal').modal('hide');
+				sAlert.success("you've been signed up!");
+
+				Router.go('shop');
+			})
+		});
+	},
+	/**
+	* register a user through facebook
+	*/
+	'click [data-click-facebookregister]' : function facebook_register (event) {
+		event.preventDefault();
+
+		Meteor.loginWithFacebook({
+			requestPermissions : ['public_profile', 'email'],
+			loginStyle : 'popup'
+		}, function(err){
+      if (err) {
+      	console.error(err);
+       return sAlert.error(err);
+      }
+
+      $('#signupmodal').modal('hide');
+			sAlert.success("you've been signed up!");
+
+      Router.go('shop')
+    });
+	},
 	'click .like-button' : function toggle_like (event) {
 			var likeBtn = event.target;
 

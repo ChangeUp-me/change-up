@@ -9,3 +9,15 @@ Template.MasterLayout.events({
 		}
 	}
 });
+
+
+Template.MasterLayout.onRendered(function () {
+	//show popup to a user X seconds after they first land on the site
+	if(!Meteor.user() && !Cookie.get('signup_popup')) {
+		Cookie.set('signup_popup', 'popped')
+
+		Meteor.setTimeout(function () {
+			$('#signupmodal').modal('show');
+		},7000);
+	}
+})

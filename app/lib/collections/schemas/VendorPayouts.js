@@ -3,26 +3,30 @@ VendorPayouts.attachSchema(new SimpleSchema({
     type : String,
     optional : false
   },
-  vendorName : {
+  /*vendorName : {
     type : String,
-    optional : false
-  },
+    optional : true
+  },*/
   vendorProfit : {
     type : String,
     optional : false
   },
-  vendorShipping : {
+  /*vendorShipping : {
+    type : String,
+    optional : true
+  },*/
+  processingFees : {
     type : String,
     optional : false
   },
-  stripeFee : {
+  /*stripeFee : {
     type : String,
     optional : false
   },
   changeUpFee : {
     type : String,
     optional : false
-  },
+  },*/
   charityDonation : {
     type : String,
     optional : false

@@ -5,7 +5,7 @@ CharityPayouts.attachSchema(new SimpleSchema({
   },
   charityName : {
     type : String,
-    optional : false
+    optional : true
   },
   charityDonation : {
     type : String,

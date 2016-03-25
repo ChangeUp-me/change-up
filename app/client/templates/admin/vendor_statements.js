@@ -22,23 +22,19 @@ Template.VendorStatements.helpers({
           label: 'Week\'s Sales',
           fn: function (value) {
             var transaction = VendorPayouts.findOne({'_id':value});
-            var stripeFee = transaction.stripeFee;
-            var changeUpFee = transaction.changeUpFee;
+            var fees = transaction.processingFees;
             var charityDonation = transaction.charityDonation;
-            var vendorShipping = transaction.vendorShipping;
+            //var vendorShipping = transaction.vendorShipping;
             var vendorProfit = transaction.vendorProfit;
-            var sales = Number(stripeFee)+Number(changeUpFee)+Number(charityDonation)+Number(vendorShipping)+Number(vendorProfit);
-            console.log('the value', new Spacebars.SafeString("$"+(sales || 0)));
+            var sales = Number(fees)+Number(charityDonation)+Number(vendorProfit);
             return new Spacebars.SafeString("$"+(sales || 0));
           }
         }, {
           key: '_id',
           label: 'Payment Processing Fee',
           fn: function (value) {
-            var stripeFee = VendorPayouts.findOne({'_id':value}).stripeFee;
-            var changeUpFee = VendorPayouts.findOne({'_id':value}).changeUpFee;
-            var paymentFee = Number(stripeFee)+Number(changeUpFee);
-            return new Spacebars.SafeString("$"+paymentFee);
+            var fees = VendorPayouts.findOne({'_id':value}).processingFees;
+            return new Spacebars.SafeString("$"+fees);
           }
         }, {
           key: 'charityDonation',
@@ -46,13 +42,13 @@ Template.VendorStatements.helpers({
           fn: function (value) {
             return new Spacebars.SafeString("$"+value);
           }
-        }, {
+        }, /*{
           key: 'vendorShipping',
           label: 'Shipping Fee',
           fn: function (value) {
             return new Spacebars.SafeString("$"+value);
           }
-        }, {
+        },*/ {
           key: 'vendorProfit',
           label: 'Vendor Payout',
           fn: function (value) {
