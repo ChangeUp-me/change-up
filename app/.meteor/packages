@@ -52,10 +52,11 @@ orionjs:filesystem
 #vsivsi:orion-file-collection
 richsilv:owl-carousel
 manuelschoebel:ms-seo
-spiderable
 infinitedg:gsap
-gpandey:easyblog
 natestrauser:animate-css
 aslagle:reactive-table
 jonblum:jquery-cropper
 wylio:mandrill
+http
+spiderable
+gpandey:easyblog

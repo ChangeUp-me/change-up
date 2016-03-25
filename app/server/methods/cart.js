@@ -89,14 +89,14 @@
 	  	var Stripe = Meteor.settings.private.stripe.apiKey;;
 	  	var finalCharge = new Future();
 
-	  	Stripe.charges.create(charge, function (err, response) {
+			Stripe.charges.create(charge, function (err, response) {
 	  		if(err) {
 	  			console.error(err);
 	  			finalCharge.throw(new Meteor.Error('invalid-card-charge', "transaction failed"));
 	  		} else {
 	  			finalCharge.return(response);
 	  		}
-	  	})
+			});
 
 	  	return finalCharge.wait();
 	  },
@@ -142,7 +142,7 @@
 	    		body += br;
 
 	    		//add the product names and prices
-	    		_.each(checkout.order, function (item) {
+					_.each(checkout.order, function (item) {
 	    			body += item.productName + ' : $' + item.price + ' X' + item.quantity + br;
 	    		});
 
@@ -185,7 +185,7 @@
 	    				email : email,
 	    				name : billing.creditCardName,
 	    				type : "to"
-	    			}],	
+	    			}],
 	    		},
 	    		send_at : twoWeeks
 	    	}
