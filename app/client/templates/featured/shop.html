@@ -19,9 +19,9 @@
 					<div class="product-image">
 						<div class="product-timer">{{ featuredProductsTime }}</div>
 						{{#if userLiked}}
-						<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup.svg" alt="Like"></div>
+							<div class="like-button" data-productid="{{_id}}"><img src="/icons/changeup_like_action.svg" alt="Like"></div>
 						{{else}}
-						<div class="like-button" data-productid="{{_id}}"><img src="/icons/thumbsup_gray.svg" alt="Like"></div>
+							<div class="like-button" data-productid="{{_id}}"><img src="/icons/changeup_like_noaction.svg" alt="Like"></div>
 						{{/if}}
 
 						{{#if image}}
@@ -29,6 +29,12 @@
 						{{else}}
 						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
 						{{/if}}
+
+						<img src="icons/changeup_charity_ribbon.svg" class="charity-ribbon">
+						<div class="charitable-percent">
+							<h4>{{percentToCharity}}%</h4>
+							<small>Goes to charity</small>
+						</div>
 					</div>
 					<div class="product-name col-xs-8">
 						<h4><strong>{{name}}</strong></h4>
@@ -51,7 +57,6 @@
 						<div class="buttons col-xs-12">
 							<button type="submit" class="button blue add-to-cart-btn">Add to cart</button>
 							<a class="button clear gray" href="{{pathFor route='item' data=this}}">View details</a>
-							<div class="charitable-percent">Charitable Percentage : {{percentToCharity}}%</div>
 						</div>
 					</form>
 				</li>
