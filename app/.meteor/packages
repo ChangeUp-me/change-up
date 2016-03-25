@@ -62,3 +62,4 @@ wylio:mandrill
 meteorhacks:aggregate
 benmgreene:moment-range
 momentjs:moment
+percolate:synced-cron

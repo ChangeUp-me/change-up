@@ -1,3 +1,18 @@
+//construct the charity statements
+//and vendor statements
+//every 2 days
+SyncedCron.add({
+	name : "construct vendor and charity statements",
+	schedule : function (parser) {
+		return parser.text('every 2 days');
+	},
+	job : function () {
+		buildCharityStatements();
+		buildVendorStatements();
+	}
+});
+
+
 Meteor.startup(function () {
 	//smtp
 	process.env.MAIL_URL = "smtp://terrell.changeup@gmail.com:changeup1234@smtp.gmail.com:587";
@@ -22,6 +37,8 @@ Meteor.startup(function () {
 		}
 	}
 
+	SyncedCron.start();
+
 	// Add default charity
 	if (Charities.find().count() === 0) {
 		var charity = {
@@ -45,6 +62,35 @@ Meteor.startup(function () {
 		Charities.insert(charity);
 	}
 });
+
+function buildCharityStatements () {
+	var payments = new CHARITYPAYMENTS();
+	var charities = Charities.find({}).fetch();
+	var result = [];
+
+	_.each(charities, function (charity) {
+		Meteor.setTimeout(function () {
+			var statements = payments.getStatement(charity._id);
+			
+			payments.saveStatements(charity._id, statements);
+		})
+	})
+}
+
+function buildVendorStatements () {
+	var payments = new VENDORPAYMENTS();
+	var vendors = Vendors.find({}).fetch();
+	var result = [];
+
+	_.each(vendors, function (vendor) {
+		Meteor.setTimeout(function () {
+			var statements = payments.getStatement(vendor._id);
+			
+			payments.saveStatements(vendor._id, statements);
+		})
+	})
+}
+
 
 // Meteor.settings.private.stripe.apiKey = 'sk_live_rNjG94LGyl52oDz7ZMTCSilq';
 

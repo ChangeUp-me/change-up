@@ -353,6 +353,7 @@ checkout.prototype._findProductIds = function () {
 	_.each(this.cart, function(item) {
 		self.order[item.productId] = {
 			quantity: item.quantity,
+			charityId : item.charityId
 		};
 
 		if(item.size) {

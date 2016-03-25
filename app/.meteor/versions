@@ -121,6 +121,7 @@ orionjs:relationships@1.7.0
 orionjs:s3@1.7.0
 orionjs:summernote@1.7.0
 package-version-parser@3.0.4
+percolate:synced-cron@1.3.0
 practicalmeteor:chai@2.1.0_1
 practicalmeteor:loglevel@1.2.0_2
 promise@0.5.1
