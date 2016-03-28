@@ -13,8 +13,12 @@ Template.MasterLayout.events({
 
 Template.MasterLayout.onRendered(function () {
 	//show popup to a user X seconds after they first land on the site
-	if(Meteor.user() && Cookie.get('signup_popup')) {
+	if(!Meteor.user() && !Cookie.get('signup_popup')) {
 		Cookie.set('signup_popup', 'popped')
+
+		$('#popup_login').on('click', function () {
+			$('#signupmodal').modal('hide');
+		})
 
 		Meteor.setTimeout(function () {
 			$('#signupmodal').modal('show');
