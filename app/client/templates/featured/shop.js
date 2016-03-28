@@ -49,6 +49,9 @@
 	/* Shop: Helpers */
 	/*****************************************************************************/
 	Template.Shop.helpers({
+		tweet_ids : function () {
+			return Session.get('news_tweets')
+		},
 		products : function () {
 			try {
 				var fpIDs = FeaturedProducts.findOne().products;

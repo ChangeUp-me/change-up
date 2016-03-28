@@ -92,6 +92,7 @@ mongo-id@1.0.1
 mongo-livedata@1.0.9
 mrgalaxy:stripe@2.2.2
 mrt:moment@2.8.1
+mrt:twit@0.2.0
 natestrauser:animate-css@3.5.1
 nicolaslopezj:options@1.0.1
 nicolaslopezj:reactive-templates@1.2.1
