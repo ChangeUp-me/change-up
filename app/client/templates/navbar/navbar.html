@@ -5,11 +5,11 @@
         <a href="{{pathFor route='shop'}}"><img src="../../../navbar/logo_secondary.svg" alt="ChangeUp Logo"></a>
       </div>
       <div class="col-sm-10">
-        <li><a href="{{pathFor route='shop'}}#featured"><img src="../../../navbar/featured.svg" class="hidden-sm hidden-md hidden-lg" alt="Featured">Featured</a></li>
-        <li><a href="{{pathFor route='vendorsList'}}"><img src="../../../navbar/shop.svg" class="hidden-sm hidden-md hidden-lg" alt="Vendors">Vendors</a></li>
-        <li><a href="{{pathFor route='charities'}}"><img src="../../../navbar/charities.svg" class="hidden-sm hidden-md hidden-lg" alt="Charities">Charities</a></li>
-        <li><a href="{{pathFor route='about'}}"><img src="../../../navbar/aboutus.svg" class="hidden-sm hidden-md hidden-lg" alt="About Us">About Us</a></li>
-        <li><a href="{{pathFor route='news'}}"><img src="../../../navbar/news.svg" class="hidden-sm hidden-md hidden-lg" alt="News">News</a></li>
+        <li><a href="/#featured"><img src="../../../navbar/featured.svg" class="hidden-sm hidden-md hidden-lg" alt="Featured">Featured</a></li>
+        <li><a href="/vendors"><img src="../../../navbar/shop.svg" class="hidden-sm hidden-md hidden-lg" alt="Vendors">Vendors</a></li>
+        <li><a href="/charities"><img src="../../../navbar/charities.svg" class="hidden-sm hidden-md hidden-lg" alt="Charities">Charities</a></li>
+        <li><a href="/about"><img src="../../../navbar/aboutus.svg" class="hidden-sm hidden-md hidden-lg" alt="About Us">About Us</a></li>
+        <li><a href="/news"><img src="../../../navbar/news.svg" class="hidden-sm hidden-md hidden-lg" alt="News">News</a></li>
         {{#if isVendor}}
         <li class="dropdown">
           <div class="hidden-sm hidden-md hidden-lg">
@@ -34,7 +34,7 @@
         {{else}}
         <li>
           {{#if isGuest}}
-          <a href="{{pathFor route='login'}}"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span></a>
+          <a href="/login"><img src="../../../navbar/account.svg" alt="Account"><span class="hidden-sm hidden-md hidden-lg">Account</span></a>
           {{else}}
           <li class="dropdown">
             <div class="hidden-xs">
