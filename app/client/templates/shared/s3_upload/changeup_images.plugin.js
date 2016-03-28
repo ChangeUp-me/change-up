@@ -87,7 +87,7 @@ changeupCropper = (function($, window, document, undefined) {
       movable: true,
       zoomable: true,
       zoomOnTouch: false,
-      zoomOnWheel: false,
+      zoomOnWheel: true,
       autoCrop: true,
       minCanvasWidth: 298,
       minCanvasHeight: 219,
