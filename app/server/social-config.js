@@ -27,3 +27,10 @@ Mandrill.config({
   // host: 'smtp.mandrillapp.com',  // the SMTP host
   // baseUrl: 'https://mandrillapp.com/api/1.0/'  // update this in case Mandrill changes its API endpoint URL or version
 });
+
+Twit = new TwitMaker({
+    consumer_key:         "YwKomwgv4jhRstUdQiAq6eCY3"
+  , consumer_secret:      '9jyIsLgcApdeW4iHeO7g0HwIMZStDpK2IYtofuHUdXP5A48cno'
+  , access_token:         '2654569926-nlPmDCderq26uDxNLG2Ia1WU6aHVi9IoxlUvrzA'
+  , access_token_secret:  'YW4WqUesBKAeZVR84dVSSMpS3KQkphCeXi8Qm7eNlXeaF'
+});
