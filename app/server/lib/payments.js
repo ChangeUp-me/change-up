@@ -16,8 +16,28 @@ PAYMENTS = (function () {
 	}
 
 	/**
+	* transfer payment to the entity (vendors and charities)
+	*/
+	function sendPayment (payment, bankAccountId, recipientId, cardId) {
+		stripe.transfers.create({
+			amount : dollarsToCents(payment.payout),
+			currency : 'usd',
+			recipient : 'recipientId',
+			bank_account : 'bank_account_id',
+			//card_id : 'cardId',
+			statement_descriptor : 'payout for week ending :' + payment.weeks[1]
+		}, function (err, transer) {
+			if(err){
+				return console.error(err);
+			}
+
+
+		})
+	}
+
+	/**
 	* Reduce all the payments mapped by each individual
-	* child(charity/vendor) into one array with weekly
+	* entity(charity/vendor) into one array with weekly
 	* statements
 	*/
 	function reducePayments (payments) {
@@ -128,6 +148,16 @@ PAYMENTS = (function () {
 		return weeklyStatement;
 	}
 
+	function dollarsToCents (price) {
+		price = parseFloat(price).toFixed(2)
+		var sides = price.split('.');
+
+		var cents = 100 * parseInt(sides[0]);
+		cents = cents + parseInt(sides[1]);
+
+		return cents;
+	}
+
 	return payments;
 })();
 
@@ -208,6 +238,8 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 	*
 	* @return Array - an array containing gropus of charities
 	* with their payments to allocate
+	*
+	* @todo - every transaction in stripe takes 30 cents
 	*/
 	charityPayments.prototype._mapPayments = function () {
 		var pipeline = [

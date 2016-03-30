@@ -73,6 +73,8 @@ function buildCharityStatements () {
 			var statements = payments.getStatement(charity._id);
 			
 			payments.saveStatements(charity._id, statements);
+
+			console.log('charity statements', statements);
 		})
 	})
 }
@@ -87,6 +89,7 @@ function buildVendorStatements () {
 			var statements = payments.getStatement(vendor._id);
 			
 			payments.saveStatements(vendor._id, statements);
+			console.log('vendor statements', statements);
 		})
 	})
 }
