@@ -23,6 +23,7 @@
 	Template.ProductOptions.helpers({
 		charities: function(){
 			var charitiesId = Vendors.findOne({'_id':(this.vendorId)}).charities;
+			try{
 			if (charitiesId.length !== 0){
 				var charitiesObj = Charities.find({_id:{ $in: charitiesId}}).fetch();
 				var charities= [];
@@ -34,6 +35,7 @@
 				var charities = Charities.find({},{limit:3}).fetch();
 				return charities;
 			}
+		}catch(e){	}
 		},
 		sizes: function(){
 			return this.sizes;
