@@ -168,6 +168,12 @@ Router.route('changePassword', {
   where: 'client'
 });
 
+Router.route('legal', {
+  name: 'legal',
+  controller: 'LegalController',
+  where: 'client'
+});
+
 Router.route('contact', {
   name: 'contact',
   controller: 'ContactController',
