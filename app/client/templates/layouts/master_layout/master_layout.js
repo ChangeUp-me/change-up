@@ -49,6 +49,6 @@ Template.MasterLayout.onRendered(function () {
 
 		Meteor.setTimeout(function () {
 			$('#signupmodal').modal('show');
-		});
+		},30000);
 	}
 })
