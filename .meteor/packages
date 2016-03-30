@@ -65,4 +65,3 @@ momentjs:moment
 percolate:synced-cron
 mrt:twit
 miro:mailchimp
-force-ssl
