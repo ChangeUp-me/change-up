@@ -25,7 +25,7 @@
 						{{/if}}
 
 						{{#if image}}
-						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="{{image.url}}" alt=""></a>
+						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="{{https image.url}}" alt=""></a>
 						{{else}}
 						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
 						{{/if}}

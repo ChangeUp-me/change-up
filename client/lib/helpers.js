@@ -2,6 +2,15 @@ Template.registerHelper('formatDate', function(date) {
   return moment(date).format('MM-DD-YYYY');
 });
 
+Template.registerHelper('https', function(website) {
+  if (website.substring(0,5) !== "https") {
+    return "https"+website.substring(4);
+  } else {
+    return website;
+  }
+
+});
+
 Template.registerHelper('pageTitle', function () {
   return this.pageTitle || Router.current().route.getName();
 })

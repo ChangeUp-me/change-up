@@ -18,7 +18,7 @@
 				{{#each order}}
 				<div class="item col-xs-12">
 					<div class="portrait col-xs-6 col-sm-2">
-						<img src="{{image.url}}" alt="Item">
+						<img src="{{https image.url}}" alt="Item">
 					</div>
 					<div class="details col-xs-6">
 						<strong>{{this.productName}}</strong>
@@ -110,85 +110,4 @@
 			</div>
 		</div>
 	</div>
-
-	<!--
-	<div id="fulfillment">
-	<div class="inventory page">
-	<div id="items">
-	{{#each order}}
-	<div class="item col-xs-12">
-	<div class="portrait col-xs-5">
-	<img src="{{image.url}}" alt="Item">
-</div>
-<div class="details col-xs-7">
-<strong>{{productName}}</strong>
-<div><small></small></div>
-
-<h4>&#36;{{price}}</h4>
-<div><small>x{{quantity}} {{#if size}}| {{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
-</div>
-</div>
-{{/each}}
-</div>
-</div>
-
-<div class="queue-item page">
-<div class="col-xs-6">
-<div><strong><small>{{billing.creditCardName}}</small></strong></div>
-<div><small>Customer</small></div>
-</div>
-<div class="col-xs-6">
-<div><strong><small>{{formatDate timestamp}}</small></strong></div>
-<div><small>Date placed</small></div>
-</div>
-<div class="col-xs-6">
-<div><strong><small>{{#if isFulfilled}}Fulfilled {{else}} Not Fulfilled{{/if}}</small></strong></div>
-<div><small>Order status</small></div>
-</div>
-<div class="col-xs-6">
-<div><strong><small>Processed</small></strong></div>
-<div><small>Payment status</small></div>
-</div>
-{{#with totals}}
-<div class="subtotal">
-<div class="col-xs-6">
-<div>Subtotal</div>
-</div>
-<div class="col-xs-6 text-right">
-<div>${{subTotal}}</div>
-</div>
-<div class="col-xs-6">
-<div>Shipping</div>
-</div>
-<div class="col-xs-6 text-right">
-<div>${{shipping}}</div>
-</div>
-<div class="col-xs-6">
-<div>Tax</div>
-</div>
-<div class="col-xs-6 text-right">
-<div>${{tax}}</div>
-</div>
-</div>
-<div class="subtotal">
-<div class="col-xs-6">
-<div>Total</div>
-</div>
-<div class="col-xs-6 text-right">
-<div><strong>${{total}}</strong></div>
-</div>
-</div>
-{{/with}}
-</div>
-
-<section>
-{{#if isFulfilled}}
-<button class="button lightgray">Fulfilled</button>
-{{else}}
-<button class="button blue" data-click-fulfill>Fulfill order</button>
-{{/if}}
-<a class="button clear gray" href="">Email customer</a>
-</section>
-</div>
--->
 </template>

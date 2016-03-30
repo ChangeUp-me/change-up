@@ -117,7 +117,7 @@
 				</div>
 				<div class="tab-pane fade text-center" id="vendor-tab">
 					{{#if vendor.image}}
-					<img src="{{vendor.image.url}}" alt="Logo">
+					<img src="{{https vendor.image.url}}" alt="Logo">
 					{{/if}}
 
 					<h2>{{vendor.storeName}}</h2>
@@ -133,7 +133,7 @@
 							</div>
 							<div class="col-xs-4 text-right">
 								{{#if image}}
-								<img src="{{image.url}}" alt="Arc Logo">
+								<img src="{{https image.url}}" alt="Arc Logo">
 								{{/if}}
 							</div>
 							<div class="learn-more">

@@ -10,7 +10,7 @@
 				<input id="imageUpload" name="image" type="file" class="overlay">
 				<div id="crophere"></div>
 				{{#if image}}
-				<img id="targetImage" src="{{image.url}}">
+				<img id="targetImage" src="{{https image.url}}">
 				{{else}}
 				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
 				<h4 id="uploadtext">Upload Product Image</h4>
