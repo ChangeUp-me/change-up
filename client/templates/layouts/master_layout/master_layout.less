@@ -20,56 +20,54 @@
 
 #signupmodal{
 	#popup_close{
+		padding: 1rem 1.5rem;
 		cursor: pointer;
 		border-radius: 180px;
-		padding : 1rem 1.5rem;
 	}
 	.modal-dialog {
 		margin: 15vh auto;
 	}
 	.modal-body{
-		text-align: center;
-		background: url('/images/background-about-header.png') no-repeat center right;
-		background-size: cover;
 		position: relative;
 		padding-top: 5rem;
 		padding-bottom: 5rem;
-		h2{
+		text-align: center;
+		background: url('/images/background-about-header.png') no-repeat center right;
+		background-size: cover;
+		h2 {
 			max-width: 400px;
 			margin: 20px auto;
-			line-height:1.5em;
 			margin-bottom : 1.5rem;
+			line-height: 1.5em;
 		}
-		.button.login{
+		.button.login {
+			position: absolute;
+			top: 0;
+			right: 0;
+			width: auto;
+			margin: 1rem;
+			padding: 1rem 2rem;
 			color: white;
-	    background: #22addb;
-	    position: absolute;
-	    right: 0;
-	    width: auto;
-	    padding: 1rem 2rem;
-	    top: 0;
-	    margin: 1rem;
+			background: #22addb;
 		}
-		.or-bar{
+		.or-bar {
 			max-width: 372px;
 		}
-		img.floating-logo{
+		img.floating-logo {
+			width: 80px;
 			height: 100px;
-	    width: 80px;
-	    top: -50px;
-	    position: absolute;
-	    left: 44%;
-	    background-repeat: no-repeat;
+			margin-top: -130px;
+			background-repeat: no-repeat;
 		}
-		h4{
-			font-size: 2em;
+		h4 {
 			margin-bottom: 2rem;
+			font-size: 2em;
 		}	
-		form input{
+		form input {
+			max-width: 300px;
+			margin-bottom: 1.5rem;
+			padding: 1.5rem 1rem;
 			background-color: white;
-    	padding: 1.5rem 1rem;
-    	margin-bottom: 1.5rem;
-    	max-width: 300px;
 		}
 	}
 }
