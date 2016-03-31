@@ -41,6 +41,13 @@
 	p {
 		color: white;
 	}
+	a {
+		color: white;
+		text-decoration: underline;
+		&:hover, &:active, &:focus {
+			color: @silver;
+		}
+	}
 	.col-sm-6 {
 		padding: 0;
 	}
@@ -88,7 +95,7 @@
 }
 #about-next {
 	color: white;
-	background: url('images/mobile_whatsnext.png') no-repeat center center;
+	background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/background_whatsnext.png') no-repeat center center;
 	.fullscreen;
 	h2 {
 		color: white;
@@ -176,7 +183,6 @@
 	}
 	#about-next {
 		padding: 15vh 0;
-		background: url('images/desktop_whatsnext.png') no-repeat center center;
 		.fullscreen;
 		h2 {
 			font-size: 60px;
@@ -184,6 +190,14 @@
 		p {
 			margin: 40px auto;
 			font-size: 18px;
+		}
+	}
+}
+
+@media (min-width: 1250px) {
+	#about-why {
+		.col-sm-6 {
+			padding-left: 100px;
 		}
 	}
 }
