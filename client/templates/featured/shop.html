@@ -25,13 +25,13 @@
 						{{/if}}
 
 						{{#if image}}
-						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="{{https image.url}}" alt=""></a>
+						<a class="product-image-wrapper" href="{{pathFor route='item' data=this}}"><img src="{{https image.url}}" alt=""></a>
 						{{else}}
 						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
 						{{/if}}
 
-						<img src="icons/changeup_charity_ribbon.svg" class="charity-ribbon">
-						<div class="charitable-percent"><small>{{percentToCharity}}% of purchase goes to charity</small></div>
+						<!-- <img src="icons/changeup_charity_ribbon.svg" class="charity-ribbon">
+						<div class="charitable-percent"><small>{{percentToCharity}}% of purchase goes to charity</small></div> -->
 					</div>
 					<div class="product-name col-xs-8">
 						<h4><strong>{{name}}</strong></h4>

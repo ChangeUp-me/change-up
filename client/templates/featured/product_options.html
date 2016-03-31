@@ -3,7 +3,8 @@
 		<fieldset class="row">
 			<div class="col-xs-12">
 				<div class="col-xs-8">
-					<label>Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"></label><br>
+					<label><span class="percentage">{{percentToCharity}}%</span> will go to:
+					<!-- Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"> --></label><br>
 					<select id="charities{{../_id}}">
 						{{#each charities}}
 						<option value="{{this.id}}">{{this.name}}</option>

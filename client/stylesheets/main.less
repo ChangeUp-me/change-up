@@ -476,7 +476,7 @@ ul.nav.nav-tabs {
 	}
 	.product-image {
 		position: relative;
-		height: 219px;
+		height: 250px;
 		overflow: hidden;
 		.product-timer {
 			position: absolute;
@@ -892,6 +892,16 @@ input[type=range]:focus::-ms-fill-upper {
 
 select, input {
 	max-width: 100%;
+}
+
+@media (max-width: 768px) {
+	.product .product-image {
+		height: 100vw;
+		img {
+			height: 100%;
+			object-fit: cover;
+		}
+	}
 }
 
 @media (max-width: 900px) {
