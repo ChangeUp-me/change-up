@@ -25,14 +25,20 @@ Template.MasterLayout.events({
 			$('#signupmodal').modal('hide');
 		})
 	},
-  'click .toggle-cart' : function () {
+	'click .toggle-cart' : function () {
 		if ($('#site-wrapper').hasClass('show-cart')) {
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-cart');
 		} else {
 			// Do things on Nav Open
 			$('#site-wrapper').addClass('show-cart');
+			$('#overlay').addClass('show');
 		}
+	},
+	'click #overlay': function() {
+		$('#site-wrapper').removeClass('show-nav');
+		$('#site-wrapper').removeClass('show-cart');
+		$('#overlay').removeClass('show');
 	}
 });
 

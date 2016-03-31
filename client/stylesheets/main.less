@@ -893,3 +893,24 @@ input[type=range]:focus::-ms-fill-upper {
 select, input {
 	max-width: 100%;
 }
+
+@media (max-width: 900px) {
+	.owl-stage-outer {
+		overflow: auto !important;
+		height: 300px;
+		margin: 0 0 40px;
+		resize: vertical;
+		.owl-stage {
+			width: 100% !important;
+			.owl-item {
+				width: 100% !important;
+				iframe {
+					margin: auto;
+				}
+			}
+		}
+	}
+	.owl-controls {
+		display: none;
+	}
+}

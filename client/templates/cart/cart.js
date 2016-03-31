@@ -7,6 +7,7 @@ Template.Cart.events({
 		if ($('#site-wrapper').hasClass('show-cart')) {
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-cart');
+			$('#overlay').removeClass('show');
 		}
 	},
 	'click .delete' : function (event) {
@@ -37,7 +38,13 @@ Template.Cart.onCreated(function () {
 });
 
 Template.Cart.onRendered(function () {
-
+	// Keeps off-canvas menus fixed at the top while allowing the canvas to scroll
+	$(function() {
+		$(window).scroll(function() {
+			var scrollPosition = $(window).scrollTop();
+			$('#cart').css("top", 0 + (scrollPosition));
+		});
+	});
 });
 
 Template.Cart.onDestroyed(function () {
