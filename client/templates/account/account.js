@@ -3,8 +3,8 @@
 /*****************************************************************************/
 Template.Account.events({
 	'click #new-bank': function () {
-		$('#bank-input').removeClass('hidden')
-		$('#bank-update').addClass('hidden')
+		$('#bank-input').removeClass('hidden');
+		$('#bank-update').addClass('hidden');
 	},
 	'click #accountSave' : function () {
 
@@ -105,6 +105,8 @@ Template.Account.events({
 			       Meteor.call('vendorPayout', response.id, function(error) {
 							 if(!error){
 								 sAlert.success("Bank Account Information Updated!");
+								 $('#bank-input').addClass('hidden');
+						 		$('#bank-update').removeClass('hidden');
 							 }
 						 })
 			   }
