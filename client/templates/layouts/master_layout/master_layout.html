@@ -18,6 +18,8 @@
 		</div>
 	</div>
 
+{{#if currentUser}}
+{{else}}
 	<!-- signup popup modal -->
 	<div class="modal fade" id="signupmodal" role="document">
 		<div class="modal-dialog" role="document">
@@ -46,6 +48,7 @@
     	</div>
     </div>
 	</div>
+	{{/if}}
 
 	<!-- Modals -->
 	<div class="modal fade" id="myModal" role="dialog">
