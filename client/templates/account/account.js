@@ -73,13 +73,83 @@ Template.Account.events({
 				sAlert.success('Billing details saved!');
 			}
 		});
+	},
+	'click #saveBankInfo':function(event, temp){
+		event.preventDefault();
+
+		var routing = $("#routingNumber").val().trim();
+		var account = $("#accountNumber").val().trim();
+
+		if(!routing){
+			$("#routingNumber").focus();
+			$("#routingHelp").css({'color':"red"});
+			$("#routingHelp").text("Routing Number is required");
+		}
+		else if(!account){
+			$("#accountNumber").focus();
+				$("#accountHelp").css({'color':"red"});
+				$("#accountHelp").text("Account Number is required");
+		}else{
+			$(".help-block").empty();
+
+			Stripe.bankAccount.createToken({
+   			country: 'US',
+			  routingNumber: routing,
+			  accountNumber: account,
+			}, function(status, response) {
+			   if (!response.error){
+			       Meteor.call('vendorPayout', response.id, function(error, result){
+							 if(result){
+								 sAlert.success("Bank Account Information Updated!");
+							 }else {
+							 	sAlert.error("Something went wrong!");
+							 }
+						 })
+			   }
+			});
+		}
+	},
+	'change .bankAccountInfo':function(e){
+		var value = $(e.currentTarget).val().trim();
+		var id = $(e.currentTarget).attr('id');
+		var routing = id.indexOf('ting');
+		var account = id.indexOf('account');
+
+		if(account === 0){
+			if(value != ""){
+				$("#accountHelp").empty();
+			}else {
+				$("#accountNumber").focus();
+					$("#accountHelp").css({'color':"red"});
+					$("#accountHelp").text("Account Number is required");
+			}
+		}
+
+		if(routing === 3){
+			if(value != ""){
+				$("#routingHelp").empty();
+			}else {
+				$("#routingNumber").focus();
+					$("#routingHelp").css({'color':"red"});
+					$("#routingHelp").text("Routing Number is required");
+			}
+		}
+
 	}
 });
 
 /*****************************************************************************/
 /* Account: Helpers */
 /*****************************************************************************/
-Template.Account.helpers({});
+Template.Account.helpers({
+	isVendor:function(id){
+		if(Roles.userHasRole(id, 'vendor')){
+			return true;
+		}else {
+			return false;
+		}
+	}
+});
 
 Template.Orders.helpers({
 	index : function (indx) {
