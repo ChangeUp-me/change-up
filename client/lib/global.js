@@ -20,3 +20,13 @@ Tracker.autorun(function () {
     CART.signedIn();
   }
 });
+
+Tracker.autorun(function(){
+  if(Roles.userHasRole(Meteor.userId(), 'user')){
+    var link = location.href;
+
+    if(link.search('admin') != -1){
+      Router.go('/');
+    }
+  }
+});
