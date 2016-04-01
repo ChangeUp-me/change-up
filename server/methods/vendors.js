@@ -15,10 +15,13 @@ Meteor.methods({
           bank_account: token_id,
           email: profile.emails[0].address,
         }, function(err, recipient) {
-          Meteor.users.update({_id:Meteor.userId()}, {$set: {'profile.stripe.recipient':recipient.id}});
-          Vendors.update({_id : vendor._id}, {$set: {'stripe.recipient':recipient.id}});
+          var Fiber = Meteor.npmRequire('fibers');
+          Fiber(function() {
+            Meteor.users.update({_id:profile._id}, {$set: {'profile.stripe.recipient':recipient.id}});
+            Vendors.update({_id : vendor._id}, {$set: {'stripe.recipient':recipient.id}});
+          }).run();
         });
-       }
+      }
     }
   }
 });

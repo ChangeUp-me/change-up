@@ -2,6 +2,10 @@
 /* Account: Event Handlers */
 /*****************************************************************************/
 Template.Account.events({
+	'click #new-bank': function () {
+		$('#bank-input').removeClass('hidden')
+		$('#bank-update').addClass('hidden')
+	},
 	'click #accountSave' : function () {
 
 		function validEmail(v) {
@@ -98,11 +102,9 @@ Template.Account.events({
 			  accountNumber: account,
 			}, function(status, response) {
 			   if (!response.error){
-			       Meteor.call('vendorPayout', response.id, function(error, result){
-							 if(result){
+			       Meteor.call('vendorPayout', response.id, function(error) {
+							 if(!error){
 								 sAlert.success("Bank Account Information Updated!");
-							 }else {
-							 	sAlert.error("Something went wrong!");
 							 }
 						 })
 			   }
@@ -146,6 +148,13 @@ Template.Account.helpers({
 		if(Roles.userHasRole(id, 'vendor')){
 			return true;
 		}else {
+			return false;
+		}
+	},
+	haveVendorBank:function(){
+		if (Meteor.user().profile.stripe.bank_account != null && Meteor.user().profile.stripe.bank_account != "" && Meteor.user().profile.stripe.bank_account != undefined) {
+			return true;
+		} else {
 			return false;
 		}
 	}
