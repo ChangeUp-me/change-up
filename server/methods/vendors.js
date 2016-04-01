@@ -33,7 +33,7 @@ Meteor.methods({
     var stripe = Meteor.npmRequire("stripe")("sk_live_rNjG94LGyl52oDz7ZMTCSilq");
 
     stripe.transfers.create({
-      amount: 500, // amount in cents
+      amount: 553, // amount in cents
       currency: "usd",
       recipient: vendor.recipient,
       bank_account: vendor.bank_account,
