@@ -46,7 +46,7 @@ service-configuration
 zimme:bootstrap-hover-dropdown
 okgrow:router-autoscroll
 
-
+meteorhacks:npm
 orionjs:file-attribute
 orionjs:filesystem
 #vsivsi:orion-file-collection
@@ -65,3 +65,6 @@ momentjs:moment
 percolate:synced-cron
 mrt:twit
 miro:mailchimp
+
+
+npm-container
