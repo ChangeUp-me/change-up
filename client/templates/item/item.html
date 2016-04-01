@@ -41,7 +41,7 @@
 				</div>
 
 				<div class="stats col-xs-12">
-					<span class="likes">{{product.likeCount}} likes</span>
+					<span class="likes">{{product.likeCount}} Likes</span>
 					<span class="reviews">{{noOfReviews product.reviews}}</span>
 					<span class="share openShareWidget pull-right"><img src="/icons/share_gray.svg" alt="Share"></span>
 				</div>
@@ -49,7 +49,8 @@
 				<div class="hidden-xs">
 					<div class="col-xs-12">
 						<div class="col-sm-8">
-							<label>Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"></label>
+							<label>{{#with product}}<span class="percentage">{{percentToCharity}}%</span> will go to:{{/with}}
+							<!-- Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"> --></label>
 							<select id="charities-select">
 								{{#each charities}}
 								<option value="{{_id}}">{{name}}</option>
@@ -81,10 +82,10 @@
 				</div>
 
 				<div class="buttons col-xs-12">
-					<button class="button blue add-to-cart-btn" type="submit">Add to cart</button>
-					{{#with product}}
-					<div class="charitable-percent">Charitable Percentage : {{percentToCharity}}%</div>
-					{{/with}}
+					<button class="button blue add-to-cart-btn" type="submit">Add to Cart</button>
+					<!-- {{#with product}}
+					<div class="charitable-percent">Charitable Percentage: <span class="percentage">{{percentToCharity}}%</span></div>
+					{{/with}} -->
 				</div>
 			</div>
 		</div>
@@ -117,12 +118,12 @@
 				</div>
 				<div class="tab-pane fade text-center" id="vendor-tab">
 					{{#if vendor.image}}
-					<img src="{{vendor.image.url}}" alt="Logo">
+					<img src="{{https vendor.image.url}}" alt="Logo">
 					{{/if}}
 
 					<h2>{{vendor.storeName}}</h2>
 					<p>{{vendor.storeDescription}}</p>
-					<a class="button clear gray" href="{{pathFor route='vendor' data=product}}">Learn more</a>
+					<a class="button clear gray" href="{{pathFor route='vendor' data=product}}">Learn More</a>
 				</div>
 				<div class="tab-pane fade product-sponsors" id="charities-tab">
 					{{#each charities}}
@@ -133,11 +134,11 @@
 							</div>
 							<div class="col-xs-4 text-right">
 								{{#if image}}
-								<img src="{{image.url}}" alt="Arc Logo">
+								<img src="{{https image.url}}" alt="Arc Logo">
 								{{/if}}
 							</div>
 							<div class="learn-more">
-								<h4><a href="{{pathFor route='charity' data=this}}">Learn more</a></h4>
+								<h4><a href="{{pathFor route='charity' data=this}}">Learn More</a></h4>
 							</div>
 						</div>
 					{{/each}}
@@ -152,13 +153,13 @@
 					<li class="reviewNo">({{ noOfReviewsNoText product.reviews }})</li>
 				</ul>
 
-				<a class="button orange" href="{{pathFor route='reviews' data=product}}">Read reviews</a>
+				<a class="button orange" href="{{pathFor route='reviews' data=product}}">Read Reviews</a>
 			</section>
 
 			<section class="blue text-center">
 				<h2>Let's make it yours</h2>
 
-				<a class="button white" href="">Add to cart</a>
+				<a class="button white" href="">Add to Cart</a>
 				<a class="button clear white back" href="{{pathFor route='shop'}}">Back to shop</a>
 			</section>
 		</div>

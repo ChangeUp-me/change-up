@@ -5,7 +5,7 @@
 				<section class="text-center upload-image">
 					<input id="imageUpload" name="image" type="file" class="overlay">
 				{{#if image}}
-				<img id="targetImage" src="{{image.url}}">
+				<img id="targetImage" src="{{https image.url}}">
 				{{else}}
 				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
 				<h4>Upload Store Image Here</h4>

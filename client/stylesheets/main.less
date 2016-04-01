@@ -351,6 +351,13 @@ section {
 			margin: 20px auto 40px;
 		}
 	}
+	&.black {
+		color: white;
+		background: @mocha;
+		h2 {
+			color: white;
+		}
+	}
 	p {
 		width: 95%;
 	}
@@ -469,7 +476,7 @@ ul.nav.nav-tabs {
 	}
 	.product-image {
 		position: relative;
-		height: 219px;
+		height: 250px;
 		overflow: hidden;
 		.product-timer {
 			position: absolute;
@@ -495,25 +502,16 @@ ul.nav.nav-tabs {
 		img {
 			width: 100%;
 		}
-		.charity-ribbon {
-			position: absolute;
-			bottom: 10px;
-			left: -1px;
-			width: 135px;
-		}
 		.charitable-percent {
 			position: absolute;
-			bottom: 16px;
+			bottom: 0;
+			width: 100%;
 			color: white;
-			text-align: left;
-			padding: 0 15px;
-			h4 {
-				margin: 0;
-				color: white;
-			}
+			background: @tangerine;
+			text-align: center;
+			padding: 0 15px 5px;
 			small {
-				font-size: 11px;
-				text-transform: uppercase;
+				font-size: 13px;
 			}
 		}
 	}
@@ -894,4 +892,35 @@ input[type=range]:focus::-ms-fill-upper {
 
 select, input {
 	max-width: 100%;
+}
+
+@media (max-width: 768px) {
+	.product .product-image {
+		height: 100vw;
+		img {
+			height: 100%;
+			object-fit: cover;
+		}
+	}
+}
+
+@media (max-width: 900px) {
+	.owl-stage-outer {
+		overflow: auto !important;
+		height: 300px;
+		margin: 0 0 40px;
+		resize: vertical;
+		.owl-stage {
+			width: 100% !important;
+			.owl-item {
+				width: 100% !important;
+				iframe {
+					margin: auto;
+				}
+			}
+		}
+	}
+	.owl-controls {
+		display: none;
+	}
 }

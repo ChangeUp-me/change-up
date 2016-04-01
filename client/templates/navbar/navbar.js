@@ -6,6 +6,7 @@ Template.Navbar.events({
 		if ($('#site-wrapper').hasClass('show-nav')) {
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-nav');
+			$('#overlay').removeClass('show');
 		}
 	},
 	'click #logout': function() {
@@ -58,6 +59,7 @@ Template.Navbar.onRendered(function () {
 		$('.toggle-nav').click(function() {
 			// Calling a function in case you want to expand upon this.
 			toggleNav();
+			$('#overlay').addClass('show');
 		});
 	});
 
@@ -76,6 +78,25 @@ Template.Navbar.onRendered(function () {
 		$(window).resize(function() {
 			if($(document).width() > 768 && $('#site-wrapper').hasClass('show-nav')) {
 				$('#site-wrapper').removeClass('show-nav');
+				$('#overlay').removeClass('show');
+			}
+		});
+	});
+
+	// Keeps off-canvas menus fixed at the top while allowing the canvas to scroll
+	$(function() {
+		$(window).scroll(function() {
+			if ($('#site-wrapper').hasClass('show-nav')) {
+				var scrollPosition = $(window).scrollTop();
+				$('#navbar').css("top", 0 + (scrollPosition));
+			} else {
+				$('#navbar').css("top", 0);
+			}
+		});
+
+		$(window).resize(function() {
+			if (!$('#site-wrapper').hasClass('show-nav')) {
+				$('#navbar').css("top", 0);
 			}
 		});
 	});

@@ -12,7 +12,7 @@
 		</div>
 		</section>
 
-			<span id="featured"></span>
+		<span id="featured"></span>
    		<ul id="allItems" class="clearfix">
 			{{#each products}}
 				<li class="product">
@@ -25,16 +25,13 @@
 						{{/if}}
 
 						{{#if image}}
-						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="{{image.url}}" alt=""></a>
+						<a class="product-image-wrapper" href="{{pathFor route='item' data=this}}"><img src="{{https image.url}}" alt=""></a>
 						{{else}}
 						<a class="product-image" href="{{pathFor route='item' data=this}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
 						{{/if}}
 
-						<img src="icons/changeup_charity_ribbon.svg" class="charity-ribbon">
-						<div class="charitable-percent">
-							<h4>{{percentToCharity}}%</h4>
-							<small>Goes to charity</small>
-						</div>
+						<!-- <img src="icons/changeup_charity_ribbon.svg" class="charity-ribbon">
+						<div class="charitable-percent"><small>{{percentToCharity}}% of purchase goes to charity</small></div> -->
 					</div>
 					<div class="product-name col-xs-8">
 						<h4><strong>{{name}}</strong></h4>
@@ -55,8 +52,8 @@
 						</div>
 
 						<div class="buttons col-xs-12">
-							<button type="submit" class="button blue add-to-cart-btn">Add to cart</button>
-							<a class="button clear gray" href="{{pathFor route='item' data=this}}">View details</a>
+							<button type="submit" class="button blue add-to-cart-btn">Add to Cart</button>
+							<a class="button clear gray" href="{{pathFor route='item' data=this}}">View Details</a>
 						</div>
 					</form>
 				</li>
@@ -64,10 +61,10 @@
 		</ul>
 
 		<section class="white text-center" id="twitterFeed">
-		<div class="container">
+			<div class="container">
 				<h2>Stay Updated.</h2>
 				<div id="owl-example" class="owl-carousel"></div>
-		</div>
+			</div>
 		</section>
 
 		<section class="gray text-center" id="support">
@@ -77,7 +74,7 @@
 				<h2>Support a cause that speaks to you.</h2>
 				<p>Every purchase benefits a charity selected collaboratively between buyer and seller. First, a vendor selects up to 3 charities from ChangeUp’s partners. Then YOU decide which of the vendor’s selected charities receive the charitable percentage of that transaction!</p>
 
-				<a class="button blue" href="{{pathFor route='charities'}}">Our charities</a>
+				<a class="button blue" href="{{pathFor route='charities'}}">Our Charities</a>
 			</div>
 		</section>
 	</div>

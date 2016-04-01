@@ -4,7 +4,7 @@
 			<a class="back-button" href="javascript:history.back()"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
 
 			{{#if image}}
-			<img src="{{image.url}}" alt="Arc Logo">
+			<img src="{{https image.url}}" alt="{{name}} Logo">
 			{{/if}}
 			<h2>{{name}}</h2>
 
@@ -18,13 +18,13 @@
 	</div>
 
 	<section class="blue text-center">
-			<h2>Support us</h2>
+			<h2>Support Us</h2>
 
 			<p>Support "{{name}}" by donating to them directly, or by purchasing your newest gear from ChangeUp.</p>
 
-			<a class="button white" href="{{pathFor route='shop'}}">View products</a>
+			<a class="button white" href="{{pathFor route='shop'}}">View Products</a>
 			{{#if websiteLink}}
-			<a class="button clear white" href="{{websiteLink}}" target="_blank">Visit website</a>
+			<a class="button clear white" href="{{websiteLink}}" target="_blank">Visit Website</a>
 			{{/if}}
 		</section>
 </template>
