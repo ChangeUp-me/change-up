@@ -7,9 +7,10 @@ PAYMENTS = (function () {
 
 		this.changeUpFee = 0.015;
 		this.stripeFee = 0.029;
+		this.stripeTransactionFee = .30;
 
 		this._reducePayments = reducePayments.bind(this);
-		this._parseFinalStatement = parseFinalStatement.bind(this);
+		this._parseStatement = parseStatement;
 
 		//the date ranges for this year
 		this._ranges = getRanges();
@@ -18,9 +19,9 @@ PAYMENTS = (function () {
 	/**
 	* transfer payment to the entity (vendors and charities)
 	*/
-	function sendPayment (payment, bankAccountId, recipientId, cardId) {
+	function sendPayment (payment, amount, bankAccountId, recipientId, cardId) {
 		stripe.transfers.create({
-			amount : dollarsToCents(payment.payout),
+			amount : dollarsToCents(amount),
 			currency : 'usd',
 			recipient : 'recipientId',
 			bank_account : 'bank_account_id',
@@ -48,9 +49,13 @@ PAYMENTS = (function () {
 		for(var i = 0; i < weeks.length; i++) {
 			weeklyStatement = {
 				weeks  : weeks[i],
-				payout : 0,
-				total : 0,
-				fees : 0
+				charityDonation : 0,
+				stripeFee : 0,
+				vendorProfit : 0,
+				processingFees : 0,
+				changeUpFee : 0,
+				transactions : [],
+				total : 0
 			};
 
 			//get the range from the start
@@ -63,26 +68,95 @@ PAYMENTS = (function () {
 				//if the payment date is during this week
 				//do some calculations
 				if(range.contains(new Date(payment.timestamp))) {
-					total = (Number(payment.price) * payment.quantity) + (Number(payment.shipping) || 0);
-					fees = total * (payment.percent/100);
-					profit = total - fees;
-
-					//reduce all transactions for the week
-					//to one total
-					weeklyStatement.total +=  total;
-					weeklyStatement.payout += profit;
-					weeklyStatement.fees += fees;
+					weeklyStatement = this._parseStatement(weeklyStatement, payment);
 				}
 			}
 
 			//if there was a statement for this week
-			if(weeklyStatement.payout > 0)  {
-				weeklyStatement = this._parseFinalStatement(weeklyStatement);
-
+			if(weeklyStatement.vendorProfit > 0)  {
+				weeklyStatement = formatStatement(weeklyStatement);
 				statements.push(weeklyStatement);
 			}
 		}
+
 		return statements;
+	}
+
+	function formatStatement (weeklyStatement) {
+		return {
+			weeks : weeklyStatement.weeks,
+			stripeFee : parseFloat(weeklyStatement.stripeFee).toFixed(2),
+			charityDonation : parseFloat(weeklyStatement.charityDonation).toFixed(2),
+			vendorProfit : parseFloat(weeklyStatement.vendorProfit).toFixed(2),
+			processingFees : parseFloat(weeklyStatement.processingFees).toFixed(2),
+			changeUpFee : parseFloat(weeklyStatement.changeUpFee).toFixed(2),
+			total : parseFloat(weeklyStatement.total).toFixed(2)
+		}
+	}
+
+	/**
+	* calculate the statement properties
+	*
+	* @param Object weeklyStatemnt - {see @param-statement}
+	* @param Object payment - {price : '0', quantity : 0, shipping : '0', percent : 0 (charity percent), transactions : []}
+	*
+	* @return Object statement - {charityDonation : 0, stripeFee :0, vendorProfit : 0, processingFees :0, changeUpFee : 0, weeks : []}
+	*/
+	function parseStatement (weeklyStatement, payment) {
+		var validProps = ['charityDonation', 'stripeFee', 'vendorProfit','processingFees', 'changeUpFee', 'total'];
+
+		//convert all dates to strings so we can check if they are unique later
+		for(var i = 0; i < Math.max(0, payment.transactions.length - 1); i++) {
+			payment.transactions[i] = payment.transactions[i].toString();
+		}
+		//format shipping and payment total
+		payment.shipping = Number(payment.shipping) || 0;
+		payment.total = (Number(payment.price) * payment.quantity) + payment.shipping;
+
+		console.log('the payment perct', payment.percent);	
+
+
+		//calculate the stripe fee
+		payment.stripeFee = getStripeFee(payment, this.stripeFee, this.stripeTransactionFee);
+
+		//calculate charity donation
+		payment.charityDonation = (payment.total - payment.stripeFee - payment.shipping ) * (payment.percent /100);
+
+		//calculate changeup fee 
+		payment.changeUpFee = (payment.total - payment.stripeFee - payment.shipping ) * this.changeUpFee;
+
+		//calculate the total fees 
+		payment.fees = payment.charityDonation + payment.changeUpFee + payment.stripeFee;
+
+		//calculate the vendor payout
+		payment.vendorProfit = payment.total - payment.fees;
+
+		//calculate processing fees
+		payment.processingFees = payment.changeUpFee + payment.stripeFee;
+
+		//keep only the properties we need
+		payment = _.pick(payment, validProps);
+
+		//format all values
+		for(var prop in payment) {
+			weeklyStatement[prop] += payment[prop];
+		}
+
+		return weeklyStatement;
+	}
+
+	function getStripeFee (payment, stripeFee, stripeTransactionFee) {
+		var stripeFee;
+		var stripeCents = 0;
+
+		stripeFee = payment.total * stripeFee;
+
+		//only charge a fee to unique transactions
+		stripeCents = _.uniq(payment.transactions).length * stripeTransactionFee;
+
+		stripeFee = stripeFee + stripeCents;
+
+		return stripeFee;
 	}
 
 
@@ -138,15 +212,6 @@ PAYMENTS = (function () {
 		return weeks;
 	}
 
-	function parseFinalStatement (weeklyStatement) {
-		weeklyStatement.processingFee = weeklyStatement.fees * (this.changeUpFee + this.stripeFee);
-		weeklyStatement.charityDonations = parseFloat(weeklyStatement.fees - weeklyStatement.processingFee).toFixed(2);
-		weeklyStatement.payout = parseFloat(weeklyStatement.payout).toFixed(2);
-		weeklyStatement.total = parseFloat(weeklyStatement.total).toFixed(2);
-		weeklyStatement.fees = parseFloat(weeklyStatement.fees).toFixed(2);
-		weeklyStatement.processingFee = parseFloat(weeklyStatement.processingFee).toFixed(2);
-		return weeklyStatement;
-	}
 
 	function dollarsToCents (price) {
 		price = parseFloat(price).toFixed(2)
@@ -169,6 +234,9 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 
 		this.destinationDB = CharityPayouts;
 		this._mappedPayments = this._mapPayments();
+
+
+		//console.log('mapped', JSON.stringify(this._mappedPayments));
 	}
 	_.extend(charityPayments, PAYMENTS);
 
@@ -195,7 +263,7 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 
 			//only return the charity donations and the weeks or it
 			return _.map(statements, function (statement) {
-				return _.pick(statement, ['charityDonations', 'weeks'])
+				return _.pick(statement, ['charityDonation', 'weeks'])
 			})
 		}
 		return [];
@@ -215,7 +283,7 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 			if(statement) {
 				statement = {
 					charityId : charityId,
-					charityDonation : statement.charityDonations,
+					charityDonation : statement.charityDonation,
 					weekStart : statement.weeks[0],
 					weekEnd : statement.weeks[1]
 				}
@@ -235,7 +303,7 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 
 	/**
 	* get the total amount of money that belongs to all the charities
-	*
+	* 116 40.56 171
 	* @return Array - an array containing gropus of charities
 	* with their payments to allocate
 	*
@@ -258,8 +326,10 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 			{$group : {
 				_id : {orderId : '$order.orderId', charityId : '$order.charityId', timestamp : '$timestamp', productId : '$order.productId'},
 				price : {$first : '$order.price'},
-				percent : {$sum : '$order.percentToCharity'},
-				quantity : {$sum : '$order.quantity'}
+				percent : {$first : '$order.percentToCharity'},
+				quantity : {$sum : '$order.quantity'},
+				transactions : {$addToSet : '$timestamp'},
+				shipping : {$first : '$order.shippingPrice'}
 			}},
 			{$sort : {'_id.timestamp' : 1}},
 			//group every payment with it's charity
@@ -267,10 +337,12 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 				_id : '$_id.charityId', //@todo - every item must now have a charityId
 				payments : {
 					$push : {
+						shipping : '$shipping',
 						timestamp : '$_id.timestamp',
 						percent : '$percent', 
 						price : '$price', 
-						quantity : '$quantity'
+						quantity : '$quantity',
+						transactions : '$transactions'
 					}
 				}
 			}}
@@ -288,7 +360,6 @@ VENDORPAYMENTS = (function (PAYMENTS) {
 
 		this.destinationDB = VendorPayouts;
 		this._mappedPayments = this._mapPayments();
-
 	}
 	_.extend(vendorPayments, PAYMENTS);
 
@@ -328,9 +399,11 @@ VENDORPAYMENTS = (function (PAYMENTS) {
 		_.each(statements, function (statement) {
 			statement = {
 				vendorId : vendorId,
-				charityDonation : statement.charityDonations,
-				processingFees : statement.processingFee,
-				vendorProfit : statement.payout,
+				charityDonation : statement.charityDonation,
+				processingFees : statement.processingFees,
+				stripeFee : statement.stripeFee,
+				changeUpFee : statement.changeUpFee,
+				vendorProfit : statement.vendorProfit,
 				weekStart : statement.weeks[0],
 				weekEnd : statement.weeks[1],
 			};
@@ -370,8 +443,10 @@ VENDORPAYMENTS = (function (PAYMENTS) {
 				shipping : {$first : '$order.shippingPrice'},
 				//@todo - get quantity
 				//calclualte the percent minus changeup fee and stripe fee
-				percent : {$sum : {$subtract : [percent, '$order.percentToCharity'] }},
-				quantity : {$sum : '$order.quantity'}
+				//percent : {$first : {$subtract : [percent, '$order.percentToCharity'] }},
+				percent : {$first : '$order.percentToCharity'},
+				quantity : {$sum : '$order.quantity'},
+				transactions : {$addToSet :  '$timestamp'}
 			}},
 			{$sort : {'_id.timestamp' : 1}},
 			{$group : {
@@ -383,9 +458,10 @@ VENDORPAYMENTS = (function (PAYMENTS) {
 						productId : '$_id.productId',
 						price : '$price',
 						percent : '$percent',
-						quantity : '$quantity'
+						quantity : '$quantity',
+						transactions : '$transactions'
 					}
-				}
+				},
 			}}
 		];
 		return this.sourceDB.aggregate(pipeline);

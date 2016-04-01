@@ -12,6 +12,9 @@ SyncedCron.add({
 	}
 });
 
+buildCharityStatements();
+buildVendorStatements();
+
 
 Meteor.startup(function () {
 	//smtp
