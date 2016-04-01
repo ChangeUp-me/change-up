@@ -15,7 +15,7 @@ SyncedCron.add({
 
 Meteor.startup(function () {
 	//smtp
-	process.env.MAIL_URL = "smtp://terrell.changeup@gmail.com:changeup1234@smtp.gmail.com:587";
+	process.env.MAIL_URL = "smtp://postmaster@changeup.me:1c5a33d81cc742b9e3f0a38e9a3ff406@smtp.mailgun.org:587";
 
 	var superUser = Meteor.users.findOne({'emails.address' : 'geoff@changeup.me'});
 

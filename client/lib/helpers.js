@@ -20,7 +20,6 @@ Template.registerHelper('featuredProductsTime', function () {
   var then = Date.parse(FeaturedProducts.findOne({'current':true}).date);
   var now = Date.now();
   var diff = then-now;
-  console.log(diff)
   var hours = Math.floor(diff/3600000)
   var minutes =  Math.floor((diff%3600000)/60000);
 
