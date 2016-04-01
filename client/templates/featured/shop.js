@@ -94,11 +94,50 @@
 	});
 
 	Template.Shop.onRendered(function () {
+		get_tweets();
 	});
 
 	Template.Shop.onDestroyed(function () {
 	});
 
+
+	/**
+	* Get tweets from select charities
+	*
+	*/
+	function get_tweets () {
+  	Meteor.call('get_tweets', function (error, tweets) {
+  		if(error) {
+  			return console.error(error);
+  		}
+
+      var tweetElements = [], ele, $owl = $('#owl-example');
+
+      tweets.forEach(function (val, indx) {
+          $.ajax({
+            method : 'GET',
+            jsonp: "callback",
+            dataType: "jsonp",
+            data : {
+              hide_media : true
+            },
+            url : 'https://api.twitter.com/1/statuses/oembed.json?url=https://twitter.com/Interior/status/' + val.id_str,
+            success : function (response) {
+              tweetElements.push(response.html);
+
+              if(indx == tweets.length - 1) {
+                tweetElements.forEach(function (html, indx) {
+                  $owl.append('<div>' +html+ '</div>')
+                })
+                $owl.owlCarousel({
+                  margin : 20
+                });
+              }
+            }
+          })
+      });
+  	})
+  }
 
 	/**
 	* pull the product and vendorids from
