@@ -2,17 +2,17 @@
 	<div id="account" class="page">
 		<h1 class="text-center">My Account</h1>
 
-		<div class="col-sm-12 text-center"><a href="{{pathFor route='orders'}}">View orders</a></div>
+		<div class="col-sm-12 text-center"><a href="{{pathFor route='orders'}}">View Orders</a></div>
 
 
 		<label>Account</label>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Full name</div>
-			<div class="col-xs-8 col-sm-12"><input type="text" id="accountName" placeholder="name" value="{{profile.name}}"></div>
+			<div class="col-xs-8 col-sm-12"><input type="text" id="accountName" placeholder="Full Name" value="{{profile.name}}"></div>
 		</div>
 		<div class="row col-sm-6">
 			<div class="col-xs-4 col-sm-12">Email</div>
-			<div class="col-xs-8 col-sm-12"><input type="email" id="accountEmail" placeholder="email" value="{{email}}" disabled></div>
+			<div class="col-xs-8 col-sm-12"><input type="email" id="accountEmail" placeholder="Email" value="{{email}}" disabled></div>
 		</div>
 		<!-- <div class="row col-sm-6">
 		<div class="col-xs-4 col-sm-12">Password</div>
@@ -60,7 +60,7 @@
 	<div id="bank-update" class="{{#if haveVendorBank}}{{else}}hidden{{/if}}">
 		<div class="row">
 			<div class="col-xs-8 col-sm-12">
-				<button id='new-bank' class="button blue">Need To Update Your Bank Details?</button>
+				<button id='new-bank' class="button blue">Update Your Bank Account</button>
 			</div>
 		</div>
 	</div>
@@ -70,21 +70,21 @@
 	<div class="row col-sm-6">
 		<div class="col-xs-4 col-sm-12">Shipping</div>
 		<div class="col-xs-8 col-sm-12">
-			<div class="col-xs-12"><input type="text" id="shippingName" placeholder="name" value="{{profile.shipping.fullName}}"></div>
-			<div class="col-xs-12"><input type="text" id="shippingStreet" placeholder="street address" value="{{profile.shipping.addressOne}}"></div>
-			<div class="col-xs-12"><input type="text" id="shippingCity" placeholder="city" value="{{profile.shipping.city}}"></div>
-			<div class="col-xs-12"><input type="text" id="shippingState" placeholder="state" value="{{profile.shipping.state}}"></div>
-			<div class="col-xs-12"><input type="text" id="shippingZip" placeholder="zipcode" value="{{profile.shipping.zipcode}}"></div>
+			<div class="col-xs-12"><input type="text" id="shippingName" placeholder="Full Name" value="{{profile.shipping.fullName}}"></div>
+			<div class="col-xs-12"><input type="text" id="shippingStreet" placeholder="Street Address" value="{{profile.shipping.addressOne}}"></div>
+			<div class="col-xs-12"><input type="text" id="shippingCity" placeholder="City" value="{{profile.shipping.city}}"></div>
+			<div class="col-xs-12"><input type="text" id="shippingState" placeholder="State" value="{{profile.shipping.state}}"></div>
+			<div class="col-xs-12"><input type="text" id="shippingZip" placeholder="Zip Code" value="{{profile.shipping.zipcode}}"></div>
 		</div>
 	</div>
 	<div class="row col-sm-6">
 		<div class="col-xs-4 col-sm-12">Billing</div>
 		<div class="col-xs-8 col-sm-12">
-			<div class="col-xs-12"><input type="text" id="billingName" placeholder="name" value="{{profile.billing.fullName}}"></div>
-			<div class="col-xs-12"><input type="text" id="billingStreet" placeholder="street address" value="{{profile.billing.addressOne}}"></div>
-			<div class="col-xs-12"><input type="text" id="billingCity" placeholder="city" value="{{profile.billing.city}}"></div>
-			<div class="col-xs-12"><input type="text" id="billingState" placeholder="state" value="{{profile.billing.state}}"></div>
-			<div class="col-xs-12"><input type="text" id="billingZip" placeholder="zipcode" value="{{profile.billing.zipcode}}"></div>
+			<div class="col-xs-12"><input type="text" id="billingName" placeholder="Full Name" value="{{profile.billing.fullName}}"></div>
+			<div class="col-xs-12"><input type="text" id="billingStreet" placeholder="Street Address" value="{{profile.billing.addressOne}}"></div>
+			<div class="col-xs-12"><input type="text" id="billingCity" placeholder="City" value="{{profile.billing.city}}"></div>
+			<div class="col-xs-12"><input type="text" id="billingState" placeholder="State" value="{{profile.billing.state}}"></div>
+			<div class="col-xs-12"><input type="text" id="billingZip" placeholder="Zip Code" value="{{profile.billing.zipcode}}"></div>
 		</div>
 	</div>
 	<div class="row col-sm-12">
