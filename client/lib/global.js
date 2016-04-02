@@ -22,7 +22,7 @@ Tracker.autorun(function () {
 });
 
 Tracker.autorun(function(){
-  if(Roles.userHasRole(Meteor.userId(), 'user')){
+  if(Roles.userHasRole(Meteor.userId(), 'user') && !Roles.userHasRole(Meteor.userId(), 'admin')){
     var link = location.href;
 
     if(link.search('admin') != -1){
