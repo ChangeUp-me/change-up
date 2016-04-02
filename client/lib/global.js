@@ -21,12 +21,12 @@ Tracker.autorun(function () {
   }
 });
 
-Tracker.autorun(function(){
-  if(Roles.userHasRole(Meteor.userId(), 'user')){
-    var link = location.href;
-
-    if(link.search('admin') != -1){
-      Router.go('/');
-    }
-  }
-});
+// Tracker.autorun(function(){
+//   if(Roles.userHasRole(Meteor.userId(), 'user')){
+//     var link = location.href;
+//
+//     if(link.search('admin') != -1){
+//       Router.go('/');
+//     }
+//   }
+// });
