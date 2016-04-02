@@ -149,43 +149,66 @@ Template.AddProduct.onRendered(function() {
 
   var data = this.data;
 
-  var cropper = new changeupCropper($('#crophere'));
+  function setCropper (cropArea, input, targetImage, progressBar, sessionName, onBeforeCrop, onSave) {
+    var cropper = new changeupCropper($(cropArea));
+    onBeforeCrop = onBeforeCrop || _.noop;
+    onSave = onSave || _.noop;
 
-  var upload = new changeUpUpload($('#imageUpload')[0], {
-    targetImage : '#targetImage',
-    progressBar : '#uploadProgress',
-    sessionName : 'upload:image'
-  })
 
-  //call this before the cropper element is created
-  cropper.onBeforeCrop = function () {
-    $('#targetImage').hide();
-    $('#uploadtext').hide();
-  };
-
-  //when a user clicks the save button
-  cropper.onSave = function (image, files) {
-   $('#targetImage').attr('src',image).show().css('opacity', .5);
-
-   //upload the files to amazon s3
-   upload.upload(files, function on_upload_finished () {
-    $('#targetImage').css('opacity', 1);
-   });
-  };
-
-  //when a user uploads an image start the cropper
-  $('#imageUpload').on('change', function (event) {
-    console.log($(this)[0].files);
-    cropper.startCropper(event.currentTarget.files[0]);
-  });
-
-  $('#productImages').children().each(function (indx, image){
-    var $this = $(this);
-    $this.find('input').changeUpUpload({
-      targetImage : '#' + $this.find('img').attr('id'),
-      progressBar : '#' + $this.find('div').attr('id'),
-      sessionName : 'upload:image:' + $this.attr('id')
+    var upload = new changeUpUpload($(input)[0], {
+      targetImage : targetImage,
+      progressBar : progressBar,
+      sessionName : sessionName
     })
+
+    //call this before the cropper element is created
+    cropper.onBeforeCrop = function () {
+      $(targetImage).hide();
+      $('#uploadtext').hide();
+
+      onBeforeCrop();
+    };
+
+    //when a user clicks the save button
+    cropper.onSave = function (image, files) {
+     $(targetImage).attr('src',image).show().css('opacity', .5);
+
+     //do something after user presses save
+     onSave();
+
+     //upload the files to amazon s3
+     upload.upload(files, function on_upload_finished () {
+      $(targetImage).css('opacity', 1);
+     });
+    };
+
+    //when a user uploads an image start the cropper
+    $(input).on('change', function (event) {
+      console.log($(this)[0].files);
+      cropper.startCropper(event.currentTarget.files[0]);
+    });
+  }
+
+  setCropper('#crophere', '#imageUpload', '#targetImage', '#uploadProgress', 'upload:image');
+
+  var onBeforeCrop = function () {
+    //hide the main image
+    $('#targetImage').hide();
+  }
+
+  var onSave = function () {
+    $('#targetImage').show();
+  }
+
+  var input, targetImage, progressBar, sessionName, $this;
+  $('#productImages').children().each(function (indx, image){
+    $this = $(this);
+    input = $this.find('input');
+    targetImage = '#' + $this.find('img').attr('id');
+    progressBar = '#' + $this.find('div').attr('id');
+    sessionName = 'upload:image:' + $this.attr('id');
+
+    setCropper('#crophere', input, targetImage, progressBar, sessionName, onBeforeCrop, onSave);
   })
 
   function sliderInit (data) {

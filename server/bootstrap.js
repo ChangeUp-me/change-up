@@ -1,10 +1,10 @@
 //construct the charity statements
 //and vendor statements
-//every 2 days
+//every day
 SyncedCron.add({
 	name : "construct vendor and charity statements",
 	schedule : function (parser) {
-		return parser.text('every 2 days');
+		return parser.text('every 1 days');
 	},
 	job : function () {
 		buildCharityStatements();
@@ -12,6 +12,10 @@ SyncedCron.add({
 	}
 });
 
+//shedule automatic payment transfers
+//WARNING - This function should only be used on the live server!
+//simply uncomment the next line to set the transfer for every 2 weeks
+//autoPayoutVendors();
 
 Meteor.startup(function () {
 	//smtp
@@ -72,9 +76,9 @@ function buildCharityStatements () {
 		Meteor.setTimeout(function () {
 			var statements = payments.getStatement(charity._id);
 
-			payments.saveStatements(charity._id, statements);
+			payments.saveStatements(charity._id, statements, charity.name);
 
-			console.log('charity statements', statements);
+			//console.log('charity statements', statements);
 		})
 	})
 }
@@ -88,12 +92,22 @@ function buildVendorStatements () {
 		Meteor.setTimeout(function () {
 			var statements = payments.getStatement(vendor._id);
 
-			payments.saveStatements(vendor._id, statements);
-			console.log('vendor statements', statements);
+			payments.saveStatements(vendor._id, statements, vendor.storeName);
+			//console.log('vendor statements', statements);
 		})
 	})
 }
 
+/**
+* Automatically payout money to vendors
+* on a specific date
+*
+*/
+function autoPayoutVendors () {
+	var vendorpay = new VENDORPAYMENTS();
+
+	vendorpay.scheduleTransfer();
+}
 
 // Meteor.settings.private.stripe.apiKey = 'sk_live_rNjG94LGyl52oDz7ZMTCSilq';
 

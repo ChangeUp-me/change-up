@@ -21,7 +21,7 @@ Meteor.methods({
 		var vendor = Vendors.findOne({userId : Meteor.userId()});
 		var shippingPrice = vendor.shippingPrice;
 
-		var stripe = StripeAPI("sk_mKLYgZGYkqjzg5DPyyc0u2hrYnhgR");
+		var stripe = StripeAPI("sk_live_rNjG94LGyl52oDz7ZMTCSilq");
 		var totalRefundAmount = 0;
 
 		//get total amount to refund

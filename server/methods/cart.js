@@ -119,7 +119,7 @@
 	    	if(err) {
 	    		return $checkoutResponse.throw(err);
 	    	}
-				makePurchase(cart);
+				//makePurchase(cart);
 	    	$checkoutResponse.return(transactionNum);
 
 	    	//send email async
@@ -172,7 +172,7 @@
 
 	    	//add the product names and prices
 	    	_.each(checkout.order, function (item) {
-	    		message += item.productName + " : http://changeup.me/item" + item.productId + br;
+	    		message += item.productName + " : http://changeup.me/item/" + item.productId + br;
 	    	});
 
 	    	var req = {
