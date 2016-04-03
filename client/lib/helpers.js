@@ -3,10 +3,12 @@ Template.registerHelper('formatDate', function(date) {
 });
 
 Template.registerHelper('https', function(website) {
-  if (website.substring(0,5) !== "https") {
+  if (website.substring(0,5) !== "https" && website.substring(0,4) === "http") {
     return "https"+website.substring(4);
-  } else {
+  } else if (website.substring(0,5) === "https") {
     return website;
+  } else {
+    return "https://"+website;
   }
 
 });
