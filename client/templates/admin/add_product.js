@@ -69,7 +69,10 @@ Template.AddProduct.events({
       product.images = images;
     }
 
-    if (product.price == "" || product.price < 1) {
+
+    if (Meteor.user().profile.vendorId === undefined) {
+      sAlert.error("please create your vendor profile");
+    } else if (product.price == "" || product.price < 1) {
       sAlert.error("please put a price greater than $1");
     } else {
 
