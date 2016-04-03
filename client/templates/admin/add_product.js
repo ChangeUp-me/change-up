@@ -148,11 +148,12 @@ Template.AddProduct.onRendered(function() {
   } catch (e) {}
 
   var data = this.data;
+  var noop = function () {};
 
   function setCropper (cropArea, input, targetImage, progressBar, sessionName, onBeforeCrop, onSave) {
     var cropper = new changeupCropper($(cropArea));
-    onBeforeCrop = onBeforeCrop || _.noop;
-    onSave = onSave || _.noop;
+    onBeforeCrop = onBeforeCrop || noop;
+    onSave = onSave || noop;
 
 
     var upload = new changeUpUpload($(input)[0], {
