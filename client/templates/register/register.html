@@ -1,10 +1,9 @@
 <template name="Register">
 	<div id="register" class="login-screen">
+	{{> Navbar }}
 		<div>
-			<h4>Register</h4>
-
 			<img src="images/logo.svg" alt="ChangeUp">
-			<a data-click-facebookregister id="facebook" class="button facebook">Signup with Facebook</a>
+			<a data-click-facebookregister id="facebook" class="button facebook">Sign Up with Facebook</a>
 
 			<div class="or-bar">
 				<span class="ob-line"></span>
@@ -17,14 +16,15 @@
 				<input type="email" placeholder="Email" name="email" required>
 				<input type="password" placeholder="Password" name="password" required>
 				<input type="password" placeholder="Confirm password" name="passwordConfirm" required>
-				<div class="check">
+			<!-- 	<div class="check">
 					<input type="checkbox" name="stay" value="stay">
 					<label for="stay">Stay logged in</label>
-				</div>
-				<button type="submit" class="button orange">Register</button>
+				</div> -->
+				<button type="submit" class="button orange">Sign Up</button>
 			</form>
 
 			<p><a href="{{pathFor route='login'}}">Already have an account? Sign in.</a></p>
 		</div>
+		{{> Footer }}
 	</div>
 </template>

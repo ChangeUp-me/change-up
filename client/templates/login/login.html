@@ -1,11 +1,10 @@
 <template name="Login">
 	<div id="login" class="login-screen">
+	{{> Navbar }}
 		<div>
-			<h4>Sign In</h4>
-
 			<a href="{{pathFor route='shop'}}"><img src="images/logo.svg" alt="ChangeUp"></a>
 
-			<a id="facebook" class="button facebook">Signin with Facebook</a>
+			<a id="facebook" class="button facebook">Sign In with Facebook</a>
 
 			<div class="or-bar">
 				<span class="ob-line"></span>
@@ -16,14 +15,15 @@
 			<form id="loginForm" novalidate>
 				<input type="email" name="email" placeholder="Email" required>
 				<input type="password" name="password" placeholder="Password" required>
-				<div class="check">
+				<!-- <div class="check">
 					<input type="checkbox" name="stay" value="stay">
 					<label for="stay">Stay logged in</label>
-				</div>
-				<button class="button orange" type="submit">Sign in</button>
+				</div> -->
+				<button class="button orange" type="submit">Sign In</button>
 			</form>
 
-			<p><a href="{{pathFor route='register'}}">Don't have an account? Sign up.</a></p>
+			<p><a href="{{pathFor route='register'}}">Don't have an account yet? Sign Up!</a></p>
 		</div>
+		{{> Footer }}
 	</div>
 </template>
