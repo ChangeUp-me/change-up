@@ -272,7 +272,8 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 					body += "Total Cost: " + (parseFloat( (Number(item.price) * item.quantity) + Number(item.shipping) ).toFixed(2)) + br;
 					body += "Customer Name: " + billing.creditCardName + br;
 					body += "Customer Email: " + self.email + br;
-					body += "Customer Shipping Address: " + self.shipping.address + br + br; 
+					body += "Customer Shipping Address: " + self.shipping.address + br + br;
+					//body += "If you have additional questions about this order, please contact the buyer directly first. Any other questions you can email ChangeUp directly at <a href='mailto:geoff@changeup.me'>Geoff@ChangeUp.me</a>";
 
 					vendorEmails[vendor.userId].push(body);
 				}
