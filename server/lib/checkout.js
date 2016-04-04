@@ -242,6 +242,7 @@ checkout.prototype._createStripeCustomer = function (callback) {
 
 checkout.prototype._sendVendorEmails = function (vendorIds) {
 	var vendors = Vendors.find({_id : {$in : vendorIds}}).fetch();
+	var self = this;
 
 	if(vendors) {
 		var userIds = [];
@@ -258,15 +259,22 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 			vendorEmails[vendor.userId] = [];
 			body = "";
 
-			//construct order email for each vendor
+			//construct order email for each item
 			_.forEach(order, function (item) {
 				if(item.vendorId == vendor._id) {
-					body += "Buyer Name : " + billing.creditCardName + br;
-	    		body += "Payment Date : " + moment(Date.now()).format("MMM Do YYYY") + br;
-	    		body += "Payment Card : " + billing.lastFour + br;
-	    		body += br;
+					body += "Hi " + vendor.storeName + "," + br;
+					body += billing.creditCardName + " has bought " + item.quantity + " " + item.productName;
+					body += " from the ChangeUp marketplace.  Here are the details provided to fulfill your order!" + br + br;
+					body += "Item Name: " + item.productName + br;
+					body += "Order ID: " + item.orderId + br; //@todo? 
+					body += "Quantity: " + item.quantity + br;
+					body += "Shipping: " + item.shipping + br;
+					body += "Total Cost: " + parseFloat(Number(item.price) * item.quantity).toFixed(2) + br;
+					body += "Customer Name: " + billing.creditCardName + br;
+					body += "Customer Email: " + self.email + br;
+					body += "Customer Shipping Address: " + self.shipping.address + br + br; 
 
-	    		vendorEmails[vendor.userId].push(body);
+					vendorEmails[vendor.userId].push(body);
 				}
 			});
 		});
