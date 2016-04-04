@@ -257,11 +257,11 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 			userIds.push(vendor.userId);
 
 			vendorEmails[vendor.userId] = [];
-			body = "";
 
 			//construct order email for each item
 			_.forEach(order, function (item) {
 				if(item.vendorId == vendor._id) {
+					body = "";
 					body += "Hi " + vendor.storeName + "," + br;
 					body += billing.creditCardName + " has bought " + item.quantity + " " + item.productName;
 					body += " from the ChangeUp marketplace.  Here are the details provided to fulfill your order!" + br + br;
@@ -269,7 +269,7 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 					body += "Order ID: " + item.orderId + br; //@todo? 
 					body += "Quantity: " + item.quantity + br;
 					body += "Shipping: " + item.shipping + br;
-					body += "Total Cost: " + parseFloat(Number(item.price) * item.quantity).toFixed(2) + br;
+					body += "Total Cost: " + (parseFloat( (Number(item.price) * item.quantity) + Number(item.shipping) ).toFixed(2)) + br;
 					body += "Customer Name: " + billing.creditCardName + br;
 					body += "Customer Email: " + self.email + br;
 					body += "Customer Shipping Address: " + self.shipping.address + br + br; 
