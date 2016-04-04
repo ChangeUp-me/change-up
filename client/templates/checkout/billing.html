@@ -29,16 +29,20 @@
 				<input type="text" value="{{cardExp}}" name="cardExp" class="half" placeholder="Exp. (MM/YY)" required>
 				<input type="text" value="{{cardCvv}}" name="cardCvv" class="half" placeholder="CVV" required>
 			</fieldset>
+			{{#if loggedIn}}
+			<fieldset>
+				<input value="{{email}}" name="email" type="hidden" required>
+			</fieldset>
+			{{else}}
 			<h3 class="divider">ChangeUp Account</h3>
 			<fieldset>
 				<input value="{{email}}" name="email" type="email" placeholder="Email" required>
-				{{#unless loggedIn}}
 				<input name="password" type="password" placeholder="Password" required>
-				{{/unless}}
 			</fieldset>
+			{{/if}}
 			<div class="check">
-				<div class="col-xs-12">
-					<input type="checkbox" name="save" value="save">
+				<div class="col-xs-12 hidden">
+					<input type="checkbox" name="save" value="save" checked="checked">
 					<label for="stay">Save information for quick purchase</label>
 				</div>
 				<div class="col-xs-12">
