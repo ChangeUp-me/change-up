@@ -10,7 +10,14 @@ Template.registerHelper('https', function(website) {
   } else {
     return "https://"+website;
   }
+});
 
+Template.registerHelper('http', function(website) {
+  if (website.substring(0,4) !== "http") {
+    return "http://"+website;
+  } else {
+    return website;
+  }
 });
 
 Template.registerHelper('pageTitle', function () {
