@@ -30,7 +30,16 @@ Template.MasterLayout.events({
 				$('#signupmodal').modal('hide');
 				sAlert.success("you've been signed up!");
 
-				Router.go('shop');
+				Meteor.setTimeout(function () {
+					var redirectedFrom = Session.get('redirectedFrom');
+
+					if(redirectedFrom) {
+						Session.set('redirectedFrom', undefined);
+						return Router.go(redirectedFrom);
+					}
+
+					Router.go('shop');
+				}, 500)
 			})
 		});
 	},
@@ -52,7 +61,16 @@ Template.MasterLayout.events({
       $('#signupmodal').modal('hide');
 			sAlert.success("you've been signed up!");
 
-      Router.go('shop')
+      Meteor.setTimeout(function () {
+					var redirectedFrom = Session.get('redirectedFrom');
+
+					if(redirectedFrom) {
+						Session.set('redirectedFrom', undefined);
+						return Router.go(redirectedFrom);
+					}
+
+					Router.go('shop');
+				}, 500)
     });
 	},
 	'click .like-button' : function toggle_like (event) {
