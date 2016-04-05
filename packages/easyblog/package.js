@@ -18,11 +18,11 @@ Package.onUse(function(api) {
     'twbs:bootstrap',
     'fortawesome:fontawesome',
     'orionjs:core',
+    'orionjs:summernote',
     'orionjs:bootstrap',
     'vsivsi:orion-file-collection',
     'aldeed:tabular',
     'iron:router',
-    // 'manuelschoebel:ms-seo',
     'less',
     'juliancwirko:s-alert',
     'aldeed:delete-button'
@@ -30,13 +30,13 @@ Package.onUse(function(api) {
   api.use(['ecmascript',
   'blaze-html-templates@1.0.1',
   'blaze@2.1.3',
-  'orionjs:core@1.7.0',
-  'orionjs:bootstrap@1.7.0',
+  'orionjs:core@1.8.0',
+  'orionjs:bootstrap@1.8.0',
   'iron:router@1.0.12',
-  'orionjs:attributes@1.7.0',
-  'orionjs:image-attribute@1.7.0',
-  'orionjs:summernote@1.7.0',
-  'orionjs:collections@1.7.0',
+  'orionjs:attributes@1.8.0',
+  'orionjs:image-attribute@1.8.0',
+  'orionjs:summernote@1.8.0',
+  'orionjs:collections@1.8.0',
   'aldeed:collection2@2.9.0',
   'tracker@1.0.9',
   'mongo@1.1.3',
@@ -46,7 +46,6 @@ Package.onUse(function(api) {
   'matb33:collection-hooks@0.8.1',
   'aldeed:autoform@5.8.1',
   'vsivsi:orion-file-collection@0.2.3',
-  // 'manuelschoebel:ms-seo@0.4.1',
   'juliancwirko:s-alert@3.1.4',
   'aldeed:delete-button@2.0.0'
 ]);
@@ -69,9 +68,7 @@ Package.onUse(function(api) {
     'routes.js',
   ]);
 
-  api.export(['Blog',
-  // 'SeoCollection', 
-  'blogController', 'easyBlog', 'singleBlogController']);
+  api.export(['Blog', 'blogController', 'easyBlog', 'singleBlogController']);
 });
 
 Package.onTest(function(api) {

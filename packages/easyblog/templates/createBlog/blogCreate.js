@@ -4,25 +4,15 @@ Template.blogTemplate.onCreated(function(){
 
 Template.blogTemplate.helpers({
   blogCategories: function(){
-    var categories = orion.dictionary.get('blog.category');
+    var categories = orion.dictionary.get('blog.category') || ["General"];
     var options = [];
     for(i=0; i<categories.length; i++){
       options.push({'label':categories[i], 'value':categories[i]});
     }
+
     return options;
   }
 });
-
-
-// Template.blogCreate.helpers({
-//   contributors: function(){
-//     return [
-//       {'label':"Ram", 'value':"ram's ID"},
-//       {'label':"Shyam", 'value':"shyam's id"},
-//       {'label':"Hari", 'value':"hari's id"},
-//     ]
-//   }
-// });
 
 
 Template.checkbox.helpers({

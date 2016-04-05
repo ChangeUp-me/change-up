@@ -207,3 +207,10 @@ if(Meteor.isServer){
   // console.log(Blog.find({}).count());
   // console.log(Meteor.users.findOne({'_id':this.userId}));
 }
+
+
+Meteor.startup(function(){
+  if(orion.dictionary.get('blog.category') != undefined){
+
+  }
+});

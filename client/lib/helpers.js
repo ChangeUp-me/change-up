@@ -8,7 +8,8 @@ Template.registerHelper('https', function(website) {
   } else if (website.substring(0,5) === "https") {
     return website;
   } else {
-    return "https://"+website;
+    // return "https://"+website;
+    return website;
   }
 });
 

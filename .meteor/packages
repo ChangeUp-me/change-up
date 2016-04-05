@@ -55,7 +55,6 @@ natestrauser:animate-css
 aslagle:reactive-table
 jonblum:jquery-cropper
 wylio:mandrill
-gpandey:easyblog
 meteorhacks:aggregate
 benmgreene:moment-range
 momentjs:moment
@@ -67,3 +66,5 @@ miro:mailchimp
 npm-container
 standard-minifier-css
 standard-minifier-js
+orionjs:summernote
+gpandey:easyblog
