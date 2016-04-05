@@ -9,6 +9,15 @@ changeUpUpload = (function ($, window, document, undefined) {
 	var pluginName = 'changeUpUpload';
 	var defaults = {};
 
+
+	/**
+	* the image upload plugin
+	*
+	* @param DomObject element - an element (most likely an input element)
+	* @param Object options - the plugin options {progressBar, targetImage}
+	* @param Boolean instanceCreatedByPlugin - this lets us know if the plugin
+	* created the instance or you created it manually. with "new changeUpUpload"
+	*/
 	function Plugin (element, options, instanceCreatedByPlugin) {
 		options = options || {};
 		this.element = element;
@@ -40,20 +49,48 @@ changeUpUpload = (function ($, window, document, undefined) {
 	}
 
 	$.extend(Plugin.prototype, {
+
+		
+		/**
+		* this function is run as soon as the 
+		* "changeUpUpload" method is called on a jQuery elmement
+		* 
+		* @access public
+		*/
 		init : function () {
 			//this.otherFunc();
 			var self = this;
 
+			//when a user adds a file to the element (probably an input element)
+			//attempt to upload that file
 			$(self.element).on('change', function () {
 				self._attemptUpload($(this)[0].files);
 			});
 		},
+
+
+		/**
+		* upload a file manulaly without having ot wait for the 
+		* input to change.  this method should only be used
+		* if your instantiating the plugin manually.  Ex : new changeUpUpload();
+		*
+		* @access public
+		* @param Array files - an array of file objects
+		* @param Function Callback - a callback for after files finish uploading
+		*/
 		upload : function (files, callback) {
 			var self = this;
 			callback = callback || _.noop;
 
 			self._attemptUpload(files, callback);
 		},
+
+		/**
+		* This method tracks the S3 upload progress so 
+		* that we can run an animation (like a progress bar)
+		* 
+		* @access private
+		*/
 		_addUploadTracker : function () {
 			var self = this;
 			self.progressBar.html(self._createProgressBar());
@@ -82,6 +119,16 @@ changeUpUpload = (function ($, window, document, undefined) {
 				}
 			});
 		},
+
+		/**
+		* Attempt to upload the image fileList object
+		* to amazon s3.
+		* 
+		* @note - the fileList object should only contain 1 file
+		*  
+		* @param Array files - a fileList object
+		* @param Function callback - callback after upload finishes
+		*/
 		_attemptUpload : function (files, callback) {
 			var self = this;
 			Session.set('upload:current', self.progressId);
@@ -94,6 +141,10 @@ changeUpUpload = (function ($, window, document, undefined) {
 
 				self.targetImage.attr('src', result.url);
 				
+				//we set a session for each image so that
+				//we know which image is being uploaded
+				//this allows us to have multiple upload
+				//elements on the same page without conflict
 				self._setImageSession({
 					id : result._id,
 					url : result.url
@@ -103,9 +154,20 @@ changeUpUpload = (function ($, window, document, undefined) {
 
 				if(callback) callback();
 
+				//this just tracks the file upload progress
+				//we can remove it when the upload completes
 				S3.collection.remove({});
 			});
 		},
+
+		/**
+		* show the progress bar with the percent of the file
+		* that's been uploaded
+		*
+		* @param Number prog - a number for the upload progress
+		* 
+		* @access private
+		*/
 		_showProgressBar : function (prog) {
 			//only show progress bar for element being uploaded
 			if(Session.get('upload:current') !== this.progressId)
@@ -117,6 +179,12 @@ changeUpUpload = (function ($, window, document, undefined) {
 			bar.css('width', prog + '%');
 			this.progressBar.show();
 		},
+
+		/**
+		* hides the progress bar
+		*
+		* @access private
+		*/
 		_hideProgressBar : function () {
 			var time = this.first ? 0 : 500;
 
@@ -127,6 +195,13 @@ changeUpUpload = (function ($, window, document, undefined) {
 				this.progressBar.hide();
 			}.bind(this), time);
 		},
+
+
+		/**
+		* creates the progress bar element
+		* 
+		* @access private
+		*/
 		_createProgressBar : function () {
 			var html = '';
 
@@ -138,12 +213,31 @@ changeUpUpload = (function ($, window, document, undefined) {
 			
 			return html
 		},
+
+		/**
+		* upload the image file to amazon S3
+		*
+		* @access private
+		*
+		* @param Object fiiles - FileList object
+		* @param Function callback - callback for when upload is complete
+		* or fails
+		*/
 		_uploadImage : function (files, callback) {
 			S3.upload({
 				files : files,
 				path : 'images',
 			}, callback)
 		},
+
+		/**
+		* Set a unique identifier for the image 
+		* that was uploaded.  This lets us grab
+		* it later on and store the info in our
+		* database
+		*
+		* @param Object upload - the file that was uploaded to S3
+		*/
 		_setImageSession : function (upload) {
 			Session.set(this.settings.sessionName, {
 	      fileId: upload.id,
@@ -161,6 +255,9 @@ changeUpUpload = (function ($, window, document, undefined) {
 	})
 
 	$.fn[pluginName] = function (options) {
+
+		//this just lets us have multiple instances
+		//of this plugin on the same page
 		return this.each(function () {
 			if(!$.data(this, "plugin_" + pluginName)) {
 				$.data(this, "plugin_" + pluginName, new Plugin(this, options, true));

@@ -17,6 +17,13 @@ Template.Login.events({
 
 			Meteor.setTimeout(function () {
 				var user = Meteor.user();
+				var redirectedFrom = Session.get('redirectedFrom');
+
+				if(redirectedFrom) {
+					Session.set('redirectedFrom', undefined);
+					return Router.go(redirectedFrom);
+				}
+
 				if(user.profile.vendorId) {
 					Router.go('vendorProducts')
 				} else {
@@ -39,6 +46,13 @@ Template.Login.events({
 
       Meteor.setTimeout(function () {
 				var user = Meteor.user();
+				var redirectedFrom = Session.get('redirectedFrom');
+
+				if(redirectedFrom) {
+					Session.set('redirectedFrom', undefined);
+					return Router.go(redirectedFrom);
+				}
+
 				if(user.profile.vendorId) {
 					Router.go('vendorProducts')
 				} else {

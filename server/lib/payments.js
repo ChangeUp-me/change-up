@@ -4,42 +4,75 @@ PAYMENTS = (function () {
 
 		//the source of the data to map and reduce
 		this.sourceDB = Transactions;
+		this.stripe = StripeAPI("sk_live_rNjG94LGyl52oDz7ZMTCSilq")
 
 		this.changeUpFee = 0.015;
 		this.stripeFee = 0.029;
 		this.stripeTransactionFee = .30;
 
 		this._reducePayments = reducePayments.bind(this);
-		this._parseStatement = parseStatement;
+		this._parseStatement = parseStatement.bind(this);
+		this._findNextPayPeriod = findNextPayPeriod.bind(this);
 
 		//the date ranges for this year
 		this._ranges = getRanges();
+		this._transferFunds = transferFunds;
 	}
+
 
 	/**
-	* transfer payment to the entity (vendors and charities)
+	* transfer the funds to a specific entity(vendor)
+	* 
+	* @access private
+	*
+	* @param String|Number amount - the amount to transfer to the bank account
+	* @param String recipientId - the stripe recipientId
+	* @param String bankId - the stripe bankId
+	* @param String payPeriod - the payperiod for which this payment is for
+	* @param Function callback - do something after the transfer has completed/failed
 	*/
-	function sendPayment (payment, amount, bankAccountId, recipientId, cardId) {
-		stripe.transfers.create({
+	function transferFunds (amount, recipientId, bankId, payPeriod, callback) {
+		this.stripe.transfers.create({
 			amount : dollarsToCents(amount),
 			currency : 'usd',
-			recipient : 'recipientId',
-			bank_account : 'bank_account_id',
+			recipient : recipientId,
+			bank_account : bankId,
 			//card_id : 'cardId',
-			statement_descriptor : 'payout for week ending :' + payment.weeks[1]
-		}, function (err, transer) {
-			if(err){
-				return console.error(err);
-			}
-
-
-		})
+			statement_descriptor : 'payout for week ending :' + payPeriod
+		}, Meteor.bindEnvironment(callback))
 	}
+
+
+
+	/**
+	* Find the next pay period to make a payment
+	*
+	* @access private
+	* @return Date - a date to schedule the next pay period
+	*/
+	function findNextPayPeriod () {
+		var currentDate = Date.now();
+		var dates = getRanges(2);
+		var nextPayPeriod = null;
+
+		for(var i = 0; i < dates.length; i++) {
+			if(moment(currentDate).isBefore(dates[i][1])){
+				nextPayPeriod = dates[i][1];
+				break;
+			}
+		}
+
+		return nextPayPeriod;
+	}
+
 
 	/**
 	* Reduce all the payments mapped by each individual
 	* entity(charity/vendor) into one array with weekly
 	* statements
+	*
+	* @todo - remove dates that haven't happened yet
+	* from ranges.
 	*/
 	function reducePayments (payments) {
 		var weeks = this._ranges;
@@ -113,9 +146,6 @@ PAYMENTS = (function () {
 		payment.shipping = Number(payment.shipping) || 0;
 		payment.total = (Number(payment.price) * payment.quantity) + payment.shipping;
 
-		console.log('the payment perct', payment.percent);	
-
-
 		//calculate the stripe fee
 		payment.stripeFee = getStripeFee(payment, this.stripeFee, this.stripeTransactionFee);
 
@@ -160,10 +190,27 @@ PAYMENTS = (function () {
 	}
 
 
-	function getRanges () {
+	/**
+	* this gets the start and end date of each
+	* week for the entire year
+	*
+	* @param Number multiple - only use this if you want to get
+	* every X number of weeks instead of every 1 week. 
+	*
+	* @return Array [[weekStart, weekEnd]]
+	*/
+	function getRanges (multiple) {
+		var weeksAmount = 1;
+		var dayAmount = 7;
+
+		if(_.isNumber(multiple)) {
+			weeksAmount = weeksAmount * multiple;
+			dayAmount = dayAmount * multiple;
+		}
+
 		var startDate = moment().startOf('year');
 		var endDate = moment().endOf('year');
-		var ranges = [[startDate.format(), moment(startDate).add(7,'days').format()]];
+		var ranges = [[startDate.format(), moment(startDate).add(dayAmount,'days').format()]];
 		var range = moment.range(startDate, endDate);
 
 		//get every two weeks of this year
@@ -186,7 +233,7 @@ PAYMENTS = (function () {
 			} else {
 				//store the week range
 				//@note- weeks range from start of the week to the end of the week
-				ranges.push([lastweek.format(), lastweek.add(1, 'weeks').format()])
+				ranges.push([lastweek.format(), lastweek.add(weeksAmount, 'weeks').format()])
 				lastweek = lastweek.subtract(1, 'weeks');
 			}
 		}
@@ -275,14 +322,16 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 	*
 	* @param String charityId
 	* @param Array statements - [weeklyStatementObject]
+	* @param String charityName - the name of the charity
 	*/
-	charityPayments.prototype.saveStatements = function (charityId, statements) {
+	charityPayments.prototype.saveStatements = function (charityId, statements, charityName) {
 		var self = this;
 		_.each(statements, function (statement) {
 
 			if(statement) {
 				statement = {
 					charityId : charityId,
+					charityName : charityName,
 					charityDonation : statement.charityDonation,
 					weekStart : statement.weeks[0],
 					weekEnd : statement.weeks[1]
@@ -303,7 +352,7 @@ CHARITYPAYMENTS = (function (PAYMENTS) {
 
 	/**
 	* get the total amount of money that belongs to all the charities
-	* 116 40.56 171
+	* 116 40.56 171 = 327.56
 	* @return Array - an array containing gropus of charities
 	* with their payments to allocate
 	*
@@ -360,8 +409,84 @@ VENDORPAYMENTS = (function (PAYMENTS) {
 
 		this.destinationDB = VendorPayouts;
 		this._mappedPayments = this._mapPayments();
+
+		//console.log('mapped', JSON.stringify(this._mappedPayments));
 	}
 	_.extend(vendorPayments, PAYMENTS);
+
+
+
+	/**
+	* this will set a timer that will fire a payout function
+	* on a certain date/payperiod 
+	*
+	* @access public
+	*
+	* @param Date scheduleTime - the time we want to schedule
+	* the next payouts
+	*
+	*/
+	vendorPayments.prototype.scheduleTransfer = function() {
+		var self = this;
+		var payPeriod  = self._findNextPayPeriod();
+		var payOn = new Date(payPeriod).getTime();
+		var now = Date.now();
+		var time = Math.max(0, payOn - now);
+
+		console.log('scheduling transfer on :', payPeriod);
+		console.log('which is in : ' + time + ' milliseconds');
+
+		Meteor.setTimeout(function () {
+			//get the payouts for the vendor that
+			//are on or below the scheduled date
+			//and haven't been distributed yet
+			var payouts = self.destinationDB.find({
+				$and : [
+					{paidToVendor : {$ne : true}},
+					{weekEnd : {$lte : new Date(moment(payPeriod).format())}}
+				]
+			}).fetch();
+
+			var onTransfer;
+			//loop through each payout and attempt to 
+			//transfer funds to that vendor
+			_.each(payouts, function (pay) {
+				var vendor = Vendors.findOne({_id : pay.vendorId});
+
+				//check if they've setup a stripe account
+				if(!_.isObject(vendor.stripe)) {
+					return console.error('the vendor ' + vendor.storeName + ' does not have a stripe account setup');
+				}
+
+				//after we transfer the funds
+				onTransfer = function (err, transfer) {
+					if(err){
+						return console.error('transfer-error', err);
+					}
+
+					console.log('transfer complete for vendor : ' + vendor.storeName, transfer);
+
+					//record that we've made this payout
+					self.destinationDB.update({_id : pay._id}, {$set : {paidToVendor : true}})
+				};
+
+				//attempt to transfer the funds
+				try{
+					self._transferFunds(
+						pay.vendorProfit, 
+						vendor.stripe.recipient, 
+						vendor.stripe.bank_account, 
+						moment(payPeriod).format(), 
+						onTransfer
+					);
+				} catch (e) {
+					console.error('payout-error to: ' +vendor.storeName , e.stack);
+				}
+			})
+
+			console.log(payouts);
+		}, time);
+	};
 
 
 	/**
@@ -393,12 +518,14 @@ VENDORPAYMENTS = (function (PAYMENTS) {
 	*
 	* @param String vendorId
 	* @param Array statements - [weeklyStatementObject]
+	* @param String vendorName - the name of the vendor
 	*/
-	vendorPayments.prototype.saveStatements = function (vendorId, statements) {
+	vendorPayments.prototype.saveStatements = function (vendorId, statements, vendorName) {
 		var self = this;
 		_.each(statements, function (statement) {
 			statement = {
 				vendorId : vendorId,
+				vendorName : vendorName,
 				charityDonation : statement.charityDonation,
 				processingFees : statement.processingFees,
 				stripeFee : statement.stripeFee,

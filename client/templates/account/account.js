@@ -154,9 +154,15 @@ Template.Account.helpers({
 		}
 	},
 	haveVendorBank:function(){
-		if (Meteor.user().profile.stripe.bank_account != null && Meteor.user().profile.stripe.bank_account != "" && Meteor.user().profile.stripe.bank_account != undefined) {
-			return true;
-		} else {
+		//throws an error if the user hasn't setup
+		//a bank account yet
+		try {
+			if (Meteor.user().profile.stripe.bank_account != null && Meteor.user().profile.stripe.bank_account != "" && Meteor.user().profile.stripe.bank_account != undefined) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (e) {
 			return false;
 		}
 	}

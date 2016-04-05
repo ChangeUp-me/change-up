@@ -21,7 +21,7 @@
 						<h4>&#36;{{price}}</h4>
 
 						<a href="{{pathFor route='addProduct' data=this}}"><img class="edit" src="/icons/edit_pencil.svg" alt="Edit"></a>
-						<a href="#myModal" data-toggle="modal"><img class="delete" src="icons/delete_trash.svg" alt="Delete"></a>
+						<a href="#myModal" data-toggle="modal"><img data-delete-product class="delete" src="icons/delete_trash.svg" alt="Delete"></a>
 					</div>
 				</div>
 				{{/each}}
