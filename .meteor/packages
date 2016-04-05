@@ -51,13 +51,11 @@ orionjs:file-attribute
 orionjs:filesystem
 #vsivsi:orion-file-collection
 richsilv:owl-carousel
-manuelschoebel:ms-seo
 infinitedg:gsap
 natestrauser:animate-css
 aslagle:reactive-table
 jonblum:jquery-cropper
 wylio:mandrill
-spiderable
 gpandey:easyblog
 meteorhacks:aggregate
 benmgreene:moment-range

@@ -13,11 +13,15 @@
 // /*****************************************************************************/
 // /* News: Lifecycle Hooks */
 // /*****************************************************************************/
-// Template.News.onCreated(function () {
-// });
-//
-// Template.News.onRendered(function () {
-// });
-//
-// Template.News.onDestroyed(function () {
-// });
+Template.allBlogs.onCreated(function () {
+  $("title").text("News | Change Up");
+
+});
+
+Template.allBlogs.onRendered(function () {
+});
+
+Template.allBlogs.onDestroyed(function () {
+  $("title").text("Change Up");
+
+});

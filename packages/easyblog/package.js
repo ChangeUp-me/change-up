@@ -22,7 +22,7 @@ Package.onUse(function(api) {
     'vsivsi:orion-file-collection',
     'aldeed:tabular',
     'iron:router',
-    'manuelschoebel:ms-seo',
+    // 'manuelschoebel:ms-seo',
     'less',
     'juliancwirko:s-alert',
     'aldeed:delete-button'
@@ -46,7 +46,7 @@ Package.onUse(function(api) {
   'matb33:collection-hooks@0.8.1',
   'aldeed:autoform@5.8.1',
   'vsivsi:orion-file-collection@0.2.3',
-  'manuelschoebel:ms-seo@0.4.1',
+  // 'manuelschoebel:ms-seo@0.4.1',
   'juliancwirko:s-alert@3.1.4',
   'aldeed:delete-button@2.0.0'
 ]);
@@ -69,7 +69,9 @@ Package.onUse(function(api) {
     'routes.js',
   ]);
 
-  api.export(['Blog','SeoCollection', 'blogController', 'easyBlog', 'singleBlogController']);
+  api.export(['Blog',
+  // 'SeoCollection', 
+  'blogController', 'easyBlog', 'singleBlogController']);
 });
 
 Package.onTest(function(api) {

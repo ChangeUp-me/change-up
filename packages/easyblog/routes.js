@@ -34,27 +34,27 @@ singleBlogController = RouteController.extend({
       var id = this.params.categoryId.split("-")[1];
     return {
       'blog':Blog.findOne({'_id':id}),
-      'seoObject':function(){
-        console.log(this.blog);
-        return{
-          title: this.blog.title,
-          meta:{
-            'description':"Blog Description Goes here."
-          },
-          og:{
-            'type':"article",
-          },
-          link:{
-            'icon':'icon-url'
-          }
-        }
-      }
+      // 'seoObject':function(){
+      //   console.log(this.blog);
+      //   return{
+      //     title: this.blog.title,
+      //     meta:{
+      //       'description':"Blog Description Goes here."
+      //     },
+      //     og:{
+      //       'type':"article",
+      //     },
+      //     link:{
+      //       'icon':'icon-url'
+      //     }
+      //   }
+      // }
     }
   },
-  onAfterAction:function(){
-    var seoObject = this.data().seoObject();
-    easyBlog.dynamicSEO(seoObject);
-  }
+  // onAfterAction:function(){
+  //   var seoObject = this.data().seoObject();
+  //   easyBlog.dynamicSEO(seoObject);
+  // }
 })
 
 // *****************************
@@ -63,16 +63,16 @@ singleBlogController = RouteController.extend({
 
 easyBlog = {
   // *** Dynamic SEO *****
-  'dynamicSEO': function(seo){
-        if(!Meteor.isClient){
-          return;
-        }
-        if(seo){
-          SEO.set(
-            seo
-          );
-        }
-  },
+  // 'dynamicSEO': function(seo){
+  //       if(!Meteor.isClient){
+  //         return;
+  //       }
+  //       if(seo){
+  //         SEO.set(
+  //           seo
+  //         );
+  //       }
+  // },
   // *** To create a route *****
   'route' : function(routePath,tmpl, object){
     Router.route(routePath, function(){
@@ -82,27 +82,27 @@ easyBlog = {
         );
   },
   //********* Static SEO **************//
-  'staticSEO': function(routeName, title, metaTags){
-  try{
-  SeoCollection.update(
-      {
-          route_name: routeName
-      },
-      {
-          $set: {
-              route_name: routeName,
-              title: title,
-              meta: metaTags
-          }
-      },
-      {
-          upsert: true
-      }
-  );
-  }catch(e){
-
-  }
-  }
+  // 'staticSEO': function(routeName, title, metaTags){
+  // try{
+  // SeoCollection.update(
+  //     {
+  //         route_name: routeName
+  //     },
+  //     {
+  //         $set: {
+  //             route_name: routeName,
+  //             title: title,
+  //             meta: metaTags
+  //         }
+  //     },
+  //     {
+  //         upsert: true
+  //     }
+  // );
+  // }catch(e){
+  //
+  // }
+  // }
 }
 
 // *****************************
@@ -117,7 +117,7 @@ easyBlog = {
 var object = { name: 'news', controller:'blogController'};
 easyBlog.route('/news','allBlogs', object);
 // Set the static seo by calling easyBlog.staticSEO for static content.
-easyBlog.staticSEO('allBlogs', 'News', {"description":"News"});
+// easyBlog.staticSEO('allBlogs', 'News', {"description":"News"});
 
 
 

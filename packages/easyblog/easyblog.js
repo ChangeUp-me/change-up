@@ -1,7 +1,7 @@
-// *********************************
-//      Static Seo Collection      *
-// *********************************
-SeoCollection = new Mongo.Collection('seocollection');
+// // *********************************
+// //      Static Seo Collection      *
+// // *********************************
+// SeoCollection = new Mongo.Collection('seocollection');
 
 
 // *********************************
@@ -135,8 +135,8 @@ ReactiveTemplates.set('collections.blog.update', 'blogUpdate');
 // ****************************************
 if(Meteor.isClient){
 Meteor.subscribe("blog");
-console.log("Test");
-console.log(Blog.find().fetch());
+// console.log("Test");
+// console.log(Blog.find().fetch());
 
 
 // sAlert configuration
@@ -202,8 +202,8 @@ if(Meteor.isServer){
       return true;
     }
   });
-  console.log("Testing");
-
-  console.log(Blog.find({}).count());
-  console.log(Meteor.users.findOne({'_id':this.userId}));
+  // console.log("Testing");
+  //
+  // console.log(Blog.find({}).count());
+  // console.log(Meteor.users.findOne({'_id':this.userId}));
 }
