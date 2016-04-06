@@ -28,7 +28,7 @@ Template.Login.events({
 				}
 
 				if(user.profile.vendorId) {
-					Router.go('vendorProducts')
+					Router.go('vendorOrders')
 				} else {
 					Router.go('shop');
 				}
