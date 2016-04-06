@@ -47,10 +47,14 @@ Template.vendorsList.helpers({
 /* Vendor: Lifecycle Hooks */
 /*****************************************************************************/
 Template.vendorsList.onCreated(function () {
+  $("title").text("Vendors | Change Up");
+
 });
 
 Template.vendorsList.onRendered(function () {
 });
 
 Template.vendorsList.onDestroyed(function () {
+  $("title").text("Change Up");
+
 });

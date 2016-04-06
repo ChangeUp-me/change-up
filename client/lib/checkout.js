@@ -1,6 +1,6 @@
 CHECKOUT = (function () {
 	var checkout = {};
-	
+
 	checkout.createToken = function (card, callback) {
 		var exp = card.cardExp.split('/');
 
@@ -75,7 +75,7 @@ CHECKOUT = (function () {
 			state : form.state.value,
 			country : form.country.value,
 			//personal info
-			email : form.email.value,
+			email : Meteor.user().emails[0].address,
 			creditCardName : form.creditCardName.value,
 			//agreements
 			save : form.save.checked,
