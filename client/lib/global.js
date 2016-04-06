@@ -29,12 +29,12 @@ Meteor.startup(function () {
 	})
 })
 
-// Tracker.autorun(function(){
-//   if(Roles.userHasRole(Meteor.userId(), 'user')){
-//     var link = location.href;
-//
-//     if(link.search('admin') != -1){
-//       Router.go('/');
-//     }
-//   }
-// });
+Tracker.autorun(function(){
+   if(Roles.userHasRole(Meteor.userId(), 'user') && !Roles.userHasRole(Meteor.userId(), 'admin')){
+     var link = location.href;
+
+     if(link.search('admin') != -1){
+       Router.go('/');
+     }
+   }
+});
