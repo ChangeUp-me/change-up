@@ -77,7 +77,8 @@ Template.MasterLayout.events({
 			var likeBtn = event.target;
 
 			if(!Meteor.userId()) {
-				return sAlert.info('In order to like this product, login or create an account here');
+				Session.set('autoLike', {id : this._id, vendor : this.vendorId});
+				return $('#signupToLike').modal('show');
 			}
 
 			if(this.userLiked) {
