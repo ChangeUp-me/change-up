@@ -6,7 +6,7 @@ Template.registerHelper("makeLink", function(string){
 
 Template.registerHelper("getAuthor", function(id){
   Meteor.subscribe("userProfile", id);
-  return Meteor.users.findOne({'_id':id}).profile.name;
+  return Meteor.users.findOne({'_id':id}) && Meteor.users.findOne({'_id':id}).profile && Meteor.users.findOne({'_id':id}).profile.name;
 });
 
 Template.registerHelper("formatDate", function(dateValue){
@@ -25,7 +25,7 @@ Template.allBlogsTemplate.events({
   "click .blogId": function(event, template){
     var id = event.currentTarget.getAttribute('id');
     Session.set('blogId', id);
-     console.log(id);
+    //  console.log(id);
   }
 });
 Template.allBlogsTemplate.helpers({
@@ -70,13 +70,13 @@ Template.allBlogsTemplate.helpers({
     var author = currentRouter.params.query.author;
     if(author){
     var authorId = Meteor.users.findOne({'profile.name':author}) && Meteor.users.findOne({'profile.name':author})._id;
-    console.log(authorId);
+    // console.log(authorId);
     var authorsBlogs = Blog.find({'createdBy':authorId}).fetch();
-    console.log(authorsBlogs);
+    // console.log(authorsBlogs);
     if(author === undefined){
       return false;
     }else{
-      console.log({'author': author, 'blogs':authorsBlogs});
+      // console.log({'author': author, 'blogs':authorsBlogs});
       return {'author': author, 'blogs':authorsBlogs};
     }
   }
