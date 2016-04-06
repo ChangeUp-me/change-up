@@ -24,7 +24,7 @@ Tracker.autorun(function () {
 Meteor.startup(function () {
 	sAlert.config({
 			position : 'top',
-			timeout : 2000,
+			timeout : 3000,
 			effect : 'scale'
 	})
 })

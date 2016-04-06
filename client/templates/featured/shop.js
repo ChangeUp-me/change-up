@@ -91,8 +91,6 @@
 	/* Shop: Lifecycle Hooks */
 	/*****************************************************************************/
 	Template.Shop.onCreated(function () {
-		$("title").text("Home | Change Up");
-
 	});
 
 	Template.Shop.onRendered(function () {
@@ -100,8 +98,6 @@
 	});
 
 	Template.Shop.onDestroyed(function () {
-		$("title").text("Change Up");
-
 	});
 
 
