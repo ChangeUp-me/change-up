@@ -21,6 +21,14 @@ Tracker.autorun(function () {
   }
 });
 
+Meteor.startup(function () {
+	sAlert.config({
+			position : 'top',
+			timeout : 2000,
+			effect : 'scale'
+	})
+})
+
 // Tracker.autorun(function(){
 //   if(Roles.userHasRole(Meteor.userId(), 'user')){
 //     var link = location.href;
