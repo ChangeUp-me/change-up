@@ -148,9 +148,7 @@
 
 	    		body += "shipping : $6.00" + br;
 	    		body += "total : $" +  checkout.finalPrice + br;
-	    		body += "Thank You." + br;
-	    		body += "Sincerely," + br;
-	    		body += "ChangeUp";
+	    		body += "- The ChangeUp Team";
 
 	    		Email.send({
 						to : user.emails[0].address,
@@ -179,7 +177,7 @@
 	    		message : {
 	    			text : message,
 	    			subject : "Are You Happy With Your Purchase?",
-	    			from_email : "noreply@changeup.me",
+	    			from_email : "hello@changeup.me",
 	    			from_name : "roreply",
 	    			to : [{
 	    				email : email,
