@@ -43,9 +43,11 @@
 			</section>
 
 			<form id="review" novalidate>
-				<input type="text" placeholder="Title" name="reviewTitle" id="reviewTitle">
-				<textarea name="comment" placeholder="Comments" rows="8" id="comment"></textarea>
+				{{#with getMyReview}}
+				<input value="{{title}}" type="text" placeholder="Title" name="reviewTitle" id="reviewTitle">
+				<textarea value="{{comment}}" name="comment" placeholder="Comments" rows="8" id="comment"></textarea>
 				<button class="button blue">Submit review</button>
+				{{/with}}
 			</form>
 		</div>
 	</div>

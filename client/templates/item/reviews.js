@@ -22,15 +22,16 @@ Template.Reviews.events({
 
 		Meteor.call('addProductReview', productId, review, function (err, data) {
 			if(err){
-				sAlert.error(err);
+				return sAlert.error(err);
 			} else if (data === "please log in to post a review"){
-				sAlert.error(data);
+				return sAlert.error(data);
 			} else if (data === "review updated"){
 				sAlert.success(data);
 			} else {
 				sAlert.success('review posted');
-				// Router.go('/item/'+productId);
 			}
+
+			Router.go('/item/'+productId);
 		});
 	},
 	'click #review-stars li' : function (event) {
@@ -57,6 +58,22 @@ Template.Reviews.events({
 Template.Reviews.helpers({
 	reviewStars : function  () {
 		return [1,2,3,4,5];
+	},
+	getMyReview : function () {
+		var reviews = this.reviews || [];
+		var userId = Meteor.userId();
+		var userReview = {};
+
+		if(!userId) return userReview;
+
+		for(var i =0; i < reviews.length; i++) {
+			if(reviews[i].userId == userId) {
+				userReview = reviews[i];	
+				break;
+			}
+		}
+
+		return userReview;
 	}
 });
 
@@ -67,16 +84,6 @@ Template.Reviews.onCreated(function () {
 });
 
 Template.Reviews.onRendered(function () {
-	if (Meteor.userId()){
-		Meteor.call('getMyReview', this.data._id, function (err, data) {
-			if (data) {
-				$('#write').text('Update your review');
-				$('#reviewTitle').val(data.title);
-				$('#comment').val(data.comment);
-			}
-		})
-	}
-
 	$("#review-panel").hide();
 });
 
