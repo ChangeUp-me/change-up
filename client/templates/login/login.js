@@ -12,6 +12,9 @@ Template.Login.events({
 		Meteor.loginWithPassword(user, password, function login_user (error) {
 			if(error){
 				console.error(error);
+
+				$('#forgotaccount').show();
+
 				return sAlert.error("we couldn't log you in with those credentials");
 			}
 
@@ -25,7 +28,7 @@ Template.Login.events({
 				}
 
 				if(user.profile.vendorId) {
-					Router.go('vendorProducts')
+					Router.go('vendorOrders')
 				} else {
 					Router.go('shop');
 				}
@@ -41,6 +44,7 @@ Template.Login.events({
 		}, function(err){
       if (err) {
       	console.error(err);
+      	$('#forgotaccount').show();
        return sAlert.error(err);
       }
 
@@ -76,6 +80,7 @@ Template.Login.onCreated(function () {
 });
 
 Template.Login.onRendered(function () {
+	$('#forgotaccount').hide();
 });
 
 Template.Login.onDestroyed(function () {

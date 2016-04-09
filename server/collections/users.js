@@ -61,19 +61,24 @@
 			Roles.setUserRoles(this.userId, role);
 		},
 
-		getMyReview: function(productId) {
-			var productReview = Products.findOne({_id : productId },{'reviews.$.userId': this.userId });
+		getMyReview : function (productId) {
+			var user = Meteor.user();
+
+			if(!user) return {};
+
+			var productReview = Products.findOne({_id : productId },{'reviews.$.userId': user._id });
+
 			if (productReview){
-				productReview = productReview.reviews;
+				productReview = productReview.reviews || [];
 				for (var i = 0; i < productReview.length; i++) {
-					if (productReview[i].userId === this.userId) {
+					if (productReview[i].userId === user._id) {
 						productReview = productReview[i];
 						break;
 					}
 				}
 				return productReview;
 			} else {
-				return null;
+				return {};
 			}
 		}
 	});

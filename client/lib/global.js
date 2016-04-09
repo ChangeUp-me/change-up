@@ -21,12 +21,20 @@ Tracker.autorun(function () {
   }
 });
 
-// Tracker.autorun(function(){
-//   if(Roles.userHasRole(Meteor.userId(), 'user')){
-//     var link = location.href;
-//
-//     if(link.search('admin') != -1){
-//       Router.go('/');
-//     }
-//   }
-// });
+Meteor.startup(function () {
+	sAlert.config({
+			position : 'top',
+			timeout : 3000,
+			effect : 'scale'
+	})
+})
+
+Tracker.autorun(function(){
+   if(Roles.userHasRole(Meteor.userId(), 'user') && !Roles.userHasRole(Meteor.userId(), 'admin')){
+     var link = location.href;
+
+     if(link.search('admin') != -1){
+       Router.go('/');
+     }
+   }
+});

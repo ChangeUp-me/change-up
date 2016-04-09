@@ -131,6 +131,9 @@
 	    			//send out review emails
 	    			//@note - function down below
 	    			sendReviewEmail(email, checkout, billing);
+
+	    			//send buyer a thank you email
+	    			thankYouEmail(checkout.order, checkout.finalPrice);
 	    		} catch (e) {
 	    			console.error(e);
 	    		}
@@ -160,6 +163,26 @@
 	    };
 	  }
 	})
+
+
+	function thankYouEmail (cart, finalPrice) {
+		var body = ""
+		var user = Meteor.user();
+		var br = '\n';
+
+		_.each(cart, function (item) {
+	  	body += item.productName + ' : $' + item.price + ' | X' + item.quantity + ' | shipping: ' + item.shipping + br;
+	  });
+
+	  body += "Total : $" + finalPrice;
+
+		Email.send({
+			to : user.emails[0].address,
+			from : 'hello@changeup.me',
+			subject : 'Thanks for your purchase!',
+			text : body
+		})
+	}
 
 	function sendReviewEmail (email, checkout, billing) {
 	    	var twoWeeks = moment.utc().add(14, 'days').format()

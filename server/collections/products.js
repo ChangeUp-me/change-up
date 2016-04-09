@@ -26,11 +26,13 @@ Meteor.methods({
 	},
 	addProductReview : function add_product_review (productId, reviewObj) {
 		var user = this.userId;
+		var product = Products.findOne({_id : productId, "reviews.userId" : user})
 		reviewObj['userId'] = user;
 
 		if (!user){
 			return "please log in to post a review";
-		} else if (Products.findOne({_id : productId },{'reviews.$.userId': user }) !== 0) {
+		} else if (product) {
+			console.log('the review', reviewObj);
 			Products.update({ _id: productId, "reviews.userId": user }, { $set: { 'reviews.$': reviewObj } });
 			return "review updated";
 		} else {

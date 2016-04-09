@@ -20,7 +20,25 @@
 
 {{#if currentUser}}
 {{else}}
-	<!-- signup popup modal -->
+<!-- register popup modal -->
+	<div class="modal fade" id="signupToLike" role="document">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h2>Sign Up to “Like” this Product!</h2>
+
+					<form data-submit-signupToLike>
+						<input type="email" name="email" placeholder="Enter Your Email">
+						<input type="password" name="password" placeholder="enter a password">
+						<input type="password" name="confirmPassword" placeholder="confirm your password">
+						<button class="button orange" type="submit">Sign Up</button>
+					</form>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+	<!-- email subscribe popup modal -->
 	<div class="modal fade" id="signupmodal" role="document">
 		<div class="modal-dialog" role="document">
     	<div class="modal-content">
