@@ -42,7 +42,7 @@ Template.Cart.onRendered(function () {
 	$(function() {
 		$(window).scroll(function() {
 			var scrollPosition = $(window).scrollTop();
-			$('#cart').css("top", 0 + (scrollPosition));
+			//$('#cart').css("top", 0 + (scrollPosition));
 		});
 	});
 });

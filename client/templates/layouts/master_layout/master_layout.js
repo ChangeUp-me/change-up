@@ -75,13 +75,16 @@ Template.MasterLayout.events({
 		if ($('#site-wrapper').hasClass('show-cart')) {
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-cart');
+			$('#cart').removeClass('show-cart');
 		} else {
 			// Do things on Nav Open
+			$('#cart').addClass('show-cart');
 			$('#site-wrapper').addClass('show-cart');
 			$('#overlay').addClass('show');
 		}
 	},
 	'click #overlay': function() {
+		$('#cart').removeClass('show-cart');
 		$('#site-wrapper').removeClass('show-nav');
 		$('#site-wrapper').removeClass('show-cart');
 		$('#overlay').removeClass('show');

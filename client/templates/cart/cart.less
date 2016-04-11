@@ -23,14 +23,21 @@
 
 .show-cart {
 	#cart {
+		right : 0;
 		box-shadow: 0 0 20px -3px #999;
 	}
+}
+
+.show-cart#cart{
+	-webkit-transform: translateX(-265px);
+	transform: translateX(-265px);
 }
 
 #cart {
 	position: fixed;
 	top: 0;
 	right: -265px;
+	transition: transform .3s;
 	width: 265px;
 	height: 100vh;
 	background: @offwhite;
