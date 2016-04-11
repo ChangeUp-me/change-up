@@ -6,7 +6,6 @@
 		try {
 			if(_.isObject(updateObj) && _.isArray(updateObj.roles)) {
 				if(updateObj.roles.indexOf('vendor') > -1) {
-					console.log('updateobj', doc);
 					Email.send({
 						to : doc.emails[0].address,
 						from : 'hello@changeup.me',

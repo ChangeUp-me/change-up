@@ -11,6 +11,16 @@
 			user.emails = [{address : email, verified : true}];
 		}
 
+		//send new user an email
+		Meteor.setTimeout(function () {
+			Email.send({
+				to : user.emails[0].address,
+				from : 'hello@changeup.me',
+				subject : 'Welcome!',
+				text : "You've created a new changeup account!  Go to http://changeup.me/login and login with your credentials."
+			});
+		},10);
+
 		//add profile option and user name
 		user.profile = user.profile || {};
 		user.profile.name = user.profile.name || options.profile.name;
@@ -33,21 +43,7 @@
 
 			userObj.roles = ['user'];
 
-			console.log('the userobj', userObj)
-
 			var id = Accounts.createUser(userObj);
-
-			if(id) {
-				//send new user an email async
-				Meteor.setTimeout(function () {
-					Email.send({
-						to : userObj.email,
-						from : 'hello@changeup.me',
-						subject : 'Welcome!',
-						text : "You've created a new changeup account!  Go to http://changeup.me/login and login with your credentials."
-					},10);
-				})
-			}
 
 			Roles.setUserRoles(id, ['user']);
 		},
