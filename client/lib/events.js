@@ -8,12 +8,13 @@ Template.MasterLayout.events({
 		var form = event.target;
 		var password = form.password.value;
 		var email = form.email.value;
+		var name = form.name.value;
 
 		Meteor.call('insertUser',{
 			email : email,
 			password : password,
 			profile : {
-				name : form.name.value,
+				name : name,
 				dateRegistered : Date.now()
 			}
 		}, function (err) {

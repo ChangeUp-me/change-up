@@ -11,6 +11,10 @@
 			user.emails = [{address : email, verified : true}];
 		}
 
+		//add profile option and user name
+		user.profile = user.profile || {};
+		user.profile.name = user.profile.name || options.profile.name;
+
 		return user;
 	});
 
@@ -28,6 +32,8 @@
 			}
 
 			userObj.roles = ['user'];
+
+			console.log('the userobj', userObj)
 
 			var id = Accounts.createUser(userObj);
 
