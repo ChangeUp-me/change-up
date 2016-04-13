@@ -18,4 +18,22 @@
 			console.error('send-vendor-email', e.stack);
 		}
 	});
+
+	/**
+	* Do that after the admin confirms a request from a user.  Typical requests involve
+	* a user asking to become a vendor.
+	*/
+	accessRequests.after.update(function (userId, doc, fieldNames, modifier, options) {
+		if(modifier.$set && modifier.$set.confirm) {
+			var user = Meteor.users.findOne(doc.userId);
+
+			if(user && doc.requestType == 'vendor') {
+				var roles = user.roles || [];
+				roles.push('vendor');
+
+				//give the user vendor access
+				Roles.setUserRoles(user._id, roles);
+			}
+		}
+	});
 })();

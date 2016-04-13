@@ -63,6 +63,37 @@
 			Roles.setUserRoles(this.userId, role);
 		},
 
+		/**
+		*
+		* Request vendor access
+		*
+		* @description - logs a message to the admin that a user
+		* would like to become a vendor.  once the admin clicks
+		* confirm the user will get an invite email
+		*/
+		requestVendorAccess : function () {
+			var userId = this.userId;
+
+			Meteor.setTimeout(function () {
+				if(!userId) return;
+
+				var user = Meteor.users.findOne(userId);
+
+				Email.send({
+		      from: "hello@changeup.me",
+		      to: ["geoff@changeup.me", "matt@changeup.me", "niksurb228@gmail.com"],
+		      subject: "vendor access request",
+		      text: user.profile.name + " is requesting vendor privledges.  Go to http://changeup.me/admin/accessRequests to confirm their access"
+		    });
+			},10);
+
+			return accessRequests.insert({
+				userId : userId,
+				requestType : 'vendor',
+				confirm : false
+			})
+		},
+
 		getMyReview : function (productId) {
 			var user = Meteor.user();
 

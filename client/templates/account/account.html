@@ -91,5 +91,20 @@
 		<a href="#" class="button blue" id="paymentSave">Save Billing Details</a>
 	</div>
 
+	<!-- request vendor access -->
+	{{#unless isVendor currentUser._id}}
+	<label>Vendor</label>
+	<div class="row col-sm-12">
+		{{#if vendorRequestSent}}
+		{{#if vendorRequestApproved}}
+		<button type="button" class="button gray">Approved!</button>
+		{{else}}
+		<button type="button" class="button gray">Awaiting Approval</button>
+		{{/if}}
+		{{else}}
+		<button id="vendor-request" type="button" class="button orange">Request Vendor Access</button>
+		{{/if}}
+	</div>
+	{{/unless}}
 </div>
 </template>

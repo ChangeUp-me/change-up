@@ -6,6 +6,16 @@ Template.Account.events({
 		$('#bank-input').removeClass('hidden');
 		$('#bank-update').addClass('hidden');
 	},
+	'click #vendor-request' : function () {
+		Meteor.call('requestVendorAccess', function (err) {
+			if(err) {
+				console.error(err);
+				return sAlert.error('failed to send vendor request');
+			}
+
+			sAlert.success('vendor access request sent');
+		});
+	},	
 	'click #accountSave' : function () {
 
 		function validEmail(v) {
@@ -146,6 +156,30 @@ Template.Account.events({
 /* Account: Helpers */
 /*****************************************************************************/
 Template.Account.helpers({
+	vendorRequestSent : function () {
+		var request = accessRequests.findOne({
+			userId : Meteor.userId(), 
+			requestType : 'vendor'
+		})
+
+		var hasRequest = request ? true : false;
+
+		console.log(request, 'requests');
+
+		return hasRequest;
+	},
+	vendorRequestApproved : function () {
+		var request = accessRequests.findOne({
+			userId : Meteor.userId(), 
+			requestType : 'vendor'
+		})
+
+		request = request || {};
+
+		var approved = request.confirm;
+
+		return approved;
+	},
 	isVendor:function(id){
 		if(Roles.userHasRole(id, 'vendor')){
 			return true;
