@@ -76,23 +76,38 @@ Template.MasterLayout.events({
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-cart');
 			$('#cart').removeClass('show-cart');
+			$('#navbar, #mobile-navbar').removeClass('cart-open');
+			$('#overlay').removeClass('show');
 		} else {
 			// Do things on Nav Open
 			$('#cart').addClass('show-cart');
 			$('#site-wrapper').addClass('show-cart');
 			$('#overlay').addClass('show');
+			$('#navbar, #mobile-navbar').addClass('cart-open');
 		}
 	},
 	'click #overlay': function() {
-		$('#cart').removeClass('show-cart');
-		$('#site-wrapper').removeClass('show-nav');
-		$('#site-wrapper').removeClass('show-cart');
-		$('#overlay').removeClass('show');
+		//closes all open menus
+		//func is below
+		closeOpenMenus();
 	}
 });
 
 
 Template.MasterLayout.onRendered(function () {
+
+	/**
+	* @description - whenever the route changes
+	* close the menus (sidebars);
+	*/
+	Router.onBeforeAction(function () {
+		//closes all open menus
+		//func is below
+	  closeOpenMenus();
+	  this.next();
+	});
+
+
 	//show popup to a user X seconds after they first land on the site
 	var subscribed = Cookie.get('subscriber');
 
@@ -107,3 +122,13 @@ Template.MasterLayout.onRendered(function () {
 		},30000);
 	}
 })
+
+
+function closeOpenMenus () {
+	  $('#cart').removeClass('show-cart');
+	  $('#site-wrapper').removeClass('show-nav');
+	  $('#site-wrapper').removeClass('show-cart');
+	  $('#navbar, #mobile-navbar').removeClass('cart-open');
+	  $('#navbar, #mobile-navbar').removeClass('nav-open')
+	  $('#overlay').removeClass('show');
+	}

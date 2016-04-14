@@ -1,20 +1,43 @@
 <template name="MasterLayout">
 	{{> Cart }}
 	{{> sAlert}}
+	{{> Navbar }}
+
+	<!-- this navbar is only show on mobile devices (or devices with a mobile screen size) -->
+	<nav id="mobile-navbar" class="hidden-sm hidden-md hidden-lg">
+		<ul class="mv-items clearfix">
+
+			<!-- the menu button.  clicking this should toggle the menu sidebar -->
+			<li class="mv-item menu">
+				<a href="#" class="toggle-nav"><img src="/icons/menu.svg" class="Menu"></a>
+			</li>
+
+			<!-- changeup logo -->
+			<li class="mv-item">	
+				<a href="/"><img src="/navbar/logo_secondary.svg" height="35px" alt="Logo"></a>
+			</li>
+
+			<!-- the cart button.  clicking this should toggle the cart sidebar -->
+			<li class="mv-item cart">
+				<a href="#" class="toggle-cart"><img src="/icons/cart.svg" class="Cart"></a>
+			</li>
+		</ul>
+	</nav>
+
+
 	<div id="site-wrapper">
 		<div id="site-canvas">
-			{{> Navbar }}
 
 			<div id="overlay"></div>
+			
+			<!--<a href="#" class="toggle-cart larger-nav"><img src="/icons/cart.svg" class="Cart hidden-xs"></a>
 
-			<a href="#" class="toggle-cart larger-nav"><img src="/icons/cart.svg" class="Cart hidden-xs"></a>
-
-			<!-- <h4 id="page-title" class="text-center hidden-sm hidden-md hidden-lg">{{ pageTitle }}</h4> -->
+			<h4 id="page-title" class="text-center hidden-sm hidden-md hidden-lg">{{ pageTitle }}</h4>
 			<div id="page-title" class="text-center hidden-sm hidden-md hidden-lg">
 				<a href="#" class="toggle-nav hidden-sm hidden-md hidden-lg"><img src="/icons/menu.svg" class="Menu"></a>
 				<a href="#" class="toggle-cart"><img src="/icons/cart.svg" class="Cart"></a>
 				<a href="/"><img src="/navbar/logo_secondary.svg" height="35px" alt="Logo"></a>
-			</div>
+			</div>-->
 			{{> yield}}
 			{{> Footer }}
 		</div>
