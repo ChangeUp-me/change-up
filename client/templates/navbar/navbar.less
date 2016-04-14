@@ -10,8 +10,48 @@
 @mocha: #434343;				/* Titles */
 @silver: #C7C7C7;				/* Body text */
 
+
+//push the site wrapper down so it's not hidden by navbar
+#site-wrapper{
+	padding-top: 6.8rem;
+}
+
+#mobile-navbar{
+	position: fixed;
+	top: 0;
+	z-index: 999;
+	box-shadow: 0 1px 10px 5px #ddd;
+	box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+	width: 100%;
+	background-color: white;
+	display: flex;
+	flex-direction : column;
+	justify-content : space-between;
+	transition: transform .3s;
+	ul.mv-items{
+		display: flex;
+		flex-direction : row;
+		flex-grow : 2;
+		text-align: center;
+		padding: 0;
+		margin: 0;
+		li.mv-item.menu{
+			flex : 1;
+		}
+		li.mv-item.cart{
+			flex: 1;
+		}
+		li.mv-item{
+			overflow: hidden;
+			flex: 5;
+			padding: 1rem;
+			display: inline-block;
+		}
+	}
+}
+
 .toggle-nav {
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
 	display: inline-block;
@@ -22,7 +62,7 @@
 }
 
 #navbar {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: -250px;
 	width: 250px;
@@ -31,6 +71,7 @@
 	font-size: 14px;
 	overflow: auto;
 	z-index: 999;
+	transition: transform .3s;
 	a {
 		display: inline-block;
 		width: 100%;
@@ -80,6 +121,22 @@
 	-webkit-transform: translateX(250px);
 	transform: translateX(250px);
 }
+
+#navbar.nav-open{
+	-webkit-transform: translateX(250px);
+	transform: translateX(250px);
+}
+
+
+#navbar.cart-open, #mobile-navbar.cart-open{
+	-webkit-transform: translateX(-265px);
+	transform: translateX(-265px);
+}
+
+#mobile-navbar.nav-open{
+	-webkit-transform: translateX(250px);
+	transform: translateX(250px);
+}
 /*===================================*/
 
 /* Tablet and Desktop */
@@ -88,16 +145,25 @@
 		top: 6px;
 	}
 
+	#site-wrapper{
+		padding-top: 6.8rem;
+	}
+
 	#navbar {
-		position: relative;
+		position: fixed;
 		top: 0;
 		left: 0;
+		transition: transform .3s;
 		width: 100%;
 		height: auto;
 		background: white;
 		overflow: visible;
 		box-shadow: 0 1px 10px 5px #ddd;
 		z-index: 999;
+		.nav-cart{
+			position: absolute;
+			right : 0;
+		}
 		ul {
 			float: right;
 			width: 90%;

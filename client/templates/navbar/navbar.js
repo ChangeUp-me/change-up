@@ -2,13 +2,13 @@
 /* Navbar: Event Handlers */
 /*****************************************************************************/
 Template.Navbar.events({
-	'click #navbar a': function () {
+	/*'click #navbar a': function () {
 		if ($('#site-wrapper').hasClass('show-nav')) {
 			// Do things on Nav Close
 			$('#site-wrapper').removeClass('show-nav');
 			$('#overlay').removeClass('show');
 		}
-	},
+	},*/
 	'click #logout': function() {
 		Meteor.logout(function(error) {
 			if(!error) {
@@ -58,42 +58,24 @@ Template.Navbar.onRendered(function () {
 	$(function() {
 		$('.toggle-nav').click(function() {
 			// Calling a function in case you want to expand upon this.
-			toggleNav();
-			$('#overlay').addClass('show');
+			$('#site-wrapper').toggleClass('show-nav');
+			$('#overlay').toggleClass('show');
+			$('#mobile-navbar,#navbar').toggleClass('nav-open');
 		});
 	});
-
-	function toggleNav() {
-		if ($('#site-wrapper').hasClass('show-nav')) {
-			// Do things on Nav Close
-			$('#site-wrapper').removeClass('show-nav');
-		} else {
-			// Do things on Nav Open
-			$('#site-wrapper').addClass('show-nav');
-		}
-		//$('#site-wrapper').toggleClass('show-nav');
-	}
 
 	$(function() {
 		$(window).resize(function() {
 			if($(document).width() > 768 && $('#site-wrapper').hasClass('show-nav')) {
 				$('#site-wrapper').removeClass('show-nav');
 				$('#overlay').removeClass('show');
+				$('#navbar, #mobile-navbar').removeClass('nav-open');
 			}
 		});
 	});
 
 	// Keeps off-canvas menus fixed at the top while allowing the canvas to scroll
 	$(function() {
-		$(window).scroll(function() {
-			if ($('#site-wrapper').hasClass('show-nav')) {
-				var scrollPosition = $(window).scrollTop();
-				$('#navbar').css("top", 0 + (scrollPosition));
-			} else {
-				$('#navbar').css("top", 0);
-			}
-		});
-
 		$(window).resize(function() {
 			if (!$('#site-wrapper').hasClass('show-nav')) {
 				$('#navbar').css("top", 0);
