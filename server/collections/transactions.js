@@ -67,7 +67,7 @@ Meteor.methods({
 			var body = vendor.storeName + " has refunded your order";
 
 			_.each(items, function (item) {
-				body += "\n";
+				body += "\r\n";
 				body += item.productName + " | $" + item.price;
 
 				if(item.size) body += " | " + item.size;
@@ -117,7 +117,7 @@ Meteor.methods({
 			body += vendor.storeName + " has shipped your order:"
 
 			_.each(items, function (item) {
-				body += "\n";
+				body += "\r\n";
 				body += item.productName + " | $" + item.price;
 
 				if(item.size) body += " | " + item.size;

@@ -125,7 +125,7 @@
 	    	//send email async
 	    	Meteor.setTimeout(function () {
 	    		var body = "";
-	    		var br = '\n'
+	    		var br = '\r\n'
 
 	    		try{
 	    			//send out review emails
@@ -168,7 +168,7 @@
 	function thankYouEmail (cart, finalPrice) {
 		var body = ""
 		var user = Meteor.user();
-		var br = '\n';
+		var br = '';
 
 		_.each(cart, function (item) {
 	  	body += item.productName + ' : $' + item.price + ' | X' + item.quantity + ' | shipping: ' + item.shipping + br;
@@ -187,7 +187,7 @@
 	function sendReviewEmail (email, checkout, billing) {
 	    	var twoWeeks = moment.utc().add(14, 'days').format()
 	    	var message = "";
-	    	var br = '\n';
+	    	var br = '\r\n';
 
 	    	message += "Leave a review for your items:" + br;
 

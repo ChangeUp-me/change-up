@@ -250,7 +250,7 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 		var billing = this.billing;
 		var vendorEmails = {};
 		var body = "";
-		var br = '\n';
+		var br = '\r\n';
 
 		vendors.forEach(function (vendor){
 			//get each userId from vendor
