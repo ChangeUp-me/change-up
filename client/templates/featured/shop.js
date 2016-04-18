@@ -1,4 +1,6 @@
 (function () {
+	var interval;
+
 	/*****************************************************************************/
 	/* Shop: Event Handlers */
 	/*****************************************************************************/
@@ -95,9 +97,28 @@
 
 	Template.Shop.onRendered(function () {
 		get_tweets();
+
+		Meteor.setTimeout(function () {
+			var then = FeaturedProducts.findOne({'current':true}).date;
+			var $target = $('#featuredTime');
+
+			interval = setInterval(function () {
+  			var now = Date.now();
+  			var diff = moment(then).diff(now);
+
+  			var hours = moment(diff).hours();
+  			var minutes = moment(diff).minutes();
+  			var seconds = moment(diff).second();
+
+  			console.log('the mins', minutes);
+
+  			$target.html(hours + 'h ' + minutes + 'm ' + seconds + 's');
+			},1000);
+		});
 	});
 
 	Template.Shop.onDestroyed(function () {
+		if(interval) clearInterval(interval);
 	});
 
 
