@@ -2,6 +2,18 @@
 /* Item: Event Handlers */
 /*****************************************************************************/
 Template.Item.events({
+	'click .zoomable-image' : function (event) {
+		var $image = $(event.target);
+		var src = $image.attr('src');
+
+		var $zoomImg = $('<img />', {
+			src : src,
+			class : 'zoom-image'
+		})
+
+		$('#image-zoom').find('.modal-body').html($zoomImg)
+		$('#image-zoom').modal('show');
+	},
 	'click .openShareWidget': function(){
 		productId.set(this.product._id);
 		productName.set(this.product.name);
