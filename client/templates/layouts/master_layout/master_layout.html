@@ -1,4 +1,13 @@
 <template name="MasterLayout">
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=428054590735812";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
 	{{> Cart }}
 	{{> sAlert}}
 	{{> Navbar }}
@@ -42,7 +51,7 @@
 			<div class="modal-content">
 				<div class="modal-body">
 					<h2>Change Password</h2>
-					
+
 					<form data-submit-changepassword>
 						<input type="password" name="oldPassword" placeholder="Old Password">
 						<input type="password" name="newPassword" placeholder="New Password">
@@ -98,6 +107,7 @@
     	<div class="modal-content">
     		<div class="modal-body">
     			<img src="/images/logo.svg" alt="ChangeUp" class="floating-logo">
+    			<div class="fb-like" data-href="https://www.facebook.com/changeup.me/" data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div>
         	<div id="registerpopup">
         		<!-- <a id="popup_close" class="button blue login">X</a> -->
 						<div>

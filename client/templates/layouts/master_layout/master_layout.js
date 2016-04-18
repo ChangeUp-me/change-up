@@ -125,7 +125,6 @@ Template.MasterLayout.onRendered(function () {
 	  this.next();
 	});
 
-
 	//show popup to a user X seconds after they first land on the site
 	var subscribed = Cookie.get('subscriber');
 
