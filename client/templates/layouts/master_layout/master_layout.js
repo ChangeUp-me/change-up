@@ -1,4 +1,22 @@
 Template.MasterLayout.events({
+	'submit [data-submit-changepassword]' : function (event) {
+		event.preventDefault();
+		
+		var form = event.target;
+
+		var oldPassword = form.oldPassword.value;
+		var newPassword = form.newPassword.value;
+
+		Accounts.changePassword(oldPassword, newPassword, function (err) {
+			if(err) {
+				console.error(err);
+				return sAlert.error(err);
+			}
+
+			sAlert.success('your password was changed!');
+			$('#change-password').modal('hide');
+		})
+	},
 	'submit [data-submit-signupToLike]' : function (event) {
 		event.preventDefault();
 

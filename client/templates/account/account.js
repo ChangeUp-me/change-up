@@ -6,6 +6,9 @@ Template.Account.events({
 		$('#bank-input').removeClass('hidden');
 		$('#bank-update').addClass('hidden');
 	},
+	'click [data-click-changepassword]' : function () {
+		$('#change-password').modal('show');
+	},
 	'click #vendor-request' : function () {
 		Meteor.call('requestVendorAccess', function (err) {
 			if(err) {

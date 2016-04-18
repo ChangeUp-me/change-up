@@ -24,12 +24,30 @@
 		</ul>
 	</nav>
 
-	<!-- image zoom modal -->
+	<!-- modal for zooming in on images -->
 	<div class="modal zoom" id="image-zoom" role="document">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-body">
 					
+				</div>
+			</div>	
+		</div>
+	</div>
+
+
+	<!-- modal for changing passwords -->
+	<div class="modal fade" id="change-password" role="document">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h2>Change Password</h2>
+					
+					<form data-submit-changepassword>
+						<input type="password" name="oldPassword" placeholder="Old Password">
+						<input type="password" name="newPassword" placeholder="New Password">
+						<button class="button orange" type="submit">Change Password</button>
+					</form>
 				</div>
 			</div>	
 		</div>
