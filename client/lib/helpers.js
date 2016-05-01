@@ -15,26 +15,16 @@ Template.registerHelper('pageTitle', function () {
   return this.pageTitle || Router.current().route.getName();
 })
 
-Template.registerHelper('featuredTime', function (date) {
-  if(!date)return;
-
-  var then = date;
-  var now = Date.now();
-
-  var hours = moment(then).diff(now, 'hours');
-  var minutes =  moment(then).diff(now, 'minutes');
-  return hours + 'h ' + (minutes - (60 * hours)) + 'm';
-})
-
 Template.registerHelper('featuredProductsTime', function () {
 
-  var then = FeaturedProducts.findOne({'current':true}).date;
+  var then = Date.parse(FeaturedProducts.findOne({'current':true}).date);
   var now = Date.now();
+  var diff = then-now;
+  console.log(diff)
+  var hours = Math.floor(diff/3600000)
+  var minutes =  Math.floor((diff%3600000)/60000);
 
-  var hours = moment(then).diff(now, 'hours');
-  var minutes =  moment(then).diff(now, 'minutes');
-
-  return hours + 'h ' + (minutes - (60 * hours)) + 'm';
+  return hours + 'h ' + minutes + 'm';
 })
 
 Template.registerHelper('productReviewStars', function(reviewObj) {

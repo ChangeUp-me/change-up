@@ -17,13 +17,13 @@ Meteor.startup(function () {
 	//smtp
 	process.env.MAIL_URL = "smtp://terrell.changeup@gmail.com:changeup1234@smtp.gmail.com:587";
 
-	var superUser = Meteor.users.findOne({'emails.address' : 'geoff.bruskin@changeup.me'});
+	var superUser = Meteor.users.findOne({'emails.address' : 'geoff@changeup.me'});
 
 	//create an admin if there is none
 	if(!superUser) {
 		try {
 			var id = Accounts.createUser({
-				email : "geoff.bruskin@changeup.me",
+				email : "geoff@changeup.me",
 				password : "changeup1234",
 				profile : {
 					name : "admin",
@@ -71,7 +71,7 @@ function buildCharityStatements () {
 	_.each(charities, function (charity) {
 		Meteor.setTimeout(function () {
 			var statements = payments.getStatement(charity._id);
-			
+
 			payments.saveStatements(charity._id, statements);
 
 			console.log('charity statements', statements);
@@ -87,7 +87,7 @@ function buildVendorStatements () {
 	_.each(vendors, function (vendor) {
 		Meteor.setTimeout(function () {
 			var statements = payments.getStatement(vendor._id);
-			
+
 			payments.saveStatements(vendor._id, statements);
 			console.log('vendor statements', statements);
 		})
