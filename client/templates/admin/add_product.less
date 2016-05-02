@@ -1,0 +1,49 @@
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+@media (min-width: 768px) {
+	#add-product{
+		.select2-container{
+			width: 100%;
+			.select2-choice{
+				background-color: @offwhite;
+			}
+		}
+		h2{
+			text-align: left;
+			width: auto;
+			max-width: none;
+			padding: 15px;
+			margin: 0;
+		}
+		label{
+			margin-left: 0;
+		}
+		fieldset, .input-set{
+			text-align: left;
+			padding: 0 15px;
+			input,textarea {
+				max-width: 100% !important;
+				background : @offwhite;
+				resize : none;
+				margin: 5px 0 0;
+				padding: 8px 15px;
+				text-align: left;
+				color: @mocha;
+				border: none;
+				border-radius: 3px;
+				outline: none;
+				&::-webkit-input-placeholder { color: @gray; }
+				&:-ms-input-placeholder { color: @gray; }
+				&::-moz-placeholder { color: @gray; }
+				&:-moz-placeholder { color: @gray; }
+			}
+		}
+	}
+}

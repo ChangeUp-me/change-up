@@ -1,117 +1,273 @@
 <template name="Fulfillment">
-	<section class="text-center page-header">
-		<a class="back-button" href="javascript:history.back()"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
-		<h2>Fulfillment</h2>
-	</section>
+  <section class="text-center page-header">
+    <a class="back-button" href="javascript:history.back()"><img src="/icons/small_arrow_gray.svg" alt="Back"></a>
+    <h2>Fulfillment</h2>
+  </section>
+  <div id="fulfillment">
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="inventory page">
+          <div class="section-header">
+            <div class="col-xs-6 text-left">
+              <h4>Order Details</h4>
+            </div>
+            <div class="col-xs-6 text-right">
+              <h4>{{formatDate timestamp}}</h4>
+            </div>
+          </div>
+          <div id="items">
+            {{#each order}}
+            <div class="item col-xs-12">
+              <div class="portrait col-xs-6 col-sm-2">
+                <img src="{{https image.url}}" alt="Item">
+              </div>
+              <div class="details col-xs-6">
+                <strong>{{this.productName}}</strong>
+                <div><small>{{#if size}}{{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
+              </div>
+              <div class="col-xs-2">
+                x{{quantity}}
+              </div>
+              <div class="col-xs-4 col-sm-2 text-right">
+                &#36;{{price}}
+              </div>
+            </div>
+            {{/each}}
+            {{#with totals}}
+            <div class="col-sm-6 hidden-xs">
+              <!-- offset -->
+            </div>
+            <div id="totals" class="col-sm-6">
+              <div class="subtotal">
+                <div class="row">
+                  <div class="col-xs-6 text-left">
+                    <div>Subtotal</div>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <div>${{subTotal}}</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-6 text-left">
+                    <div>Shipping</div>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <div>${{shipping}}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="total">
+                <div class="row">
+                  <div class="col-xs-6 text-left">
+                    <div>Total</div>
+                  </div>
+                  <div class="col-xs-6 text-right">
+                    <div><strong>${{total}}</strong></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/with}}
+            <div class="section-footer">
+              <div class="col-sm-6">
+                <!-- offset -->
+                <button data-click-cancel class="button red">Cancel Order</button>
+              </div>
+              <div class="col-sm-6 text-center">
+                {{#if isFulfilled}}
+                <button class="button lightgray">Fulfilled</button>
+                {{else}}
+                <button class="button blue" data-click-fulfill>Fulfill order</button>
+                {{/if}}
+              </div>
+            </div>
+          </div>
+        </div>
 
-	<div id="fulfillment">
-		<div class="inventory page">
-			<div class="section-header">
-				<div class="col-xs-6 text-left">
-					<h4>Order Details</h4>
-				</div>
-				<div class="col-xs-6 text-right">
-					<h4>{{formatDate timestamp}}</h4>
-				</div>
-			</div>
-			<div id="items">
-				{{#each order}}
-				<div class="item col-xs-12">
-					<div class="portrait col-xs-6 col-sm-2">
-						<img src="{{https image.url}}" alt="Item">
-					</div>
-					<div class="details col-xs-6">
-						<strong>{{this.productName}}</strong>
-						<div><small>{{#if size}}{{size}}{{/if}} {{#if color}}| {{color}}{{/if}}</small></div>
-					</div>
-					<div class="col-xs-2">
-						x{{quantity}}
-					</div>
-					<div class="col-xs-4 col-sm-2 text-right">
-						&#36;{{price}}
-					</div>
-				</div>
-
-				{{/each}}
-				{{#with totals}}
-				<div class="col-sm-6 hidden-xs">
-					<!-- offset -->
-				</div>
-				<div id="totals" class="col-sm-6">
-					<div class="subtotal">
-						<div class="row">
-							<div class="col-xs-6 text-left">
-								<div>Subtotal</div>
-							</div>
-							<div class="col-xs-6 text-right">
-								<div>${{subTotal}}</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-6 text-left">
-								<div>Shipping</div>
-							</div>
-							<div class="col-xs-6 text-right">
-								<div>${{shipping}}</div>
-							</div>
-						</div>
-					</div>
-					<div class="total">
-						<div class="row">
-							<div class="col-xs-6 text-left">
-								<div>Total</div>
-							</div>
-							<div class="col-xs-6 text-right">
-								<div><strong>${{total}}</strong></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{{/with}}
-				<div class="section-footer">
-					<div class="col-sm-6">
-						<!-- offset -->
-						<button data-click-cancel class="button red">Cancel Order</button>
-					</div>
-					<div class="col-sm-6 text-center">
-						{{#if isFulfilled}}
-						<button class="button lightgray">Fulfilled</button>
-						{{else}}
-						<button class="button blue" data-click-fulfill>Fulfill order</button>
-						{{/if}}
-					</div>
-				</div>
-			</div>
-
-
-		</div>
-
-		<div class="queue-item page text-center">
-			<div class="section-header">
-				<div class="col-xs-12">
-					<h4>Customer</h4>
-				</div>
-			</div>
-			<div class="col-xs-12">
-				<div class="row">
-					<h4>{{billing.creditCardName}}</h4>
-					<div>{{email}}</div>
-				</div>
-				<div class="row">
-					<h4>Shipping Address</h4>
-					<div>{{this.shipping.address}}</div>
-					<div>{{this.shipping.city}}, {{this.shipping.state}}. {{this.shipping.zipcode}}</div>
-				</div>
-				<div class="row">
-					<h4>Billing Address</h4>
-					<div>{{this.shipping.address}}</div>
-					<div>{{this.shipping.city}}, {{this.shipping.state}}. {{this.shipping.zipcode}}</div>
-				</div>
-				<div class="row">
-					<h4>Shipping Label</h4>
-					<button class="button blue print-label">Print Label</button>
-				</div>
-			</div>
-		</div>
-	</div>
+        <!-- Customer information -->
+        <div class="queue-item page text-center">
+          <div class="section-header">
+            <div class="col-xs-12">
+              <h4>Customer</h4>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4 col-xs-12">
+              <h4>{{billing.creditCardName}}</h4>
+              <div>{{email}}</div>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+              <h4>Shipping Address</h4>
+              <div>{{this.shipping.address}}</div>
+              <div>{{this.shipping.city}}, {{this.shipping.state}}. {{this.shipping.zipcode}}</div>
+            </div>
+            <div class="col-sm-4 col-xs-12">
+              <h4>Billing Address</h4>
+              <div>{{this.shipping.address}}</div>
+              <div>{{this.shipping.city}}, {{this.shipping.state}}. {{this.shipping.zipcode}}</div>
+            </div>
+          </div>
+        </div>
+        <!-- START : shipping information -->
+        <section class="fulfillment-item page">
+          <header class="section-header">
+            <h4>Shipment Info</h4>
+          </header>
+          <form class="fi-form" id="shippingForm">
+            <!-- START : parcel information -->
+            <fieldset>
+              <legend>Parcel Information</legend>
+              <div class="row">
+                <!-- carrier information -->
+                <div class="col-xs-12 col-sm-6">
+                  <label class="text-left">Select A Carrier</label>
+                  <select id="e1" data-onchange-carrier name="carrier">
+                    {{#each carriers}}
+                    {{#if selected}}
+                    <option value="{{value}}" selected>{{value}}</option>
+                    {{else}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/if}}
+                    {{/each}}
+                  </select>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <label class="text-left">Select A Parcel Template (or enter manually below)</label>
+                  <select id="e2" data-onchange-parcel>
+                    <option value=""></option>
+                    {{#each parcelTemplates}}
+                    <option value="{{toJson}}">{{token}}</option>
+                    {{/each}}
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <!-- package weight information -->
+                <div class="col-xs-12 col-sm-6">
+                  <label class="text-left">mass unit</label>
+                  <select id="massunit" name="massUnit">
+                    {{#each massUnits}}
+                    {{#if selected}}
+                    <option value="{{value}}" selected>{{value}}</option>
+                    {{else}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/if}}
+                    {{/each}}
+                  </select>
+                  <div class='row'>
+                    <div class="col-xs-6 col-sm-4">
+                      <label class="text-left">Weight</label>
+                      <input placeholder="0" name="weight" value="{{parcelInfo.weight}}">
+                    </div>
+                  </div>
+                </div>
+                <!-- package dimension information -->
+                <div class="col-xs-12 col-sm-6">
+                  <label class="text-left">Distance Unit</label>
+                  <select id="distanceunit" name="distanceUnit">
+                    {{#each distanceUnits}}
+                    {{#if selected}}
+                    <option value="{{value}}" selected>{{value}}</option>
+                    {{else}}
+                    <option value="{{value}}">{{value}}</option>
+                    {{/if}}
+                    {{/each}}
+                  </select>
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-4">
+                      <label class="text-left">Length</label>
+                      <input placeholder="0" name="length" value="{{parcelInfo.length}}">
+                    </div>
+                    <div class="col-xs-6 col-sm-4">
+                      <label class="text-left">height</label>
+                      <input placeholder="0" name="height" value="{{parcelInfo.height}}">
+                    </div>
+                    <div class="col-xs-6 col-sm-4">
+                      <label class="text-left">Width</label>
+                      <input placeholder="0" name="width" value="{{parcelInfo.width}}">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+            <!-- END: parcel information -->
+            <!-- START : sender address information -->
+            <fieldset>
+              {{#with shipFromInfo}}
+              <legend>Shipping From</legend>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <label class="text-left">Street</label>
+                  <input placeholder="street" name="street" value="{{street}}">
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                  <label class="text-left">City</label>
+                  <input placeholder="city" name="city" value="{{city}}">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                  <div class='row'>
+                    <div class="col-sm-4">
+                      <label class="text-left">Zip code</label>
+                      <input placeholder="zipcode" name="zipcode" value="{{zipcode}}">
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="text-left">State</label>
+                      <select id="states" name="state">
+                        <option value=""></option>
+                        {{#each usStates}}
+                        {{#if stateIsSelected iso}}
+                        <option value="{{iso}}" selected>{{iso}}</option>
+                        {{else}}
+                        <option value="{{iso}}">{{iso}}</option>
+                        {{/if}}
+                        {{/each}}
+                      </select>
+                    </div>
+                    <div class="col-sm-4">
+                      <label class="text-left">Country</label>
+                      <input placeholder="us" name="country" disabled value="US">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {{/with}}
+            </fieldset>
+            <footer class="section-footer">
+              <button type="submit" data-click-getlabel class="button blue">Get Shipping Labels</button>
+              {{#each rateLables}}
+              <div class="row rate-label">
+                <!-- the provider -->
+                <div class="col-sm-3 col-xs-6">
+                  <img src="{{provider_image_200}}">
+                  <strong>{{provider}}</strong>
+                </div>
+                <!-- duration -->
+                <div class="col-sm-3 col-xs-6">
+                  <p>{{duration_terms}}</p>
+                  <strong>Delivery Times</strong>
+                </div>
+                <!-- amount -->
+                <div class="col-sm-3 col-xs-6">
+                  <p>${{amount}}</p>
+                  <strong>Amount</strong>
+                </div>
+                <!-- service level -->
+                <div class="col-sm-3 col-xs-6">
+                  <p>{{servicelevel_name}}</p>
+                  <strong>Service Level</strong>
+                </div>
+                <div class="col-sm-12">
+                  <button type="button" class="button orange">Purchase Label</button>
+                </div>
+              </div>
+              {{/each}}
+            </footer>
+          </form>
+        </section>
+        <!-- END : shipping information -->
+      </div>
+    </div>
+  </div>
 </template>

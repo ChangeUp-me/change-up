@@ -43,6 +43,8 @@ Meteor.methods({
 
 		Vendors.update({userId : userId}, {$set : obj}, {upsert : true});
 
+		console.log('the store', obj);
+
 		//@todo - need to add a rollback incase this first query fails
 
 

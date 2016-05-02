@@ -20,6 +20,21 @@ Meteor.methods({
         });
       }
     }
+  },
+  getShippingRates : function (transactionId, parcelObj, shippingFromObj) {
+    var shipping = new SHIPPING(Meteor.user());
+    var result = new Future();
+
+    shipping.getShippingRates(transactionId, parcelObj, shippingFromObj, function (err, rates) {
+      if(err) {
+        console.error(err);
+        return result.throw(err);
+      }
+
+      result.return(rates);
+    });
+
+    return result.wait();
   }
 });
 
