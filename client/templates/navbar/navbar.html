@@ -2,7 +2,7 @@
   <div id="navbar" class="clearfix">
     <ul class="list-unstyled">
       <div class="col-sm-2 hidden-xs">
-        <a href="{{pathFor route='shop'}}"><img src="/navbar/logo_secondary.svg" alt="ChangeUp Logo"></a>
+        <a href="{{pathFor route='shop'}}"><img class="changeup-logo" src="/navbar/logo_secondary.svg" alt="ChangeUp Logo"></a>
       </div>
       <div class="col-sm-10">
         <li><a href="/#featured"><img src="/navbar/featured.svg" class="hidden-sm hidden-md hidden-lg" alt="Featured">Featured</a></li>
@@ -79,5 +79,9 @@
       <li id="logout"><a href="#"><img src="/navbar/logout.svg" alt="Logout">Log Out</a></li>
     </ul>
     {{ /if }}
+
+    <div class="nav-cart hidden-xs">
+      <a href="#" class="toggle-cart"><img src="/icons/cart.svg" class="Cart"></a>
+    </div>
   </div>
 </template>

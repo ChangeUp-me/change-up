@@ -251,6 +251,7 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 		var vendorEmails = {};
 		var body = "";
 		var br = '\r\n';
+		var address;
 
 		vendors.forEach(function (vendor){
 			//get each userId from vendor
@@ -258,9 +259,11 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 
 			vendorEmails[vendor.userId] = [];
 
-			//construct order email for each item
+			//construct order email for each item 
 			_.forEach(order, function (item) {
 				if(item.vendorId == vendor._id) {
+					//the address to ship to
+					address = self.shipping.city + ", " + self.shipping.state + " " + self.shipping.address + " " + shipping.zipcode;
 					body = "";
 					body += "Hi " + vendor.storeName + "," + br;
 					body += billing.creditCardName + " has bought " + item.quantity + " " + item.productName;
@@ -268,11 +271,11 @@ checkout.prototype._sendVendorEmails = function (vendorIds) {
 					body += "Item Name: " + item.productName + br;
 					body += "Order ID: " + item.orderId + br; //@todo? 
 					body += "Quantity: " + item.quantity + br;
-					body += "Shipping: " + item.shipping + br;
-					body += "Total Cost: " + (parseFloat( (Number(item.price) * item.quantity) + Number(item.shipping) ).toFixed(2)) + br;
+					body += "Shipping: " + (Number(item.shippingPrice) || 0) + br;
+					body += "Total Cost: " + (parseFloat( (Number(item.price) * item.quantity) + Number(item.shippingPrice) ).toFixed(2)) + br;
 					body += "Customer Name: " + billing.creditCardName + br;
 					body += "Customer Email: " + self.email + br;
-					body += "Customer Shipping Address: " + self.shipping.address + br + br;
+					body += "Customer Shipping Address: " + address + br + bg;
 					body += "If you have additional questions about this order, please contact the buyer directly first. Any other questions you can email ChangeUp directly at <a href='mailto:geoff@changeup.me'>Geoff@ChangeUp.me</a>" + br;
 					body += " and to view your order visit : http://changeup.me/vendorOrders"+ br;
 					body += "- The ChangeUp Team";

@@ -6,6 +6,9 @@ Template.Account.events({
 		$('#bank-input').removeClass('hidden');
 		$('#bank-update').addClass('hidden');
 	},
+	'click [data-click-changepassword]' : function () {
+		$('#change-password').modal('show');
+	},
 	'click #vendor-request' : function () {
 		Meteor.call('requestVendorAccess', function (err) {
 			if(err) {
@@ -15,7 +18,7 @@ Template.Account.events({
 
 			sAlert.success('vendor access request sent');
 		});
-	},	
+	},
 	'click #accountSave' : function () {
 
 		function validEmail(v) {
@@ -119,7 +122,9 @@ Template.Account.events({
 						 		$('#bank-update').removeClass('hidden');
 							 }
 						 })
-			   }
+			   } else {
+					 sAlert.error(response.error);
+				 }
 			});
 		}
 	},
@@ -158,7 +163,7 @@ Template.Account.events({
 Template.Account.helpers({
 	vendorRequestSent : function () {
 		var request = accessRequests.findOne({
-			userId : Meteor.userId(), 
+			userId : Meteor.userId(),
 			requestType : 'vendor'
 		})
 
@@ -170,7 +175,7 @@ Template.Account.helpers({
 	},
 	vendorRequestApproved : function () {
 		var request = accessRequests.findOne({
-			userId : Meteor.userId(), 
+			userId : Meteor.userId(),
 			requestType : 'vendor'
 		})
 
