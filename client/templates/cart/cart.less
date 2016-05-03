@@ -13,7 +13,7 @@
 .toggle-cart {
 	position: relative;
 	top: 0;
-	right: 0;
+	right: 15px;
 	display: inline-block;
 	padding: 10px 15px;
 	z-index: 1000;
@@ -47,7 +47,7 @@
 	background: @offwhite;
 	font-size: 15px;
 	overflow: auto;
-	z-index: 100;
+	z-index: 1000;
 	.col-xs-12 {
 		padding: 5px 0;
 	}
@@ -103,6 +103,12 @@
 /*===================================*/
 
 /* Tablet and Desktop */
+@media (min-width: 500px) {
+	.toggle-cart {
+		right: 0;
+	}
+}
+
 @media (min-width: 768px) {
 	#cart {
 		background: white;
