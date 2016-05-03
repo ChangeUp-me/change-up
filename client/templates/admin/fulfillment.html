@@ -144,46 +144,26 @@
               <div class="row">
                 <!-- package weight information -->
                 <div class="col-xs-12 col-sm-6">
-                  <label class="text-left">mass unit</label>
-                  <select id="massunit" name="massUnit">
-                    {{#each massUnits}}
-                    {{#if selected}}
-                    <option value="{{value}}" selected>{{value}}</option>
-                    {{else}}
-                    <option value="{{value}}">{{value}}</option>
-                    {{/if}}
-                    {{/each}}
-                  </select>
                   <div class='row'>
                     <div class="col-xs-6 col-sm-4">
-                      <label class="text-left">Weight</label>
+                      <label class="text-left">Weight (oz)</label>
                       <input placeholder="0" name="weight" value="{{parcelInfo.weight}}">
                     </div>
                   </div>
                 </div>
                 <!-- package dimension information -->
                 <div class="col-xs-12 col-sm-6">
-                  <label class="text-left">Distance Unit</label>
-                  <select id="distanceunit" name="distanceUnit">
-                    {{#each distanceUnits}}
-                    {{#if selected}}
-                    <option value="{{value}}" selected>{{value}}</option>
-                    {{else}}
-                    <option value="{{value}}">{{value}}</option>
-                    {{/if}}
-                    {{/each}}
-                  </select>
                   <div class="row">
                     <div class="col-xs-6 col-sm-4">
-                      <label class="text-left">Length</label>
+                      <label class="text-left">Length (in)</label>
                       <input placeholder="0" name="length" value="{{parcelInfo.length}}">
                     </div>
                     <div class="col-xs-6 col-sm-4">
-                      <label class="text-left">height</label>
+                      <label class="text-left">height (in)</label>
                       <input placeholder="0" name="height" value="{{parcelInfo.height}}">
                     </div>
                     <div class="col-xs-6 col-sm-4">
-                      <label class="text-left">Width</label>
+                      <label class="text-left">Width (in)</label>
                       <input placeholder="0" name="width" value="{{parcelInfo.width}}">
                     </div>
                   </div>
@@ -240,22 +220,22 @@
               <div class="row rate-label">
                 <!-- the provider -->
                 <div class="col-sm-3 col-xs-6">
-                  <img src="{{provider_image_200}}">
-                  <strong>{{provider}}</strong>
+                  <p>{{carrier}}</p>
+                  <strong>carrier</strong>
                 </div>
                 <!-- duration -->
                 <div class="col-sm-3 col-xs-6">
-                  <p>{{duration_terms}}</p>
+                  <p>{{delivery_days}} days</p>
                   <strong>Delivery Times</strong>
                 </div>
                 <!-- amount -->
                 <div class="col-sm-3 col-xs-6">
-                  <p>${{amount}}</p>
+                  <p>${{rate}}</p>
                   <strong>Amount</strong>
                 </div>
                 <!-- service level -->
                 <div class="col-sm-3 col-xs-6">
-                  <p>{{servicelevel_name}}</p>
+                  <p>{{service}}</p>
                   <strong>Service Level</strong>
                 </div>
                 <div class="col-sm-12">

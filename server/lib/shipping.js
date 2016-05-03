@@ -1,7 +1,6 @@
 SHIPPING = (function () {
-	/*var easypost = Meteor.npmRequire('node-easypost')('XvaMUDfhoS0jPG28lkVIsQ');
-	console.log('easy', easypost);*/
-
+	var easypost = Meteor.npmRequire('node-easypost')('XvaMUDfhoS0jPG28lkVIsQ');
+	console.log('easy', easypost);
 	function changeupShipping (user) {
 		//the user should be linked to the vendor
 		//that is doing the shipping
@@ -11,28 +10,134 @@ SHIPPING = (function () {
 			throw new Meteor.Error('no-user', 'you must provide a user object')
 		}
 
+		this.baseUrl = 'https://api.easypost.com/v2/';
+
 		this.secretTestKey = 'XvaMUDfhoS0jPG28lkVIsQ';
 		this.client = Meteor.npmRequire('node-easypost')(this.secretTestKey);
 		this._parcelTemplates = PARCEL_TEMPLATES;
 	}
 
 	/**
-	* create  a ship8
+	* get the api keys for a child (vendor).  you'll use these api 
+	* keys to make further calls
 	*
+	* @param String childId - the id of the child we need api keys for
+	* @param Function Callback - the callback where the apikeys will be returned to
+	* {id : 'user_**', keys : [{key : 'dsa**',...}] ...}
+	*/
+	changeupShipping.prototype.getChildApiKeys = function (childId, callback) {
+		try{
+			check(childId, String)
+		} catch (e) {
+			return callback(e);
+		}
+
+		HTTP.call('GET', this.baseUrl + 'api_keys', {
+			auth : this.secretTestKey + ':',
+		}, function (err, result) {
+			if(err) {
+				return callback(new Meteor.Error('child-api-keys', err));
+			}
+
+			//find the apikeys for this child
+			var keys = _.find(result.children, function (child) {
+				return child.id == childId;
+			})
+
+			callback(null, keys);
+		});
+	}
+
+
+	/**
+	* Create a child user, so that a vendor can input their own
+	* carrier accounts and such.
+	*
+	* @param Function callback - callback function returns a user object in the result
+	* {id : 'user_**', ...}
+	*/
+	changeupShipping.prototype.createChild = function (callback) {
+		HTTP.call('POST', this.baseUrl + 'users', {
+			auth : this.secretTestKey + ':',
+			data : {
+				name : this.user.profile.name
+			}
+		}, function (err, result) {
+			if(err) {
+				return callback(new Meteor.Error('create-child-user', err));
+			}
+
+			callback(null, result);
+		});
+	};
+
+
+	/**
+	* Get all the carriers and there auth schemas(what data we need to POST in order
+	* to authenticate a carrier account)
+	* 
+	* @param Function callback - callback function where the carrier accounts and schemas
+	* will be returend to [{type : 'aramexAccount', fields {credentials : {username : ''}}}] 
+	*/
+	changeupShipping.prototype.getCarrierTypes = function (callback) {
+		HTTP.call('GET', this.baseUrl + 'carrier_types', {
+			auth : this.secretTestKey + ':',
+		}, function (err, result) {
+			if(err) {
+				return callback(new Meteor.Error('get-carriers', err));
+			}
+
+			callback(null, result);
+		})
+	};
+
+
+	/**
+	* create a carrier account
+	*
+	* @param Object credentials - an object containing credentials needed to authorize
+	* the carrier account
+	* @param Function callback - callback function where the carrier account will be returned to
+	*/
+	changeupShipping.prototype.createCarrierAccount = function (carrier, reference, credentials) {
+		HTTP.call('POST', this.baseUrl + 'carrier_accounts', {
+			auth : this.secretTestKey + ':',
+			data : {
+				type : carrier,
+				description : '',
+				reference : reference,
+				credentials : credentials
+			}
+		}, function (err, account) {
+			if(err) {
+				return callback(new Meteor.Error('create-carrier', err));
+			}
+
+			callback(null, account);
+		});
+	}
+
+	/**
+	* create  a shipment
+	*
+	* @param Object fromAddress - where the package is shipping from
+	* @param Object toAddress - where the package is shipping to
+	* @param Function callback - a callback function where the shipment object will be returned
+	* {id : 'shp_***', ...}
 	*/
 	changeupShipping.prototype.createShipment = function (fromAddress, toAddress, parcel, callback) {
 		this.client.Shipment.create({
 			to_address : fromAddress,
 			from_address : toAddress,
 			parcel : parcel,
-		}, function (err, shipment) {
+		}, Meteor.bindEnvironment(function (err, shipment) {
 			if(err) {
 				console.error(err);
 				return callback(new Meteor.Error('create-shipment', err));
 			}
 
 			callback(null, shipment);
-		});
+		}));
 	};
 
 
@@ -80,9 +185,6 @@ SHIPPING = (function () {
 			
 			//check if the transaction this orderId is linked to actually exists
 			if(!transaction) throw new Meteor.Error('get-transaction', 'this transaction does not exist');
-
-			//check if user provided a parcel id
-			if(!parcel_id) throw new Meteor.Error('no-parcel', 'you must provide a parcel id');
 
 			//check if parcelinfo has been entered for the product
 			if(!parcelInfo) throw new Meteor.Error('parcel-info', 'you have not entered any parcel info for this product');
@@ -175,7 +277,7 @@ SHIPPING = (function () {
 					console.error('address is valid but has an error:', response.message);
 					var verifiedAddress = response.address;
 				} else {
-					var verifiedAddress = response;
+					var verifiedAddress = response.address;
 				}
 
 				callback(null, verifiedAddress);

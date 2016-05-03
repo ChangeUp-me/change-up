@@ -8,28 +8,52 @@ Template.Fulfillment.events({
 		var form = event.target;
 
 		var parcelInfo = {
-			carrier : form.carrier.value,
       weight : form.weight.value,
       length : form.length.value,
       width : form.width.value,
       height : form.height.value,
-      mass_unit : form.massUnit.value,
-      distance_unit : form.distanceUnit.value
 		};
 
-		var shippingFrom = {
-			street : form.street.value,
+    var shippingFrom = {
+      street : form.street.value,
       city : form.city.value,
       zipcode : form.zipcode.value,
       country : form.country.value,
-      state : form.state.value	
-		}
+      state : form.state.value  
+    }
+
+    try{
+      var nonEmptyString = Match.Where(function (x) {
+        check(x, String);
+        return x.length > 0;
+      });
+
+      check(parcelInfo, {
+        weight : nonEmptyString,
+        length : nonEmptyString,
+        width : nonEmptyString,
+        height:  nonEmptyString
+      });
+
+      check(shippingFrom, {
+        street : nonEmptyString,
+        city : nonEmptyString,
+        zipcode : nonEmptyString,
+        country : nonEmptyString,
+        state : nonEmptyString 
+      });
+    } catch (e) {
+      console.log('e', e);
+      return sAlert.error('the ' + e.path + " is invalid");
+    }
 
 		var transactionId = this._id
 
 		sAlert.info('fetching shipping labels.  Hold on...');
 
 		$('button[data-click-getlabel]').prop('disabled', true);
+
+    Session.set('shipment:rates',[]);
 
 		Meteor.call('getShippingRates', transactionId, parcelInfo, shippingFrom, function (err, shipmentLabels){
 			$('button[data-click-getlabel]').prop('disabled', false);
@@ -146,26 +170,6 @@ Template.Fulfillment.helpers({
     }
     return carriers;
   },
-  massUnits : function () {
-    var parcelInfo = this.parcelInfo || {};
-    return _.map(['','g','oz','lb','kg'], function (val) {
-      var obj = {value : val, selected : false};
-      if(parcelInfo.massUnit == val) {
-        obj.selected = true
-      }
-      return obj;
-    })
-  },
-  distanceUnits : function () {
-    var parcelInfo = this.parcelInfo || {};
-    return _.map(["",'in',"cm",'ft','mm','m','yd'], function (val) {
-      var obj = {value : val, selected : false};
-      if(parcelInfo.distanceUnit == val) {
-        obj.selected = true;
-      }
-      return obj;
-    });
-  },
    parcelTemplates : function () {
     //only return the templates for the selected carrier
     return PARCEL_TEMPLATES[Session.get('selected:carrier')] || [];
@@ -254,10 +258,7 @@ Template.Fulfillment.onRendered(function () {
     $('#e2').select2({
       placeholder : 'Select A template'
     })
-    $('#massunit').select2({placeholder : 'select a mass unit'});
   },100);
-
-  $('#distanceunit').select2({placeholder : 'select a distance unit'});
   $('#states').select2({placeholder : 'state'})
 });
 
