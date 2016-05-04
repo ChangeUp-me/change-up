@@ -15,9 +15,57 @@ SHIPPING = (function () {
 		this._parcelTemplates = PARCEL_TEMPLATES;
 	}
 
+
 	/**
-	* creates a new easypost account (not a child)
+	* purchases a label and returns the pdf file
 	*
+	* @param Object rate - the rate the user wants to purchase
+	* {id : 'rate_**', object : Rate, ...}
+	* @param Object shipmentId - the id of the shipment
+	*/
+	changeupShipping.prototype.purchaseLabel = function (shipmentId, rate, callback) {
+		this.client.Shipment.retrieve(shipmentId, function (err, shipment) {
+			if(err) return callback(new Meteor.Error('purchase-shipment', err));
+
+			shipment.buy({rate : rate}, function (err, shipment) {
+				if(err) {
+					return callback(new Meteor.Error('purchase-shipment', err));
+				}
+
+				callback(null, shipment);
+			});
+		});
+	};	
+
+
+	/**
+	* create  a shipment
+	*
+	* @param Object fromAddress - where the package is shipping from
+	* @param Object toAddress - where the package is shipping to
+	* @param Object parcel - the package info 
+	* @param Function callback - a callback function where the shipment object will be returned
+	* {id : 'shp_***', ...}
+	*/
+	changeupShipping.prototype.createShipment = function (fromAddress, toAddress, parcel, callback) {
+		this.client.Shipment.create({
+			to_address : toAddress,
+			from_address : fromAddress,
+			parcel : parcel,
+		}, Meteor.bindEnvironment(function (err, shipment) {
+			if(err) {
+				console.error(err);
+				return callback(new Meteor.Error('create-shipment', err));
+			}
+
+			callback(null, shipment);
+		}));
+	};
+
+	/**
+	* creates a new easypost account for the vendor
+	*
+	* 
 	* @param Object accountObj - {name  : '', email : '', password : '', password_confirmation : '', phone_number :''};
 	* @param Function Callback - a callback object that will return the new user
 	*/
@@ -54,61 +102,6 @@ SHIPPING = (function () {
 			}
 
 			callback(null, result.keys);
-		});
-	};
-
-	/**
-	* get the api keys for a child (vendor).  you'll use these api 
-	* keys to make further calls
-	*
-	* @param String childId - the id of the child we need api keys for
-	* @param Function Callback - the callback where the apikeys will be returned to
-	* {id : 'user_**', keys : [{key : 'dsa**',...}] ...}
-	*/
-	changeupShipping.prototype.getChildApiKeys = function (childId, callback) {
-		try{
-			check(childId, String)
-		} catch (e) {
-			return callback(e);
-		}
-
-		HTTP.call('GET', this.baseUrl + 'api_keys', {
-			auth : this.secretTestKey + ':',
-		}, function (err, result) {
-			result = result.data;
-			if(err) {
-				return callback(new Meteor.Error('child-api-keys', err));
-			}
-
-			//find the apikeys for this child
-			var keys = _.find(result.children, function (child) {
-				return child.id == childId;
-			})
-
-			callback(null, keys.keys);
-		});
-	}
-
-
-	/**
-	* Create a child user, so that a vendor can input their own
-	* carrier accounts and such.
-	*
-	* @param Function callback - callback function returns a user object in the result
-	* {id : 'user_**', ...}
-	*/
-	changeupShipping.prototype.createChild = function (callback) {
-		HTTP.call('POST', this.baseUrl + 'users', {
-			auth : this.secretTestKey + ':',
-			data : {
-				name : this.user.profile.name
-			}
-		}, function (err, result) {
-			if(err) {
-				return callback(new Meteor.Error('create-child-user', err));
-			}
-
-			callback(null, result.data);
 		});
 	};
 
@@ -157,29 +150,6 @@ SHIPPING = (function () {
 			callback(null, account);
 		});
 	}
-
-	/**
-	* create  a shipment
-	*
-	* @param Object fromAddress - where the package is shipping from
-	* @param Object toAddress - where the package is shipping to
-	* @param Function callback - a callback function where the shipment object will be returned
-	* {id : 'shp_***', ...}
-	*/
-	changeupShipping.prototype.createShipment = function (fromAddress, toAddress, parcel, callback) {
-		this.client.Shipment.create({
-			to_address : toAddress,
-			from_address : fromAddress,
-			parcel : parcel,
-		}, Meteor.bindEnvironment(function (err, shipment) {
-			if(err) {
-				console.error(err);
-				return callback(new Meteor.Error('create-shipment', err));
-			}
-
-			callback(null, shipment);
-		}));
-	};
 
 
  /**
@@ -269,7 +239,7 @@ SHIPPING = (function () {
 					return callback(err);
 				}
 
-				callback(null, result.rates)
+				callback(null, result)
 			});
 		});
 	}
@@ -348,6 +318,63 @@ SHIPPING = (function () {
 			}
 		}));
 	};
+
+ /**
+	* get the api keys for a child (vendor).  you'll use these api 
+	* keys to make further calls
+	*
+	* @param String childId - the id of the child we need api keys for
+	* @param Function Callback - the callback where the apikeys will be returned to
+	* {id : 'user_**', keys : [{key : 'dsa**',...}] ...}
+	*/
+	changeupShipping.prototype.getChildApiKeys = function (childId, callback) {
+		try{
+			check(childId, String)
+		} catch (e) {
+			return callback(e);
+		}
+
+		HTTP.call('GET', this.baseUrl + 'api_keys', {
+			auth : this.secretTestKey + ':',
+		}, function (err, result) {
+			result = result.data;
+			if(err) {
+				return callback(new Meteor.Error('child-api-keys', err));
+			}
+
+			//find the apikeys for this child
+			var keys = _.find(result.children, function (child) {
+				return child.id == childId;
+			})
+
+			callback(null, keys.keys);
+		});
+	}
+
+
+	/**
+	* Create a child user, so that a vendor can input their own
+	* carrier accounts and such.
+	*
+	*
+	* @param Function callback - callback function returns a user object in the result
+	* {id : 'user_**', ...}
+	*/
+	changeupShipping.prototype.createChild = function (callback) {
+		HTTP.call('POST', this.baseUrl + 'users', {
+			auth : this.secretTestKey + ':',
+			data : {
+				name : this.user.profile.name
+			}
+		}, function (err, result) {
+			if(err) {
+				return callback(new Meteor.Error('create-child-user', err));
+			}
+
+			callback(null, result.data);
+		});
+	};
+
 
 	return changeupShipping;
 })();

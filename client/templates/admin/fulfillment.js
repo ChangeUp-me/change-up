@@ -2,6 +2,19 @@
 /* Fulfillment: Event Handlers */
 /*****************************************************************************/
 Template.Fulfillment.events({
+  "click [data-click-purchaselabel]" : function (event) {
+    var rateEle = event.target;
+
+    var rateObj = $(rateEle).data('rate');
+    var shippingId = Session.get('shipment:id');
+
+    Meteor.call('purchaseLabel', shippingId, rateObj, function (err, label) {
+      console.log('err', err);
+      if(err) return sAlert.error(err.reason.message);
+
+      console.log('result', label);
+    });
+  },  
   "click [data-click-openintegrationmodel]" : function (event) {
     event.preventDefault();
 
@@ -59,17 +72,19 @@ Template.Fulfillment.events({
 		$('button[data-click-getlabel]').prop('disabled', true);
 
     Session.set('shipment:rates',[]);
+    Session.set('shipment:id');
 
-		Meteor.call('getShippingRates', transactionId, parcelInfo, shippingFrom, function (err, shipmentLabels){
+		Meteor.call('getShippingRates', transactionId, parcelInfo, shippingFrom, function (err, shipping){
 			$('button[data-click-getlabel]').prop('disabled', false);
 			if(err) {
 				console.error(err);
 				return sAlert.error(err);
 			}
 
-			console.log(shipmentLabels);
-
-			Session.set('shipment:rates', shipmentLabels);
+      console.log('shipping', shipping);
+			
+      Session.set('shipment:id', shipping.id);
+			Session.set('shipment:rates', shipping.rates);
 		});
 	},
 	"click [data-click-cancel]" : function (event) {
@@ -139,8 +154,9 @@ Template.Fulfillment.helpers({
 	rateLables : function () {
 		return Session.get('shipment:rates');
 	},
-	toJson : function () {
-    return JSON.stringify(this);
+	toJson : function (item) {
+    item = item || this;
+    return JSON.stringify(item);
   },
   usStates : function () {
   	return States.find().fetch();

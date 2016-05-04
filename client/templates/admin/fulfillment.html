@@ -136,7 +136,7 @@
                   <select id="e2" data-onchange-parcel>
                     <option value=""></option>
                     {{#each parcelTemplates}}
-                    <option value="{{toJson}}">{{token}}</option>
+                    <option value="{{toJson this}}">{{token}}</option>
                     {{/each}}
                   </select>
                 </div>
@@ -247,7 +247,7 @@
                   <strong>Service Level</strong>
                 </div>
                 <div class="col-sm-12">
-                  <button type="button" class="button orange">Purchase Label</button>
+                  <button data-click-purchaselabel data-rate="{{toJson this}}" type="button" class="button orange">Purchase Label</button>
                 </div>
               </div>
               {{/each}}

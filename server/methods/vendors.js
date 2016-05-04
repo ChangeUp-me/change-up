@@ -21,6 +21,20 @@ Meteor.methods({
       }
     }
   },
+  purchaseLabel : function (shipmentId, rateObj) {
+    var user = Meteor.user();
+    var result = new Future();
+
+    var shipping = new SHIPPING(user, user.profile.shippingUser.testApiKey);
+
+    shipping.purchaseLabel(shipmentId, rateObj, function (err, label) {
+      if(err) return result.throw(err);
+
+      result.return(label);
+    })
+
+    return result.wait();
+  },
   integrateShippingApiKeys : function (apiKeys) {
     var user = Meteor.user();
     var result = new Future();
@@ -49,8 +63,6 @@ Meteor.methods({
         "profile.shippingUser.testApiKey" : testKey.key,
         "profile.shippingUser.productionApiKey" : productionKey.key
       };
-
-      console.log('setting', shippingProfile)
 
       try{
         //add the shipping api info to the user object
