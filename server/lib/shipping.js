@@ -1,7 +1,7 @@
 SHIPPING = (function () {
 	var easypost = Meteor.npmRequire('node-easypost')('XvaMUDfhoS0jPG28lkVIsQ');
 	console.log('easy', easypost);
-	function changeupShipping (user) {
+	function changeupShipping (user, apiTestKey) {
 		//the user should be linked to the vendor
 		//that is doing the shipping
 		this.user = user;
@@ -12,7 +12,7 @@ SHIPPING = (function () {
 
 		this.baseUrl = 'https://api.easypost.com/v2/';
 
-		this.secretTestKey = 'XvaMUDfhoS0jPG28lkVIsQ';
+		this.secretTestKey = apiTestKey || 'XvaMUDfhoS0jPG28lkVIsQ';
 		this.client = Meteor.npmRequire('node-easypost')(this.secretTestKey);
 		this._parcelTemplates = PARCEL_TEMPLATES;
 	}
@@ -35,6 +35,7 @@ SHIPPING = (function () {
 		HTTP.call('GET', this.baseUrl + 'api_keys', {
 			auth : this.secretTestKey + ':',
 		}, function (err, result) {
+			result = result.data;
 			if(err) {
 				return callback(new Meteor.Error('child-api-keys', err));
 			}
@@ -44,7 +45,7 @@ SHIPPING = (function () {
 				return child.id == childId;
 			})
 
-			callback(null, keys);
+			callback(null, keys.keys);
 		});
 	}
 
@@ -67,7 +68,7 @@ SHIPPING = (function () {
 				return callback(new Meteor.Error('create-child-user', err));
 			}
 
-			callback(null, result);
+			callback(null, result.data);
 		});
 	};
 

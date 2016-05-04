@@ -22,17 +22,65 @@ Meteor.methods({
     }
   },
   getShippingRates : function (transactionId, parcelObj, shippingFromObj) {
-    var shipping = new SHIPPING(Meteor.user());
+    var shipping = new SHIPPING(Meteor.user(), "pR6aTPWO32kIqYdpKSdabA");
     var result = new Future();
+    var user = Meteor.user();
+    var shippingUser;
+   
+    if(!user.profile.shippingUser || !user.profile.shippingUser.id) {
+       //get the shipping user
+       shipping.createChild(function (err, child) {
+          if(err) return result.throw(err);
 
-    shipping.getShippingRates(transactionId, parcelObj, shippingFromObj, function (err, rates) {
-      if(err) {
-        console.error(err);
-        return result.throw(err);
-      }
+          console.log('created child', child)
+         //get the api keys for the user
+        shipping.getChildApiKeys(child.id, function (err, keys) {
+          if(err) return result.throw(err);
 
-      result.return(rates);
-    });
+          console.log('getting child keys', keys);
+          //get production key
+          var productionKey = _.find(keys, function (key) {
+            return key.mode == 'production';
+          })
+
+          //get test key
+          var testKey = _.find(keys, function (key) {
+            return key.mode == 'test';
+          });
+
+          var shippingProfile = {
+            "profile.shippingUser" : {
+              id : child.id,
+              email : child.email,
+              testApiKey : testKey.key,
+              productionApiKey : productionKey.key
+            } 
+          };
+
+          //add the shipping api info to the user object
+          Meteor.users.update({_id : Meteor.userId},{$set : shippingProfile});
+
+          //get the shipping rates
+          get_shipping_rates(user, testKey.key);
+        });
+      });
+    } else if(user.profile.shippingUser.id) {
+      get_shipping_rates(user);
+    }
+
+
+    function get_shipping_rates (user, apiKey) {
+      var shipping = new SHIPPING(user, apiKey);
+
+      shipping.getShippingRates(transactionId, parcelObj, shippingFromObj, function (err, rates) {
+        if(err) {
+          console.error(err);
+          return result.throw(err);
+        }
+
+        result.return(rates);
+      });
+    }
 
     return result.wait();
   }
