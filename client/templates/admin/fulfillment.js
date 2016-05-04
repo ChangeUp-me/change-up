@@ -2,6 +2,11 @@
 /* Fulfillment: Event Handlers */
 /*****************************************************************************/
 Template.Fulfillment.events({
+  "click [data-click-openintegrationmodel]" : function (event) {
+    event.preventDefault();
+
+    $('#shipping-account-created').modal('show');
+  },
 	"submit #shippingForm" : function (event) {
 		event.preventDefault();
 
@@ -223,6 +228,14 @@ Template.Fulfillment.helpers({
 
 		}
 	},
+  hasShippingUser : function () {
+    var user = Meteor.user();
+    return _.isObject(user.profile.shippingUser);
+  },
+  shippingIntegrated : function () {
+    var user = Meteor.user();
+    return _.isString(user.profile.shippingUser.productionApiKey);
+  },
   shipFromInfo : function () {
     try{
       var vendor = Vendors.findOne(this.order[0].vendorId);

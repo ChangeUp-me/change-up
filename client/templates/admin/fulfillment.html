@@ -215,7 +215,15 @@
               {{/with}}
             </fieldset>
             <footer class="section-footer">
-              <button type="submit" data-click-getlabel class="button blue">Get Shipping Labels</button>
+              {{#if hasShippingUser}}
+              {{#if shippingIntegrated}}
+              <button type="submit" id="get-shipping-label" class="button blue">Get Shipping Labels</button>
+              {{else}}
+              <button type="button" data-click-openintegrationmodel class="button blue">Get Shipping Labels</button>
+              {{/if}}
+              {{else}}
+              <button type="button" data-click-openshippingmodal class="button blue">Get Shipping Labels</button>
+              {{/if}}
               {{#each rateLables}}
               <div class="row rate-label">
                 <!-- the provider -->

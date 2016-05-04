@@ -21,56 +21,100 @@ Meteor.methods({
       }
     }
   },
+  integrateShippingApiKeys : function (apiKeys) {
+    var user = Meteor.user();
+    var result = new Future();
+
+    check(apiKeys, {
+      testApiKey : String,
+      productionApiKey : String
+    });
+
+    var shipping = new SHIPPING(user, apiKeys.productionApiKey);
+
+    shipping.getAccountApiKeys(function (err, keys) {
+      if(err) return result.throw(err);
+
+      //get production api key
+      var productionKey = _.find(keys, function (key) {
+        return key.mode == 'production';
+      });
+
+      //get test api key
+      var testKey = _.find(keys, function (key) {
+        return key.mode == 'test';
+      });
+
+      var shippingProfile = {
+        "profile.shippingUser.testApiKey" : testKey.key,
+        "profile.shippingUser.productionApiKey" : productionKey.key
+      };
+
+      console.log('setting', shippingProfile)
+
+      try{
+        //add the shipping api info to the user object
+        Meteor.users.update({_id : Meteor.userId()},{$set : shippingProfile}); 
+      } catch (e) {
+        return result.throw(e);
+      }
+
+      return result.return('success');
+    });
+  },
+  createShippingAccount : function (accountObj) {
+    var result = new Future();
+    var nonEmptyString = Match.Where(function (x) {
+      check(x, String);
+      return x.length > 0;
+    });
+
+    var name = Meteor.user().profile.name;
+
+    check(accountObj, {
+      name : nonEmptyString,
+      email : nonEmptyString,
+      password : nonEmptyString,
+      password_confirmation : nonEmptyString,
+      phone_number : nonEmptyString
+    });
+
+    var shipping = new SHIPPING(Meteor.user());
+
+    //create a brand new account
+    shipping.createAccount(accountObj, function (err, account) {
+      if(err) return result.throw(err);
+
+      var shippingProfile = {
+        "profile.shippingUser" : {
+          id : account.id,
+          email : account.email
+        } 
+      };
+
+      try{
+        Meteor.users.update({_id : Meteor.userId()},{$set : shippingProfile}); 
+      } catch(e) {
+        return result.throw(e);
+      }
+
+      return result.return('success');     
+    });
+
+    return result.wait();   
+  },
   getShippingRates : function (transactionId, parcelObj, shippingFromObj) {
     var shipping = new SHIPPING(Meteor.user(), "pR6aTPWO32kIqYdpKSdabA");
     var result = new Future();
     var user = Meteor.user();
-    var shippingUser;
+    var shippingUser = user.profile.shippingUser;
+
+    console.log(shipping.client)
    
-    if(!user.profile.shippingUser || !user.profile.shippingUser.id) {
-       //get the shipping user
-       shipping.createChild(function (err, child) {
-          if(err) return result.throw(err);
-
-          console.log('created child', child)
-         //get the api keys for the user
-        shipping.getChildApiKeys(child.id, function (err, keys) {
-          if(err) return result.throw(err);
-
-          console.log('getting child keys', keys);
-          //get production key
-          var productionKey = _.find(keys, function (key) {
-            return key.mode == 'production';
-          })
-
-          //get test key
-          var testKey = _.find(keys, function (key) {
-            return key.mode == 'test';
-          });
-
-          var shippingProfile = {
-            "profile.shippingUser" : {
-              id : child.id,
-              email : child.email,
-              testApiKey : testKey.key,
-              productionApiKey : productionKey.key
-            } 
-          };
-
-          //add the shipping api info to the user object
-          Meteor.users.update({_id : Meteor.userId},{$set : shippingProfile});
-
-          //get the shipping rates
-          get_shipping_rates(user, testKey.key);
-        });
-      });
+    if(!shippingUser || !shippingUser.id) {
+      return result.throw(new Meteor.Error('you have to integrate an easypost account first'));
     } else if(user.profile.shippingUser.id) {
-      get_shipping_rates(user);
-    }
-
-
-    function get_shipping_rates (user, apiKey) {
-      var shipping = new SHIPPING(user, apiKey);
+      var shipping = new SHIPPING(user, shippingUser.testApiKey);
 
       shipping.getShippingRates(transactionId, parcelObj, shippingFromObj, function (err, rates) {
         if(err) {

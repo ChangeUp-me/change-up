@@ -1,6 +1,4 @@
 SHIPPING = (function () {
-	var easypost = Meteor.npmRequire('node-easypost')('XvaMUDfhoS0jPG28lkVIsQ');
-	console.log('easy', easypost);
 	function changeupShipping (user, apiTestKey) {
 		//the user should be linked to the vendor
 		//that is doing the shipping
@@ -16,6 +14,48 @@ SHIPPING = (function () {
 		this.client = Meteor.npmRequire('node-easypost')(this.secretTestKey);
 		this._parcelTemplates = PARCEL_TEMPLATES;
 	}
+
+	/**
+	* creates a new easypost account (not a child)
+	*
+	* @param Object accountObj - {name  : '', email : '', password : '', password_confirmation : '', phone_number :''};
+	* @param Function Callback - a callback object that will return the new user
+	*/
+	changeupShipping.prototype.createAccount = function (accountObj, callback) {
+		HTTP.call('POST', this.baseUrl + 'users', {
+			data : {
+				user : accountObj
+			}
+		}, function (err, result) {
+			if(err) {
+				return callback(new Meteor.Error('create-user', err));
+			}
+
+			callback(null, result.data);
+		});
+	};
+
+
+	/**
+	* get the api keys for a shipping account.  you'll use these api 
+	* keys to make further calls
+	*
+	* @param String accountId - the id of the account we need api keys for
+	* @param Function Callback - the callback where the apikeys will be returned to
+	* {id : 'user_**', keys : [{key : 'dsa**',...}] ...}
+	*/
+	changeupShipping.prototype.getAccountApiKeys = function (callback) {
+		HTTP.call('GET', this.baseUrl + 'api_keys', {
+			auth : this.secretTestKey + ':',
+		}, function (err, result) {
+			result = result.data;
+			if(err) {
+				return callback(new Meteor.Error('account-api-keys', err));
+			}
+
+			callback(null, result.keys);
+		});
+	};
 
 	/**
 	* get the api keys for a child (vendor).  you'll use these api 
@@ -128,8 +168,8 @@ SHIPPING = (function () {
 	*/
 	changeupShipping.prototype.createShipment = function (fromAddress, toAddress, parcel, callback) {
 		this.client.Shipment.create({
-			to_address : fromAddress,
-			from_address : toAddress,
+			to_address : toAddress,
+			from_address : fromAddress,
 			parcel : parcel,
 		}, Meteor.bindEnvironment(function (err, shipment) {
 			if(err) {
@@ -228,8 +268,6 @@ SHIPPING = (function () {
 				if(err) {
 					return callback(err);
 				}
-
-				console.log('shipmentresult', result);
 
 				callback(null, result.rates)
 			});
