@@ -75,12 +75,11 @@ Meteor.methods({
         return key.mode == 'test';
       });
 
-      var shippingProfile = {
-        "profile.shippingUser.testApiKey" : testKey.key,
-        "profile.shippingUser.productionApiKey" : productionKey.key
-      };
-
       try{
+        var shippingProfile = {
+          "profile.shippingUser.testApiKey" : testKey.key,
+          "profile.shippingUser.productionApiKey" : productionKey.key
+        };
         //add the shipping api info to the user object
         Meteor.users.update({_id : Meteor.userId()},{$set : shippingProfile}); 
       } catch (e) {
@@ -136,11 +135,9 @@ Meteor.methods({
     var result = new Future();
     var user = Meteor.user();
     var shippingUser = user.profile.shippingUser;
-
-    console.log(shipping.client)
    
     if(!shippingUser || !shippingUser.id) {
-      return result.throw(new Meteor.Error('you have to integrate an easypost account first'));
+      throw new Meteor.Error('you have to integrate an easypost account first');
     } else if(user.profile.shippingUser.id) {
       var shipping = new SHIPPING(user, shippingUser.testApiKey);
 

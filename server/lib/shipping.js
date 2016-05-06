@@ -25,11 +25,11 @@ SHIPPING = (function () {
 	*/
 	changeupShipping.prototype.purchaseLabel = function (shipmentId, rate, callback) {
 		this.client.Shipment.retrieve(shipmentId, Meteor.bindEnvironment(function (err, shipment) {
-			if(err) return callback(new Meteor.Error('purchase-shipment', err));
+			if(err) return callback(new Meteor.Error('purchase-shipment', err.message.message));
 
 			shipment.buy({rate : rate}, Meteor.bindEnvironment(function (err, shipment) {
 				if(err) {
-					return callback(new Meteor.Error('purchase-shipment', err));
+					return callback(new Meteor.Error('purchase-shipment', err.message.message));
 				}
 
 				callback(null, shipment);
@@ -55,7 +55,7 @@ SHIPPING = (function () {
 		}, Meteor.bindEnvironment(function (err, shipment) {
 			if(err) {
 				console.error(err);
-				return callback(new Meteor.Error('create-shipment', err));
+				return callback(new Meteor.Error('create-shipment', err.message.message));
 			}
 
 			callback(null, shipment);
