@@ -24,17 +24,17 @@ SHIPPING = (function () {
 	* @param Object shipmentId - the id of the shipment
 	*/
 	changeupShipping.prototype.purchaseLabel = function (shipmentId, rate, callback) {
-		this.client.Shipment.retrieve(shipmentId, function (err, shipment) {
+		this.client.Shipment.retrieve(shipmentId, Meteor.bindEnvironment(function (err, shipment) {
 			if(err) return callback(new Meteor.Error('purchase-shipment', err));
 
-			shipment.buy({rate : rate}, function (err, shipment) {
+			shipment.buy({rate : rate}, Meteor.bindEnvironment(function (err, shipment) {
 				if(err) {
 					return callback(new Meteor.Error('purchase-shipment', err));
 				}
 
 				callback(null, shipment);
-			});
-		});
+			}));
+		}));
 	};	
 
 

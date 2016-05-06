@@ -21,7 +21,7 @@ Meteor.methods({
       }
     }
   },
-  purchaseLabel : function (shipmentId, rateObj) {
+  purchaseLabel : function (shipmentId, rateObj, transactionId) {
     var user = Meteor.user();
     var result = new Future();
 
@@ -31,6 +31,22 @@ Meteor.methods({
       if(err) return result.throw(err);
 
       result.return(label);
+
+      //save label
+      Shipments.insert({
+        vendorId : user.profile.vendorId,
+        shipmentId : label.id,
+        transactionId : transactionId,
+        postageLabelId : label.postage_label.id,
+        fromAddress : label.from_address,
+        toAddress : label.to_address,
+        carrier : label.selected_rate.carrier,
+        service : label.selected_rate.service,
+        trackingCode : label.tracking_code,
+        deliveryDays : label.selected_rate.delivery_days,
+        labelImage : label.postage_label.label_url,
+        pdfUrl : label.postage_label.label_pdf_url
+      })
     })
 
     return result.wait();

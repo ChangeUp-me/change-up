@@ -2,17 +2,32 @@
 /* Fulfillment: Event Handlers */
 /*****************************************************************************/
 Template.Fulfillment.events({
-  "click [data-click-purchaselabel]" : function (event) {
+  "click [data-click-purchaselabel]" : function (event, template) {
     var rateEle = event.target;
 
-    var rateObj = $(rateEle).data('rate');
+    var rateObj = this;
     var shippingId = Session.get('shipment:id');
+    var transactionId = template.data._id;
 
-    Meteor.call('purchaseLabel', shippingId, rateObj, function (err, label) {
-      console.log('err', err);
+    sAlert.info('purchasing label');
+
+    var messages = ['hold on this may take a few moments longer...', "almost there..."]
+
+    var interval = setInterval(function () {
+      if(messages.length > 0) {
+        var message = messages.shift();
+        sAlert.info(message);
+      }
+    },4000);
+
+    Meteor.call('purchaseLabel', shippingId, rateObj, transactionId, function (err, label) {
+      clearInterval(interval);
       if(err) return sAlert.error(err.reason.message);
 
-      console.log('result', label);
+      console.log('the lable', label);
+
+      sAlert.success('label purchased');
+      Session.set('shipment:rates');
     });
   },  
   "click [data-click-openintegrationmodel]" : function (event) {
@@ -74,8 +89,18 @@ Template.Fulfillment.events({
     Session.set('shipment:rates',[]);
     Session.set('shipment:id');
 
+    var messages = ['hold on this may take a few moments longer...', "almost there..."]
+
+    var interval = setInterval(function () {
+      if(messages.length > 0) {
+        var message = messages.shift();
+        sAlert.info(message);
+      }
+    },4000);
+
 		Meteor.call('getShippingRates', transactionId, parcelInfo, shippingFrom, function (err, shipping){
 			$('button[data-click-getlabel]').prop('disabled', false);
+      clearInterval(interval);
 			if(err) {
 				console.error(err);
 				return sAlert.error(err);
@@ -151,6 +176,9 @@ Template.Fulfillment.events({
 /* Fulfillment: Helpers */
 /*****************************************************************************/
 Template.Fulfillment.helpers({
+  purchasedLabel : function (something, other, to) {
+    return Shipments.findOne({vendorId : Meteor.user().profile.vendorId, transactionId : Session.get('transaction:id')});
+  },  
 	rateLables : function () {
 		return Session.get('shipment:rates');
 	},
@@ -281,6 +309,9 @@ Template.Fulfillment.onRendered(function () {
   $('#e1').select2({
     placeholder : 'Select A Carrier'
   });
+
+  Session.set('transaction:id', this.data._id);
+
 
   //wait for carrier to be parsed
   Meteor.setTimeout(function () {

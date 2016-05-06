@@ -214,6 +214,7 @@
               </div>
               {{/with}}
             </fieldset>
+            {{#unless purchasedLabel}}
             <footer class="section-footer">
               {{#if hasShippingUser}}
               {{#if shippingIntegrated}}
@@ -252,9 +253,35 @@
               </div>
               {{/each}}
             </footer>
+            {{/unless}}
           </form>
         </section>
         <!-- END : shipping information -->
+
+        <!-- PURCHASED LABEL -->
+        {{#if purchasedLabel}}
+        {{#with purchasedLabel}}
+        <section class="fulfillment-item page">
+          <header class="section-header">
+            <h4>{{service}} shipping via {{carrier}}. delivery in {{deliveryDays}} days</h4>
+          </header>
+          <div class="row purchased-shipping-label">
+              <div class="col-sm-3 col-xs-6">
+                <img src="{{labelImage}}">
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <p><strong>From</strong> : {{fromAddress.street1}} {{fromAddress.city}},  {{fromAddress.state}} {{fromAddress.zip}}</p>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <p><strong>To</strong> : {{toAddress.street1}} {{toAddress.city}},  {{toAddress.state}} {{toAddress.zip}}</p>
+              </div>
+              <div class="col-sm-3 col-xs-6">
+                <a target="_blank" href="{{labelImage}}" class="button blue">get label</a>
+              </div>
+            </div>
+        </section>
+        {{/with}}
+        {{/if}}
       </div>
     </div>
   </div>
