@@ -24,9 +24,18 @@ ul.product-uploaded-images{
 		width: 46px;
 		height: 50px;
 		margin: 1rem 0.5rem;
-		background-color: #eee;
+		background-color: @gray;
 		overflow: hidden;
 		cursor: pointer;
+		&::before{
+			font-family: FontAwesome;
+			content : "\f0ee";
+			font-size: 2em;
+			position: absolute;
+			top: .5rem;
+			right: .6rem;
+			color: white;
+		}
 		input.overlay{
 			cursor: pointer;
 			z-index: 99;
@@ -60,6 +69,9 @@ ul.product-uploaded-images{
 	display: inline-block;
 	padding: 15px 0;
 	border-top: 8px solid @beige;
+	button.print-label{
+		margin-top: 2rem;
+	}
 	.button {
 		width: 100%;
 		margin: 0 0 20px;
@@ -79,7 +91,7 @@ ul.product-uploaded-images{
 	padding: 0 0 10px;
 	.col-sm-6 {
 		margin: 0 auto 25px;
-		padding: 0;
+		//padding: 0;
 		text-align: left;
 	}
 }
@@ -289,9 +301,10 @@ ul.select-list-items{
 	#fulfillment {
 		margin: 0 0 40px;
 		.inventory {
-			width: 594px;
-			margin: 5px;
+			margin: 0px;
 			padding: 0;
+			margin-bottom: 15px;
+			max-width: 100%;
 			#items {
 				padding: 0 15px;
 			}
@@ -313,8 +326,8 @@ ul.select-list-items{
 			}
 		}
 		.queue-item {
-			max-width: 400px;
-			margin: 5px;
+			max-width: 100%;
+			margin: 0px;
 			padding: 0;
 			text-align: left;
 			vertical-align: top;

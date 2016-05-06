@@ -1,49 +1,74 @@
 <template name="VendorProfile">
-	<div id="vendor-profile" class="page">
-		<form id="storeForm" novalidate>
-			<fieldset>
-				<section class="text-center upload-image">
-					<input id="imageUpload" name="image" type="file" class="overlay">
-				{{#if image}}
-				<img id="targetImage" src="{{https image.url}}">
-				{{else}}
-				<img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
-				<h4>Upload Store Image Here</h4>
-				{{/if}}
-				<div id="uploadProgress"></div>
-				</section>
-			</fieldset>
-			<fieldset>
-				<label>Store infomation</label>
-				<input name="storeName" type="text" value="{{storeName}}" placeholder="Name" required>
-				<input name="websiteUrl" type="url" value="{{websiteUrl}}" placeholder="Website url" required>
-				<textarea name="storeDescription" value="{{storeDescription}}" placeholder="Description" rows="6" required></textarea>
-			</fieldset>
-			<fieldset>
-				<label>Select up to 3 charities to partner with!<br>(If You Don't Random Charities Will Be Available For Buyers)</label>
-				<ul id="selectlist" class="select-list-items">
-					{{#each selectedCharities}}
-					<li data-id="{{id}}" class="select-list-item">
-						<span>{{name}}</span>
-						<img src="icons/x_gray.svg" class="pull-right remove-item" alt="Remove">
-					</li>
-					{{/each}}
-				</ul>
-				<button type="button" class="button gray" data-click-addcharity>Add Charity</button>
-				<br>
-				<label>Choose your default shipping rate!</label>
-				<input name="shippingPrice" type="number" value="{{shippingPrice}}" placeholder="Shipping Price" step="0.01" min="0.00" required>
-				<br>
-				<button type="submit" class="button blue">Save</button>
-			</fieldset>
-		</form>
-		<!--
-		<label>Personal infomation</label>
-		<form>
-			<input type="text" placeholder="Full name" required>
-			<input type="text" placeholder="Email" required>
-			<input type="text" placeholder="Password" required>
-		</form>
-		<a class="button clear gray" href="{{pathFor route='changePassword'}}">Change password</a>-->
-	</div>
+  <div id="vendor-profile" class="page">
+    <form id="storeForm" novalidate>
+      <fieldset>
+        <section class="text-center upload-image">
+          <input id="imageUpload" name="image" type="file" class="overlay">
+          {{#if image}}
+          <img id="targetImage" src="{{https image.url}}">
+          {{else}}
+          <img id="targetImage" src="/icons/white_upload.svg" alt="Upload">
+          <h4>Upload Store Image Here</h4>
+          {{/if}}
+          <div id="uploadProgress"></div>
+        </section>
+      </fieldset>
+      <fieldset>
+        <label>Store infomation</label>
+        <input name="storeName" type="text" value="{{storeName}}" placeholder="Name" required>
+        <input name="websiteUrl" type="url" value="{{websiteUrl}}" placeholder="Website url" required>
+        <textarea name="storeDescription" value="{{storeDescription}}" placeholder="Description" rows="6" required></textarea>
+      </fieldset>
+      <fieldset>
+        <label>Select up to 3 charities to partner with!<br>(If You Don't Random Charities Will Be Available For Buyers)</label>
+        <ul id="selectlist" class="select-list-items">
+          {{#each selectedCharities}}
+          <li data-id="{{id}}" class="select-list-item">
+            <span>{{name}}</span>
+            <img src="icons/x_gray.svg" class="pull-right remove-item" alt="Remove">
+          </li>
+          {{/each}}
+        </ul>
+        <button type="button" class="button gray" data-click-addcharity>Add Charity</button>
+        <br>
+        <label>Choose your default shipping rate!</label>
+        <input name="shippingPrice" type="number" value="{{shippingPrice}}" placeholder="Shipping Price" step="0.01" min="0.00" required>
+      </fieldset>
+      <fieldset>
+        <label>Choose your default shipment location (where do your packages ship from?)</label>
+
+        <input placeholder="street" name="street" value="{{shipsFrom.street}}">
+        <input placeholder="city" name="city" value="{{shipsFrom.city}}">
+  			<input placeholder="zipcode" name="zipcode" value="{{shipsFrom.zipcode}}">
+  			<input placeholder="us" name="country" disabled value="US">
+        <select id="states" name="state">
+        	{{#if stateSelected}}
+        	{{#each usStates}}
+        	{{#if stateIsSelected iso}}
+         	<option value="{{iso}}" selected>{{iso}}</option>
+         	{{else}}
+         	<option value="{{iso}}">{{iso}}</option>
+         	{{/if}}
+          {{/each}}
+        	{{else}}
+        	<option value="" disabled selected>Select A State</option>
+        	{{#each usStates}}
+         	<option value="{{iso}}">{{iso}}</option>
+          {{/each}}
+        	{{/if}}
+        </select>
+      </fieldset>
+      <fieldset>
+      	<button type="submit" class="button blue">Save</button>
+      </fieldset>
+    </form>
+    <!--
+      <label>Personal infomation</label>
+      <form>
+      	<input type="text" placeholder="Full name" required>
+      	<input type="text" placeholder="Email" required>
+      	<input type="text" placeholder="Password" required>
+      </form>
+      <a class="button clear gray" href="{{pathFor route='changePassword'}}">Change password</a>-->
+  </div>
 </template>

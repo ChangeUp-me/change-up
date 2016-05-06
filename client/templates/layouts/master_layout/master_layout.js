@@ -1,4 +1,91 @@
+Template.MasterLayout.helpers({
+	user : function () {
+		var user = Meteor.user();
+
+		if(user) {
+			user = {
+				email : user.emails[0].address,
+				name : user.profile.name
+			}
+		}
+
+		return user || {};
+	}
+})
+
 Template.MasterLayout.events({
+	"click [data-click-openshippingmodal]" : function (event) {
+    event.preventDefault();
+
+    $('#create-shipping-account').modal('show');
+  },
+	"submit [data-submit-integrateeasypost]" : function (event) {
+    event.preventDefault();
+
+    var form = event.target;
+
+    var apiKeys = {
+      testApiKey : form.testApiKey.value,
+      productionApiKey : form.productionApiKey.value
+    };
+
+    Meteor.call('integrateShippingApiKeys', apiKeys, function (err, result) {
+      if(err) {
+        return sAlert.error(err);
+      }
+
+      sAlert.success('Your EasyPost account was created!');
+
+      $('#shipping-account-created').modal('hide');
+    });
+  },
+	'submit [data-submit-integrateshippingapi]' : function (event) {
+    event.preventDefault();
+
+    var form = event.target;
+
+    console.log('the form', form);
+
+    var shippingAccount = {
+      name : form.name.value,
+      email : form.email.value,
+      password : form.password.value,
+      password_confirmation : form.password_confirmation.value,
+      phone_number : form.phone_number.value
+    }
+
+    Meteor.call('createShippingAccount', shippingAccount, function (err, result) {
+    	if(err) {
+    		console.error(err);
+    		return sAlert.error(err);
+    	}
+
+    	sAlert.success('easypost account was created')
+
+
+    	$('#create-shipping-account').modal('hide');
+
+			$('#shipping-account-created').modal('show');
+    });
+  },
+	'submit [data-submit-changepassword]' : function (event) {
+		event.preventDefault();
+		
+		var form = event.target;
+
+		var oldPassword = form.oldPassword.value;
+		var newPassword = form.newPassword.value;
+
+		Accounts.changePassword(oldPassword, newPassword, function (err) {
+			if(err) {
+				console.error(err);
+				return sAlert.error(err);
+			}
+
+			sAlert.success('your password was changed!');
+			$('#change-password').modal('hide');
+		})
+	},
 	'submit [data-submit-signupToLike]' : function (event) {
 		event.preventDefault();
 
@@ -106,7 +193,6 @@ Template.MasterLayout.onRendered(function () {
 	  closeOpenMenus();
 	  this.next();
 	});
-
 
 	//show popup to a user X seconds after they first land on the site
 	var subscribed = Cookie.get('subscriber');

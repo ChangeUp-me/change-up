@@ -1,0 +1,94 @@
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+
+//@media (min-width: 768px) {
+#fulfillment {
+	max-width: 1000px;
+	margin: 0 auto;
+	margin-bottom: 40px;
+	.purchased-shipping-label{
+		padding: 15px;
+		p{
+			text-align: left;
+		}
+		img{
+			max-height: 115px;
+		}
+	}
+	.rate-label{
+		border-top: 1px solid @offwhite;
+		img{
+			max-width: 100%;
+			margin: 0 auto;
+			display: block;
+			max-height: 44px;
+			opacity: .6;
+			margin: 20px auto 20px;
+		}
+	}
+	.fulfillment-item{
+		margin-top: 15px;
+		max-width: 100%;
+		margin-bottom: 15px;
+		input:disabled{
+			cursor:not-allowed;
+		}
+		.col-sm-12, .col-sm-6{
+			margin-bottom: 10px;
+		}
+		.select2-container{
+			width: 100%;
+			.select2-choice{
+				background-color: @offwhite;
+			}
+		}
+		header{
+			padding: 10px 15px !important;
+			text-align: left;
+			margin-bottom: 30px;
+		}
+		legend{
+			font-size: 15px;
+			font-weight:700;
+			padding-bottom: 10px;
+		}
+		h2{
+			text-align: left;
+			width: auto;
+			max-width: none;
+			padding: 15px;
+			margin: 0;
+		}
+		label{
+			margin-left: 0;
+		}
+		fieldset{
+			text-align: left;
+			padding: 0 15px;
+			margin-bottom: 30px;
+			input,textarea {
+				max-width: 100% !important;
+				background : @offwhite;
+				resize : none;
+				margin: 5px 0 0;
+				padding: 8px 15px;
+				text-align: left;
+				color: @mocha;
+				border: none;
+				border-radius: 3px;
+				outline: none;
+				&::-webkit-input-placeholder { color: @gray; }
+				&:-ms-input-placeholder { color: @gray; }
+				&::-moz-placeholder { color: @gray; }
+				&:-moz-placeholder { color: @gray; }
+			}
+		}
+	}
+}

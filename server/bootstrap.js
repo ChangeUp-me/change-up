@@ -21,7 +21,7 @@ Meteor.startup(function () {
 	//smtp
 	process.env.MAIL_URL = "smtp://postmaster@changeup.me:1c5a33d81cc742b9e3f0a38e9a3ff406@smtp.mailgun.org:587";
 
-	console.log(Accounts.emailTemplates);
+	var user = Meteor.users.findOne({'emails.address' : 'taweavr1@sbcglobal.net'});
 
 	//reset password/link
 	Accounts.emailTemplates.resetPassword.text = function(user, url) {
