@@ -131,6 +131,9 @@ Template.MasterLayout.events({
 
 				sAlert.success("you've been signed up!");
 
+				$('#signupToLike').modal('hide');
+				$('body').removeClass('modal-open');
+
 				//automatically like product
 				Meteor.call('addLike', likeThis.id, likeThis.vendor, function (err, result){
 					if(err){
