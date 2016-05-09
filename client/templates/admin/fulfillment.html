@@ -108,7 +108,6 @@
             </div>
           </div>
         </div>
-        {{#unless purchasedLabel}}
         <!-- START : shipping information -->
         <section class="fulfillment-item page">
           <header class="section-header">
@@ -215,6 +214,7 @@
               </div>
               {{/with}}
             </fieldset>
+            {{#unless purchasedLabel}}
             <footer class="section-footer">
               {{#if hasShippingUser}}
               {{#if shippingIntegrated}}
@@ -253,9 +253,9 @@
               </div>
               {{/each}}
             </footer>
+            {{/unless}}
           </form>
         </section>
-        {{/unless}}
         <!-- END : shipping information -->
 
         <!-- PURCHASED LABEL -->

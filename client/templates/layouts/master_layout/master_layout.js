@@ -7,6 +7,14 @@ Template.MasterLayout.helpers({
 				email : user.emails[0].address,
 				name : user.profile.name
 			}
+
+			user.name = user.name || "";
+
+			//only display if the first and last name
+			//are given
+			if(user.name.split(' ').length < 2) {
+				delete user.name;
+			}
 		}
 
 		return user || {};

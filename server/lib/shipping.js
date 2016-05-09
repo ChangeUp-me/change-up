@@ -25,11 +25,11 @@ SHIPPING = (function () {
 	*/
 	changeupShipping.prototype.purchaseLabel = function (shipmentId, rate, callback) {
 		this.client.Shipment.retrieve(shipmentId, Meteor.bindEnvironment(function (err, shipment) {
-			if(err) return callback(new Meteor.Error('purchase-shipment', err.message.message));
+			if(err) return callback(new Meteor.Error('purchase-shipment', err));
 
 			shipment.buy({rate : rate}, Meteor.bindEnvironment(function (err, shipment) {
 				if(err) {
-					return callback(new Meteor.Error('purchase-shipment', err.message.message));
+					return callback(new Meteor.Error('purchase-shipment', err));
 				}
 
 				callback(null, shipment);
@@ -55,7 +55,7 @@ SHIPPING = (function () {
 		}, Meteor.bindEnvironment(function (err, shipment) {
 			if(err) {
 				console.error(err);
-				return callback(new Meteor.Error('create-shipment', err.message.message));
+				return callback(new Meteor.Error('create-shipment', err));
 			}
 
 			callback(null, shipment);
@@ -76,7 +76,7 @@ SHIPPING = (function () {
 			}
 		}, function (err, result) {
 			if(err) {
-				return callback(new Meteor.Error('create-user', err));
+				return callback(new Meteor.Error('create-user', getApiErrorMessage(err)));
 			}
 
 			callback(null, result.data);
@@ -98,7 +98,7 @@ SHIPPING = (function () {
 		}, function (err, result) {
 			result = result.data;
 			if(err) {
-				return callback(new Meteor.Error('account-api-keys', err));
+				return callback(new Meteor.Error('account-api-keys', getApiErrorMessage(err)));
 			}
 
 			callback(null, result.keys);
@@ -118,7 +118,7 @@ SHIPPING = (function () {
 			auth : this.secretTestKey + ':',
 		}, function (err, result) {
 			if(err) {
-				return callback(new Meteor.Error('get-carriers', err));
+				return callback(new Meteor.Error('get-carriers', getApiErrorMessage(err)));
 			}
 
 			callback(null, result);
@@ -144,7 +144,7 @@ SHIPPING = (function () {
 			}
 		}, function (err, account) {
 			if(err) {
-				return callback(new Meteor.Error('create-carrier', err));
+				return callback(new Meteor.Error('create-carrier', getApiErrorMessage(err)));
 			}
 
 			callback(null, account);
@@ -339,7 +339,7 @@ SHIPPING = (function () {
 		}, function (err, result) {
 			result = result.data;
 			if(err) {
-				return callback(new Meteor.Error('child-api-keys', err));
+				return callback(new Meteor.Error('child-api-keys', getApiErrorMessage(err)));
 			}
 
 			//find the apikeys for this child
@@ -368,12 +368,29 @@ SHIPPING = (function () {
 			}
 		}, function (err, result) {
 			if(err) {
-				return callback(new Meteor.Error('create-child-user', err));
+				return callback(new Meteor.Error('create-child-user', getApiErrorMessage(err)));
 			}
 
 			callback(null, result.data);
 		});
 	};
+
+	/**
+	* Parse the error message from the easypost
+	* api
+	*
+	*/
+	function getApiErrorMessage (error) {
+		var errorMessage;
+
+		try{
+			_.each(error.response.data.error.errors, function (err) {
+				errorMessage += " " + err.message + ",";
+			})
+		} catch (e) {console.error('error-getting-error', e)}
+
+		return errorMessage;
+	}
 
 
 	return changeupShipping;

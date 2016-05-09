@@ -75,11 +75,12 @@ Meteor.methods({
         return key.mode == 'test';
       });
 
+      var shippingProfile = {
+        "profile.shippingUser.testApiKey" : testKey.key,
+        "profile.shippingUser.productionApiKey" : productionKey.key
+      };
+
       try{
-        var shippingProfile = {
-          "profile.shippingUser.testApiKey" : testKey.key,
-          "profile.shippingUser.productionApiKey" : productionKey.key
-        };
         //add the shipping api info to the user object
         Meteor.users.update({_id : Meteor.userId()},{$set : shippingProfile}); 
       } catch (e) {
@@ -98,13 +99,24 @@ Meteor.methods({
 
     var name = Meteor.user().profile.name;
 
-    check(accountObj, {
-      name : nonEmptyString,
-      email : nonEmptyString,
-      password : nonEmptyString,
-      password_confirmation : nonEmptyString,
-      phone_number : nonEmptyString
-    });
+    try{
+      check(accountObj, {
+        name : nonEmptyString,
+        email : nonEmptyString,
+        password : nonEmptyString,
+        password_confirmation : nonEmptyString,
+        phone_number : nonEmptyString
+      });
+    } catch (e) {
+      console.error(e);
+      throw new Meteor.Error(e.path, e.sanitizedError.reason);
+    }
+
+    var isFullName = accountObj.name.trim().split(' ');
+
+    if(isFullName.length < 2) {
+      throw new Meteor.Error('your full name is required');
+    }
 
     var shipping = new SHIPPING(Meteor.user());
 
@@ -135,9 +147,11 @@ Meteor.methods({
     var result = new Future();
     var user = Meteor.user();
     var shippingUser = user.profile.shippingUser;
+
+    console.log(shipping.client)
    
     if(!shippingUser || !shippingUser.id) {
-      throw new Meteor.Error('you have to integrate an easypost account first');
+      return result.throw(new Meteor.Error('you have to integrate an easypost account first'));
     } else if(user.profile.shippingUser.id) {
       var shipping = new SHIPPING(user, shippingUser.testApiKey);
 

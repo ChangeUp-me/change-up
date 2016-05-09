@@ -35,17 +35,17 @@ Template.Fulfillment.events({
 
     $('#shipping-account-created').modal('show');
   },
-	"submit #shippingForm" : function (event) {
-		event.preventDefault();
+  "submit #shippingForm" : function (event) {
+    event.preventDefault();
 
-		var form = event.target;
+    var form = event.target;
 
-		var parcelInfo = {
+    var parcelInfo = {
       weight : form.weight.value,
       length : form.length.value,
       width : form.width.value,
       height : form.height.value,
-		};
+    };
 
     var shippingFrom = {
       street : form.street.value,
@@ -80,11 +80,11 @@ Template.Fulfillment.events({
       return sAlert.error('the ' + e.path + " is invalid");
     }
 
-		var transactionId = this._id
+    var transactionId = this._id
 
-		sAlert.info('fetching shipping labels.  Hold on...');
+    sAlert.info('fetching shipping labels.  Hold on...');
 
-		$('button[data-click-getlabel]').prop('disabled', true);
+    $('button[data-click-getlabel]').prop('disabled', true);
 
     Session.set('shipment:rates',[]);
     Session.set('shipment:id');
@@ -98,47 +98,47 @@ Template.Fulfillment.events({
       }
     },4000);
 
-		Meteor.call('getShippingRates', transactionId, parcelInfo, shippingFrom, function (err, shipping){
-			$('button[data-click-getlabel]').prop('disabled', false);
+    Meteor.call('getShippingRates', transactionId, parcelInfo, shippingFrom, function (err, shipping){
+      $('button[data-click-getlabel]').prop('disabled', false);
       clearInterval(interval);
-			if(err) {
-				console.error(err);
-				return sAlert.error(err);
-			}
+      if(err) {
+        console.error(err);
+        return sAlert.error(err);
+      }
 
       console.log('shipping', shipping);
-			
+      
       Session.set('shipment:id', shipping.id);
-			Session.set('shipment:rates', shipping.rates);
-		});
-	},
-	"click [data-click-cancel]" : function (event) {
-		var ids = _.pluck(this.order, 'orderId');
+      Session.set('shipment:rates', shipping.rates);
+    });
+  },
+  "click [data-click-cancel]" : function (event) {
+    var ids = _.pluck(this.order, 'orderId');
 
-		Meteor.call('cancelOrder', this._id, ids, function (err) {
-			if(err) {
-				console.error(err);
-				return sAlert.error('order could not be cancelled');
-			}
-			Meteor.setTimeout(function () {
-				Router.go('vendorOrders');
-			},1000)
-			sAlert.success('order cancelled');
-		})
-	},
-	"click [data-click-fulfill]" : function (event) {
-		var ids = _.pluck(this.order, 'orderId');
+    Meteor.call('cancelOrder', this._id, ids, function (err) {
+      if(err) {
+        console.error(err);
+        return sAlert.error('order could not be cancelled');
+      }
+      Meteor.setTimeout(function () {
+        Router.go('vendorOrders');
+      },1000)
+      sAlert.success('order cancelled');
+    })
+  },
+  "click [data-click-fulfill]" : function (event) {
+    var ids = _.pluck(this.order, 'orderId');
 
-		Meteor.call('fulfillOrder', this._id, ids, function (err) {
-			if(err){
-				console.error(err);
-				return sAlert.error('order could not be fulfilled');
-			}
+    Meteor.call('fulfillOrder', this._id, ids, function (err) {
+      if(err){
+        console.error(err);
+        return sAlert.error('order could not be fulfilled');
+      }
 
-			sAlert.success('order fulfilled');
-		});
-	},
-	'change [data-onchange-carrier]' : function (event) {
+      sAlert.success('order fulfilled');
+    });
+  },
+  'change [data-onchange-carrier]' : function (event) {
     var target = event.target;
     var carrier = $(target).val();
 
@@ -179,15 +179,15 @@ Template.Fulfillment.helpers({
   purchasedLabel : function (something, other, to) {
     return Shipments.findOne({vendorId : Meteor.user().profile.vendorId, transactionId : Session.get('transaction:id')});
   },  
-	rateLables : function () {
-		return Session.get('shipment:rates');
-	},
-	toJson : function (item) {
+  rateLables : function () {
+    return Session.get('shipment:rates');
+  },
+  toJson : function (item) {
     item = item || this;
     return JSON.stringify(item);
   },
   usStates : function () {
-  	return States.find().fetch();
+    return States.find().fetch();
   },
   stateIsSelected : function (state) {
     return Session.get('selected:state') == state ? true : false; 
@@ -223,55 +223,55 @@ Template.Fulfillment.helpers({
     //only return the templates for the selected carrier
     return PARCEL_TEMPLATES[Session.get('selected:carrier')] || [];
   }, 
-	totals : function () {
-		try {
-			var shipping = 0;
-			var total = 0;
-			var order = this.order;
-			var subTotal = 0;
+  totals : function () {
+    try {
+      var shipping = 0;
+      var total = 0;
+      var order = this.order;
+      var subTotal = 0;
 
-			for (var i = 0; i < order.length; i++) {
-				subTotal += parseFloat(order[i].price * order[i].quantity);
-			}
+      for (var i = 0; i < order.length; i++) {
+        subTotal += parseFloat(order[i].price * order[i].quantity);
+      }
 
-			if (order[0].shippingPrice){
-				shipping = Number(order[0].shippingPrice);
-			}
+      if (order[0].shippingPrice){
+        shipping = Number(order[0].shippingPrice);
+      }
 
-			subTotal = parseFloat(subTotal).toFixed(2);
-			shipping = parseFloat(shipping).toFixed(2);
-			total = parseFloat(Number(subTotal)+Number(shipping)).toFixed(2);
+      subTotal = parseFloat(subTotal).toFixed(2);
+      shipping = parseFloat(shipping).toFixed(2);
+      total = parseFloat(Number(subTotal)+Number(shipping)).toFixed(2);
 
-			return {
-				"subTotal" : subTotal,
-				"shipping" : shipping,
-				"total" : total
-			}
-		} catch (e) {
+      return {
+        "subTotal" : subTotal,
+        "shipping" : shipping,
+        "total" : total
+      }
+    } catch (e) {
 
-		}
-	},
-	isFulfilled : function () {
-		try {
-			var order = this.order;
-			var tOF = true;
-			var falseVal = 0;
+    }
+  },
+  isFulfilled : function () {
+    try {
+      var order = this.order;
+      var tOF = true;
+      var falseVal = 0;
 
-			for (var i = 0; i < order.length; i++) {
-				if (order[i].fulfilled === false) {
-					falseVal ++;
-				}
-			}
+      for (var i = 0; i < order.length; i++) {
+        if (order[i].fulfilled === false) {
+          falseVal ++;
+        }
+      }
 
-			if (falseVal > 0) {
-				tOF = false;
-			}
+      if (falseVal > 0) {
+        tOF = false;
+      }
 
-			return tOF === false ? false : true;
-		} catch (e) {
+      return tOF === false ? false : true;
+    } catch (e) {
 
-		}
-	},
+    }
+  },
   hasShippingUser : function () {
     var user = Meteor.user();
     return _.isObject(user.profile.shippingUser);
@@ -305,7 +305,7 @@ Template.Fulfillment.onCreated(function () {
 });
 
 Template.Fulfillment.onRendered(function () {
-	//create styled select inputs
+  //create styled select inputs
   $('#e1').select2({
     placeholder : 'Select A Carrier'
   });
@@ -323,7 +323,7 @@ Template.Fulfillment.onRendered(function () {
 });
 
 Template.Fulfillment.onDestroyed(function () {
-	Session.set('selected:carrier');
-	Session.set('shipment:rates');
+  Session.set('selected:carrier');
+  Session.set('shipment:rates');
   Session.set('selected:state')
 });
