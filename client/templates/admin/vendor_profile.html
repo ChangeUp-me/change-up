@@ -37,10 +37,10 @@
       <fieldset>
         <label>Choose your default shipment location (where do your packages ship from?)</label>
 
-        <input placeholder="street" name="street" value="{{shipsFrom.street}}">
-        <input placeholder="city" name="city" value="{{shipsFrom.city}}">
-  			<input placeholder="zipcode" name="zipcode" value="{{shipsFrom.zipcode}}">
-  			<input placeholder="us" name="country" disabled value="US">
+        <input placeholder="Street" name="street" value="{{shipsFrom.street}}">
+        <input placeholder="City" name="city" value="{{shipsFrom.city}}">
+  			<input placeholder="Zipcode" name="zipcode" value="{{shipsFrom.zipcode}}">
+  			<input placeholder="Country" name="country" disabled value="US">
         <select id="states" name="state">
         	{{#if stateSelected}}
         	{{#each usStates}}
