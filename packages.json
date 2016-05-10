@@ -1,4 +1,5 @@
 {
   "stripe":"4.5.0",
-  "fibers": "1.0.7"
+  "fibers": "1.0.7",
+  "node-easypost" : "2.0.10"
 }

@@ -110,8 +110,6 @@
   			var minutes = moment(diff).minutes();
   			var seconds = moment(diff).second();
 
-  			console.log('the mins', minutes);
-
   			$target.html(hours + 'h ' + minutes + 'm ' + seconds + 's');
 			},1000);
 		});

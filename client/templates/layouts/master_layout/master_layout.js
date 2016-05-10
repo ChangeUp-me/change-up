@@ -1,4 +1,81 @@
+Template.MasterLayout.helpers({
+	user : function () {
+		var user = Meteor.user();
+
+		if(user) {
+			user = {
+				email : user.emails[0].address,
+				name : user.profile.name
+			}
+
+			user.name = user.name || "";
+
+			//only display if the first and last name
+			//are given
+			if(user.name.split(' ').length < 2) {
+				delete user.name;
+			}
+		}
+
+		return user || {};
+	}
+})
+
 Template.MasterLayout.events({
+	"click [data-click-openshippingmodal]" : function (event) {
+    event.preventDefault();
+
+    $('#create-shipping-account').modal('show');
+  },
+	"submit [data-submit-integrateeasypost]" : function (event) {
+    event.preventDefault();
+
+    var form = event.target;
+
+    var apiKeys = {
+      testApiKey : form.testApiKey.value,
+      productionApiKey : form.productionApiKey.value
+    };
+
+    Meteor.call('integrateShippingApiKeys', apiKeys, function (err, result) {
+      if(err) {
+        return sAlert.error(err);
+      }
+
+      sAlert.success('Your EasyPost account was created!');
+
+      $('#shipping-account-created').modal('hide');
+    });
+  },
+	'submit [data-submit-integrateshippingapi]' : function (event) {
+    event.preventDefault();
+
+    var form = event.target;
+
+    console.log('the form', form);
+
+    var shippingAccount = {
+      name : form.name.value,
+      email : form.email.value,
+      password : form.password.value,
+      password_confirmation : form.password_confirmation.value,
+      phone_number : form.phone_number.value
+    }
+
+    Meteor.call('createShippingAccount', shippingAccount, function (err, result) {
+    	if(err) {
+    		console.error(err);
+    		return sAlert.error(err);
+    	}
+
+    	sAlert.success('easypost account was created')
+
+
+    	$('#create-shipping-account').modal('hide');
+
+			$('#shipping-account-created').modal('show');
+    });
+  },
 	'submit [data-submit-changepassword]' : function (event) {
 		event.preventDefault();
 		
@@ -53,6 +130,9 @@ Template.MasterLayout.events({
 				}
 
 				sAlert.success("you've been signed up!");
+
+				$('#signupToLike').modal('hide');
+				$('body').removeClass('modal-open');
 
 				//automatically like product
 				Meteor.call('addLike', likeThis.id, likeThis.vendor, function (err, result){

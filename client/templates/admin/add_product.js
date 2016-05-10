@@ -204,6 +204,7 @@ Template.AddProduct.onRendered(function() {
     $('#targetImage').show();
   }
 
+  //set the crop area for each individual upload zone
   var input, targetImage, progressBar, sessionName, $this;
   $('#productImages').children().each(function (indx, image){
     $this = $(this);
@@ -230,6 +231,7 @@ Template.AddProduct.onRendered(function() {
     });
   }
 
+  //create the percentage slider
   sliderInit(data);
 });
 Template.AddProduct.onDestroyed(function() {
