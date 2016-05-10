@@ -1,4 +1,13 @@
 <template name="MasterLayout">
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.6&appId=428054590735812";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
 	{{> Cart }}
 	{{> sAlert}}
 	{{> Navbar }}
@@ -23,6 +32,92 @@
 			</li>
 		</ul>
 	</nav>
+
+	<!-- modal for zooming in on images -->
+	<div class="modal zoom" id="image-zoom" role="document">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					
+				</div>
+			</div>	
+		</div>
+	</div>
+
+	<div class="modal fade" id="shipping-account-created" role="document">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<form data-submit-integrateeasypost>
+						<h2>Your EasyPost Account Is Almost Setup</h2>
+						<p>Step 1 : Go to your email inbox and follow the link in the easy post verification email</p>
+						<p>Step 2 : After your verify your email, login to your account and go to the "API Keys" section.</p>
+						<p>step 3 : Enter your Test Api Key and Production Api Key below:</p>
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<input type="text" name="testApiKey" placeholder="test api key">
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<input type="text" name="productionApiKey" placeholder="production api key">
+							</div>
+						</div>
+						<button class="button orange" type="submit">Integrate Shipping Account</button>
+					</form>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+	<!-- modal for creating shipping account -->
+	<div class="modal fade" id="create-shipping-account" role="document">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h2>Create Your Shipping Account</h2>
+					<h3>Changeup integrates with EasyPost to allow seamless shipment handling.</h3>
+					<form data-submit-integrateshippingapi>
+						{{#with user}}
+						<div class="row">
+							<div class="col-xs-12 col-sm-6">
+								<input type="text" name="name" value="{{name}}" placeholder="full name">
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<input type="email" name="email" value="{{email}}" placeholder="email">
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<input type="password" name="password" placeholder="password">
+							</div>
+							<div class="col-xs-12 col-sm-6">
+								<input type="password" name="password_confirmation" placeholder="confirm password">
+							</div>
+							<div class="col-sm-12">
+								<input type="tel" name="phone_number" placeholder="phone number (555-555-5555)">
+							</div>
+						</div>
+						{{/with}}
+						<button class="button orange" type="submit">Create User</button>
+					</form>
+				</div>
+			</div>	
+		</div>
+	</div>
+
+	<!-- modal for changing passwords -->
+	<div class="modal fade" id="change-password" role="document">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h2>Change Password</h2>
+
+					<form data-submit-changepassword>
+						<input type="password" name="oldPassword" placeholder="Old Password">
+						<input type="password" name="newPassword" placeholder="New Password">
+						<button class="button orange" type="submit">Change Password</button>
+					</form>
+				</div>
+			</div>	
+		</div>
+	</div>
 
 
 	<div id="site-wrapper">
@@ -68,7 +163,8 @@
 		<div class="modal-dialog" role="document">
     	<div class="modal-content">
     		<div class="modal-body">
-    			<img src="/images/logo.svg" alt="ChangeUp" class="floating-logo">
+    			<object class="floating-logo" data="/images/logo.svg" type="image/svg+xml"></object>
+    			<div class="fb-like" data-href="https://www.facebook.com/changeup.me/" data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div>
         	<div id="registerpopup">
         		<!-- <a id="popup_close" class="button blue login">X</a> -->
 						<div>

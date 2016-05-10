@@ -30,8 +30,9 @@ Template.registerHelper('featuredProductsTime', function () {
   var then = Date.parse(FeaturedProducts.findOne({'current':true}).date);
   var now = Date.now();
   var diff = then-now;
-  var hours = Math.floor(diff/3600000)
-  var minutes =  Math.floor((diff%3600000)/60000);
+
+  var hours = moment(diff).hours();
+  var minutes = moment(diff).minutes();
 
   return hours + 'h ' + minutes + 'm';
 })

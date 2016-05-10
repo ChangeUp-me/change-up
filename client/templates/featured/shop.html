@@ -14,10 +14,11 @@
 
 		<span id="featured"></span>
    		<ul id="allItems" class="clearfix">
+   			<li class="featured-title">Featured For : <span id="featuredTime">{{ featuredProductsTime }}</span></li>
 			{{#each products}}
 				<li class="product">
 					<div class="product-image">
-						<div class="product-timer">{{ featuredProductsTime }}</div>
+						<!--<div class="product-timer">{{ featuredProductsTime }}</div>-->
 						{{#if userLiked}}
 							<div class="like-button" data-productid="{{_id}}"><img src="/icons/changeup_like_action.svg" alt="Like"></div>
 						{{else}}

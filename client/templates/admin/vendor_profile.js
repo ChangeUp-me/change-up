@@ -37,7 +37,14 @@
             charities.push($(val).attr('data-id'));
           })
           return charities;
-        }()
+        }(),
+        shipsFrom : {
+          street : form.street.value,
+          city : form.city.value,
+          zipcode : form.zipcode.value,
+          country : form.country.value,
+          state : form.state.value
+        }
       }
 
       if(image) {
@@ -97,6 +104,15 @@
       }
 
       return Session.get('selectedCharities');
+    },
+    usStates : function () {
+      return States.find().fetch();
+    },
+    stateIsSelected : function (val) {
+      return Session.get('selected:state') == val ? true : false;
+    },
+    stateSelected : function () {
+      return (this.shipsFrom && this.shipsFrom.state) ? true : false;
     }
   });
   /*****************************************************************************/
