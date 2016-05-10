@@ -41,11 +41,12 @@
 						<h4>${{price}}</h4>
 					</div>
 					<div class="vendor col-xs-12"><a href="{{pathFor route='vendor' data=this}}">{{storeName}}</a></div>
-					<form class="col-xs-12 product-item">
-						{{#with this}}
-						{{>ProductOptions}}
-						{{/with}}
-
+					<form class="product-item">
+						<div class="col-xs-12">
+							{{#with this}}
+							{{>ProductOptions}}
+							{{/with}}
+						</div>
 						<div class="stats col-xs-12">
 							<span class="likes">{{likeCount}} likes</span>
 							<span class="reviews">{{noOfReviews reviews}}</span>
