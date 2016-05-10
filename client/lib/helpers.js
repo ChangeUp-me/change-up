@@ -33,8 +33,11 @@ Template.registerHelper('featuredProductsTime', function () {
 
   var hours = moment(diff).hours();
   var minutes = moment(diff).minutes();
+  var seconds = moment(diff).seconds();
 
-  return hours + 'h ' + minutes + 'm';
+  return '<div class="time-column"><h1>' + hours + '</h1>' + '<small>hours</small></div>' +
+         '<div class="time-column"><h1>' + minutes + '</h1>' + '<small>minutes</small></div>'
+         '<div class="time-column"><h1>' + seconds + '</h1>' + '<small>seconds</small></div>';
 })
 
 Template.registerHelper('productReviewStars', function(reviewObj) {
