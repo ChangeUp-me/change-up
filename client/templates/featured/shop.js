@@ -110,7 +110,9 @@
   			var minutes = moment(diff).minutes();
   			var seconds = moment(diff).second();
 
-  			$target.html(hours + 'h ' + minutes + 'm ' + seconds + 's');
+  			$target.html('<div class="time-column"><h1>' + hours + '</h1>' + '<small>hours</small></div>' +
+  						 '<div class="time-column"><h1>' + minutes + '</h1>' + '<small>minutes</small></div>' +
+  						 '<div class="time-column"><h1>' + seconds + '</h1>' + '<small>seconds</small></div>');
 			},1000);
 		});
 	});
