@@ -188,7 +188,65 @@ Template.MasterLayout.events({
 		//closes all open menus
 		//func is below
 		closeOpenMenus();
-	}
+	},
+	'click .zoomable-image' : function (event) {
+		var $image = $(event.target)
+		var $clone = $image.clone();
+		var $window = $(window);
+		var imagePosition = $image.offset();
+		var $wrap = $('<div id="zoom-wrap"></div>').html($clone).css('display','none');
+		var $overlay = $('<div id="zoom-overlay"></div>');
+		var $body = $('body');
+
+		$body.append($wrap);
+		$body.append($overlay);
+
+		var t1 = new TimelineMax();
+		var t2 = new TimelineMax();
+
+		t2.to($overlay, .5, {
+		  opacity : 1
+		})
+
+		$body.addClass('no-scroll');
+
+		t1
+		 .set($wrap, {
+		 		display : 'flex',
+				position : 'absolute',
+				top : imagePosition.top,
+				left : imagePosition.left,
+				height : $image.outerHeight(),
+				width :  $image.outerWidth(),
+				"z-index" : 99999,
+				opacity : .5
+			})
+		 .to($image,0,{
+		 	opacity : 0
+		 })
+		 .to($wrap, .5, {
+		 	padding : '30px',
+		 	top : 0,
+		 	left: 0,
+		 	width : $window.width(),
+		 	height: $window.height(),
+		 	opacity : 1
+		 })
+		 .to($wrap, 0, {
+		 		width : '100%',
+		 		height : '100%'
+		 })
+
+		$wrap.one('click', function () {
+			t2.reverse();
+			t1.reverse();
+			setTimeout(function () {
+				$wrap.remove();
+				$overlay.remove();
+				$body.removeClass('no-scroll');
+			},500);
+		})
+	},
 });
 
 
