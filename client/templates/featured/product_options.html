@@ -1,45 +1,29 @@
 <template name="ProductOptions">
-	<div class="product-options">
-		<fieldset class="row">
-			<div class="col-xs-12">
-				<div class="col-xs-8">
-					<label><span class="percentage">{{percentToCharity}}%</span> will go to:
-					<!-- Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"> --></label><br>
-					<select id="charities{{../_id}}">
-						{{#each charities}}
-						<option value="{{this.id}}">{{this.name}}</option>
-						{{/each}}
-					</select>
-				</div>
-
-				<div class="col-xs-4">
-					<label>Quantity</label>
-					<input type="number" min="1" id="quantity{{../_id}}" value="1">
-				</div>
-			</div>
-			<div class="col-xs-12 sizes">
-				{{#if fixingVendorsSize}}
-				{{#unless oneSize}}
-					<label class="col-sm-6 col-md-12">Select a size</label>
-					<ul class="size-select list-inline col-sm-6 col-md-12">
-						{{#each sizes}}
-						{{#if selected}}
-						<li id="{{../_id}}{{this}}" data-value="" class="selected">{{this}}</li>
-						{{else}}
-						<li id="{{../_id}}{{this}}" data-value="">{{this}}</li>
-						{{/if}}
-						{{/each}}
-					</ul>
-				{{/unless}}
-				{{/if}}
-			</div>
-		</fieldset>
-		<fieldset class="dropdown-wrap row">
-			<div class="select-dropdown col-xs-6">
-				<ul class="sd-items clearfix">
-					<li class="sd-item"></li>
-				</ul>
-			</div>
-		</fieldset>
-	</div>
+  <div class="product-options">
+    <fieldset class="row">
+      <div class="col-xs-6">
+        <label>
+          <span class="percentage">{{percentToCharity}}%</span> will go to:
+          <!-- Charity <img src="/icons/smallstar_blue.svg" width="15" alt="Charity"> -->
+        </label>
+        <select name="charity" class="charity-select" id="charities{{../_id}}">
+          {{#each charities}}
+          <option value="{{this.id}}">{{this.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+      <div class="col-xs-3">
+        <input name="quantity" class="number-input" placeholder="Qty" type="number" min="1" id="quantity{{../_id}}" value="1">
+      </div>
+      <div class="col-xs-3">
+        {{#if fixingVendorsSize}}
+        <select class="size-select" name="size">
+          {{#each sizes}}
+          <option value="{{this}}">{{this}}</option>
+          {{/each}}
+        </select>
+        {{/if}}
+      </div>
+    </fieldset>
+  </div>
 </template>
