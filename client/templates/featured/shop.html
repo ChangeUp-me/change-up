@@ -14,7 +14,9 @@
 
 		<span id="featured"></span>
    		<ul id="allItems" class="clearfix">
-   			<li class="featured-title">Featured For : <span id="featuredTime">{{ featuredProductsTime }}</span></li>
+   			<li class="featured-title">
+   				<h1>Featured For:</h1>
+   				<div id="featuredTime">{{{ featuredProductsTime }}}</div></li>
 			{{#each products}}
 				<li class="product">
 					<div class="product-image">
