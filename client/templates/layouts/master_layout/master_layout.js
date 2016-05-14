@@ -210,6 +210,8 @@ Template.MasterLayout.events({
 
 		$body.addClass('no-scroll');
 
+		window.scrollTo(0,0)
+
 		t1
 		 .set($wrap, {
 		 		display : 'flex',
