@@ -4,9 +4,18 @@ Template.productItems.events({
     var selectedSize;
     var form = event.target;
 
+    var getSize = function () {
+      var size;
+      try{
+        size = form.size.value;
+      }catch(e) {}
+
+      return size;
+    }
+
     var cartItem = {
       productId : this._id,
-      size : form.size.value,
+      size : getSize(),
       quantity : parseInt(form.quantity.value),
       image : this.image,
       charityId: form.charity.value
