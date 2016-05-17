@@ -7,6 +7,7 @@
 @mocha: #434343;        /* Titles */
 @silver: #C7C7C7;       /* Body text */
 
+
 li.product-item{
   list-style: none;
   padding-bottom: 30px;
@@ -22,13 +23,16 @@ li.product-item{
   .button{
     margin: 0;
     border-radius: 0;
-    display: inline-block;
-    width: 50%;
+    display: block;
     float: left;
     border: 0;
     clear: none;
     max-width: none;
     padding: 15px 0;
+    margin-bottom: 15px;
+  }
+  .pi-buttons{
+    padding: 1rem;
   }
   .pi-social-bar{
       text-align: left;
@@ -135,3 +139,17 @@ li.product-item{
       margin: 0;
     }
   }
+
+
+@media (min-width: 768px) {
+  li.product-item{
+    .pi-buttons{
+      padding: 0;
+    }
+    .button{
+      display: inline-block;
+      width: 50%;
+      margin-bottom: 0;
+    }
+  }
+}
