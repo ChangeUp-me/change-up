@@ -11,6 +11,19 @@
 li.product-item{
   list-style: none;
   padding-bottom: 30px;
+  .zoom-btn{
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition : .3s opacity;
+    opacity: 0;
+    color: white;
+    z-index: 99;
+    font-size: 3rem;
+    i{
+      margin: 1rem;
+    }
+  }
   section{
     padding: 0;
     border: 1px solid @silver;
@@ -84,6 +97,9 @@ li.product-item{
     }
     figure.pi-image{
       position: relative;
+      &:hover .zoom-btn{
+        opacity: 1;
+      }
     }
     .like-button{
       position: absolute;

@@ -4,11 +4,16 @@
       <form data-submit-additemtocart>
         <!-- vendor product image -->
         <figure class="pi-image">
+          <div class="zoom-btn">
+            <i class="fa fa-search-plus zoomable-image" data-image="#{{_id}}" aria-hidden="true"></i>
+          </div>
+          <a class="product-image" href="{{pathFor route='item' data=this}}">
           {{#if image}}
-          <a class="product-image" href="{{pathFor route='item' data=this}}"><img class="pi-product-image" src="{{https image.url}}" alt=""></a>
+            <img id="{{_id}}" class="pi-product-image" src="{{https image.url}}" alt="">
           {{else}}
-          <a class="product-image" href="{{pathFor route='item' data=this}}"><img src="../../../images/noImage.png" alt="No Image Available"></a>
+            <img id="{{_id}}" src="../../../images/noImage.png" alt="No Image Available">
           {{/if}}
+          </a>
           <!-- product like buttons -->
           {{#if userLiked}}
           <div class="like-button" data-productid="{{_id}}"><img src="/icons/changeup_like_action.svg" alt="Like"></div>
