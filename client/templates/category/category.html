@@ -1,0 +1,46 @@
+<template name="category">
+	{{>categoryBar}}
+	<section class="category-page-item">
+		<header class="cpi-header">
+			<h2>Category One</h2>
+			<p class="cpi-description">This is where a short, one to two sentence description of the category would exist.</p>
+		</header>
+		<div class="row">
+			<div class="col-sm-4">
+				<nav class="cpi-nav">
+					<ul class="cpi-nav-items">
+						{{#each subcategories}}
+						<li class="cpi-nav-item">Subcategory {{this}}</li>
+						{{/each}}
+						<li class="cpi-nav-item-more">View All Categories</li>
+					</ul>
+				</nav>
+			</div>
+			<div class="col-sm-8">
+				<ul class="cpi-subcategory-items row">
+					{{#each subcategories}}
+					<li class="cpi-subcategory-item col-sm-4">
+						<figure>
+							<img src="/images/background_whatsnext.png">
+							<figcaption>Subcategory One</figcaption>
+						</figure>
+					</li>
+					{{/each}}
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section class="category-page-item">
+		<header class="cpi-products-header clearfix">
+			<h2>Products</h2>
+			<button class="button more-btn">View All Products</button>
+		</header>
+		<ul id="allItems" class="clearfix row">
+			{{#each products}}
+				{{#with this}}
+					{{>productItems}}
+				{{/with}}
+			{{/each}}
+		</ul>
+	</section>
+</template>

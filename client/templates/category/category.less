@@ -1,0 +1,74 @@
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+section.category-page-item{
+	text-align: left;
+	margin: 0 auto;
+	display: block;
+	max-width: 1050px;
+	#allItems{
+		text-align: left;
+	}
+	section{
+		padding-bottom: 0;
+	}
+	p,ul,img{
+		padding: 0;
+		margin: 0;
+	}
+	li{
+		list-style: none;
+	}
+	header.cpi-header{
+		margin-bottom: 30px;
+	}
+	header.cpi-products-header{
+		margin-bottom: 30px;
+		h2{
+			display: inline-block;
+		}
+		button{
+			display: inline-block;
+			float: right;
+		}
+	}
+	.more-btn{
+		background: none;
+		border : 2px solid @mocha;
+		color: @mocha;
+		border-radius: 3px;
+	}
+	nav.cpi-nav{
+		background-color: white;
+		border : 1px solid @mocha;
+		color: @mocha;
+		padding: 15px;
+		li.cpi-nav-item{
+			margin-bottom: 15px;
+		}
+		li.cpi-nav-item-more{
+			border-top: 1px solid @silver;
+			padding-top: 15px;
+		}
+	}
+	li.cpi-subcategory-item{
+		margin-bottom: 30px;
+		figure{
+			background: white;
+			border: 1px solid @silver;
+		}
+		img{
+			width:100%;
+			max-width: 100%;
+		}
+		figcaption{
+			padding: 1rem;
+		}
+	}
+}

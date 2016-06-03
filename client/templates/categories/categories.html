@@ -4,7 +4,7 @@
 	<section class="category-item">
 		<div class="row">
 			<div class="col-sm-8">
-				<h2 class="category-title">Category 1</h2>
+				<h2 class="category-title">{{this}}</h2>
 				<p class="category-description">This is where a short, one to two sentence description of the category would exist.</p>
 			</div>
 			<div class="col-sm-4">
@@ -16,7 +16,7 @@
 				{{#with this}}
 					{{>productItems}}
 				{{/with}}
-				{{/each}}
+			{{/each}}
 		</ul>
 	</section>
 	{{/each}}
