@@ -11,40 +11,6 @@
 			productDescription.set(this.description);
 			$('#shareModal').modal('show');
 		},
-
-
-		'click .add-to-cart-btn': function(event, template){
-			event.preventDefault();
-			var selectedSize;
-			var quantity = template.find('#quantity'+this._id).value;
-			var charity = template.find('#charities'+this._id).value;
-			for (var i = 0; i < this.sizes.length; i++) {
-				if ($("#"+this._id+""+this.sizes[i]).data('value') === "selected"){
-					selectedSize = this.sizes[i];
-				}
-			}
-			var cartItem = {
-				productId : this._id,
-				size : selectedSize,
-				quantity : parseInt(quantity),
-				image : this.image,
-				charityId: charity
-			};
-
-			if (cartItem.quantity < 1) {
-				sAlert.error('select a quantity more than 1');
-			} else if(!cartItem.charityId){
-				sAlert.error('select a charity');
-			} else if (isNaN(cartItem.quantity)) {
-				sAlert.error('select a quantity');
-			} else if (this.sizes.length !== 0 && cartItem.size === undefined && !this.oneSize) {
-				sAlert.error('select a size');
-			} else  {
-				CART.addItem(cartItem);
-			}
-		}
-
-
 	});
 
 	/*****************************************************************************/

@@ -190,7 +190,17 @@ Template.MasterLayout.events({
 		closeOpenMenus();
 	},
 	'click .zoomable-image' : function (event) {
-		var $image = $(event.target)
+		event.preventDefault();
+
+		var $target = $(event.target);
+		var $image;
+
+		if($target.data('image')) {
+			$image = $($target.data('image'));
+		} else {
+			$image = $target;
+		}
+
 		var $clone = $image.clone();
 		var $window = $(window);
 		var imagePosition = $image.offset();
@@ -213,8 +223,8 @@ Template.MasterLayout.events({
 		t1
 		 .set($wrap, {
 		 		display : 'flex',
-				position : 'absolute',
-				top : imagePosition.top,
+				position : 'fixed',
+				top : imagePosition.top - $window.scrollTop(),
 				left : imagePosition.left,
 				height : $image.outerHeight(),
 				width :  $image.outerWidth(),

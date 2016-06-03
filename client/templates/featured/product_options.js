@@ -38,6 +38,7 @@
 		}catch(e){	}
 		},
 		sizes: function(){
+			console.log('sizes', this.sizes)
 			return this.sizes;
 		},
 		fixingVendorsSize : function () {
@@ -56,7 +57,10 @@
 	});
 
 	Template.ProductOptions.onRendered(function () {
-
+		Meteor.setTimeout(function () {
+			$('.size-select').select2({placeholder : 'size'})
+			$('.charity-select').select2({placeholder : 'charity'})
+		}, 100)
 	});
 
 	Template.ProductOptions.onDestroyed(function () {
