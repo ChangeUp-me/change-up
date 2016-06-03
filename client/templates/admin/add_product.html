@@ -84,6 +84,36 @@
         </div>
       </div>
       <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <div class='col-sm-12'>
+            <label class="text-left">Category</label>
+            <select id="categories" data-onchange-carrier name="category">
+              {{#each categories}}
+              {{#if selected}}
+              <option value="{{name}}" selected>{{name}}</option>
+              {{else}}
+              <option value="{{name}}">{{name}}</option>
+              {{/if}}
+              {{/each}}
+            </select>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <div class='col-sm-12'>
+            <label class="text-left">Subcategory</label>
+            <select id="subcategories" data-onchange-carrier name="subcategory">
+              {{#each subcategories}}
+              {{#if selected}}
+              <option value="{{name}}" selected>{{name}}</option>
+              {{else}}
+              <option value="{{name}}">{{name}}</option>
+              {{/if}}
+              {{/each}}
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
         <div class="col-sm-6"></div>
         <div class="col-sm-6">
           <button type="submit" class="button blue">{{#if _id}} Save {{else}}Add Product{{/if}}</button>

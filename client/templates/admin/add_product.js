@@ -9,6 +9,8 @@ function parseProductForm (form) {
     price : form.price.value,
     percentToCharity : form.percentage.value,
     oneSize : $('#noSize').is(':checked'),
+    category : form.category.value,
+    subcategory : form.subcategory.value,
     sizes : function () {
       var sizes = [];
       $('.size-select li.selected').each(function (indx, val) {
@@ -135,6 +137,42 @@ Template.AddProduct.helpers({
     }
 
     return productImages;
+  },
+  subcategories : function () {
+    var subs = [{name : ''}];
+
+    console.log(this);
+
+    for(var x=1; x<=5; x++) {
+      subs.push({
+        name : "Subcategory " + x
+      })
+    }
+    return subs;
+  },
+  categories : function () {
+      var cats = [{name : ''}];
+
+      for(var i = 1; i <= 8; i++){
+        cats.push({
+          name : 'Category ' + i,
+        })
+      }
+
+      return cats;
+    },
+  selected : function () {
+    if(this.name == Session.get('category')) {
+      Meteor.setTimeout(function () {
+        $('#categories').select2({placeholder : 'Select A Category'})
+      },100);
+      return true;
+    } else if(this.name == Session.get('subcategory')) {
+      Meteor.setTimeout(function () {
+        $('#subcategories').select2({placeholder : 'Select A Subcategory'})
+      },100);
+      return true;
+    }
   }
 });
 /*****************************************************************************/
@@ -148,6 +186,10 @@ Template.AddProduct.onRendered(function() {
       $('#noSize').prop('checked', true);
       $('.sizeLi').removeClass('selected');
     }
+
+    //set sessions
+    Session.set('category', this.data.category);
+    Session.set('subcategory', this.data.subcategory);
   } catch (e) {}
 
   var data = this.data;
@@ -233,6 +275,10 @@ Template.AddProduct.onRendered(function() {
 
   //create the percentage slider
   sliderInit(data);
+
+  //custom select elements
+  $('#categories').select2({placeholder : 'Select A Category'})
+  $('#subcategories').select2({placeholder : 'Select A Subcategory'})
 });
 Template.AddProduct.onDestroyed(function() {
   $('#productImages').children().each(function () {

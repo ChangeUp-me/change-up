@@ -1,0 +1,56 @@
+<template name="productItems">
+  <li class="product-item col-lg-4 col-sm-6 col-xs-12">
+    <section>
+      <form data-submit-additemtocart>
+        <!-- vendor product image -->
+        <figure class="pi-image">
+          <!--<div class="zoom-btn">
+            <i class="fa fa-search-plus zoomable-image" data-image="#{{_id}}" aria-hidden="true"></i>
+          </div>-->
+          <!--<a class="product-image" href="{{pathFor route='item' data=this}}">-->
+          {{#if image}}
+            <img id="{{_id}}" class="pi-product-image zoomable-image" src="{{https image.url}}" alt="">
+          {{else}}
+            <img id="{{_id}}" src="../../../images/noImage.png" alt="No Image Available">
+          {{/if}}
+          <!--</a>-->
+          <!-- product like buttons -->
+          {{#if userLiked}}
+          <div class="like-button" data-productid="{{_id}}"><img src="/icons/changeup_like_action.svg" alt="Like"></div>
+          {{else}}
+          <div class="like-button" data-productid="{{_id}}"><img src="/icons/changeup_like_noaction.svg" alt="Like"></div>
+          {{/if}}
+          <!-- product description -->
+          <figcaption class="pi-description">
+            <div class="row">
+              <div class="col-sm-8">
+                <h3 class="pi-name">{{name}}</h3>
+              </div>
+              <div class="col-sm-4 pi-price">${{price}}</div>
+              <div class="col-sm-12 vendor-name">{{storeName}}</div>
+            </div>
+          </figcaption>
+        </figure>
+        <!-- add to cart options -->
+        <div class="pi-cart-options">
+          {{#with this}}
+          {{>ProductOptions}}
+          {{/with}}
+        </div>
+        <!-- social stuff (like, comment, share) -->
+        <div class="pi-social-bar">
+          <i class="fa fa-thumbs-up"><span>{{likeCount}} Likes</span></i>
+          <i class="fa fa-commenting"><span>{{noOfReviews reviews}}</span></i>
+          <i class="fa fa-share"></i>
+        </div>
+        <!-- add to cart buttons -->
+        <footer>
+          <div class="pi-buttons clearfix">
+            <button type="submit" class="button blue add-to-cart-btn">Add to cart</button>
+            <a class="button gray" href="{{pathFor route='item' data=this}}">View details</a>
+          </div>
+        </footer>
+      </form>
+    </section>
+  </li>
+</template>

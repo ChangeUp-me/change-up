@@ -1,0 +1,79 @@
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+
+#category-nav{
+	z-index: 999;
+	position: relative;
+	padding: 15px 0;
+	border-bottom: 1px solid @silver;
+	li{
+		list-style: none;
+		text-align: left;
+	}
+	ul{
+		padding-left: 0;
+	}
+	ul.subcategory-items{
+		display: none;
+	}
+	li.ci-item{
+		color: 
+		display: block;
+		color: @mocha;
+		padding: 1rem;
+		position: relative;
+		border-bottom: 1px solid @silver;
+	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	#category-nav{
+		ul.subcategory-items{
+			display: none;
+			position: absolute;
+			left: -2rem;
+			padding-left: 0;
+			margin-top: 2.5rem;
+			background-color: white;
+			padding: 1rem 2rem;
+			border: 1px solid @silver;
+		}
+		ul.category-items{
+			display: block;
+			margin: 0 auto;
+			white-space : nowrap;
+		}
+		li.ci-main-title{
+			display: inline-block;
+			border-right: 1px solid black;
+			padding: 1rem;
+			color: @mocha;
+		}
+		li.ci-item{
+			color: @silver;
+			display: inline-block;
+			border-bottom: none;
+			&:hover .subcategory-items{
+				display: block;
+			}
+		}
+		.inner{
+			max-width: 1050px;
+			display: block;
+			margin: 0 auto;
+			//overflow:  hidden;
+			//overflow-x: scroll;
+			&::-webkit-scrollbar { 
+	    	display: none; 
+			}
+		}
+	}
+}
