@@ -13,6 +13,9 @@ section.category-page-item{
 	display: block;
 	max-width: 1050px;
 	padding: 25px 0;
+	.selected{
+		color : @cyan !important;
+	}
 	#allItems{
 		text-align: left;
 	}
@@ -80,6 +83,10 @@ section.category-page-item{
 /* Tablet and Desktop */
 @media (min-width: 768px) {
 	section.category-page-item{
+		[data-click-fitlersubcats]{
+			cursor: pointer;
+		}
+
 		padding: 25px 15px;
 		header{
 			padding: 0;

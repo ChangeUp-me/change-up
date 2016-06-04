@@ -10,7 +10,11 @@
 				<nav class="cpi-nav">
 					<ul class="cpi-nav-items">
 						{{#each subcategories}}
-						<li class="cpi-nav-item">Subcategory {{this}}</li>
+						{{#if selected}}
+						<li class="cpi-nav-item selected" data-click-fitlersubcats>{{this}}</li>
+						{{else}}
+						<li class="cpi-nav-item" data-click-fitlersubcats>{{this}}</li>
+						{{/if}}
 						{{/each}}
 						<li class="cpi-nav-item-more">View All Categories</li>
 					</ul>
@@ -19,10 +23,14 @@
 			<div class="col-xs-12 col-sm-8">
 				<ul class="cpi-subcategory-items row">
 					{{#each subcategories}}
-					<li class="cpi-subcategory-item col-md-4 col-xs-6">
+					<li data-click-fitlersubcats class="cpi-subcategory-item col-md-4 col-xs-6">
 						<figure>
 							<img src="/images/background_whatsnext.png">
-							<figcaption>Subcategory One</figcaption>
+							{{#if selected}}
+							<figcaption class="selected">{{this}}</figcaption>
+							{{else}}
+							<figcaption>{{this}}</figcaption>
+							{{/if}}
 						</figure>
 					</li>
 					{{/each}}
@@ -33,7 +41,7 @@
 	<section class="category-page-item">
 		<header class="cpi-products-header clearfix">
 			<h2>Products</h2>
-			<button class="button more-btn">View All Products</button>
+			<button data-click-showall class="button more-btn">View All Products</button>
 		</header>
 		<ul id="allItems" class="clearfix row">
 			{{#each products}}
