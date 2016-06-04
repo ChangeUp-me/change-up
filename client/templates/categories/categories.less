@@ -20,6 +20,7 @@ section.category-item{
 		border : 2px solid @mocha;
 		color: @mocha;
 		border-radius: 3px;
+		max-width: none;
 	}
 	p.category-description{
 		margin-left: 0;
@@ -29,4 +30,13 @@ section.category-item{
 		margin-top: 30px;
 		margin-bottom: 0;
 	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	section.category-item{
+		.more-btn{
+			max-width: 300px;
+		}
+	}	
 }
