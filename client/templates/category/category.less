@@ -12,11 +12,16 @@ section.category-page-item{
 	margin: 0 auto;
 	display: block;
 	max-width: 1050px;
+	padding: 25px 0;
 	#allItems{
 		text-align: left;
 	}
 	section{
 		padding-bottom: 0;
+	}
+	header{
+		padding: 0 15px;
+		margin-bottom: 30px;
 	}
 	p,ul,img{
 		padding: 0;
@@ -25,11 +30,7 @@ section.category-page-item{
 	li{
 		list-style: none;
 	}
-	header.cpi-header{
-		margin-bottom: 30px;
-	}
 	header.cpi-products-header{
-		margin-bottom: 30px;
 		h2{
 			display: inline-block;
 		}
@@ -43,12 +44,15 @@ section.category-page-item{
 		border : 2px solid @mocha;
 		color: @mocha;
 		border-radius: 3px;
+		padding: 10px 15px;
+		width: auto;
 	}
 	nav.cpi-nav{
 		background-color: white;
 		border : 1px solid @mocha;
 		color: @mocha;
 		padding: 15px;
+		display: none;
 		li.cpi-nav-item{
 			margin-bottom: 15px;
 		}
@@ -69,6 +73,18 @@ section.category-page-item{
 		}
 		figcaption{
 			padding: 1rem;
+		}
+	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	section.category-page-item{
+		header{
+			padding: 0;
+		}
+		nav.cpi-nav{
+			display: block;
 		}
 	}
 }
