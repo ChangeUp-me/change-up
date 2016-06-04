@@ -13,7 +13,7 @@
 			return ['One', 'Two', 'Three', 'Four', 'Five'];
 		},
 		products : function () {
-			return Products.find().fetch();
+			return this.products;
 		}
 	});
 

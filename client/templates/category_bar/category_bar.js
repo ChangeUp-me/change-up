@@ -27,8 +27,6 @@
 				})
 			}
 
-			console.log(cats);
-
 			return cats;
 		}
 	});

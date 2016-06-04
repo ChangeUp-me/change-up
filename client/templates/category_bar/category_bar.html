@@ -2,10 +2,10 @@
 	<nav id="category-nav">
 		<div class="inner">
 			<ul class="category-items">
-				<li class="ci-main-title">All Categories</li>
+				<li class="ci-main-title"><a href="/categories">All Categories</a></li>
 				{{#each categories}}
 				<li class="ci-item">
-					<span class="ci-item-name">{{name}}</span>
+					<a href="/category/{{name}}" class="ci-item-name">{{name}}</a>
 					<ul class="subcategory-items">
 						{{#each subs}}
 						<li class="si-item">

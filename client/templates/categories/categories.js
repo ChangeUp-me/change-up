@@ -14,7 +14,6 @@
 				{category : {$exists : true}}, 
 				{fields : {category : 1}}
 			).fetch().map(function (x) {
-				console.log('x', x);
 				return x.category;
 			}))
 		},
