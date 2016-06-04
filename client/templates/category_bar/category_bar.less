@@ -17,22 +17,71 @@
 	padding: 0px;
 	border-bottom: 1px solid @silver;
 	background-color: white;
+	.inner{
+		height: 63px;
+		position: relative;
+	}
+	a{
+		color: inherit;
+	}
 	li{
 		list-style: none;
 		text-align: left;
 	}
 	ul{
 		padding-left: 0;
+		margin-bottom: 0;
 	}
 	ul.subcategory-items{
 		display: none;
+	}
+	.category-items{
+		position: absolute;
+		top: 0;
+		width: 100%;
+		left: 0;
 	}
 	li.ci-item{
 		color: 
 		display: block;
 		color: @mocha;
 		position: relative;
-		border-bottom: 1px solid @silver;
+		border-bottom: 1px solid @offwhite;
+		padding: 1rem 2rem;
+		padding-left: 5rem;
+		background-color: white;
+		position: relative;
+		display: none;
+		&:after{
+			content : " ";
+			background-image: url('/icons/placeholder_1.svg');
+			width : 2rem;
+			height: 2rem;
+			background-size: fill;
+			position: absolute;
+			left: 15px;
+		}
+		&:nth-child(even):after {
+			background-image: url('/icons/placeholder_2.svg');
+		}
+	}
+	li.ci-main-title{ 
+		display: block;
+		color: @mocha;
+		padding: 2rem 1rem;
+		border-bottom: 1px solid @offwhite;
+		position: relative;
+		i{
+			position: absolute;
+			right: 15px;
+			font-size: 20px;
+		}
+		a{
+			display: none;
+		}
+		&:after{
+			content : "View Categories";
+		}
 	}
 }
 
@@ -59,19 +108,29 @@
 			display: block;
 			margin: 0 auto;
 			white-space : nowrap;
+			position: relative;
 		}
 		li.ci-main-title{
 			display: inline-block;
 			border-right: 1px solid black;
+			border-bottom: 0;
 			padding: 1rem;
-			color: @mocha;
+			&:after, i{ 
+				display: none;
+			}
+			a{
+				display: block;
+			}
 		}
 		li.ci-item{
 			color: @silver;
-			display: inline-block;
+			display: inline-block !important;
 			border-bottom: 3px solid transparent;
 			padding : 2rem 0;
 			transition : all .3s;
+			&:after{ 
+				display: none;
+			}
 			&:hover{
 				border-bottom: 3px solid @cyan;
 			}
@@ -80,6 +139,7 @@
 			}
 		}
 		.inner{
+			height: auto;
 			max-width: 1050px;
 			display: block;
 			margin: 0 auto;

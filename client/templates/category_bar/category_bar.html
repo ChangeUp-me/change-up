@@ -2,7 +2,10 @@
 	<nav id="category-nav">
 		<div class="inner">
 			<ul class="category-items">
-				<li class="ci-main-title"><a href="/categories">All Categories</a></li>
+				<li class="ci-main-title">
+					<a href="/categories">All Categories</a>
+					<i class="fa fa-caret-down"></i>
+				</li>
 				{{#each categories}}
 				<li class="ci-item">
 					<a href="/category/{{name}}" class="ci-item-name">{{name}}</a>

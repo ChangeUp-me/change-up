@@ -3,7 +3,8 @@
 	/* categories: Event Handlers */
 	/*****************************************************************************/
 
-	Template.categories.events({});
+	Template.categories.events({
+	});
 
 	/*****************************************************************************/
 	/* categories: Helpers */

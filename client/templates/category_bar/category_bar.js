@@ -4,7 +4,13 @@
 	/*****************************************************************************/
 	/* categoryBar: Event Handlers */
 	/*****************************************************************************/
-	Template.categoryBar.events({});
+	Template.categoryBar.events({
+		'click .ci-main-title' : function (event) {
+			var element = $(event.target);
+
+			element.parent().children().not('.ci-main-title').toggle();
+		}
+	});
 
 	/*****************************************************************************/
 	/* categoryBar: Helpers */
