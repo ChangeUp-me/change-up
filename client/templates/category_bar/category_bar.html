@@ -1,0 +1,24 @@
+<template name="categoryBar">
+	<nav id="category-nav">
+		<div class="inner">
+			<ul class="category-items">
+				<li class="ci-main-title">
+					<a href="/categories">All Categories</a>
+					<i class="fa fa-caret-down"></i>
+				</li>
+				{{#each categories}}
+				<li class="ci-item">
+					<a href="/category/{{name}}" class="ci-item-name">{{name}}</a>
+					<ul class="subcategory-items">
+						{{#each subs}}
+						<li class="si-item">
+							<span>{{name}}</span>
+						</li>
+						{{/each}}
+					</ul>
+				</li>
+				{{/each}}
+			</ul>
+		</div>
+		</nav>
+</template>
