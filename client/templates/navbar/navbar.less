@@ -192,10 +192,17 @@
 			}
 		}
 		ul.main-nav-items {
-			float: right;
 			width: 100%;
-			margin-right: 0rem;
+			max-width: 1050px;
+			margin: 0 auto;
+			display: block;
 			margin-bottom: 0;
+			.main-logo{
+				padding-left: 0;
+				a{
+					padding-left: 0;
+				}
+			}
 			.col-sm-9 {
 				margin: 8px 0;
 				padding: 0;
@@ -219,13 +226,6 @@
 				padding: 0 15px;
 			}
 		}
-	}
-}
-
-/* Tablet and Desktop */
-@media (min-width : 822px) {
-	#navbar  ul.main-nav-items .col-sm-9 {
-		padding-right: 4%;
 	}
 }
 
