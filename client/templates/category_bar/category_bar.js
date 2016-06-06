@@ -17,23 +17,16 @@
 	/*****************************************************************************/
 	Template.categoryBar.helpers({
 		categories : function () {
-			var cats = [];
-			var subs;
-
-			for(var i = 1; i <= 8; i++){
-				subs = [];
-				for(var x=1; x<=5; x++) {
-					subs.push({
-						name : "Subcategory " + x
-					})
-				}
-				cats.push({
-					name : 'Category ' + i,
-					subs : subs
-				})
-			}
-
-			return cats;
+			return Object.keys(CATEGORIES);
+		},
+		subcategories : function () {
+			try{
+				return _.map(CATEGORIES[this].subcategories, function (sub) {
+					return {category : this, name : sub};
+				}.bind(this))
+			} catch(e) {}
+			
+			return [];
 		}
 	});
 

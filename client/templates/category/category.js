@@ -3,17 +3,23 @@
 	/* category: Event Handlers */
 	/*****************************************************************************/
 
+	function filterSubCategory(subcategory) {
+		subcategory = subcategory.toLowerCase();
+
+		var products = Session.get('original:products');
+
+		Session.set('current:subcategory', subcategory);
+
+		Session.set('visible:products', _.filter(products, function (item) {
+			var sub = item.subcategory || "";
+			return sub.toLowerCase() == subcategory;
+		}));
+	}
+
 	Template.category.events({
 		'click [data-click-fitlersubcats]' : function (event) {
 			var subcategory = this.toString().toLowerCase();
-			var products = Session.get('original:products');
-
-			Session.set('current:subcategory', subcategory);
-
-			Session.set('visible:products', _.filter(products, function (item) {
-				var sub = item.subcategory || "";
-				return sub.toLowerCase() == subcategory;
-			}));
+			filterSubCategory(subcategory);
 		},
 		'click [data-click-showall]' : function (event) {
 			 Session.set('current:subcategory');
@@ -44,7 +50,11 @@
 	/*****************************************************************************/
 	Template.category.onCreated(function () {});
 
-	Template.category.onRendered(function () {
+	Template.category.onRendered(function (something, other) {
+		var current = Session.get('current:subcategory');
+		if(current) {
+			filterSubCategory(current);
+		}
 	});
 
 	Template.category.onDestroyed(function () {

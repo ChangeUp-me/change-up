@@ -101,6 +101,11 @@ Template.AddProduct.events({
       $('.size-select').show();
       $('.sizeLi').removeClass('selected');
     }
+  },
+  "change #categories" : function (event) {
+    var currentCategory = $(event.target).val();
+
+    Session.set('category', currentCategory);
   }
 });
 /*****************************************************************************/
@@ -139,28 +144,16 @@ Template.AddProduct.helpers({
     return productImages;
   },
   subcategories : function () {
-    var subs = [{name : ''}];
-
-    console.log(this);
-
-    for(var x=1; x<=5; x++) {
-      subs.push({
-        name : "Subcategory " + x
-      })
-    }
-    return subs;
+    var cats = CATEGORIES[Session.get('category')] || CATEGORIES[Object.keys(CATEGORIES)[0]];
+    return _.map(cats.subcategories, function (sub) {
+      return {name : sub};
+    })
   },
   categories : function () {
-      var cats = [{name : ''}];
-
-      for(var i = 1; i <= 8; i++){
-        cats.push({
-          name : 'Category ' + i,
-        })
-      }
-
-      return cats;
-    },
+    return _.map(Object.keys(CATEGORIES), function (cat) {
+      return {name : cat}
+    });
+  },
   selected : function () {
     if(this.name == Session.get('category')) {
       Meteor.setTimeout(function () {
@@ -281,6 +274,8 @@ Template.AddProduct.onRendered(function() {
   $('#subcategories').select2({placeholder : 'Select A Subcategory'})
 });
 Template.AddProduct.onDestroyed(function() {
+  Session.set('category');
+  Session.set('subcategory');
   $('#productImages').children().each(function () {
     Session.set('upload:image:' + $(this).attr('id'), undefined);
   })

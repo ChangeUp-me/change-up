@@ -8,11 +8,11 @@
 				</li>
 				{{#each categories}}
 				<li class="ci-item">
-					<a href="/category/{{name}}" class="ci-item-name">{{name}}</a>
+					<a href="/category/{{this}}" class="ci-item-name">{{this}}</a>
 					<ul class="subcategory-items">
-						{{#each subs}}
+						{{#each subcategories}}
 						<li class="si-item">
-							<span>{{name}}</span>
+							<a href="/category/{{category}}/{{name}}"><span>{{name}}</span></a>
 						</li>
 						{{/each}}
 					</ul>
