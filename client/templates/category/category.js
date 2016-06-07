@@ -42,6 +42,9 @@
 		},
 		selected : function () {
 			return this.toString() == Session.get('current:subcategory');
+		},
+		category : function () {
+			return Session.get('category');
 		}
 	});
 
