@@ -45,6 +45,9 @@
 		},
 		category : function () {
 			return Session.get('category');
+		},
+		showBtn : function () {
+			return Session.get('current:subcategory') ? true : false;
 		}
 	});
 

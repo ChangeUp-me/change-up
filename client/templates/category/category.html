@@ -41,7 +41,9 @@
 	<section class="category-page-item">
 		<header class="cpi-products-header clearfix">
 			<h2>Products</h2>
+			{{#if showBtn}}
 			<button data-click-showall class="button more-btn">View All Products</button>
+			{{/if}}
 		</header>
 		<ul id="allItems" class="clearfix row">
 			{{#each products}}
