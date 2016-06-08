@@ -23,6 +23,12 @@
 		products : function () {
 			try {
 				var fpIDs = FeaturedProducts.findOne().products;
+
+				if(_.uniq) {
+					//only return unique ids
+					fpIDs = _.uniq(fpIDs);
+				}
+
 				var products = Products.find({_id:{$in:fpIDs}}).fetch();
 				var vendorIds = [];
 				var productIds = [];
