@@ -11,12 +11,25 @@
 	box-sizing: border-box;
 }
 
+.push.active{
+	padding-top: 7rem;
+	position: relative;
+}
+
 #category-nav{
 	z-index: 999;
 	position: relative;
 	padding: 0px;
 	border-bottom: 1px solid @silver;
 	background-color: white;
+	&:not(.stick) {
+		top: 0 !important;
+	}
+	&.stick{
+		position: fixed;
+		width: 100%;
+		left: 0;
+	}
 	.inner{
 		height: 63px;
 		position: relative;

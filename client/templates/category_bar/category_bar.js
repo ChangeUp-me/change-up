@@ -1,6 +1,8 @@
 (function () {
 	var interval;
 
+
+
 	/*****************************************************************************/
 	/* categoryBar: Event Handlers */
 	/*****************************************************************************/
@@ -33,9 +35,38 @@
 	/*****************************************************************************/
 	/* categoryBar: Lifecycle Hooks */
 	/*****************************************************************************/
-	Template.categoryBar.onCreated(function () {});
+	Template.categoryBar.onCreated(function () {
 
-	Template.categoryBar.onRendered(function () {});
+	});
 
-	Template.categoryBar.onDestroyed(function () {});
+	Template.categoryBar.onRendered(function () {
+		var categoryBar = $('#category-nav');
+		var navBar = $('#navbar');
+		var navHeight;
+		var scrollPos;
+		var categoryBarPos = categoryBar.offset().top - navBar.outerHeight();
+
+		//@todo - cleanup after category bar is destroyed
+
+		$(window).on('resize', function () {
+			categoryBarPos = categoryBar.offset().top - navBar.outerHeight();
+		});
+
+		$(window).on('scroll', function (event) {
+			scrollPos = $(window).scrollTop()
+			if(scrollPos >= categoryBarPos && $(window).width() > 700) {
+				categoryBar.addClass('stick').css({
+					top : scrollPos
+				});
+				$('.push').addClass('active');
+			} else {
+				categoryBar.removeClass('stick');
+				$('.push').removeClass('active');
+			}
+		})
+	});
+
+	Template.categoryBar.onDestroyed(function () {
+		$('.push').removeClass('active');
+	});
 })();
