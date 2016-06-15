@@ -44,7 +44,25 @@
 			margin: 0 0 15px;
 		}
 		.preview {
+			max-height: 26px;
 			margin: 0 0 15px;
+			div, span {
+				display: inline-block;
+				width: 100%;
+				color: @mocha;
+				background: none !important;
+				font-family: 'Muli';
+				font-size: 16px !important;
+				font-weight: normal;
+				font-style: normal;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			p {
+				margin: 0;
+				line-height: 0 !important;
+			}
 		}
 	}
 }
