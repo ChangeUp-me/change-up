@@ -14,7 +14,7 @@
 // /* News: Lifecycle Hooks */
 // /*****************************************************************************/
 Template.allBlogs.onCreated(function () {
-  $("title").text("News | Change Up");
+  $("title").text("News | ChangeUp");
 
 });
 
@@ -22,6 +22,6 @@ Template.allBlogs.onRendered(function () {
 });
 
 Template.allBlogs.onDestroyed(function () {
-  $("title").text("Change Up");
+  $("title").text("ChangeUp");
 
 });

@@ -36,7 +36,7 @@ Template.Contact.helpers({
 /* Contact: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Contact.onCreated(function () {
-  $("title").text("Contact Us | Change Up");
+  $("title").text("Contact Us | ChangeUp");
 
 });
 
@@ -44,6 +44,6 @@ Template.Contact.onRendered(function () {
 });
 
 Template.Contact.onDestroyed(function () {
-  $("title").text("About | Change Up");
+  $("title").text("About | ChangeUp");
 
 });

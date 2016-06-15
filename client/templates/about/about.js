@@ -14,10 +14,10 @@ Template.About.helpers({
 /* About: Lifecycle Hooks */
 /*****************************************************************************/
 Template.About.onCreated(function () {
-  $("title").text("About Us | Change Up");
+  $("title").text("About Us | ChangeUp");
 
   // var title = document.createElement('title');
-  // title.appendChild(document.createTextNode('About | Change Up'));
+  // title.appendChild(document.createTextNode('About | ChangeUp'));
   // document.getElementsByTagName('head')[0].appendChild(title);
 });
 
@@ -25,6 +25,6 @@ Template.About.onRendered(function () {
 });
 
 Template.About.onDestroyed(function () {
-  $("title").text("Change Up");
+  $("title").text("ChangeUp");
 
 });

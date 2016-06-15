@@ -17,7 +17,7 @@ Template.Charities.helpers({
 /* Charities: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Charities.onCreated(function () {
-	$("title").text("Charities | Change Up");
+	$("title").text("Charities | ChangeUp");
 
 });
 
@@ -25,6 +25,6 @@ Template.Charities.onRendered(function () {
 });
 
 Template.Charities.onDestroyed(function () {
-	$("title").text("Change Up");
+	$("title").text("ChangeUp");
 
 });

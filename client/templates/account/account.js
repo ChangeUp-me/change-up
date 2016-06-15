@@ -239,7 +239,7 @@ Template.Orders.helpers({
 /* Account: Lifecycle Hooks */
 /*****************************************************************************/
 Template.Account.onCreated(function () {
-	$("title").text("My Account | Change Up");
+	$("title").text("My Account | ChangeUp");
 
 });
 
@@ -247,6 +247,6 @@ Template.Account.onRendered(function () {
 });
 
 Template.Account.onDestroyed(function () {
-	$("title").text("Change Up");
+	$("title").text("ChangeUp");
 
 });
