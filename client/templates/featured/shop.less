@@ -115,6 +115,9 @@
 		#shop-header {
 			margin: 0 0 0px;
 			padding: 20vh 0 22vh;
+			div {
+				margin: auto;
+			}
 			h2 {
 				font-size: 60px;
 			}
@@ -169,13 +172,17 @@
 			background-size: cover;
 		}
 		#allItems{
-			display: block;
+			display: inline-block;
 			max-width: 1050px;
 			margin: 0 auto;
 			padding-left: 0;
 			text-align: center;
+			column-count: 3;
 			.product {
 				max-width: 300px;
+			}
+			.product-item {
+				display: inline-block;
 			}
 			.sizes {
 				height: 85px;

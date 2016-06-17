@@ -18,18 +18,21 @@
 		</div> -->
 		</section>
 
-		<span id="featured"></span>
-   		<ul id="allItems" class="clearfix row">
-   			<li class="featured-title col-sm-12">
-   				<h1>Featured For:</h1>
-   				<div id="featuredTime">{{{ featuredProductsTime }}}</div>
-   			</li>
+		<div class="featured-title col-sm-12">
+			<h1>Featured For:</h1>
+			<div id="featuredTime">{{{ featuredProductsTime }}}</div>
+			<span id="featured"></span>
+		</div>
+
+		<section class="flex">
+	   		<ul id="allItems" class="clearfix row">
 				{{#each products}}
-				{{#with this}}
-					{{>productItems}}
-				{{/with}}
+					{{#with this}}
+						{{>productItems}}
+					{{/with}}
 				{{/each}}
-		</ul>
+			</ul>
+		</section>
 
 		<section class="white text-center" id="twitterFeed">
 			<div class="container">
