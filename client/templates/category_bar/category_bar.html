@@ -1,5 +1,5 @@
 <template name="categoryBar">
-	<nav id="category-nav">
+	<nav id="category-nav" class="stick">
 		<div class="inner">
 			<ul class="category-items">
 				<li class="ci-main-title">
@@ -9,13 +9,13 @@
 				{{#each categories}}
 				<li class="ci-item">
 					<a href="/category/{{this}}" class="ci-item-name">{{this}}</a>
-					<ul class="subcategory-items">
+					<!-- <ul class="subcategory-items">
 						{{#each subcategories}}
 						<li class="si-item">
 							<a href="/category/{{category}}/{{name}}"><span>{{name}}</span></a>
 						</li>
 						{{/each}}
-					</ul>
+					</ul> -->
 				</li>
 				{{/each}}
 			</ul>
