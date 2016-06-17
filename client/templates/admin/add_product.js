@@ -10,7 +10,7 @@ function parseProductForm (form) {
     percentToCharity : form.percentage.value,
     oneSize : $('#noSize').is(':checked'),
     category : form.category.value,
-    subcategory : form.subcategory.value,
+    // subcategory : form.subcategory.value,
     sizes : function () {
       var sizes = [];
       $('.size-select li.selected').each(function (indx, val) {
@@ -160,12 +160,13 @@ Template.AddProduct.helpers({
         $('#categories').select2({placeholder : 'Select A Category'})
       },100);
       return true;
-    } else if(this.name == Session.get('subcategory')) {
-      Meteor.setTimeout(function () {
-        $('#subcategories').select2({placeholder : 'Select A Subcategory'})
-      },100);
-      return true;
     }
+    // else if(this.name == Session.get('subcategory')) {
+    //   Meteor.setTimeout(function () {
+    //     $('#subcategories').select2({placeholder : 'Select A Subcategory'})
+    //   },100);
+    //   return true;
+    // }
   }
 });
 /*****************************************************************************/
@@ -182,7 +183,7 @@ Template.AddProduct.onRendered(function() {
 
     //set sessions
     Session.set('category', this.data.category);
-    Session.set('subcategory', this.data.subcategory);
+    // Session.set('subcategory', this.data.subcategory);
   } catch (e) {}
 
   var data = this.data;
@@ -271,11 +272,11 @@ Template.AddProduct.onRendered(function() {
 
   //custom select elements
   $('#categories').select2({placeholder : 'Select A Category'})
-  $('#subcategories').select2({placeholder : 'Select A Subcategory'})
+  // $('#subcategories').select2({placeholder : 'Select A Subcategory'})
 });
 Template.AddProduct.onDestroyed(function() {
   Session.set('category');
-  Session.set('subcategory');
+  // Session.set('subcategory');
   $('#productImages').children().each(function () {
     Session.set('upload:image:' + $(this).attr('id'), undefined);
   })

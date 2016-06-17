@@ -6,7 +6,7 @@ Template.reactiveCategoryAttribute.events({
     var currentCategory = $(event.target).val();
 
     Session.set('orion:category', currentCategory);
-    Session.set('orion:subcategory', CATEGORIES[currentCategory].subcategories[0])
+    // Session.set('orion:subcategory', CATEGORIES[currentCategory].subcategories[0])
   }
 });
 
