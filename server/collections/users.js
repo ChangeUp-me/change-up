@@ -83,7 +83,7 @@
 		      from: "hello@changeup.me",
 		      to: ["geoff@changeup.me", "matt@changeup.me", "niksurb228@gmail.com"],
 		      subject: "vendor access request",
-		      text: user.emails[0].address + " is requesting vendor privledges.  Go to http://changeup.me/admin and click on 'accessRequests' to confirm their access."
+		      text: user.emails[0].address + " is requesting vendor privledges.  Go to https://www.changeup.me/admin/accessRequests and click on request to confirm their access."
 		    });
 			},10);
 
