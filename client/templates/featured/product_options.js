@@ -22,23 +22,22 @@
 	/*****************************************************************************/
 	Template.ProductOptions.helpers({
 		charities: function(){
-			var charitiesId = Vendors.findOne({'_id':(this.vendorId)}).charities;
 			try{
-			if (charitiesId.length !== 0){
-				var charitiesObj = Charities.find({_id:{ $in: charitiesId}}).fetch();
-				var charities= [];
-				for (var i = 0; i < charitiesObj.length; i++) {
-					charities.push({"id":charitiesObj[i]._id, "name": charitiesObj[i].name});
+				var charitiesId = Vendors.findOne({'_id':(this.vendorId)}).charities;
+				if (charitiesId.length !== 0){
+					var charitiesObj = Charities.find({_id:{ $in: charitiesId}}).fetch();
+					var charities= [];
+					for (var i = 0; i < charitiesObj.length; i++) {
+						charities.push({"id":charitiesObj[i]._id, "name": charitiesObj[i].name});
+					}
+					return charities;
 				}
-				return charities;
-			} else {
-				var charities = Charities.find({},{limit:3}).fetch();
-				return charities;
-			}
-		}catch(e){	}
+			}catch(e){}	
+
+			//if no charities found
+			return Charities.find({},{limit:3}).fetch();
 		},
 		sizes: function(){
-			console.log('sizes', this.sizes)
 			return this.sizes;
 		},
 		fixingVendorsSize : function () {

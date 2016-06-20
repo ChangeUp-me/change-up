@@ -36,6 +36,10 @@
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
+		position: relative;
+		.floating-fb-like{
+			display: none;
+		}
 		h2 {
 			margin: 0;
 			color: white;
@@ -109,8 +113,11 @@
 @media (min-width: 768px) {
 	.shop {
 		#shop-header {
-			margin: 0 0 20px;
+			margin: 0 0 0px;
 			padding: 20vh 0 22vh;
+			div {
+				margin: auto;
+			}
 			h2 {
 				font-size: 60px;
 			}
@@ -120,6 +127,18 @@
 			}
 			.button {
 				margin: 0 5px;
+			}
+			.floating-fb-like{
+				display: block;
+				position: absolute;
+				bottom: 0;
+				right: 0;
+				width: 100%;
+				padding: 0 20%;
+				text-align: right;
+				img{
+					margin: 0;
+				}
 			}
 		}
 		#twitterFeed, #support{
@@ -153,13 +172,17 @@
 			background-size: cover;
 		}
 		#allItems{
-			display: block;
+			display: inline-block;
 			max-width: 1050px;
 			margin: 0 auto;
 			padding-left: 0;
 			text-align: center;
+			column-count: 3;
 			.product {
 				max-width: 300px;
+			}
+			.product-item {
+				display: inline-block;
 			}
 			.sizes {
 				height: 85px;

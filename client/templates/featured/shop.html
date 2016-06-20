@@ -1,4 +1,5 @@
 <template name="Shop">
+		{{>categoryBar}}
 		<div class="shop text-center">
 		<section id="shop-header">
 		<div class="animated fadeInUp">
@@ -10,20 +11,28 @@
 				<a class="button clear white" href="{{pathFor route='charities'}}">View Charities</a>
 			</div>
 		</div>
+		<!-- <div class="floating-fb-like">
+			<a target="_blank"  href="https://www.facebook.com/changeup.me/">
+				<img src="/images/icon_like_facebook.png">
+			</a>
+		</div> -->
 		</section>
 
-		<span id="featured"></span>
-   		<ul id="allItems" class="clearfix row">
-   			<li class="featured-title col-sm-12">
-   				<h1>Featured For:</h1>
-   				<div id="featuredTime">{{{ featuredProductsTime }}}</div>
-   			</li>
+		<div class="featured-title col-sm-12">
+			<h1>Featured For:</h1>
+			<div id="featuredTime">{{{ featuredProductsTime }}}</div>
+			<span id="featured"></span>
+		</div>
+
+		<section class="flex">
+	   		<ul id="allItems" class="clearfix row">
 				{{#each products}}
-				{{#with this}}
-					{{>productItems}}
-				{{/with}}
+					{{#with this}}
+						{{>productItems}}
+					{{/with}}
 				{{/each}}
-		</ul>
+			</ul>
+		</section>
 
 		<section class="white text-center" id="twitterFeed">
 			<div class="container">

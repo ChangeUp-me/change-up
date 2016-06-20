@@ -6,4 +6,5 @@
 	Meteor.subscribe('allLikes');
 	Meteor.subscribe('userTransactions');
 	Meteor.subscribe('vendorTransactions');
+	Meteor.subscribe('categories');
 })();

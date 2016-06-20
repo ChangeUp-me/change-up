@@ -1,0 +1,24 @@
+<template name="categories">
+	{{>categoryBar}}
+	<div class="push"></div>
+	{{#each categories}}
+	<section class="category-item">
+		<div class="row">
+			<div class="col-sm-8">
+				<h2 class="category-title">{{this}}</h2>
+				<p class="category-description">This is where a short, one to two sentence description of the category would exist.</p>
+			</div>
+			<div class="col-sm-4">
+				<a href="/category/{{this}}" class="button more-btn">View More</a>
+			</div>
+		</div>
+		<ul id="allItems" class="clearfix row">
+			{{#each products}}
+				{{#with this}}
+					{{>productItems}}
+				{{/with}}
+			{{/each}}
+		</ul>
+	</section>
+	{{/each}}
+</template>

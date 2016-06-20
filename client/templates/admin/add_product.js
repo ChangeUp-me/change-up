@@ -9,6 +9,8 @@ function parseProductForm (form) {
     price : form.price.value,
     percentToCharity : form.percentage.value,
     oneSize : $('#noSize').is(':checked'),
+    category : form.category.value,
+    // subcategory : form.subcategory.value,
     sizes : function () {
       var sizes = [];
       $('.size-select li.selected').each(function (indx, val) {
@@ -99,6 +101,11 @@ Template.AddProduct.events({
       $('.size-select').show();
       $('.sizeLi').removeClass('selected');
     }
+  },
+  "change #categories" : function (event) {
+    var currentCategory = $(event.target).val();
+
+    Session.set('category', currentCategory);
   }
 });
 /*****************************************************************************/
@@ -135,6 +142,31 @@ Template.AddProduct.helpers({
     }
 
     return productImages;
+  },
+  subcategories : function () {
+    var cats = CATEGORIES[Session.get('category')] || CATEGORIES[Object.keys(CATEGORIES)[0]];
+    return _.map(cats.subcategories, function (sub) {
+      return {name : sub};
+    })
+  },
+  categories : function () {
+    return _.map(Object.keys(CATEGORIES), function (cat) {
+      return {name : cat}
+    });
+  },
+  selected : function () {
+    if(this.name == Session.get('category')) {
+      Meteor.setTimeout(function () {
+        $('#categories').select2({placeholder : 'Select A Category'})
+      },100);
+      return true;
+    }
+    // else if(this.name == Session.get('subcategory')) {
+    //   Meteor.setTimeout(function () {
+    //     $('#subcategories').select2({placeholder : 'Select A Subcategory'})
+    //   },100);
+    //   return true;
+    // }
   }
 });
 /*****************************************************************************/
@@ -148,6 +180,10 @@ Template.AddProduct.onRendered(function() {
       $('#noSize').prop('checked', true);
       $('.sizeLi').removeClass('selected');
     }
+
+    //set sessions
+    Session.set('category', this.data.category);
+    // Session.set('subcategory', this.data.subcategory);
   } catch (e) {}
 
   var data = this.data;
@@ -233,8 +269,14 @@ Template.AddProduct.onRendered(function() {
 
   //create the percentage slider
   sliderInit(data);
+
+  //custom select elements
+  $('#categories').select2({placeholder : 'Select A Category'})
+  // $('#subcategories').select2({placeholder : 'Select A Subcategory'})
 });
 Template.AddProduct.onDestroyed(function() {
+  Session.set('category');
+  // Session.set('subcategory');
   $('#productImages').children().each(function () {
     Session.set('upload:image:' + $(this).attr('id'), undefined);
   })

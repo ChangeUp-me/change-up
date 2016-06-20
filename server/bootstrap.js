@@ -32,6 +32,12 @@ Meteor.startup(function () {
 
 	var superUser = Meteor.users.findOne({'emails.address' : 'geoff@changeup.me'});
 
+	//add the categories if there is none
+	if(Categories.find().count() < 1) {
+		addCategories(CATEGORIES);
+		console.log('adding categories')
+	}
+
 	//create an admin if there is none
 	if(!superUser) {
 		try {
@@ -90,6 +96,18 @@ function buildCharityStatements () {
 			//console.log('charity statements', statements);
 		})
 	})
+}
+
+/**
+* Add the categories and subcategories to the db
+*/
+function addCategories (categories) {
+	_.each(categories, function (obj, key) {
+		Categories.insert({
+			name : key,
+			subcategories : obj.subcategories
+		});
+	});
 }
 
 function buildVendorStatements () {

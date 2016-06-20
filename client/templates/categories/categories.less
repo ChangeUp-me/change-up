@@ -1,0 +1,42 @@
+@cyan: #22ADDB;					/* Buttons, ratings, price, and a:hover */
+@tangerine: #FC6E5E;			/* Buttons, time remaining, and like button */
+@offwhite: #F1F1F1;				/* Navbar background */
+@beige: #E6E4DB;				/* Section divider */
+@gray: #919191;					/* Buttons */
+@charcoal: #2A2A2A;				/* Footer background */
+@mocha: #434343;				/* Titles */
+@silver: #C7C7C7;				/* Body text */
+
+section.category-item{
+	text-align: left;
+	max-width: 1050px;
+	margin: 0 auto;
+	display: block;
+	margin-top: 30px;
+	padding-bottom: 0;
+	padding-top: 0;
+	.more-btn{
+		background: none;
+		border : 2px solid @mocha;
+		color: @mocha;
+		border-radius: 3px;
+		max-width: none;
+	}
+	p.category-description{
+		margin-left: 0;
+		font-size: 18px;
+	}
+	#allItems{
+		margin-top: 30px;
+		margin-bottom: 0;
+	}
+}
+
+/* Tablet and Desktop */
+@media (min-width: 768px) {
+	section.category-item{
+		.more-btn{
+			max-width: 300px;
+		}
+	}	
+}

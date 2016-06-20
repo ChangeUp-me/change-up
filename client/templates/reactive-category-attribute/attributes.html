@@ -1,0 +1,15 @@
+<template name="reactiveCategoryAttribute">
+  <div class="row">
+    <div class="col-xs-12">
+      <select class="orion-category-attribute" {{this.atts}}>
+        {{#each categories}}
+        {{#if selected}} 
+        <option value="{{name}}" selected>{{name}}</option>
+        {{else}}
+        <option value="{{name}}">{{name}}</option>
+        {{/if}}
+        {{/each}}
+      </select>
+    </div>
+  </div>
+</template>
