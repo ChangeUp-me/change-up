@@ -1,6 +1,8 @@
 <template name="allBlogs">
-  {{> allBlogsTemplate
-    title="News"
-    allBlogs=(Blogs)
-  }}
+	{{>categoryBar}}
+  	<div class="push"></div>
+	{{> allBlogsTemplate
+		title="News"
+		allBlogs=(Blogs)
+	}}
 </template>
